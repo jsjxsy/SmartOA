@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_style_one">15dp</dimen>
+    <dimen name="margin_style_two">20dp</dimen>
+
+    <dimen name="radius_style_one">10dp</dimen>
+    <dimen name="radius_style_two">5dp</dimen>
+
+    <dimen name="edit_text_height_style">44dp</dimen>
+
+    <dimen name="font_size_style_one">14sp</dimen>
+    <dimen name="font_size_style_two">16sp</dimen>
+    <dimen name="font_size_style_three">12sp</dimen>
+
+    <dimen name="button_height_style">44dp</dimen>
+
+    <dimen name="title_height_style">44dp</dimen>
+</resources>

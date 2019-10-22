@@ -3,4 +3,14 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <!--background-->
+    <color name="background_style_one">#fff3f3f3</color>
+    <color name="background_style_two">#245BAC</color>
+    <color name="background_style_three">#00000012</color>
+    <!-- font -->
+    <color name="font_color_style_one">#BCBCBC</color>
+    <color name="font_color_style_two">#245BAC</color>
+    <color name="font_color_style_three">#FFFFFF</color>
+    <color name="font_color_style_four">#555555</color>
 </resources>

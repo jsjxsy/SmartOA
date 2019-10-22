@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.LoginActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/login_background_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/id_login_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="360dp"
+        android:layout_marginLeft="@dimen/margin_style_one"
+        android:layout_marginTop="174.5dp"
+        android:layout_marginRight="@dimen/margin_style_one"
+        android:orientation="vertical"
+        android:background="@drawable/login_center_background"
+        app:layout_constraintTop_toTopOf="parent">
+        <EditText
+            android:layout_width="match_parent"
+            style="@style/editTextStyle"
+            android:layout_marginTop="57.5dp"
+            android:drawableLeft="@drawable/ic_login_phone_icon"
+            android:hint="@string/login_input_phone"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            style="@style/editTextStyle"
+            android:layout_marginTop="@dimen/margin_style_two"
+            android:drawableLeft="@drawable/ic_login_password"
+            android:drawableRight="@drawable/ic_login_password_state"
+            android:hint="@string/login_input_phone"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_forget_password"
+            android:textSize="@dimen/font_size_style_one"
+            android:textColor="@color/font_color_style_two"
+            android:layout_marginTop="12.5dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/margin_style_two"
+            />
+            <Button
+                android:layout_width="match_parent"
+                style="@style/buttonStyle"
+                android:layout_marginTop="34dp"
+                android:text="@string/login"
+                android:layout_marginLeft="@dimen/margin_style_two"
+                android:layout_marginRight="@dimen/margin_style_two"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="42dp"
+                android:text="@string/login_register"
+                android:layout_gravity="center"
+                android:textSize="@dimen/font_size_style_one"
+                android:textColor="@color/font_color_style_four"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_phone_verify"
+        android:textColor="@color/font_color_style_two"
+        android:textSize="@dimen/font_size_style_three"
+        android:drawableTop="@drawable/ic_login_phone_verify"
+        app:layout_constraintTop_toBottomOf="@id/id_login_input_layout"
+        android:layout_marginTop="49dp"
+        android:drawablePadding="7.5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
