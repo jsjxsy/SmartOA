@@ -27,15 +27,17 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
                 Navigation.findNavController(
                     MainActivity@ this,
                     R.id.nav_host_fragment
-                ).navigate(R.id.action_nav_home)
+                ).navigate(R.id.action_global_navigation_home)
             R.id.id_tab_open ->
-                Log.e("xsy","")
-                //startActivity(Intent(this@MainActivity, OpenActivity::class.java))
+                Navigation.findNavController(
+                    MainActivity@ this,
+                    R.id.nav_host_fragment
+                ).navigate(R.id.action_global_openDoorFragment)
             R.id.id_tab_mine ->
                 Navigation.findNavController(
                     MainActivity@ this,
                     R.id.nav_host_fragment
-                ).navigate(R.id.action_nav_mine)
+                ).navigate(R.id.action_global_mineFragment)
         }
     }
 

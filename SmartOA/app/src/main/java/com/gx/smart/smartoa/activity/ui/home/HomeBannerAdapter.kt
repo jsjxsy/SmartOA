@@ -44,7 +44,7 @@ class HomeBannerAdapter : ItemViewBinder<HomeBanner, HomeBannerAdapter.ViewHolde
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val banner = itemView.findViewById<ConvenientBanner<Int>>(R.id.convenientBanner)!!
+        val banner = itemView.findViewById<ConvenientBanner<Int>>(R.id.headBanner)!!
     }
 
     //B、本地图片

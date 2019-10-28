@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
 import com.gx.smart.smartoa.R
 import kotlinx.android.synthetic.main.fragment_mine.*
 
@@ -47,6 +49,14 @@ class MineFragment : Fragment() {
             )
         )
         mineList.adapter = adapter
+        mineList.setOnItemClickListener { parent, view, position, id ->
+            when(position){
+                0 -> Navigation.findNavController(view).navigate(R.id.action_mineFragment_to_mineCompanyFragment)
+                1 -> Navigation.findNavController(view).navigate(R.id.action_mineFragment_to_meetingMyReservationFragment)
+                2 -> Navigation.findNavController(view).navigate(R.id.action_mineFragment_to_mineActionFragment)
+                3 -> Navigation.findNavController(view).navigate(R.id.action_mineFragment_to_mineActionFragment)
+            }
+        }
     }
 
     class Item {

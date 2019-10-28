@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_style_four"
     tools:context=".activity.ui.home.HomeFragment">
 
 
@@ -27,10 +28,12 @@
     <!--        app:layout_constraintStart_toStartOf="parent"-->
     <!--        app:layout_constraintEnd_toEndOf="parent"-->
     <!--        app:layout_constraintBottom_toBottomOf="parent"/>-->
-    <include
-        layout="@layout/item_home_head_item"
+    <com.bigkoo.convenientbanner.ConvenientBanner
+        android:id="@+id/headBanner"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        app:autoTurningTime="@integer/banner_display_time"
+        app:canLoop="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,6 +46,99 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/id_icon_one_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="21dp"
+        android:paddingBottom="21dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headBanner">
+
+        <TextView
+            android:id="@+id/id_environmental_control_text_view"
+            style="@style/iconStyle"
+            android:drawableTop="@drawable/ic_environmental_control"
+            android:text="@string/environmental_control" />
+
+        <TextView
+            android:id="@+id/id_meeting_schedule_text_view"
+            style="@style/iconStyle"
+            android:drawableTop="@drawable/ic_meeting_schedule"
+            android:text="@string/meeting_schedule" />
+
+        <TextView
+            android:id="@+id/id_attendance_text_view"
+            style="@style/iconStyle"
+            android:drawableTop="@drawable/ic_attendance"
+            android:text="@string/attendance" />
+
+        <TextView
+            android:id="@+id/id_repair_text_view"
+            style="@style/iconStyle"
+            android:drawableTop="@drawable/ic_repair"
+            android:text="@string/repair" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/id_icon_two_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="21dp"
+        android:paddingBottom="21dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/id_icon_one_layout">
+
+        <TextView
+            android:id="@+id/id_air_quality_text_view"
+            style="@style/iconStyle"
+            android:drawableTop="@drawable/ic_air_quality"
+            android:text="@string/air_quality" />
+
+        <TextView
+            android:id="@+id/id_share_work_text_view"
+            style="@style/iconStyle"
+            android:drawableTop="@drawable/ic_share_work"
+            android:text="@string/share_work" />
+
+        <TextView
+            android:id="@+id/id_visitor_text_view"
+            style="@style/iconStyle"
+            android:drawableTop="@drawable/ic_visitor"
+            android:text="@string/visitor" />
+
+        <TextView
+            android:id="@+id/id_more_text_view"
+            style="@style/iconStyle"
+            android:drawableTop="@drawable/ic_more_ic"
+            android:text="@string/more" />
+    </LinearLayout>
+
+
+    <com.bigkoo.convenientbanner.ConvenientBanner
+        android:id="@+id/action_recommend_banner"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        app:autoTurningTime="@integer/banner_display_time"
+        app:canLoop="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/id_icon_two_layout" />
+
+    <com.bigkoo.convenientbanner.ConvenientBanner
+        android:id="@+id/company_advice_banner"
+        android:layout_width="match_parent"
+        android:layout_height="144dp"
+        android:layout_marginTop="8dp"
+        app:autoTurningTime="@integer/banner_display_time"
+        app:canLoop="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/action_recommend_banner" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

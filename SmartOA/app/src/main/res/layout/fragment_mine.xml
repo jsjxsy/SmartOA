@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="49dp"
     android:background="@color/background_style_four"
     tools:context=".activity.ui.mine.MineFragment">
 
@@ -86,7 +87,6 @@
         android:text="@string/mine_settings"
         android:textColor="@color/font_color_style_six"
         android:textSize="@dimen/font_size_style_one"
-        app:layout_constraintTop_toBottomOf="@id/mine_setting_list_view"
-        android:onClick="mineSettings"/>
+        app:layout_constraintTop_toBottomOf="@id/mine_setting_list_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

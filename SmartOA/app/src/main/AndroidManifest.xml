@@ -9,10 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ui.open.OpenActivity"></activity>
         <activity
             android:name=".activity.SplashActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTop"
@@ -20,13 +25,7 @@
         <activity
             android:name=".activity.LoginActivity"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="stateVisible|adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
     </application>
 
 </manifest>

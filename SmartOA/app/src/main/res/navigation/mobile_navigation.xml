@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_home"
@@ -37,9 +37,6 @@
         <action
             android:id="@+id/action_navigation_home_to_visitorFragment"
             app:destination="@id/visitorFragment" />
-        <action
-            android:id="@+id/action_navigation_home_to_openDoorFragment2"
-            app:destination="@id/openDoorFragment" />
     </fragment>
 
     <fragment
@@ -99,41 +96,7 @@
         android:name="com.gx.smart.smartoa.activity.ui.visitor.VisitorFragment"
         android:label="visitor_fragment"
         tools:layout="@layout/visitor_fragment" />
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.gx.smart.smartoa.activity.MainActivity"
-        android:label="layout_common_title"
-        tools:layout="@layout/layout_common_title" >
-        <action
-            android:id="@+id/action_mainActivity_to_splashFragment"
-            app:destination="@id/splashFragment" />
-    </activity>
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.login.LoginFragment"
-        android:label="LoginFragment" >
-        <action
-            android:id="@+id/action_loginFragment_to_navigation_home"
-            app:destination="@id/navigation_home" />
-        <action
-            android:id="@+id/action_loginFragment_self"
-            app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_forgetPasswordFragment"
-            app:destination="@id/forgetPasswordFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/splashFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.splash.SplashFragment"
-        android:label="splash_fragment"
-        tools:layout="@layout/splash_fragment" >
-        <action
-            android:id="@+id/action_splashFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
+
     <fragment
         android:id="@+id/mineFragment"
         android:name="com.gx.smart.smartoa.activity.ui.mine.MineFragment"
@@ -157,6 +120,9 @@
         <action
             android:id="@+id/action_mineFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_mineFragment_to_meetingMyReservationFragment"
+            app:destination="@id/meetingMyReservationFragment" />
     </fragment>
     <fragment
         android:id="@+id/mineActionFragment"
@@ -261,11 +227,7 @@
         android:name="com.gx.smart.smartoa.activity.ui.mine.MineUserInfoModifyPasswordFragment"
         android:label="fragment_mine_user_info_modify_password"
         tools:layout="@layout/fragment_mine_user_info_modify_password" />
-    <fragment
-        android:id="@+id/forgetPasswordFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.password.ForgetPasswordFragment"
-        android:label="forget_password_fragment"
-        tools:layout="@layout/forget_password_fragment" />
+
     <fragment
         android:id="@+id/clearCacheFragment"
         android:name="com.gx.smart.smartoa.activity.ui.setting.ClearCacheFragment"
@@ -324,9 +286,7 @@
         android:name="com.gx.smart.smartoa.activity.ui.meetings.MeetingAttendeesFragment"
         android:label="fragment_metting_attendees"
         tools:layout="@layout/fragment_metting_attendees" />
-    <fragment
-        android:id="@+id/registerFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.register.RegisterFragment"
-        android:label="register_fragment"
-        tools:layout="@layout/register_fragment" />
+    <action android:id="@+id/action_global_navigation_home" app:destination="@id/navigation_home" />
+    <action android:id="@+id/action_global_mineFragment" app:destination="@id/mineFragment" />
+    <action android:id="@+id/action_global_openDoorFragment" app:destination="@id/openDoorFragment" />
 </navigation>

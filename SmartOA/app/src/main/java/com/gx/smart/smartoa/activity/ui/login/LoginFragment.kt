@@ -1,21 +1,26 @@
 package com.gx.smart.smartoa.activity.ui.login
 
-import android.app.Activity
 import android.content.Intent
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.data.model.User
-import com.gx.smart.smartoa.databinding.ActivityLoginBinding
+import com.gx.smart.smartoa.databinding.LoginFragmentBinding
+import kotlinx.android.synthetic.main.login_fragment.*
 
-class LoginFragment : Fragment() {
+class LoginFragment : Fragment(), OnClickListener {
+    override fun onClick(v: View) {
+        when(v.id){
+            R.id.id_login_button -> login()
+        }
+    }
 
     companion object {
         fun newInstance() = LoginFragment()
@@ -23,35 +28,33 @@ class LoginFragment : Fragment() {
 
     private lateinit var viewModel: LoginViewModel
 
-    private val binding by lazy {
-        DataBindingUtil.setContentView<ActivityLoginBinding>(
-            activity as Activity,
-            R.layout.activity_login
-        )
-    }
     var user = User("", "")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding.userModel = user
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.login_fragment, container, false)
+        val loginFragmentBinding = DataBindingUtil.inflate<LoginFragmentBinding>(
+            inflater,
+            R.layout.login_fragment,
+            container,
+            false
+        )
+        loginFragmentBinding.userModel = user
+        return loginFragmentBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
         // TODO: Use the ViewModel
+        id_login_button.setOnClickListener(this)
     }
 
 
     /**
      * 点击登陆
      */
-    fun login(view: View) {
+    fun login() {
         //request network
         //result
         //jump page

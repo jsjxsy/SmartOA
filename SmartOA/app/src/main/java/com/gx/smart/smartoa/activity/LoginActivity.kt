@@ -7,19 +7,20 @@ import androidx.databinding.DataBindingUtil
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.base.BaseActivity
 import com.gx.smart.smartoa.data.model.User
-import com.gx.smart.smartoa.databinding.ActivityLoginBinding
+//import com.gx.smart.smartoa.databinding.ActivityLoginBinding
 
 class LoginActivity : BaseActivity() {
-    private val binding by lazy {
-        DataBindingUtil.setContentView<ActivityLoginBinding>(
-            this,
-            R.layout.activity_login
-        )
-    }
-    var user = User("", "")
+//    private val binding by lazy {
+//        DataBindingUtil.setContentView<ActivityLoginBinding>(
+//            this,
+//            R.layout.activity_login
+//        )
+//    }
+//    var user = User("", "")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.userModel = user
+        setContentView( R.layout.activity_login)
+//        binding.userModel = user
     }
 
     /**
@@ -29,8 +30,8 @@ class LoginActivity : BaseActivity() {
         //request network
         //result
         //jump page
-        if (user.phone.isNotEmpty() && user.password.isNotEmpty()) {
-            startActivity(Intent(this, MainActivity::class.java))
-        }
+//        if (user.phone.isNotEmpty() && user.password.isNotEmpty()) {
+//            startActivity(Intent(this, MainActivity::class.java))
+//        }
     }
 }

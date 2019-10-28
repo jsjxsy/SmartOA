@@ -77,7 +77,6 @@
                 android:layout_marginLeft="@dimen/margin_style_two"
                 android:layout_marginTop="34dp"
                 android:layout_marginRight="@dimen/margin_style_two"
-                android:onClick="login"
                 android:text="@string/login" />
 
             <TextView

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/shape_home_action_recommend"
+        android:drawablePadding="4.5dp"
+        android:text="@string/company_advise"
+        android:textColor="@color/font_color_style_six"
+        android:textSize="@dimen/font_size_style_two"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/id_home_company_advise_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:drawableRight="@drawable/ic_more_info"
+        android:drawablePadding="3.5dp"
+        android:text="@string/more"
+        android:textColor="@color/font_color_style_five"
+        android:textSize="@dimen/font_size_style_one"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/id_home_company_advise_image_view"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="19.5dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/id_home_company_advise_more"
+        tools:src="@mipmap/home_banner_test" />
+
+    <TextView
+        android:id="@+id/id_home_company_advise_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="31dp"
+        android:textColor="@color/font_color_style_six"
+        android:textSize="@dimen/font_size_style_one"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/id_home_company_advise_image_view"
+        app:layout_constraintTop_toTopOf="@id/id_home_company_advise_image_view"
+        tools:text="航天广信 | 智慧办公综合服务平台为企业员工创造更大价值" />
+
+
+    <TextView
+        android:id="@+id/id_home_company_advise_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13.5dp"
+        android:drawableLeft="@drawable/ic_time_ic"
+        android:drawablePadding="3.5dp"
+        android:ellipsize="end"
+        android:textColor="@color/font_color_style_seven"
+        android:textSize="@dimen/font_size_style_four"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/id_home_company_advise_title"
+        tools:text="2019-10-10 14:39" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
