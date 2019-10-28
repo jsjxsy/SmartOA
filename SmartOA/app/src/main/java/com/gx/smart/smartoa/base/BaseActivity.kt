@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 /**
  *@author xiaosy
  *@create 2019-10-22
- *@Describe
+ *@Describe 基础类
  **/
-open class BaseActivity : AppCompatActivity() {
+ open class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // version 5.0 after
