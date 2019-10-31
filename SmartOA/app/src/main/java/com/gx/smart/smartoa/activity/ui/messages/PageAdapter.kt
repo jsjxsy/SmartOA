@@ -22,7 +22,7 @@ class PageAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(
             AllFragment.ALL_TYPE -> {
                 return AllFragment.newInstance()
             }
-            NoticeFragment.NATICE_TYPE -> {
+            NoticeFragment.NOTICE_TYPE -> {
                 return NoticeFragment.newInstance()
             }
             ActionFragment.ACTION_TYPE -> {

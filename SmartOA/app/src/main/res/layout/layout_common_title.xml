@@ -30,6 +30,8 @@
     <ImageView
         android:id="@+id/left_nav_image_view"
         android:layout_width="wrap_content"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         android:layout_height="match_parent"
         android:contentDescription="@null"
         android:visibility="gone"

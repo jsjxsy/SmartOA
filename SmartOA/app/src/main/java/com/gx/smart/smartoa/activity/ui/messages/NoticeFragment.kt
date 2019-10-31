@@ -13,7 +13,7 @@ class NoticeFragment : Fragment() {
 
     companion object {
         fun newInstance() = NoticeFragment()
-        const val NATICE_TYPE = 2
+        const val NOTICE_TYPE = 2
     }
 
     private lateinit var viewModel: NoticeViewModel

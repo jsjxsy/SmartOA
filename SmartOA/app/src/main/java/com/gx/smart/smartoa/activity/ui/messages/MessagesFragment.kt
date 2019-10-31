@@ -54,7 +54,7 @@ class MessagesFragment : Fragment(), View.OnClickListener {
         val titles = resources.getStringArray(R.array.message_items)
         mPagerAdapter = PageAdapter(fragmentManager!!)
         for (i in 0 until titles.size) {
-            mPagerAdapter.addPage(PageAdapter.PageFragmentContent(titles[i], i))
+            mPagerAdapter.addPage(PageAdapter.PageFragmentContent(titles[i], i + 1))
         }
         viewPager.adapter = mPagerAdapter
         viewPager.offscreenPageLimit = 3

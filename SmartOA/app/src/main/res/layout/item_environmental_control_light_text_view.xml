@@ -18,12 +18,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/shape_list_item_background_color"
     android:gravity="center"
     android:paddingLeft="16dp"
     android:paddingTop="11dp"
     android:paddingRight="16dp"
-    android:paddingBottom="11dp"
-    android:background="@drawable/shape_list_item_background_color">
+    android:paddingBottom="11dp">
 
     <TextView
         android:id="@+id/text"
@@ -37,8 +37,9 @@
         tools:text="研发调光面板" />
 
     <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchLightPanel"
         android:layout_width="44dp"
-        android:layout_height="23dp"
+        android:layout_height="16dp"
         android:layout_alignParentEnd="true"
         android:theme="@style/switchStyle" />
 </RelativeLayout>

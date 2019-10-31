@@ -16,7 +16,7 @@ import com.gx.smart.smartoa.R;
  * @create 2019-10-31
  * @Describe
  **/
-public class AllOneViewBinder extends ItemViewBinder<AllTwo, AllOneViewBinder.ViewHolder> {
+public class AllOneViewBinder extends ItemViewBinder<AllOne, AllOneViewBinder.ViewHolder> {
 
     @NonNull
     @Override
@@ -26,7 +26,7 @@ public class AllOneViewBinder extends ItemViewBinder<AllTwo, AllOneViewBinder.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, @NonNull AllTwo allTwo) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @NonNull AllOne allOne) {
 
     }
 
