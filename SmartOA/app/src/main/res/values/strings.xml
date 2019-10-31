@@ -33,6 +33,13 @@
     <string name="action_recommend">活动推荐</string>
     <string name="company_advise">企业咨询</string>
 
+    <string-array name="environmental_control_items">
+        <item>灯光</item>
+        <item>窗帘</item>
+        <item>空调</item>
+        <item>新风</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

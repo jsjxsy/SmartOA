@@ -1,5 +1,6 @@
 package com.gx.smart.smartoa.activity.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,17 +8,31 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
 import com.bigkoo.convenientbanner.ConvenientBanner
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator
 import com.bigkoo.convenientbanner.holder.Holder
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.ui.environmental.EnvironmentalActivity
 import com.gx.smart.smartoa.data.model.HomeActionRecommend
 import com.gx.smart.smartoa.data.model.HomeCompanyAdvise
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
-class HomeFragment : Fragment() {
+
+class HomeFragment : Fragment(),View.OnClickListener {
+    override fun onClick(v: View?) {
+        when(v!!.id){
+            R.id.id_environmental_control_text_view ->
+                startActivity(Intent(activity,EnvironmentalActivity::class.java))
+        }
+    }
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -26,7 +41,7 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
     private val adapter = MultiTypeAdapter()
     private val items = ArrayList<Any>()
-
+    private lateinit var context: FragmentActivity
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,11 +53,18 @@ class HomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         // TODO: Use the ViewModel
+        context = requireActivity()
+        initClickEvent()
+
         initTitleView()
 //        initRecyclerView()
         initBanner()
         initActionRecommend()
         initCompanyAdvise()
+    }
+
+    private fun initClickEvent() {
+        id_environmental_control_text_view.setOnClickListener(this)
     }
 
     private fun initBanner() {
@@ -69,6 +91,7 @@ class HomeFragment : Fragment() {
             )
             .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
             .setPointViewVisible(true)
+            .startTurning(2000)
     }
 
     //B、本地图片
@@ -85,7 +108,7 @@ class HomeFragment : Fragment() {
     }
 
 
-    fun initTitleView() {
+    private fun initTitleView() {
         left_nav_text_view.visibility = View.VISIBLE
         left_nav_text_view.text = "悦盛国际"
         right_nav_Image_view.visibility = View.VISIBLE
@@ -121,8 +144,8 @@ class HomeFragment : Fragment() {
             }
         }, data).setPageIndicator(
             intArrayOf(
-                R.drawable.shape_page_indicator,
-                R.drawable.shape_page_indicator_focus
+                R.drawable.shape_action_page_indicator,
+                R.drawable.shape_action_page_indicator_focus
             )
         )
             .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
@@ -135,10 +158,10 @@ class HomeFragment : Fragment() {
         private lateinit var time: TextView
         private lateinit var number: TextView
         override fun updateUI(data: HomeActionRecommend) {
-            imageView.setImageResource(data.imageResId)
+            Glide.with(itemView).load(data.imageResId).transform(CenterCrop(), RoundedCorners(10)).into(imageView)
             title.text = data.title
             time.text = data.time
-            number.text= data.number.toString() + "人参加"
+            number.text = data.number.toString() + "人参加"
         }
 
         override fun initView(itemView: View) {
@@ -159,7 +182,7 @@ class HomeFragment : Fragment() {
             HomeCompanyAdvise(R.mipmap.home_banner_test, "3 广信篮球队报名开始啦！", "2019-10-10 14:39")
         )
         val companyAdvise =
-            view!!.findViewById<ConvenientBanner<HomeCompanyAdvise>>(R.id.action_recommend_banner)
+            view!!.findViewById<ConvenientBanner<HomeCompanyAdvise>>(R.id.company_advice_banner)
         companyAdvise.setPages(object : CBViewHolderCreator {
             override fun createHolder(itemView: View): Holder<*> {
                 return CompanyAdviseHolderView(itemView)
@@ -170,8 +193,8 @@ class HomeFragment : Fragment() {
             }
         }, data).setPageIndicator(
             intArrayOf(
-                R.drawable.shape_page_indicator,
-                R.drawable.shape_page_indicator_focus
+                com.gx.smart.smartoa.R.drawable.shape_action_page_indicator,
+                com.gx.smart.smartoa.R.drawable.shape_action_page_indicator_focus
             )
         )
             .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
@@ -179,13 +202,13 @@ class HomeFragment : Fragment() {
     }
 
 
-
     class CompanyAdviseHolderView(itemView: View) : Holder<HomeCompanyAdvise>(itemView) {
         private lateinit var imageView: ImageView
         private lateinit var title: TextView
         private lateinit var time: TextView
         override fun updateUI(data: HomeCompanyAdvise) {
-            imageView.setImageResource(data.imageResId)
+            //设置图片圆角角度
+            Glide.with(itemView).load(data.imageResId).transform(CenterCrop(), RoundedCorners(10)).into(imageView)
             title.text = data.title
             time.text = data.time
         }

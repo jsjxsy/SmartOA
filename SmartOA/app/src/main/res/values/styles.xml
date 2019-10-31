@@ -51,6 +51,12 @@
         <item name="android:layout_weight">1</item>
     </style>
 
+    <style name="switchStyle" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">#FF195FC7</item>
+        <item name="colorSwitchThumbNormal">#FFF1F1F1</item>
+        <item name="android:colorForeground">#FF2F2F2F</item>
+    </style>
+
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

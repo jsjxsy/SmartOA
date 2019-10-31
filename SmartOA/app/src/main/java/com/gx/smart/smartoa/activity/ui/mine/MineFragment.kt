@@ -10,6 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.gx.smart.smartoa.R
 import kotlinx.android.synthetic.main.fragment_mine.*
 
@@ -32,6 +37,7 @@ class MineFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MineViewModel::class.java)
         // TODO: Use the ViewModel
+        Glide.with(this).load(R.mipmap.mine_head_test).apply(RequestOptions.bitmapTransform(CircleCrop())).into(mine_head_image_view)
         val mineList = mine_setting_list_view as ListView
         val adapter = MineAdapter(activity as Context)
         adapter.lists = arrayListOf(
@@ -49,7 +55,7 @@ class MineFragment : Fragment() {
             )
         )
         mineList.adapter = adapter
-        mineList.setOnItemClickListener { parent, view, position, id ->
+        mineList.setOnItemClickListener { _, view, position, _ ->
             when(position){
                 0 -> Navigation.findNavController(view).navigate(R.id.action_mineFragment_to_mineCompanyFragment)
                 1 -> Navigation.findNavController(view).navigate(R.id.action_mineFragment_to_meetingMyReservationFragment)

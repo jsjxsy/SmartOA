@@ -10,6 +10,7 @@
     <color name="background_style_three">#000012</color>
     <color name="background_style_four">#f2f2f2</color>
     <color name="background_style_five">#cccccc</color>
+    <color name="background_style_six">#eeeeee</color>
     <!-- font -->
     <color name="font_color_style_one">#BCBCBC</color>
     <color name="font_color_style_two">#245BAC</color>

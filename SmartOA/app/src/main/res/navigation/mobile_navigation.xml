@@ -63,7 +63,7 @@
         android:id="@+id/environmentalControlFragment"
         android:name="com.gx.smart.smartoa.activity.ui.environmental.EnvironmentalControlFragment"
         android:label="environmental_control_fragment"
-        tools:layout="@layout/environmental_control_fragment" />
+        tools:layout="@layout/evnironmental_control_fragment" />
     <fragment
         android:id="@+id/meetingScheduleFragment"
         android:name="com.gx.smart.smartoa.activity.ui.meetings.MeetingScheduleFragment"

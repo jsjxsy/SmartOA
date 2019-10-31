@@ -47,4 +47,5 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
     fun mineSettings(view: View) {
 
     }
+
 }

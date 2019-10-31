@@ -1,144 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_style_four"
-    tools:context=".activity.ui.home.HomeFragment">
+    android:layout_marginBottom="57dp">
 
-
-    <!--    <androidx.appcompat.widget.AppCompatImageView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:src="@mipmap/home_banner_test"-->
-    <!--        android:scaleType="centerCrop"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        android:visibility="gone"-->
-    <!--        />-->
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id="@+id/homeRecyclerView"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        tools:listitem="@layout/item_home_head_item"-->
-    <!--        tools:itemCount="1"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"/>-->
-    <com.bigkoo.convenientbanner.ConvenientBanner
-        android:id="@+id/headBanner"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:autoTurningTime="@integer/banner_display_time"
-        app:canLoop="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <include
-        layout="@layout/layout_common_title"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height_style"
-        android:layout_marginTop="21dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/id_icon_one_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="21dp"
-        android:paddingBottom="21dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headBanner">
-
-        <TextView
-            android:id="@+id/id_environmental_control_text_view"
-            style="@style/iconStyle"
-            android:drawableTop="@drawable/ic_environmental_control"
-            android:text="@string/environmental_control" />
-
-        <TextView
-            android:id="@+id/id_meeting_schedule_text_view"
-            style="@style/iconStyle"
-            android:drawableTop="@drawable/ic_meeting_schedule"
-            android:text="@string/meeting_schedule" />
-
-        <TextView
-            android:id="@+id/id_attendance_text_view"
-            style="@style/iconStyle"
-            android:drawableTop="@drawable/ic_attendance"
-            android:text="@string/attendance" />
-
-        <TextView
-            android:id="@+id/id_repair_text_view"
-            style="@style/iconStyle"
-            android:drawableTop="@drawable/ic_repair"
-            android:text="@string/repair" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/id_icon_two_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="21dp"
-        android:paddingBottom="21dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/id_icon_one_layout">
-
-        <TextView
-            android:id="@+id/id_air_quality_text_view"
-            style="@style/iconStyle"
-            android:drawableTop="@drawable/ic_air_quality"
-            android:text="@string/air_quality" />
-
-        <TextView
-            android:id="@+id/id_share_work_text_view"
-            style="@style/iconStyle"
-            android:drawableTop="@drawable/ic_share_work"
-            android:text="@string/share_work" />
-
-        <TextView
-            android:id="@+id/id_visitor_text_view"
-            style="@style/iconStyle"
-            android:drawableTop="@drawable/ic_visitor"
-            android:text="@string/visitor" />
-
-        <TextView
-            android:id="@+id/id_more_text_view"
-            style="@style/iconStyle"
-            android:drawableTop="@drawable/ic_more_ic"
-            android:text="@string/more" />
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:background="@color/background_style_four"
+        tools:context=".activity.ui.home.HomeFragment">
 
 
-    <com.bigkoo.convenientbanner.ConvenientBanner
-        android:id="@+id/action_recommend_banner"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="8dp"
-        app:autoTurningTime="@integer/banner_display_time"
-        app:canLoop="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/id_icon_two_layout" />
+        <!--    <androidx.appcompat.widget.AppCompatImageView-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:src="@mipmap/home_banner_test"-->
+        <!--        android:scaleType="centerCrop"-->
+        <!--        app:layout_constraintTop_toTopOf="parent"-->
+        <!--        app:layout_constraintStart_toStartOf="parent"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        android:visibility="gone"-->
+        <!--        />-->
+        <!--    <androidx.recyclerview.widget.RecyclerView-->
+        <!--        android:id="@+id/homeRecyclerView"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="match_parent"-->
+        <!--        tools:listitem="@layout/item_home_head_item"-->
+        <!--        tools:itemCount="1"-->
+        <!--        app:layout_constraintTop_toTopOf="parent"-->
+        <!--        app:layout_constraintStart_toStartOf="parent"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        app:layout_constraintBottom_toBottomOf="parent"/>-->
+        <com.bigkoo.convenientbanner.ConvenientBanner
+            android:id="@+id/headBanner"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:autoTurningTime="@integer/banner_display_time"
+            app:canLoop="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.bigkoo.convenientbanner.ConvenientBanner
-        android:id="@+id/company_advice_banner"
-        android:layout_width="match_parent"
-        android:layout_height="144dp"
-        android:layout_marginTop="8dp"
-        app:autoTurningTime="@integer/banner_display_time"
-        app:canLoop="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/action_recommend_banner" />
+        <include
+            layout="@layout/layout_common_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height_style"
+            android:layout_marginTop="21dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/id_icon_one_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="21dp"
+            android:paddingBottom="21dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headBanner"
+            android:background="@android:color/white">
+
+            <TextView
+                android:id="@+id/id_environmental_control_text_view"
+                style="@style/iconStyle"
+                android:drawableTop="@drawable/ic_environmental_control"
+                android:text="@string/environmental_control" />
+
+            <TextView
+                android:id="@+id/id_meeting_schedule_text_view"
+                style="@style/iconStyle"
+                android:drawableTop="@drawable/ic_meeting_schedule"
+                android:text="@string/meeting_schedule" />
+
+            <TextView
+                android:id="@+id/id_attendance_text_view"
+                style="@style/iconStyle"
+                android:drawableTop="@drawable/ic_attendance"
+                android:text="@string/attendance" />
+
+            <TextView
+                android:id="@+id/id_repair_text_view"
+                style="@style/iconStyle"
+                android:drawableTop="@drawable/ic_repair"
+                android:text="@string/repair" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/id_icon_two_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="21dp"
+            android:paddingBottom="21dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/id_icon_one_layout"
+            android:background="@android:color/white">
+
+            <TextView
+                android:id="@+id/id_air_quality_text_view"
+                style="@style/iconStyle"
+                android:drawableTop="@drawable/ic_air_quality"
+                android:text="@string/air_quality" />
+
+            <TextView
+                android:id="@+id/id_share_work_text_view"
+                style="@style/iconStyle"
+                android:drawableTop="@drawable/ic_share_work"
+                android:text="@string/share_work" />
+
+            <TextView
+                android:id="@+id/id_visitor_text_view"
+                style="@style/iconStyle"
+                android:drawableTop="@drawable/ic_visitor"
+                android:text="@string/visitor" />
+
+            <TextView
+                android:id="@+id/id_more_text_view"
+                style="@style/iconStyle"
+                android:drawableTop="@drawable/ic_more_ic"
+                android:text="@string/more" />
+        </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.bigkoo.convenientbanner.ConvenientBanner
+            android:id="@+id/action_recommend_banner"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:padding="12dp"
+            android:layout_marginTop="8dp"
+            app:autoTurningTime="@integer/banner_display_time"
+            app:canLoop="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/id_icon_two_layout"
+            android:background="@android:color/white"/>
+
+        <com.bigkoo.convenientbanner.ConvenientBanner
+            android:id="@+id/company_advice_banner"
+            android:layout_width="match_parent"
+            android:layout_height="144dp"
+            android:layout_marginTop="8dp"
+            android:padding="12dp"
+            app:autoTurningTime="@integer/banner_display_time"
+            app:canLoop="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/action_recommend_banner"
+            android:background="@android:color/white"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
