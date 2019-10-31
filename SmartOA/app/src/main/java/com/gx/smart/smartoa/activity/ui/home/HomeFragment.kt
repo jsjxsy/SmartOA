@@ -1,6 +1,7 @@
 package com.gx.smart.smartoa.activity.ui.home
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,21 +17,23 @@ import com.bigkoo.convenientbanner.holder.Holder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.environmental.EnvironmentalActivity
+import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
 import com.gx.smart.smartoa.data.model.HomeActionRecommend
 import com.gx.smart.smartoa.data.model.HomeCompanyAdvise
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 
-class HomeFragment : Fragment(),View.OnClickListener {
+class HomeFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
-        when(v!!.id){
+        when (v!!.id) {
             R.id.id_environmental_control_text_view ->
-                startActivity(Intent(activity,EnvironmentalActivity::class.java))
+                startActivity(Intent(activity, EnvironmentalActivity::class.java))
+            R.id.right_nav_Image_view ->
+                startActivity(Intent(activity, MessageActivity::class.java))
         }
     }
 
@@ -109,9 +112,11 @@ class HomeFragment : Fragment(),View.OnClickListener {
 
 
     private fun initTitleView() {
+        title.setBackgroundColor(Color.TRANSPARENT)
         left_nav_text_view.visibility = View.VISIBLE
         left_nav_text_view.text = "悦盛国际"
         right_nav_Image_view.visibility = View.VISIBLE
+        right_nav_Image_view.setOnClickListener(this)
     }
 
 //    fun initRecyclerView() {
@@ -140,7 +145,7 @@ class HomeFragment : Fragment(),View.OnClickListener {
             }
 
             override fun getLayoutId(): Int {
-                return R.layout.item_action_recommend
+                return R.layout.item_home_action_recommend
             }
         }, data).setPageIndicator(
             intArrayOf(
@@ -158,7 +163,8 @@ class HomeFragment : Fragment(),View.OnClickListener {
         private lateinit var time: TextView
         private lateinit var number: TextView
         override fun updateUI(data: HomeActionRecommend) {
-            Glide.with(itemView).load(data.imageResId).transform(CenterCrop(), RoundedCorners(10)).into(imageView)
+            Glide.with(itemView).load(data.imageResId).transform(CenterCrop(), RoundedCorners(10))
+                .into(imageView)
             title.text = data.title
             time.text = data.time
             number.text = data.number.toString() + "人参加"
@@ -189,7 +195,7 @@ class HomeFragment : Fragment(),View.OnClickListener {
             }
 
             override fun getLayoutId(): Int {
-                return R.layout.item_company_advise
+                return R.layout.item_home_company_advise
             }
         }, data).setPageIndicator(
             intArrayOf(
@@ -208,7 +214,8 @@ class HomeFragment : Fragment(),View.OnClickListener {
         private lateinit var time: TextView
         override fun updateUI(data: HomeCompanyAdvise) {
             //设置图片圆角角度
-            Glide.with(itemView).load(data.imageResId).transform(CenterCrop(), RoundedCorners(10)).into(imageView)
+            Glide.with(itemView).load(data.imageResId).transform(CenterCrop(), RoundedCorners(10))
+                .into(imageView)
             title.text = data.title
             time.text = data.time
         }

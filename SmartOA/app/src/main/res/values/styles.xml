@@ -57,6 +57,18 @@
         <item name="android:colorForeground">#FF2F2F2F</item>
     </style>
 
+    <style name="recycleViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_marginBottom">12dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:descendantFocusability">blocksDescendants</item>
+        <item name="android:cacheColorHint">#00000000</item>
+        <item name="android:overScrollMode">never</item>
+        <item name="android:scrollbars">none</item>
+    </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

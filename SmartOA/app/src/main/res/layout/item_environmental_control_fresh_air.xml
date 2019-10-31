@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2016-present. Drakeet Xu
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_list_item_background_color"
+    android:gravity="center"
+    android:paddingTop="11dp"
+    android:paddingBottom="11dp">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:drawableLeft="@drawable/selector_environmental_fresh_air"
+        android:drawablePadding="7.5dp"
+        android:gravity="center_vertical"
+        android:textColor="@drawable/selector_environmental_light_text_view"
+        android:textSize="@dimen/font_size_style_one"
+        tools:text="新风1" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchLight"
+        android:layout_width="44dp"
+        android:layout_height="23dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="16dp"
+        android:theme="@style/switchStyle" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/switchLight"
+        android:layout_marginTop="11dp"
+        android:background="@color/background_style_six" />
+
+
+    <RadioGroup
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/line"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp">
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/id_tab_home"
+            style="@style/bottomTabTitle"
+            android:drawableTop="@drawable/selector_environmental_fresh_air_low_wind"
+            android:text="@string/low_wind" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/id_tab_mine"
+            style="@style/bottomTabTitle"
+            android:drawableTop="@drawable/selector_environmental_fresh_air_high_wind"
+            android:text="@string/high_wind_two" />
+    </RadioGroup>
+
+</RelativeLayout>

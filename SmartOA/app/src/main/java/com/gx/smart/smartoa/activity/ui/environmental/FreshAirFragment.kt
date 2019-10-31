@@ -6,10 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.base.BaseFragment
+import kotlinx.android.synthetic.main.air_conditioner_fragment.*
+import kotlinx.android.synthetic.main.fresh_air_fragment.*
 
-class FreshAirFragment : Fragment() {
+class FreshAirFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = FreshAirFragment()
@@ -29,6 +33,24 @@ class FreshAirFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(FreshAirViewModel::class.java)
         // TODO: Use the ViewModel
+        val divider = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
+        val drawable = resources.getDrawable(R.drawable.shape_environmental_control_line, null)
+        divider.setDrawable(drawable)
+        freshAirRecyclerView!!.addItemDecoration(divider)
+
+        adapter.register(FreshAirViewBinder())
+        freshAirRecyclerView?.adapter = adapter
+
+        val textItem1 = FreshAir("新风1")
+        val textItem2 = FreshAir("新风2")
+        val textItem3 = FreshAir("新风3")
+
+        items.add(textItem1)
+        items.add(textItem2)
+        items.add(textItem3)
+
+        adapter.items = items
+        adapter.notifyDataSetChanged()
     }
 
 }

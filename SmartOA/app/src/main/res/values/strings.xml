@@ -32,6 +32,7 @@
 
     <string name="action_recommend">活动推荐</string>
     <string name="company_advise">企业咨询</string>
+    <string name="message_notice">消息通知</string>
 
     <string-array name="environmental_control_items">
         <item>灯光</item>
@@ -40,7 +41,24 @@
         <item>新风</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <string-array name="message_items">
+        <item>全部</item>
+        <item>公告</item>
+        <item>活动</item>
+    </string-array>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="auto">自动</string>
+    <string name="refrigeration">制冷</string>
+    <string name="hot">制热</string>
+    <string name="water">除湿</string>
+    <string name="wind">送风</string>
+    <string name="low_wind">低风</string>
+    <string name="mid_wind">中风</string>
+    <string name="high_wind">强风</string>
+
+    <string name="auto_wind">自动风</string>
+    <string name="high_wind_two">高风</string>
+    <string name="all_read">全部已读</string>
 
 </resources>

@@ -11,10 +11,6 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-    }
-
-    override fun onResume() {
-        super.onResume()
         window.decorView.postDelayed(
             {
                 startActivity(Intent(SplashActivity@ this, LoginActivity::class.java))
@@ -22,6 +18,11 @@ class SplashActivity : BaseActivity() {
             },
             DELAY_TIME
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+
     }
 
     companion object {

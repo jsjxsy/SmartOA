@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ui.environmental.EnvironmentalActivity"></activity>
+        <activity android:name=".activity.ui.messages.MessageActivity"></activity>
+        <activity android:name=".activity.ui.environmental.EnvironmentalActivity" />
         <activity
             android:name=".activity.SplashActivity"
             android:launchMode="singleTop">

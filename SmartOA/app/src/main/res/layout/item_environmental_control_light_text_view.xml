@@ -23,7 +23,7 @@
     android:paddingTop="11dp"
     android:paddingRight="16dp"
     android:paddingBottom="11dp"
-    android:background="@android:color/white">
+    android:background="@drawable/shape_list_item_background_color">
 
     <TextView
         android:id="@+id/text"

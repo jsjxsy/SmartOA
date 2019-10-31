@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.data.model.User
@@ -17,8 +18,12 @@ import kotlinx.android.synthetic.main.login_fragment.*
 
 class LoginFragment : Fragment(), OnClickListener {
     override fun onClick(v: View) {
-        when(v.id){
+        when (v.id) {
             R.id.id_login_button -> login()
+            R.id.id_forget_password_text_view ->
+                Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_forgetPasswordFragment)
+            R.id.id_register_text_view ->
+                Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment)
         }
     }
 
@@ -48,13 +53,15 @@ class LoginFragment : Fragment(), OnClickListener {
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
         // TODO: Use the ViewModel
         id_login_button.setOnClickListener(this)
+        id_forget_password_text_view.setOnClickListener(this)
+        id_register_text_view.setOnClickListener(this)
     }
 
 
     /**
      * 点击登陆
      */
-    fun login() {
+    private fun login() {
         //request network
         //result
         //jump page

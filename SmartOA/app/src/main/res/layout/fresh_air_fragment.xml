@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ui.environmental.FreshAirFragment">
+    android:background="@color/background_style_four"
+    tools:context=".activity.ui.environmental.LightFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/freshAirRecyclerView"
+        style="@style/recycleViewStyle"
+        app:layoutManager="LinearLayoutManager"
+        tools:itemCount="10"
+        tools:listitem="@layout/item_environmental_control_fresh_air" />
 
 </FrameLayout>

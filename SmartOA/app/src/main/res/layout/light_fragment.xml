@@ -9,14 +9,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lightRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="12dp"
-        android:descendantFocusability="blocksDescendants"
-        android:clickable="true"
+        style="@style/recycleViewStyle"
         app:layoutManager="LinearLayoutManager"
         tools:itemCount="10"
         tools:listitem="@layout/item_environmental_control_light_panel_text_view" />

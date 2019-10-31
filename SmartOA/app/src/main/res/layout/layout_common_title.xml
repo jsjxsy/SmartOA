@@ -2,11 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/title"
     android:layout_width="match_parent"
     android:layout_height="@dimen/title_height_style"
     android:paddingLeft="@dimen/margin_style_three"
     android:paddingRight="@dimen/margin_style_three"
-    tools:background="#dddddd"
+    android:background="@android:color/white"
+    tools:background="@android:color/white"
     tools:context=".activity.MainActivity">
 
     <TextView
@@ -23,7 +25,7 @@
         android:textSize="15sp"
         android:visibility="gone"
         tools:text="悦盛国际"
-        tools:visibility="visible" />
+        tools:visibility="gone" />
 
     <ImageView
         android:id="@+id/left_nav_image_view"
@@ -32,18 +34,18 @@
         android:contentDescription="@null"
         android:visibility="gone"
         app:srcCompat="@drawable/ic_back"
-        tools:visibility="gone" />
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/center_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:ellipsize="end"
         android:gravity="center"
         android:textColor="@color/font_color_style_six"
         android:textSize="@dimen/font_size_style_two"
         android:visibility="gone"
-        android:ellipsize="end"
         tools:text="全部应用"
         tools:visibility="visible" />
 
@@ -72,7 +74,7 @@
         android:padding="4dp"
         android:src="@drawable/ic_message_ic"
         android:textSize="16sp"
-        android:visibility="visible"
+        android:visibility="gone"
         tools:visibility="visible" />
 
     <TextView
@@ -83,7 +85,7 @@
         android:layout_alignRight="@id/right_nav_Image_view"
         android:background="@drawable/shape_home_message_point"
         android:visibility="gone"
-        tools:visibility="visible"/>
+        tools:visibility="visible" />
 
 
 </RelativeLayout>

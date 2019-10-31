@@ -10,8 +10,14 @@ import com.drakeet.multitype.MultiTypeAdapter
 
 import com.gx.smart.smartoa.R
 import kotlinx.android.synthetic.main.evnironmental_control_fragment.*
+import kotlinx.android.synthetic.main.layout_common_title.*
 
-class EnvironmentalControlFragment : Fragment() {
+class EnvironmentalControlFragment : Fragment(),View.OnClickListener {
+    override fun onClick(v: View?) {
+        when(v?.id){
+         R.id.left_nav_image_view -> activity?.onBackPressed()
+        }
+    }
 
     companion object {
         fun newInstance() = EnvironmentalControlFragment()
@@ -33,8 +39,16 @@ class EnvironmentalControlFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(EnvironmentalControlViewModel::class.java)
         // TODO: Use the ViewModel
+        initTitle()
         initHead()
         initData()
+    }
+
+    private fun initTitle() {
+        left_nav_image_view.visibility = View.VISIBLE
+        left_nav_image_view.setOnClickListener(this)
+        center_title.visibility = View.VISIBLE
+        center_title.text = getString(R.string.environmental_control)
     }
 
     private fun initHead() {
@@ -60,10 +74,10 @@ class EnvironmentalControlFragment : Fragment() {
         mPagerAdapter = PageAdapter(fragmentManager!!)
         for (i in 0 until titles.size){
             mPagerAdapter.addPage(PageAdapter.PageFragmentContent(titles[i], i))
-            mPagerAdapter.notifyDataSetChanged()
         }
         viewPager.adapter = mPagerAdapter
         viewPager.offscreenPageLimit = 3
+        mPagerAdapter.notifyDataSetChanged()
         id_environmental_control_tab.setupWithViewPager(viewPager)
     }
 

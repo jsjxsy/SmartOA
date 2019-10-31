@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2016-present. Drakeet Xu
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_list_item_background_color"
+    android:gravity="center"
+    android:paddingTop="11dp"
+    android:paddingBottom="11dp">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_curtain"
+        android:drawablePadding="7.5dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:textColor="@drawable/selector_environmental_light_text_view"
+        android:textSize="@dimen/font_size_style_one"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="研发中心空调" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchLight"
+        android:layout_width="44dp"
+        android:layout_height="23dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="16dp"
+        android:theme="@style/switchStyle"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="11dp"
+        android:background="@color/background_style_six"
+        app:layout_constraintTop_toBottomOf="@id/text" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/dev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_dev"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/temperature"
+        app:layout_constraintTop_toBottomOf="@id/line" />
+
+    <TextView
+        android:id="@+id/temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:textColor="@color/font_color_style_six"
+        android:textSize="32sp"
+        app:layout_constraintLeft_toRightOf="@id/dev"
+        app:layout_constraintRight_toLeftOf="@id/add"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        tools:text="25" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="℃"
+        android:textColor="@color/font_color_style_six"
+        android:textSize="@dimen/font_size_style_three"
+        app:layout_constraintLeft_toRightOf="@id/temperature"
+        app:layout_constraintTop_toTopOf="@id/temperature" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_add"
+        app:layout_constraintLeft_toRightOf="@id/temperature"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line" />
+
+
+    <View
+        android:id="@+id/line_two"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/background_style_six"
+        app:layout_constraintTop_toBottomOf="@id/temperature" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/selector_environmental_air_conditioner_auto"
+        android:drawablePadding="1dp"
+        android:text="@string/auto"
+        android:textColor="@color/font_color_style_six"
+        android:textSize="@dimen/font_size_style_three"
+        app:layout_constraintBottom_toTopOf="@id/line_three"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/line_11"
+        app:layout_constraintTop_toBottomOf="@id/line_two" />
+
+    <View
+        android:id="@+id/line_11"
+        android:layout_width="0.5dp"
+        android:layout_height="48dp"
+        android:background="@color/background_style_six"
+        app:layout_constraintLeft_toRightOf="@id/auto"
+        app:layout_constraintRight_toLeftOf="@id/refrigeration"
+        app:layout_constraintTop_toBottomOf="@id/line_two" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/refrigeration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_refrigeration_close"
+        android:drawablePadding="1dp"
+        android:text="@string/refrigeration"
+        android:textColor="@color/font_color_style_six"
+        android:textSize="@dimen/font_size_style_three"
+        app:layout_constraintBottom_toTopOf="@id/line_three"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toRightOf="@id/line_11"
+        app:layout_constraintRight_toLeftOf="@id/line_12"
+        app:layout_constraintTop_toBottomOf="@id/line_two" />
+
+
+    <View
+        android:id="@+id/line_12"
+        android:layout_width="0.5dp"
+        android:layout_height="48dp"
+        android:background="@color/background_style_six"
+        app:layout_constraintLeft_toRightOf="@id/refrigeration"
+        app:layout_constraintRight_toLeftOf="@id/hot"
+        app:layout_constraintTop_toBottomOf="@id/line_two" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/hot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/selector_environmental_air_conditioner_hot"
+        android:drawablePadding="1dp"
+        android:text="@string/hot"
+        android:textColor="@color/font_color_style_six"
+        android:textSize="@dimen/font_size_style_three"
+        app:layout_constraintBottom_toTopOf="@id/line_three"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toRightOf="@id/line_12"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line_two" />
+
+    <View
+        android:id="@+id/line_three"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/background_style_six"
+        app:layout_constraintTop_toBottomOf="@id/line_11" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/water"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/selector_environmental_air_conditioner_water"
+        android:drawablePadding="1dp"
+        android:text="@string/water"
+        android:textColor="@color/font_color_style_six"
+        android:textSize="@dimen/font_size_style_three"
+        app:layout_constraintBottom_toTopOf="@id/line_four"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/line_21"
+        app:layout_constraintTop_toBottomOf="@id/line_three" />
+
+    <View
+        android:id="@+id/line_21"
+        android:layout_width="0.5dp"
+        android:layout_height="48dp"
+        android:background="@color/background_style_six"
+        app:layout_constraintLeft_toRightOf="@id/water"
+        app:layout_constraintRight_toLeftOf="@id/wind"
+        app:layout_constraintTop_toBottomOf="@id/line_three" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/wind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/selector_environmental_air_conditioner_wind"
+        android:drawablePadding="1dp"
+        android:text="@string/wind"
+        android:textColor="@color/font_color_style_six"
+        android:textSize="@dimen/font_size_style_three"
+        app:layout_constraintBottom_toTopOf="@id/line_four"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toRightOf="@id/line_21"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line_three" />
+
+
+    <View
+        android:id="@+id/line_four"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/background_style_six"
+        app:layout_constraintTop_toBottomOf="@id/line_21" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/low_wind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="1dp"
+        android:text="@string/low_wind"
+        android:textColor="@color/font_color_style_six"
+        android:textSize="@dimen/font_size_style_one"
+        app:layout_constraintBottom_toTopOf="@id/line_five"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/line_31"
+        app:layout_constraintTop_toBottomOf="@id/line_four" />
+
+    <View
+        android:id="@+id/line_31"
+        android:layout_width="0.5dp"
+        android:layout_height="32dp"
+        android:background="@color/background_style_six"
+        app:layout_constraintLeft_toRightOf="@id/low_wind"
+        app:layout_constraintRight_toLeftOf="@id/mid_wind"
+        app:layout_constraintTop_toBottomOf="@id/line_four" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/mid_wind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="1dp"
+        android:text="@string/mid_wind"
+        android:textColor="@color/font_color_style_six"
+        android:textSize="@dimen/font_size_style_one"
+        app:layout_constraintBottom_toTopOf="@id/line_five"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/line_31"
+        app:layout_constraintRight_toLeftOf="@id/line_32"
+        app:layout_constraintTop_toBottomOf="@id/line_four" />
+
+
+    <View
+        android:id="@+id/line_32"
+        android:layout_width="0.5dp"
+        android:layout_height="32dp"
+        android:background="@color/background_style_six"
+        app:layout_constraintLeft_toRightOf="@id/mid_wind"
+        app:layout_constraintRight_toLeftOf="@id/high_wind"
+        app:layout_constraintTop_toBottomOf="@id/line_four" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/high_wind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="1dp"
+        android:text="@string/high_wind"
+        android:textColor="@color/font_color_style_six"
+        android:textSize="@dimen/font_size_style_one"
+        app:layout_constraintBottom_toTopOf="@id/line_five"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/line_32"
+        app:layout_constraintRight_toRightOf="@id/line_33"
+        app:layout_constraintTop_toBottomOf="@id/line_four" />
+
+    <View
+        android:id="@+id/line_33"
+        android:layout_width="0.5dp"
+        android:layout_height="32dp"
+        android:background="@color/background_style_six"
+        app:layout_constraintLeft_toRightOf="@id/high_wind"
+        app:layout_constraintRight_toLeftOf="@id/auto_wind"
+        app:layout_constraintTop_toBottomOf="@id/line_four" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/auto_wind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="1dp"
+        android:text="@string/auto_wind"
+        android:textColor="@color/font_color_style_six"
+        android:textSize="@dimen/font_size_style_one"
+        app:layout_constraintBottom_toTopOf="@id/line_five"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/line_33"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line_four" />
+
+    <View
+        android:id="@+id/line_five"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+
+        android:background="@color/background_style_six"
+        app:layout_constraintTop_toBottomOf="@id/line_31" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
