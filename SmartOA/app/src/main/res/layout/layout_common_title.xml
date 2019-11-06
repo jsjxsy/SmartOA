@@ -79,7 +79,7 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
-    <TextView
+    <View
         android:id="@+id/id_message_red_point"
         android:layout_width="8dp"
         android:layout_height="8dp"

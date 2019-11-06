@@ -1,8 +1,7 @@
 package com.gx.smart.smartoa.activity
 
-import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.RadioGroup
 import androidx.navigation.Navigation
@@ -14,6 +13,7 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.statusBarColor = Color.TRANSPARENT
         setContentView(R.layout.activity_main)
         val navView = nav_view as RadioGroup
         navView.setOnCheckedChangeListener(this)

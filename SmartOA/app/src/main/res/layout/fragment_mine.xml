@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="49dp"
-    android:background="@color/background_style_four"
     tools:context=".activity.ui.mine.MineFragment">
 
     <ImageView

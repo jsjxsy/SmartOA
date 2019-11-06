@@ -13,8 +13,8 @@ import androidx.navigation.Navigation
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.data.model.User
-import com.gx.smart.smartoa.databinding.LoginFragmentBinding
-import kotlinx.android.synthetic.main.login_fragment.*
+import com.gx.smart.smartoa.databinding.FragmentLoginBinding
+import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment(), OnClickListener {
     override fun onClick(v: View) {
@@ -38,9 +38,9 @@ class LoginFragment : Fragment(), OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val loginFragmentBinding = DataBindingUtil.inflate<LoginFragmentBinding>(
+        val loginFragmentBinding = DataBindingUtil.inflate<FragmentLoginBinding>(
             inflater,
-            R.layout.login_fragment,
+            R.layout.fragment_login,
             container,
             false
         )

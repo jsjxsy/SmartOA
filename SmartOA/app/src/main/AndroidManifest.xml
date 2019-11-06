@@ -2,15 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gx.smart.smartoa">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
-        android:name=".App"
+        android:name=".SmartOAApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ui.messages.MessageActivity"></activity>
+        <activity android:name=".activity.ui.mine.MineCompanyActivity"></activity>
+        <activity android:name=".activity.ui.visitor.VisitorActivity" />
+        <activity android:name=".activity.ui.attendance.AttendanceActivity" />
+        <activity android:name=".activity.ui.features.AllFeatureActivity" />
+        <activity android:name=".activity.ui.messages.MessageActivity" />
         <activity android:name=".activity.ui.environmental.EnvironmentalActivity" />
         <activity
             android:name=".activity.SplashActivity"

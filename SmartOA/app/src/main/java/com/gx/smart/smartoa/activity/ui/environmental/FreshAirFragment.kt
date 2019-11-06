@@ -2,7 +2,6 @@ package com.gx.smart.smartoa.activity.ui.environmental
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.base.BaseFragment
-import kotlinx.android.synthetic.main.air_conditioner_fragment.*
-import kotlinx.android.synthetic.main.fresh_air_fragment.*
+import kotlinx.android.synthetic.main.fragment_fresh_air_.*
 
 class FreshAirFragment : BaseFragment() {
 
@@ -26,7 +24,7 @@ class FreshAirFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fresh_air_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_fresh_air_, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

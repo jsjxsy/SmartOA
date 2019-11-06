@@ -60,5 +60,25 @@
     <string name="auto_wind">自动风</string>
     <string name="high_wind_two">高风</string>
     <string name="all_read">全部已读</string>
+    <string name="all_feature">全部应用</string>
+    <string name="my_feature">我的应用</string>
+    <string name="edit">编辑</string>
+
+    <string name="attendance_record">考勤记录</string>
+    <string name="attendance_notice">下班后显示当天下班打卡记录</string>
+    <string name="attendance_out_area">外勤签到</string>
+
+    <string name="visitor_name">访客姓名</string>
+    <string name="input_visitor_name">请输入访客姓名</string>
+    <string name="contact_phone">联系电话</string>
+    <string name="visit_cause">来访事由</string>
+    <string name="input_visit_cause">请输入来访事由</string>
+    <string name="visit_time">到访时间</string>
+    <string name="visit_car">访客车牌</string>
+    <string name="input_visit_car">请输入访客车牌</string>
+    <string name="submit_apply">提交申请</string>
+    <string name="visit_record">邀请记录</string>
+    <string name="add_company">加入公司</string>
+    <string name="select_office_area">选择办公地点</string>
 
 </resources>

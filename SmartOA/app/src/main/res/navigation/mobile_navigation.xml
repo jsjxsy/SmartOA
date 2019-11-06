@@ -173,46 +173,6 @@
         android:label="fragment_mine_action_detail"
         tools:layout="@layout/fragment_mine_action_detail" />
     <fragment
-        android:id="@+id/mineCompanyEmployeesFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.mine.MineCompanyEmployeesFragment"
-        android:label="fragment_mine_company_employees"
-        tools:layout="@layout/fragment_mine_company_employees" >
-        <action
-            android:id="@+id/action_mineCompanyEmployeesFragment_to_mineCompanyEmployeesNameFragment"
-            app:destination="@id/mineCompanyEmployeesNameFragment" />
-        <action
-            android:id="@+id/action_mineCompanyEmployeesFragment_to_mineCompanyEmployeesPhoneFragment"
-            app:destination="@id/mineCompanyEmployeesPhoneFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/mineCompanyEmployeesNameFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.mine.MineCompanyEmployeesNameFragment"
-        android:label="fragment_mine_company_employees_name"
-        tools:layout="@layout/fragment_mine_company_employees_name" />
-    <fragment
-        android:id="@+id/mineCompanyEmployeesPhoneFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.mine.MineCompanyEmployeesPhoneFragment"
-        android:label="fragment_mine_company_employees_phone"
-        tools:layout="@layout/fragment_mine_company_employees_phone" />
-    <fragment
-        android:id="@+id/mineCompanySelectAreaFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.mine.MineCompanySelectAreaFragment"
-        android:label="fragment_mine_company_select_area"
-        tools:layout="@layout/fragment_mine_company_select_area" >
-        <action
-            android:id="@+id/action_mineCompanySelectAreaFragment_to_mineCompanySelectCompanyFragment"
-            app:destination="@id/mineCompanySelectCompanyFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/mineCompanySelectCompanyFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.mine.MineCompanySelectCompanyFragment"
-        android:label="fragment_mine_company_select_company"
-        tools:layout="@layout/fragment_mine_company_select_company" >
-        <action
-            android:id="@+id/action_mineCompanySelectCompanyFragment_to_mineCompanyEmployeesFragment"
-            app:destination="@id/mineCompanyEmployeesFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/mineUserInfoModifyNameFragment"
         android:name="com.gx.smart.smartoa.activity.ui.mine.MineUserInfoModifyNameFragment"
         android:label="fragment_mine_user_info_modify_name"
