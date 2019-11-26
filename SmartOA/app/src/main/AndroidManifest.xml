@@ -36,5 +36,4 @@
             android:launchMode="singleTop"
             android:windowSoftInputMode="stateVisible|adjustResize" />
     </application>
-
 </manifest>

@@ -40,6 +40,7 @@ class SmartOAApplication : Application() {
         Utils.init(this)
         preInitX5Core()
         Logger.d("SmartOAApplication initLogger")
+        initPush()
     }
 
 
@@ -60,8 +61,8 @@ class SmartOAApplication : Application() {
     }
 
     private fun initPush() {
-        JPushInterface.setDebugMode(true);
-        JPushInterface.init(this);
+        JPushInterface.setDebugMode(true)
+        JPushInterface.init(this)
     }
 
 
