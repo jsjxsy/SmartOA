@@ -12,7 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ui.open.OpenDoorActivity"></activity>
+        <activity android:name=".activity.ui.air.AirQualityActivity"></activity>
+        <activity android:name=".activity.ui.setting.SettingActivity" />
+        <activity android:name=".activity.ui.repair.RepairActivity" />
+        <activity android:name=".activity.ui.work.SharedWorkActivity" />
+        <activity android:name=".activity.ui.meetings.MeetingScheduleActivity" />
+        <activity android:name=".activity.ui.open.OpenDoorActivity" />
         <activity android:name=".activity.ui.mine.MineCompanyActivity" />
         <activity android:name=".activity.ui.visitor.VisitorActivity" />
         <activity android:name=".activity.ui.attendance.AttendanceActivity" />
@@ -20,7 +25,7 @@
         <activity android:name=".activity.ui.messages.MessageActivity" />
         <activity android:name=".activity.ui.environmental.EnvironmentalActivity" />
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".activity.ui.splash.SplashActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,7 +38,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.ui.login.LoginActivity"
             android:launchMode="singleTop"
             android:windowSoftInputMode="stateVisible|adjustResize" />
     </application>

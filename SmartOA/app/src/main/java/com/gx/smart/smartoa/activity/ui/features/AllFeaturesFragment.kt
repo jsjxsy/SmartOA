@@ -15,7 +15,6 @@ class AllFeaturesFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()
-            //R.id.right_nav_text_view -> startActivity(Intent(activity, ))
         }
     }
 

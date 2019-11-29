@@ -15,10 +15,18 @@ import com.bigkoo.convenientbanner.holder.Holder
 import com.blankj.utilcode.util.ActivityUtils
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.ui.air.AirQualityActivity
+import com.gx.smart.smartoa.activity.ui.air.AirQualityFragment
 import com.gx.smart.smartoa.activity.ui.attendance.AttendanceActivity
 import com.gx.smart.smartoa.activity.ui.environmental.EnvironmentalActivity
+import com.gx.smart.smartoa.activity.ui.meetings.MeetingScheduleActivity
+import com.gx.smart.smartoa.activity.ui.meetings.MeetingScheduleFragment
 import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
+import com.gx.smart.smartoa.activity.ui.repair.RepairActivity
+import com.gx.smart.smartoa.activity.ui.repair.RepairFragment
 import com.gx.smart.smartoa.activity.ui.visitor.VisitorActivity
+import com.gx.smart.smartoa.activity.ui.work.SharedWorkActivity
+import com.gx.smart.smartoa.activity.ui.work.SharedWorkFragment
 
 
 /**
@@ -66,6 +74,37 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
                         VisitorActivity::class.java
                     )
                 )
+            R.id.id_more_text_view -> ActivityUtils.startActivity(
+                Intent(
+                    ActivityUtils.getTopActivity(),
+                    AllFeatureActivity::class.java
+                )
+            )
+
+            R.id.id_repair_text_view -> ActivityUtils.startActivity(
+                Intent(
+                    ActivityUtils.getTopActivity(),
+                    RepairActivity::class.java
+                )
+            )
+            R.id.id_air_quality_text_view -> ActivityUtils.startActivity(
+                Intent(
+                    ActivityUtils.getTopActivity(),
+                    AirQualityActivity::class.java
+                )
+            )
+            R.id.id_share_work_text_view -> ActivityUtils.startActivity(
+                Intent(
+                    ActivityUtils.getTopActivity(),
+                    SharedWorkActivity::class.java
+                )
+            )
+            R.id.id_meeting_schedule_text_view ->  ActivityUtils.startActivity(
+                Intent(
+                    ActivityUtils.getTopActivity(),
+                    MeetingScheduleActivity::class.java
+                )
+            )
 
         }
     }
@@ -83,7 +122,11 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
             holder.id_environmental_control_text_view,
             holder.id_more_text_view,
             holder.id_attendance_text_view,
-            holder.id_visitor_text_view
+            holder.id_visitor_text_view,
+            holder.idRepairTextView,
+            holder.idAirQualityTextView,
+            holder.idShareWorkTextView,
+            holder.idMeetingScheduleTextView
         )
         initTitleView(
             holder.title,
@@ -97,11 +140,18 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
         val id_environmental_control_text_view: TextView =
             itemView.findViewById(R.id.id_environmental_control_text_view)
         val id_more_text_view: TextView =
-            itemView.findViewById(R.id.id_environmental_control_text_view)
+            itemView.findViewById(R.id.id_more_text_view)
         val id_attendance_text_view: TextView =
-            itemView.findViewById(R.id.id_environmental_control_text_view)
+            itemView.findViewById(R.id.id_attendance_text_view)
         val id_visitor_text_view: TextView =
-            itemView.findViewById(R.id.id_environmental_control_text_view)
+            itemView.findViewById(R.id.id_visitor_text_view)
+
+        val idRepairTextView: TextView = itemView.findViewById(R.id.id_repair_text_view)
+        val idAirQualityTextView: TextView = itemView.findViewById(R.id.id_air_quality_text_view)
+        val idShareWorkTextView: TextView = itemView.findViewById(R.id.id_share_work_text_view)
+        val idMeetingScheduleTextView: TextView =
+            itemView.findViewById(R.id.id_meeting_schedule_text_view)
+
         val title: ViewGroup =
             itemView.findViewById(R.id.title)
         val left_nav_text_view: TextView =
@@ -127,12 +177,20 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
         id_environmental_control_text_view: TextView,
         id_more_text_view: TextView,
         id_attendance_text_view: TextView,
-        id_visitor_text_view: TextView
+        id_visitor_text_view: TextView,
+        idRepairTextView: TextView,
+        idAirQualityTextView: TextView,
+        idShareWorkTextView: TextView,
+        idMeetingScheduleTextView: TextView
     ) {
         id_environmental_control_text_view.setOnClickListener(this)
         id_more_text_view.setOnClickListener(this)
         id_attendance_text_view.setOnClickListener(this)
         id_visitor_text_view.setOnClickListener(this)
+        idRepairTextView.setOnClickListener(this)
+        idAirQualityTextView.setOnClickListener(this)
+        idShareWorkTextView.setOnClickListener(this)
+        idMeetingScheduleTextView.setOnClickListener(this)
     }
 
     private fun initBanner(convenientBanner: ConvenientBanner<Int>, homeHead: HomeHead) {

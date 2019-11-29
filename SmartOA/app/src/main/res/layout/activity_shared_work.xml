@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ui.features.AllFeatureActivity">
+    tools:context=".activity.ui.work.SharedWorkActivity">
 
     <fragment
-        android:id="@+id/allFeaturesFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.features.AllFeaturesFragment"
+        android:id="@+id/sharedWorkFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.work.SharedWorkFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </FrameLayout>

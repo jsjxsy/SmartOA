@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ui.features.AllFeatureActivity">
+    tools:context=".activity.ui.repair.RepairTypeFragment">
 
-    <fragment
-        android:id="@+id/allFeaturesFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.features.AllFeaturesFragment"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:text="Hello" />
+
 </FrameLayout>
