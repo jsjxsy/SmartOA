@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_user"
+    app:startDestination="@id/mineUserInfoFragment">
+
+    <fragment
+        android:id="@+id/mineUserInfoFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.user.MineUserInfoFragment"
+        android:label="fragment_mine_user_info"
+        tools:layout="@layout/fragment_mine_user_info">
+        <action
+            android:id="@+id/action_mineUserInfoFragment_to_mineUserInfoModifyNameFragment"
+            app:destination="@id/mineUserInfoModifyNameFragment" />
+        <action
+            android:id="@+id/action_mineUserInfoFragment_to_mineUserInfoModifyPasswordFragment"
+            app:destination="@id/mineUserInfoModifyPasswordFragment" />
+        <action
+            android:id="@+id/action_mineUserInfoFragment_to_mineUserInfoModifyPhoneFragment"
+            app:destination="@id/mineUserInfoModifyPhoneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mineVerifyFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.user.MineVerifyFragment"
+        android:label="fragment_mine_verify"
+        tools:layout="@layout/fragment_mine_verify" />
+    <fragment
+        android:id="@+id/mineVisitorFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.visitor.MineVisitorFragment"
+        android:label="fragment_mine_visitor"
+        tools:layout="@layout/fragment_mine_visitor" />
+
+    <fragment
+        android:id="@+id/mineUserInfoModifyNameFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.user.MineUserInfoModifyNameFragment"
+        android:label="fragment_mine_user_info_modify_name"
+        tools:layout="@layout/fragment_mine_user_info_modify_name" />
+    <fragment
+        android:id="@+id/mineUserInfoModifyPhoneFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.user.MineUserInfoModifyPhoneFragment"
+        android:label="fragment_mine_user_info_modify_phone"
+        tools:layout="@layout/fragment_mine_user_info_modify_phone" />
+    <fragment
+        android:id="@+id/mineUserInfoModifyPasswordFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.user.MineUserInfoModifyPasswordFragment"
+        android:label="fragment_mine_user_info_modify_password"
+        tools:layout="@layout/fragment_mine_user_info_modify_password" />
+</navigation>

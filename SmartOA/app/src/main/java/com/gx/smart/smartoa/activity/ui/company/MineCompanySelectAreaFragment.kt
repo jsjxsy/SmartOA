@@ -11,10 +11,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.features.Divider
 import com.gx.smart.smartoa.activity.ui.features.DividerViewBinder
-import com.gx.smart.smartoa.activity.ui.mine.CompanyAreaCity
-import com.gx.smart.smartoa.activity.ui.mine.CompanyAreaCityViewBinder
-import com.gx.smart.smartoa.activity.ui.mine.CompanyAreaPlace
-import com.gx.smart.smartoa.activity.ui.mine.CompanyAreaPlaceViewBinder
 import com.gx.smart.smartoa.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_mine_company_select_area.*
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -67,7 +63,8 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
         adapter.register(DividerViewBinder())
         selectAreaRecyclerView.adapter = adapter
 
-        val item1 = CompanyAreaCity("杭州市")
+        val item1 =
+            CompanyAreaCity("杭州市")
         val item11 =
             CompanyAreaPlace("悦盛国际中心")
         val item12 =
@@ -79,7 +76,8 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
 
         items.add(Divider())
 
-        val item2 = CompanyAreaCity("上海市")
+        val item2 =
+            CompanyAreaCity("上海市")
         val item21 =
             CompanyAreaPlace("悦盛国际中心")
         val item22 =

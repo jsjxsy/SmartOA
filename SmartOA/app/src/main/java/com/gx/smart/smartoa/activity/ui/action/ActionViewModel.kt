@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.activity.ui.messages
+package com.gx.smart.smartoa.activity.ui.action
 
 import androidx.lifecycle.ViewModel
 

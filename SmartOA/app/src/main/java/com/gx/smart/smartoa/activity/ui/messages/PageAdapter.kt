@@ -3,6 +3,7 @@ package com.gx.smart.smartoa.activity.ui.messages
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.gx.smart.smartoa.activity.ui.action.MineActionFragment
 
 /**
  *@author xiaosy
@@ -25,8 +26,8 @@ class PageAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(
             NoticeFragment.NOTICE_TYPE -> {
                 return NoticeFragment.newInstance()
             }
-            ActionFragment.ACTION_TYPE -> {
-                return ActionFragment.newInstance()
+            MineActionFragment.ACTION_TYPE -> {
+                return MineActionFragment.newInstance()
             }
         }
         return AllFragment.newInstance()

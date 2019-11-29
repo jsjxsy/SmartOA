@@ -1,5 +1,6 @@
 package com.gx.smart.smartoa.activity.ui.features
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bigkoo.convenientbanner.ConvenientBanner
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator
 import com.bigkoo.convenientbanner.holder.Holder
+import com.blankj.utilcode.util.ActivityUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -17,6 +19,7 @@ import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.home.ActionRecommend
 import com.gx.smart.smartoa.activity.ui.home.HomeActionRecommend
+import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
 
 
 /**
@@ -50,7 +53,10 @@ class HomeActionViewBinder : ItemViewBinder<HomeActionRecommend, HomeActionViewB
     }
 
 
-    private fun initActionRecommend(actionRecommendBanner: ConvenientBanner<ActionRecommend>,actionRecommend: HomeActionRecommend ) {
+    private fun initActionRecommend(
+        actionRecommendBanner: ConvenientBanner<ActionRecommend>,
+        actionRecommend: HomeActionRecommend
+    ) {
         actionRecommendBanner.setPages(object : CBViewHolderCreator {
             override fun createHolder(itemView: View): Holder<*> {
                 return ActionRecommendHolderView(itemView)
@@ -67,6 +73,7 @@ class HomeActionViewBinder : ItemViewBinder<HomeActionRecommend, HomeActionViewB
         )
             .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
             .setPointViewVisible(true)
+
     }
 
     class ActionRecommendHolderView(itemView: View) : Holder<ActionRecommend>(itemView) {
@@ -74,6 +81,7 @@ class HomeActionViewBinder : ItemViewBinder<HomeActionRecommend, HomeActionViewB
         private lateinit var title: TextView
         private lateinit var time: TextView
         private lateinit var number: TextView
+        private lateinit var more: TextView
         override fun updateUI(data: ActionRecommend) {
             Glide.with(itemView).load(data.resId).transform(CenterCrop(), RoundedCorners(10))
                 .into(imageView)
@@ -87,7 +95,15 @@ class HomeActionViewBinder : ItemViewBinder<HomeActionRecommend, HomeActionViewB
             title = itemView.findViewById(R.id.id_home_action_recommend_title)
             time = itemView.findViewById(R.id.id_time_action_recommend)
             number = itemView.findViewById(R.id.id_number_action_recommend)
+            more = itemView.findViewById(R.id.id_home_action_recommend_more)
+            itemView.setOnClickListener {
 
+            }
+            more.setOnClickListener {
+                val intent = Intent(itemView.context, MessageActivity::class.java)
+                intent.putExtra(MessageActivity.INTENT_KEY, MessageActivity.INTENT_MESSAGE)
+                ActivityUtils.startActivity(intent)
+            }
         }
 
     }

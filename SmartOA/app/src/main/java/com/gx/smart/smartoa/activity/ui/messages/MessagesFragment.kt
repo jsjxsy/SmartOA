@@ -37,6 +37,7 @@ class MessagesFragment : Fragment(), View.OnClickListener {
         // TODO: Use the ViewModel
         initTitle()
         initData()
+        initContent()
     }
 
     private fun initTitle() {
@@ -46,7 +47,6 @@ class MessagesFragment : Fragment(), View.OnClickListener {
         right_nav_text_view.text = getString(R.string.all_read)
         center_title.visibility = View.VISIBLE
         center_title.text = getString(R.string.message_notice)
-
     }
 
     private fun initData() {
@@ -60,5 +60,15 @@ class MessagesFragment : Fragment(), View.OnClickListener {
         viewPager.offscreenPageLimit = 3
         mPagerAdapter.notifyDataSetChanged()
         id_message_tab.setupWithViewPager(viewPager)
+    }
+
+    private fun initContent() {
+        var flag = (activity?.intent?.hasExtra(MessageActivity.INTENT_KEY)!! &&
+                activity?.intent?.getStringExtra(MessageActivity.INTENT_KEY)!! == MessageActivity.INTENT_MESSAGE)
+
+        if (flag) {
+            viewPager.currentItem = 1
+        }
+
     }
 }

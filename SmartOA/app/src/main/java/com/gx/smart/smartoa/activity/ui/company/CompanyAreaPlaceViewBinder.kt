@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.activity.ui.mine
+package com.gx.smart.smartoa.activity.ui.company
 
 import android.view.LayoutInflater
 import android.view.View
@@ -15,20 +15,22 @@ import com.gx.smart.smartoa.R
  * @create 2019-11-01
  * @Describe
  */
-class CompanyAreaCityViewBinder :
-    ItemViewBinder<CompanyAreaCity, CompanyAreaCityViewBinder.ViewHolder>() {
+class CompanyAreaPlaceViewBinder :
+    ItemViewBinder<CompanyAreaPlace, CompanyAreaPlaceViewBinder.ViewHolder>() {
 
     @NonNull
     override fun onCreateViewHolder(@NonNull inflater: LayoutInflater, @NonNull parent: ViewGroup): ViewHolder {
-        val root = inflater.inflate(R.layout.item_mine_company_select_area_city, parent, false)
-        return ViewHolder(root)
+        val root = inflater.inflate(R.layout.item_mine_company_select_area_place, parent, false)
+        return ViewHolder(
+            root
+        )
     }
 
-    override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull companyAreaCity: CompanyAreaCity) {
-        holder.item.text = companyAreaCity.city
+    override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull companyAreaPlace: CompanyAreaPlace) {
+        holder.place.text = companyAreaPlace.place
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val item: TextView = itemView.findViewById(R.id.text)
+        val place: TextView = itemView.findViewById(R.id.place)
     }
 }

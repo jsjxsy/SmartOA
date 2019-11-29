@@ -1,7 +1,6 @@
 package com.gx.smart.smartoa.activity.ui.mine
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +14,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.activity.ui.meetings.MeetingScheduleActivity
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 class MineFragment : Fragment() {
@@ -70,9 +68,15 @@ class MineFragment : Fragment() {
             when (position) {
                 0 -> Navigation.findNavController(view).navigate(R.id.action_mineFragment_to_mineCompanyActivity)
                 1 -> Navigation.findNavController(view).navigate(R.id.action_mineFragment_to_meetingScheduleActivity)
-                2 -> Navigation.findNavController(view).navigate(R.id.action_mineFragment_to_mineActionFragment)
-                3 -> Navigation.findNavController(view).navigate(R.id.action_mineFragment_to_mineActionFragment)
+                2 -> Navigation.findNavController(view).navigate(R.id.action_mineFragment_to_mineActionActivity)
+                3 -> Navigation.findNavController(view).navigate(R.id.action_mineFragment_to_visitorActivity)
             }
+        }
+        setting.setOnClickListener {
+            Navigation.findNavController(it).navigate(R.id.action_mineFragment_to_settingActivity)
+        }
+        mine_user_info_text_view.setOnClickListener {
+            Navigation.findNavController(it).navigate(R.id.action_mineFragment_to_settingActivity)
         }
     }
 

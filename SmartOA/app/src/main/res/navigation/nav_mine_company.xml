@@ -51,13 +51,9 @@
         tools:layout="@layout/fragment_mine_company_employees_name" />
     <fragment
         android:id="@+id/mineCompanyEmployeesPhoneFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.mine.MineCompanyEmployeesPhoneFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.company.MineCompanyEmployeesPhoneFragment"
         android:label="fragment_mine_company_employees_phone"
         tools:layout="@layout/fragment_mine_company_employees_phone" />
 
-    <activity
-        android:id="@+id/mineCompanyActivity"
-        android:name="com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity"
-        android:label="fragment_mine_company"
-        tools:layout="@layout/fragment_mine_company"/>
+
 </navigation>
