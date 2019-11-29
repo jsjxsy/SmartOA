@@ -6,7 +6,7 @@
     app:startDestination="@id/mineCompanyFragment">
     <fragment
         android:id="@+id/mineCompanyFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.mine.MineCompanyFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.company.MineCompanyFragment"
         android:label="fragment_mine_company"
         tools:layout="@layout/fragment_mine_company" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/mineCompanySelectAreaFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.mine.MineCompanySelectAreaFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.company.MineCompanySelectAreaFragment"
         android:label="fragment_mine_company_select_area"
         tools:layout="@layout/fragment_mine_company_select_area" >
         <action
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/mineCompanySelectCompanyFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.mine.MineCompanySelectCompanyFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.company.MineCompanySelectCompanyFragment"
         android:label="fragment_mine_company_select_company"
         tools:layout="@layout/fragment_mine_company_select_company" >
         <action
@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/mineCompanyEmployeesFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.mine.MineCompanyEmployeesFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.company.MineCompanyEmployeesFragment"
         android:label="fragment_mine_company_employees"
         tools:layout="@layout/fragment_mine_company_employees" >
         <action
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/mineCompanyEmployeesNameFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.mine.MineCompanyEmployeesNameFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.company.MineCompanyEmployeesNameFragment"
         android:label="fragment_mine_company_employees_name"
         tools:layout="@layout/fragment_mine_company_employees_name" />
     <fragment
@@ -54,4 +54,10 @@
         android:name="com.gx.smart.smartoa.activity.ui.mine.MineCompanyEmployeesPhoneFragment"
         android:label="fragment_mine_company_employees_phone"
         tools:layout="@layout/fragment_mine_company_employees_phone" />
+
+    <activity
+        android:id="@+id/mineCompanyActivity"
+        android:name="com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity"
+        android:label="fragment_mine_company"
+        tools:layout="@layout/fragment_mine_company"/>
 </navigation>

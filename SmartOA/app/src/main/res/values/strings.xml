@@ -99,5 +99,8 @@
 
     <string name="forget_password">忘记密码</string>
     <string name="open_door">开门</string>
+    <string name="meeting_time">会议时间</string>
+    <string name="mine_schedule">我的预订</string>
+    <string name="mine_schedule_detail">预订详情</string>
 
 </resources>

@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.ui.meetings.MeetingScheduleActivity
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 class MineFragment : Fragment() {
@@ -67,8 +68,8 @@ class MineFragment : Fragment() {
         mineList.adapter = adapter
         mineList.setOnItemClickListener { _, view, position, _ ->
             when (position) {
-                0 -> startActivity(Intent(activity, MineCompanyActivity::class.java))
-                1 -> Navigation.findNavController(view).navigate(R.id.action_mineFragment_to_meetingMyReservationFragment)
+                0 -> Navigation.findNavController(view).navigate(R.id.action_mineFragment_to_mineCompanyActivity)
+                1 -> Navigation.findNavController(view).navigate(R.id.action_mineFragment_to_meetingScheduleActivity)
                 2 -> Navigation.findNavController(view).navigate(R.id.action_mineFragment_to_mineActionFragment)
                 3 -> Navigation.findNavController(view).navigate(R.id.action_mineFragment_to_mineActionFragment)
             }

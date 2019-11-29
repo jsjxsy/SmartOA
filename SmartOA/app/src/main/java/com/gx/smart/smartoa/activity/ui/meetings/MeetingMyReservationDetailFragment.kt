@@ -6,13 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 
 import com.gx.smart.smartoa.R
+import kotlinx.android.synthetic.main.layout_common_title.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class MeetingMyReservationDetailFragment : Fragment() {
+class MeetingMyReservationDetailFragment : Fragment(),View.OnClickListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,6 +22,28 @@ class MeetingMyReservationDetailFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_meeting_my_reservation_detail, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initTitle()
+    }
+
+    private fun initTitle() {
+        left_nav_image_view?.let {
+            it.visibility = View.VISIBLE
+            it.setOnClickListener(this)
+        }
+        center_title?.let {
+            it.text = getString(R.string.mine_schedule_detail)
+            it.visibility = View.VISIBLE
+        }
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.left_nav_image_view -> findNavController().navigateUp()
+        }
     }
 
 

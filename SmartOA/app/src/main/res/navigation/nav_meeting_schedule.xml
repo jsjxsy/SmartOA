@@ -4,6 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_login"
     app:startDestination="@id/meetingScheduleFragment">
+    <activity
+        android:id="@+id/meetingScheduleActivity"
+        android:name="com.gx.smart.smartoa.activity.ui.meetings.MeetingScheduleActivity"
+        android:label="meeting_schedule_fragment"
+        tools:layout="@layout/meeting_schedule_fragment">
+    </activity>
     <fragment
         android:id="@+id/meetingScheduleFragment"
         android:name="com.gx.smart.smartoa.activity.ui.meetings.MeetingScheduleFragment"
@@ -26,12 +32,27 @@
             app:destination="@id/meetingAttendeesFragment" />
     </fragment>
     <fragment
+        android:id="@+id/meetingAttendeesFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.meetings.MeetingAttendeesFragment"
+        android:label="fragment_metting_attendees"
+        tools:layout="@layout/fragment_metting_attendees" />
+    <fragment
         android:id="@+id/meetingMyReservationFragment"
         android:name="com.gx.smart.smartoa.activity.ui.meetings.MeetingMyReservationFragment"
         android:label="fragment_meeting_my_reservation"
         tools:layout="@layout/fragment_meeting_my_reservation" >
+        <!--参数传递-->
+        <argument android:name="topBarTitle"
+            app:argType="string"
+            android:defaultValue="主页"/>
         <action
             android:id="@+id/action_meetingMyReservationFragment_to_meetingMyReservationDetailFragment"
             app:destination="@id/meetingMyReservationDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/meetingMyReservationDetailFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.meetings.MeetingMyReservationDetailFragment"
+        android:label="fragment_meeting_my_reservation_detail"
+        tools:layout="@layout/fragment_meeting_my_reservation_detail" />
+    <action android:id="@+id/action_global_meetingMyReservationFragment" app:destination="@id/meetingMyReservationFragment"/>
 </navigation>

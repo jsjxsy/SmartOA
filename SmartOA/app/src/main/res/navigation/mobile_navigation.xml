@@ -97,8 +97,8 @@
             android:id="@+id/action_mineFragment_to_mineUserInfoFragment"
             app:destination="@id/mineUserInfoFragment" />
         <action
-            android:id="@+id/action_mineFragment_to_mineCompanyFragment"
-            app:destination="@id/mineCompanyFragment" />
+            android:id="@+id/action_mineFragment_to_mineCompanyActivity"
+            app:destination="@id/mineCompanyActivity" />
         <action
             android:id="@+id/action_mineFragment_to_mineActionFragment"
             app:destination="@id/mineActionFragment" />
@@ -106,27 +106,19 @@
             android:id="@+id/action_mineFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
         <action
-            android:id="@+id/action_mineFragment_to_meetingMyReservationFragment"
-            app:destination="@id/meetingMyReservationFragment" />
+            android:id="@+id/action_mineFragment_to_meetingScheduleActivity"
+            app:destination="@id/meetingScheduleActivity" />
     </fragment>
     <fragment
         android:id="@+id/mineActionFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.mine.MineActionFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.action.MineActionFragment"
         android:label="fragment_mine_action"
         tools:layout="@layout/fragment_mine_action" >
         <action
             android:id="@+id/action_mineActionFragment_to_mineActionDetailFragment"
             app:destination="@id/mineActionDetailFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/mineCompanyFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.mine.MineCompanyFragment"
-        android:label="fragment_mine_company"
-        tools:layout="@layout/fragment_mine_company" >
-        <action
-            android:id="@+id/action_mineCompanyFragment_to_mineCompanySelectAreaFragment"
-            app:destination="@id/mineCompanySelectAreaFragment" />
-    </fragment>
+
     <fragment
         android:id="@+id/mineUserInfoFragment"
         android:name="com.gx.smart.smartoa.activity.ui.mine.MineUserInfoFragment"
@@ -154,7 +146,7 @@
         tools:layout="@layout/fragment_mine_visitor" />
     <fragment
         android:id="@+id/mineActionDetailFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.mine.MineActionDetailFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.action.MineActionDetailFragment"
         android:label="fragment_mine_action_detail"
         tools:layout="@layout/fragment_mine_action_detail" />
     <fragment
@@ -204,17 +196,9 @@
         android:label="fragment_suggestion"
         tools:layout="@layout/fragment_suggestion" />
 
-    <fragment
-        android:id="@+id/meetingMyReservationDetailFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.meetings.MeetingMyReservationDetailFragment"
-        android:label="fragment_meeting_my_reservation_detail"
-        tools:layout="@layout/fragment_meeting_my_reservation_detail" />
 
-    <fragment
-        android:id="@+id/meetingAttendeesFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.meetings.MeetingAttendeesFragment"
-        android:label="fragment_metting_attendees"
-        tools:layout="@layout/fragment_metting_attendees" />
+
+
     <action android:id="@+id/action_global_navigation_home" app:destination="@id/navigation_home" />
     <action android:id="@+id/action_global_mineFragment" app:destination="@id/mineFragment" />
     <action android:id="@+id/action_global_openDoorFragment" app:destination="@id/openDoorFragment" />

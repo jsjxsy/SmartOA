@@ -18,7 +18,7 @@
         <activity android:name=".activity.ui.work.SharedWorkActivity" />
         <activity android:name=".activity.ui.meetings.MeetingScheduleActivity" />
         <activity android:name=".activity.ui.open.OpenDoorActivity" />
-        <activity android:name=".activity.ui.mine.MineCompanyActivity" />
+        <activity android:name=".activity.ui.company.MineCompanyActivity" />
         <activity android:name=".activity.ui.visitor.VisitorActivity" />
         <activity android:name=".activity.ui.attendance.AttendanceActivity" />
         <activity android:name=".activity.ui.features.AllFeatureActivity" />

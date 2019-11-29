@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.activity.ui.mine
+package com.gx.smart.smartoa.activity.ui.company
 
 
 import android.os.Bundle
@@ -12,14 +12,14 @@ import com.gx.smart.smartoa.R
 /**
  * A simple [Fragment] subclass.
  */
-class MineActionFragment : Fragment() {
+class MineCompanySelectCompanyFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mine_action, container, false)
+        return inflater.inflate(R.layout.fragment_mine_company_select_company, container, false)
     }
 
 

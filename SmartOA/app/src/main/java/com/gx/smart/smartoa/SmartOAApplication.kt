@@ -41,6 +41,7 @@ class SmartOAApplication : Application() {
         preInitX5Core()
         Logger.d("SmartOAApplication initLogger")
         initPush()
+        CrashHandler.instance.init(this)
     }
 
 

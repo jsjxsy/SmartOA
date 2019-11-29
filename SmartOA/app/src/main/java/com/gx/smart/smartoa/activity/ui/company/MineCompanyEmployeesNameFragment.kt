@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.activity.ui.mine
+package com.gx.smart.smartoa.activity.ui.company
 
 import android.content.Context
 import android.net.Uri

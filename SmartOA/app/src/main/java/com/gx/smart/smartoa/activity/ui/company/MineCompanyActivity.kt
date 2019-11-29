@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.activity.ui.mine
+package com.gx.smart.smartoa.activity.ui.company
 
 import android.os.Bundle
 import com.gx.smart.smartoa.R
