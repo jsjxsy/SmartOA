@@ -47,17 +47,34 @@
                 android:inputType="phone"
                 android:text="@={userModel.phone}" />
 
-            <EditText
-                android:id="@+id/id_input_password_edit_text"
-                style="@style/editTextStyle"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/margin_style_two"
-                android:drawableLeft="@drawable/ic_login_password"
-                android:drawableRight="@drawable/ic_login_password_state"
-                android:hint="@string/login_input_password"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword"
-                android:text="@={userModel.password}" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_style_two">
+                <EditText
+                    android:id="@+id/id_input_password_edit_text"
+                    style="@style/editTextStyle"
+                    android:layout_width="match_parent"
+                    android:drawableLeft="@drawable/ic_login_password"
+                    android:drawableRight="@drawable/ic_login_password_state"
+                    android:hint="@string/login_input_password"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:text="@={userModel.password}" />
+                <TextView
+                    android:id="@+id/getVerifyCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/get_verify_code"
+                    android:layout_marginRight="28dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/font_color_style_two"
+                    android:textSize="@dimen/font_size_style_one"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/id_forget_password_text_view"
@@ -86,11 +103,13 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="42dp"
                 android:text="@string/login_register"
-                android:textColor="@color/font_color_style_four"
+                android:textColor="@color/font_color_style_two"
                 android:textSize="@dimen/font_size_style_one" />
         </LinearLayout>
 
+
         <TextView
+            android:id="@+id/loginType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="49dp"

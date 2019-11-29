@@ -2,6 +2,7 @@ package com.gx.smart.smartoa.activity.ui.mine
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,16 @@ class MineFragment : Fragment() {
     }
 
     private lateinit var viewModel: MineViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.window?.statusBarColor = Color.TRANSPARENT
+    }
+
+    override fun onStart() {
+        super.onStart()
+        activity?.window?.statusBarColor = Color.TRANSPARENT
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

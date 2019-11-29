@@ -1,6 +1,7 @@
 package com.gx.smart.smartoa.activity.ui.login
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,9 @@ class LoginFragment : Fragment(), OnClickListener {
                 Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_forgetPasswordFragment)
             R.id.id_register_text_view ->
                 Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment)
+            R.id.loginType -> loginType()
+            R.id.getVerifyCode -> getVerifyCode()
+
         }
     }
 
@@ -32,8 +36,24 @@ class LoginFragment : Fragment(), OnClickListener {
     }
 
     private lateinit var viewModel: LoginViewModel
+    private var loginFlag = LoginTypeEnum.PHONE
+
+    enum class LoginTypeEnum {
+        PHONE, VERIFY_CODE
+    }
 
     var user = User("", "")
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.window?.statusBarColor = Color.TRANSPARENT
+    }
+
+    override fun onStart() {
+        super.onStart()
+        activity?.window?.statusBarColor = Color.TRANSPARENT
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,8 +75,45 @@ class LoginFragment : Fragment(), OnClickListener {
         id_login_button.setOnClickListener(this)
         id_forget_password_text_view.setOnClickListener(this)
         id_register_text_view.setOnClickListener(this)
+        loginType.setOnClickListener(this)
+        getVerifyCode.setOnClickListener(this)
     }
 
+    private fun loginType() {
+        when (loginFlag) {
+            LoginTypeEnum.PHONE -> {
+                loginFlag = LoginTypeEnum.VERIFY_CODE
+                loginType.text = getString(R.string.login_phone_verify)
+                val leftDrawable =
+                    resources.getDrawable(R.drawable.ic_login_password, activity?.theme)
+                val rightDrawable =
+                    resources.getDrawable(R.drawable.ic_login_password_state, activity?.theme)
+                id_input_password_edit_text.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    leftDrawable,
+                    null,
+                    rightDrawable,
+                    null
+                )
+                getVerifyCode.visibility = View.GONE
+
+            }
+            LoginTypeEnum.VERIFY_CODE -> {
+                loginFlag = LoginTypeEnum.PHONE
+                loginType.text = getString(R.string.login_phone_password)
+                val leftDrawable =
+                    resources.getDrawable(R.drawable.ic_login_password, activity?.theme)
+                id_input_password_edit_text.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    leftDrawable,
+                    null,
+                    null,
+                    null
+                )
+                getVerifyCode.visibility = View.VISIBLE
+            }
+        }
+
+
+    }
 
     /**
      * 点击登陆
@@ -68,6 +125,10 @@ class LoginFragment : Fragment(), OnClickListener {
         if (user.phone.isNotEmpty() && user.password.isNotEmpty()) {
             startActivity(Intent(activity, MainActivity::class.java))
         }
+    }
+
+    private fun getVerifyCode() {
+
     }
 
 }

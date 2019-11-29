@@ -41,6 +41,18 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private val adapter = MultiTypeAdapter()
     private val items = ArrayList<Any>()
     private lateinit var context: FragmentActivity
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.window?.statusBarColor = Color.TRANSPARENT
+    }
+
+    override fun onStart() {
+        super.onStart()
+        activity?.window?.statusBarColor = Color.TRANSPARENT
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,7 +74,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private fun initRecyclerView() {
         val refreshLayout = view?.findViewById<SmartRefreshLayout>(R.id.refreshLayout)
         refreshLayout?.setOnRefreshListener { refreshLayout.finishRefresh(2000) }
-        refreshLayout?.setOnLoadmoreListener { refreshLayout -> refreshLayout.finishLoadmore(2000) }
+        refreshLayout?.isEnableLoadmore = false
 
         val recyclerView = view?.findViewById<RecyclerView>(R.id.homeRecyclerView)
         adapter.register(HomeHeadViewBinder())

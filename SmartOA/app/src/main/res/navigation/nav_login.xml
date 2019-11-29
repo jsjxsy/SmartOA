@@ -20,12 +20,12 @@
     </fragment>
     <fragment
         android:id="@+id/forgetPasswordFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.password.ForgetPasswordFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.login.password.ForgetPasswordFragment"
         android:label="forget_password_fragment"
         tools:layout="@layout/forget_password_fragment" />
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.register.RegisterFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.login.register.RegisterFragment"
         android:label="register_fragment"
         tools:layout="@layout/register_fragment" />
 </navigation>
