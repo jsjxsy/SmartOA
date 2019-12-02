@@ -51,8 +51,8 @@
         <argument
             android:name="toMeetingMyReservationFragment"
             app:nullable="false"
-            app:argType="boolean"
-            android:defaultValue="true"
+            app:argType="string"
+            android:defaultValue="toMeetingMyReservationFragment"
             />
     </activity>
     <activity

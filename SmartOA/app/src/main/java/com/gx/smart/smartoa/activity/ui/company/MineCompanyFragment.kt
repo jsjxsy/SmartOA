@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 class MineCompanyFragment : Fragment(),View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id) {
-            R.id.addCompany -> Navigation.findNavController(activity as Activity, R.id.mimeCompanyFragment).navigate(R.id.action_mineCompanyFragment_to_mineCompanySelectAreaFragment)
+            R.id.addCompany -> Navigation.findNavController(v).navigate(R.id.action_mineCompanyFragment_to_mineCompanySelectAreaFragment)
             R.id.left_nav_image_view -> activity?.onBackPressed()
         }
 

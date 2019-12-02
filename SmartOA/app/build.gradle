@@ -117,4 +117,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation project(path: ':webview')
     implementation project(path: ':push')
+    implementation project(path: ':custom_ldialog')
+    implementation project(path: ':ldialog')
 }

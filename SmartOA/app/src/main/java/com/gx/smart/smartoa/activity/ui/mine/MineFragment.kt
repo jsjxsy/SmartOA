@@ -76,7 +76,7 @@ class MineFragment : Fragment() {
             Navigation.findNavController(it).navigate(R.id.action_mineFragment_to_settingActivity)
         }
         mine_user_info_text_view.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_mineFragment_to_settingActivity)
+            Navigation.findNavController(it).navigate(R.id.action_mineFragment_to_userActivity)
         }
     }
 

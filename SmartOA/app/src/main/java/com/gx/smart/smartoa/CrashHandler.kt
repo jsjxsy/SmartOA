@@ -2,8 +2,8 @@ package com.gx.smart.smartoa
 
 import android.content.Context
 import android.os.Environment
+import android.os.Process
 import android.util.Log
-import androidx.annotation.NonNull
 import java.io.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -46,6 +46,7 @@ class CrashHandler private constructor() : Thread.UncaughtExceptionHandler {
     ) { // 提示信息
         if (!handleException(ex) && mDefaultHandler != null) { // 如果用户没有处理则让系统默认的异常处理器来处
             mDefaultHandler!!.uncaughtException(thread, ex)
+            appExit()
         }
     }
 
@@ -109,6 +110,19 @@ class CrashHandler private constructor() : Thread.UncaughtExceptionHandler {
             )
         }
         return null
+    }
+
+    /**
+     * 退出应用程序
+     */
+    fun appExit() {
+        try {
+            // 杀死该应用进程
+            Process.killProcess(Process.myPid())
+            System.exit(0)
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
     }
 
     companion object {

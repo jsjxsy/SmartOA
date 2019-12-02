@@ -102,5 +102,24 @@
     <string name="meeting_time">会议时间</string>
     <string name="mine_schedule">我的预订</string>
     <string name="mine_schedule_detail">预订详情</string>
+    <string name="head_image">头像</string>
+    <string name="nick_name">昵称</string>
+    <string name="sex">性别</string>
+    <string name="bind_phone">绑定手机</string>
+    <string name="identification_verify">身份认证</string>
+    <string name="my_info">我的资料</string>
+    <string name="modify_password">修改密码</string>
+    <string name="input_name">请输入姓名</string>
+    <string name="save">保存</string>
+    <string name="modify_nickname">修改昵称</string>
+    <string name="current_phone">当前手机号</string>
+    <string name="new_phone">新手机</string>
+    <string name="input_new_phone">输入新的手机号</string>
+    <string name="modify_phone">修改手机号</string>
+    <string name="real_name">真实姓名</string>
+    <string name="verify_card">证件号码</string>
+    <string name="input_real_name">请输入真实姓名</string>
+    <string name="input_identification_number">请输入身份证号码</string>
+    <string name="apply_company">你还未加入任何一家公司，\n请加入您所属于的公司。</string>
 
 </resources>

@@ -16,12 +16,12 @@ class MeetingScheduleActivity : BaseActivity() {
         val navHostFragment = meetingScheduleFragment as NavHostFragment
         val inflater = navHostFragment.navController.navInflater
         val graph = inflater.inflate(R.navigation.nav_meeting_schedule)
-        navHostFragment.navController.graph = graph
         if (intent.hasExtra("toMeetingMyReservationFragment")) {
             graph.startDestination = R.id.meetingMyReservationFragment
         }else{
             graph.startDestination = R.id.meetingScheduleFragment
         }
+        navHostFragment.navController.graph = graph
     }
 
     override fun onSupportNavigateUp() =

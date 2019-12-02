@@ -54,7 +54,6 @@ class MeetingMyReservationFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> findNavController().navigateUp()
-            R.id.right_nav_text_view -> findNavController().navigate(R.id.action_meetingScheduleFragment_to_meetingMyReservationFragment)
         }
     }
 }

@@ -19,17 +19,15 @@
         <action
             android:id="@+id/action_mineUserInfoFragment_to_mineUserInfoModifyPhoneFragment"
             app:destination="@id/mineUserInfoModifyPhoneFragment" />
+        <action
+            android:id="@+id/action_mineUserInfoFragment_to_mineVerifyFragment"
+            app:destination="@id/mineVerifyFragment" />
     </fragment>
     <fragment
         android:id="@+id/mineVerifyFragment"
         android:name="com.gx.smart.smartoa.activity.ui.user.MineVerifyFragment"
         android:label="fragment_mine_verify"
         tools:layout="@layout/fragment_mine_verify" />
-    <fragment
-        android:id="@+id/mineVisitorFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.visitor.MineVisitorFragment"
-        android:label="fragment_mine_visitor"
-        tools:layout="@layout/fragment_mine_visitor" />
 
     <fragment
         android:id="@+id/mineUserInfoModifyNameFragment"
