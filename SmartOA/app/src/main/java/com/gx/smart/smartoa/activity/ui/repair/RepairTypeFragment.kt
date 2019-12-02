@@ -1,15 +1,21 @@
 package com.gx.smart.smartoa.activity.ui.repair
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.gx.smart.smartoa.R
+import kotlinx.android.synthetic.main.layout_common_title.*
 
-class RepairTypeFragment : Fragment() {
+class RepairTypeFragment : Fragment(),View.OnClickListener {
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.left_nav_image_view -> activity?.onBackPressed()
+        }
+    }
 
     companion object {
         fun newInstance() = RepairTypeFragment()
@@ -28,6 +34,23 @@ class RepairTypeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(RepairTypeViewModel::class.java)
         // TODO: Use the ViewModel
+        initTitle()
+        initContent()
     }
 
+    private fun initTitle() {
+        left_nav_image_view?.let {
+            it.visibility = View.VISIBLE
+            it.setOnClickListener(this)
+        }
+        center_title.let {
+            it.text = getString(R.string.repair_type)
+        }
+
+
+    }
+
+
+    private fun initContent() {
+    }
 }

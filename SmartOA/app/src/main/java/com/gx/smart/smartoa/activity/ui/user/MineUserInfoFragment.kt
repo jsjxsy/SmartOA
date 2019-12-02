@@ -59,7 +59,7 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
             )
         ).into(headImage)
 
-        verifyCodeLayout.setOnClickListener {
+        phoneLayout.setOnClickListener {
             findNavController().navigate(R.id.action_mineUserInfoFragment_to_mineUserInfoModifyNameFragment)
         }
         sexLayout.setOnClickListener {
@@ -86,7 +86,7 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
             findNavController().navigate(R.id.action_mineUserInfoFragment_to_mineUserInfoModifyPhoneFragment)
         }
 
-        verifyLayout.setOnClickListener {
+        causeLayout.setOnClickListener {
             findNavController().navigate(R.id.action_mineUserInfoFragment_to_mineVerifyFragment)
         }
 

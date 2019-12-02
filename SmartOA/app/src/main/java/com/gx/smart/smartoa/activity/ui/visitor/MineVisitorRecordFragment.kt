@@ -12,7 +12,7 @@ import com.gx.smart.smartoa.R
 /**
  * A simple [Fragment] subclass.
  */
-class MineVisitorFragment : Fragment() {
+class MineVisitorRecordFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

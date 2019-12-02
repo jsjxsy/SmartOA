@@ -31,19 +31,19 @@
             android:layout_height="@dimen/list_item_height_style"
             android:background="@drawable/selector_background_list_view_item"
             android:gravity="center_vertical"
-            android:text="@string/visitor_name"
+            android:text="@string/place"
             android:textColor="@color/font_color_style_six"
             android:textSize="@dimen/font_size_style_one"
             />
 
-        <EditText
+        <TextView
             android:id="@+id/visitorName"
-            android:layout_width="144dp"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/list_item_height_style"
             android:layout_alignParentRight="true"
-            android:gravity="center_vertical|right"
-            android:hint="@string/input_visitor_name"
-            android:background="@android:color/white"/>
+            android:gravity="center"
+            android:text="国际中心"
+            />
     </RelativeLayout>
     <View
         android:id="@+id/line"
@@ -53,7 +53,7 @@
         android:background="@color/background_style_six" />
 
     <RelativeLayout
-        android:id="@+id/verifyCodeLayout"
+        android:id="@+id/phoneLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
@@ -77,54 +77,19 @@
             android:layout_height="@dimen/list_item_height_style"
             android:gravity="center_vertical|right"
             android:layout_alignParentRight="true"
-            android:hint="@string/input_visitor_name"
-            android:background="@android:color/white"/>
-    </RelativeLayout>
-    <View
-        android:id="@+id/lineTwo"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        app:layout_constraintTop_toBottomOf="@id/verifyCodeLayout"
-        android:background="@color/background_style_six" />
-
-    <RelativeLayout
-        android:id="@+id/verifyLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/lineTwo"
-        android:paddingLeft="@dimen/margin_style_two"
-        android:paddingRight="@dimen/margin_style_two">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/list_item_height_style"
-            android:background="@drawable/selector_background_list_view_item"
-            android:gravity="center_vertical"
-            android:text="@string/visit_cause"
-            android:textColor="@color/font_color_style_six"
-            android:textSize="@dimen/font_size_style_one"
-            />
-
-        <EditText
-            android:id="@+id/visit_cause"
-            android:layout_width="144dp"
-            android:layout_height="@dimen/list_item_height_style"
-            android:layout_alignParentRight="true"
-            android:hint="@string/input_visit_cause"
-            android:gravity="center_vertical|right"
+            android:hint="@string/input_contact_phone"
             android:background="@android:color/white"/>
     </RelativeLayout>
     <View
         android:id="@+id/lineThree"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        app:layout_constraintTop_toBottomOf="@id/verifyLayout"
+        app:layout_constraintTop_toBottomOf="@id/phoneLayout"
         android:background="@color/background_style_six" />
 
 
     <RelativeLayout
-        android:id="@+id/newPasswordLayout"
+        android:id="@+id/timeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
@@ -136,32 +101,31 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/list_item_height_style"
             android:gravity="center_vertical"
-            android:text="@string/visit_time"
+            android:text="@string/type"
             android:textColor="@color/font_color_style_six"
             android:textSize="@dimen/font_size_style_one"
             />
 
         <TextView
-            android:id="@+id/visit_time"
+            android:id="@+id/repair_type"
             android:layout_width="144dp"
             android:layout_height="@dimen/list_item_height_style"
             android:layout_alignParentRight="true"
             android:gravity="center_vertical|right"
             android:drawableRight="@drawable/ic_more_info"
             android:drawablePadding="8dp"
-            android:text="2018-01-04 11:11"
-            android:background="@android:color/white"/>
+            android:text="设备损坏" />
     </RelativeLayout>
     <View
         android:id="@+id/lineFour"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        app:layout_constraintTop_toBottomOf="@id/newPasswordLayout"
+        app:layout_constraintTop_toBottomOf="@id/timeLayout"
         android:background="@color/background_style_six" />
 
 
     <RelativeLayout
-        android:id="@+id/verifyLayout"
+        android:id="@+id/contentLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
@@ -170,31 +134,43 @@
         android:paddingRight="@dimen/margin_style_two">
 
         <TextView
+            android:id="@+id/content"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/list_item_height_style"
             android:background="@drawable/selector_background_list_view_item"
             android:gravity="center_vertical"
-            android:text="@string/visit_car"
+            android:text="@string/content"
+            android:layout_marginRight="@dimen/margin_style_four"
             android:textColor="@color/font_color_style_six"
             android:textSize="@dimen/font_size_style_one"
             />
 
         <EditText
-            android:id="@+id/visit_car"
-            android:layout_width="144dp"
+            android:id="@+id/contentEdit"
+            android:layout_width="match_parent"
+            android:layout_toRightOf="@id/content"
             android:layout_height="@dimen/list_item_height_style"
             android:layout_alignParentRight="true"
-            android:hint="@string/input_visit_car"
-            android:gravity="center_vertical|right"
-            android:background="@android:color/white"/>
+            android:hint="@string/input_content" />
+
+        <ImageView
+            android:layout_below="@id/content"
+            android:id="@+id/addImage"
+            android:layout_marginTop="@dimen/margin_style_six"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ic_add"
+            android:layout_marginBottom="@dimen/margin_style_two"
+            />
     </RelativeLayout>
 
     <Button
+        android:id="@+id/save"
         style="@style/buttonStyle"
-        app:layout_constraintTop_toBottomOf="@id/verifyLayout"
+        app:layout_constraintTop_toBottomOf="@id/contentLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/submit_apply"
+        android:text="@string/save"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

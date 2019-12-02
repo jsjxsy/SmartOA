@@ -1,14 +1,12 @@
 package com.gx.smart.smartoa.activity.ui.company
 
 
-import android.app.Activity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-
 import com.gx.smart.smartoa.R
 import kotlinx.android.synthetic.main.fragment_mine_company.*
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -16,9 +14,9 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 /**
  * A simple [Fragment] subclass.
  */
-class MineCompanyFragment : Fragment(),View.OnClickListener {
+class MineCompanyFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
-        when(v?.id) {
+        when (v?.id) {
             R.id.addCompany -> Navigation.findNavController(v).navigate(R.id.action_mineCompanyFragment_to_mineCompanySelectAreaFragment)
             R.id.left_nav_image_view -> activity?.onBackPressed()
         }
@@ -38,7 +36,6 @@ class MineCompanyFragment : Fragment(),View.OnClickListener {
         initTitle()
         addCompany.setOnClickListener(this)
     }
-
 
 
     private fun initTitle() {

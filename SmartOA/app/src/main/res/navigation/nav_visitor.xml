@@ -2,39 +2,23 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_setting"
-    app:startDestination="@id/settingFragment">
+    android:id="@+id/nav_visitor"
+    app:startDestination="@id/visitorFragment">
+
 
     <fragment
-        android:id="@+id/settingFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.setting.SettingFragment"
-        android:label="setting_fragment"
-        tools:layout="@layout/setting_fragment">
+        android:id="@+id/visitorFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.visitor.VisitorFragment"
+        android:label="fragment_visitor"
+        tools:layout="@layout/visitor_fragment" >
         <action
-            android:id="@+id/action_settingFragment_to_suggestionFragment"
-            app:destination="@id/suggestionFragment" />
-        <action
-            android:id="@+id/action_settingFragment_to_notDisturbFragment"
-            app:destination="@id/notDisturbFragment" />
-        <action
-            android:id="@+id/action_settingFragment_to_clearCacheFragment"
-            app:destination="@id/clearCacheFragment" />
+            android:id="@+id/action_visitorFragment_to_mineVisitorFragment"
+            app:destination="@id/mineVisitorRecordFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/clearCacheFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.setting.ClearCacheFragment"
-        android:label="fragment_clear_cache"
-        tools:layout="@layout/fragment_clear_cache" />
-
-    <fragment
-        android:id="@+id/notDisturbFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.setting.NotDisturbFragment"
-        android:label="fragment_not_disturb"
-        tools:layout="@layout/fragment_not_disturb" />
-    <fragment
-        android:id="@+id/suggestionFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.setting.SuggestionFragment"
-        android:label="fragment_suggestion"
-        tools:layout="@layout/fragment_suggestion" />
+        android:id="@+id/mineVisitorRecordFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.visitor.MineVisitorRecordFragment"
+        android:label="fragment_mine_visitor"
+        tools:layout="@layout/fragment_mine_visitor" />
 </navigation>

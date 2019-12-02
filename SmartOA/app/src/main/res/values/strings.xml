@@ -26,6 +26,8 @@
     <string name="meeting_schedule">会议预定</string>
     <string name="attendance">智慧考勤</string>
     <string name="repair">报事报修</string>
+    <string name="repair_record">报修记录</string>
+    <string name="repair_type">报修类型</string>
     <string name="air_quality">空气质量</string>
     <string name="share_work">共享工作</string>
     <string name="visitor">访客邀请</string>
@@ -121,5 +123,10 @@
     <string name="input_real_name">请输入真实姓名</string>
     <string name="input_identification_number">请输入身份证号码</string>
     <string name="apply_company">你还未加入任何一家公司，\n请加入您所属于的公司。</string>
+    <string name="place">地点</string>
 
+    <string name="input_contact_phone">请输入联系电话</string>
+    <string name="type">类型</string>
+    <string name="content">内容</string>
+    <string name="input_content">请输入内容......</string>
 </resources>
