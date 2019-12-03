@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_fresh_air_.*
+import kotlinx.android.synthetic.main.fragment_fresh_air.*
 
 class FreshAirFragment : BaseFragment() {
 
@@ -24,7 +24,7 @@ class FreshAirFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_fresh_air_, container, false)
+        return inflater.inflate(R.layout.fragment_fresh_air, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
