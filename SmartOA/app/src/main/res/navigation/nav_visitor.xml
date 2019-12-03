@@ -10,7 +10,7 @@
         android:id="@+id/visitorFragment"
         android:name="com.gx.smart.smartoa.activity.ui.visitor.VisitorFragment"
         android:label="fragment_visitor"
-        tools:layout="@layout/visitor_fragment" >
+        tools:layout="@layout/visitor_fragment">
         <action
             android:id="@+id/action_visitorFragment_to_mineVisitorFragment"
             app:destination="@id/mineVisitorRecordFragment" />

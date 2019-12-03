@@ -75,7 +75,13 @@
         android:id="@+id/visitorActivity"
         android:name="com.gx.smart.smartoa.activity.ui.visitor.VisitorActivity"
         android:label="VisitorActivity"
-        tools:layout="@layout/fragment_mine_visitor"/>
+        tools:layout="@layout/fragment_mine_visitor">
+        <argument
+            android:name="toMineVisitorRecordFragment"
+            android:defaultValue="toMineVisitorRecordFragment"
+            app:argType="string"
+            app:nullable="false" />
+    </activity>
     <activity
         android:id="@+id/userActivity"
         android:name="com.gx.smart.smartoa.activity.ui.user.UserActivity"

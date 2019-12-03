@@ -134,4 +134,6 @@
 
     <string name="employee_card">工牌/名片</string>
     <string name="phone_no">电话号码</string>
+    <string name="action_detail">活动详情</string>
+
 </resources>

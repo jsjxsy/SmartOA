@@ -2,17 +2,18 @@ package com.gx.smart.smartoa.activity.ui.action
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
 import com.gx.smart.smartoa.R
+import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.list_action_layout.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class MineActionDetailFragment : Fragment() {
+class MineActionDetailFragment : Fragment(), View.OnClickListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,4 +24,30 @@ class MineActionDetailFragment : Fragment() {
     }
 
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initTitle()
+        initContent()
+    }
+
+    private fun initTitle() {
+        left_nav_image_view?.let {
+            it.visibility = View.VISIBLE
+            it.setOnClickListener(this)
+        }
+        center_title.let {
+            it.visibility = View.VISIBLE
+            it.text = getString(R.string.action_detail)
+        }
+    }
+
+    private fun initContent() {
+        val adapter = ActionAdapter()
+        adapter.mList = arrayListOf(Action("", ""))
+        recyclerView.adapter = adapter
+    }
+
+    override fun onClick(v: View?) {
+
+    }
 }
