@@ -1,17 +1,13 @@
 package com.gx.smart.smartoa.activity.ui.environmental
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DividerItemDecoration
-
+import androidx.lifecycle.ViewModelProviders
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.base.BaseFragment
 import kotlinx.android.synthetic.main.air_conditioner_fragment.*
-import kotlinx.android.synthetic.main.curtain_fragment.*
 
 class AirConditionerFragment : BaseFragment() {
 
@@ -32,11 +28,6 @@ class AirConditionerFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AirConditionerViewModel::class.java)
-        // TODO: Use the ViewModel
-        val divider = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
-        val drawable = resources.getDrawable(R.drawable.shape_environmental_control_line, null)
-        divider.setDrawable(drawable)
-        airConditionerRecyclerView!!.addItemDecoration(divider)
 
         adapter.register(AirConditionerViewBinder())
         airConditionerRecyclerView?.adapter = adapter

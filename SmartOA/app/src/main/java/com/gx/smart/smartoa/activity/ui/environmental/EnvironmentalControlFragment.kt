@@ -38,7 +38,6 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(EnvironmentalControlViewModel::class.java)
-        // TODO: Use the ViewModel
         initTitle()
         initHead()
         initData()
@@ -57,11 +56,11 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
 
         adapter.register(LightHeadItemViewBinder())
         id_environmental_control_head.adapter = adapter
-        val headTextItem1 = LightHeadItem("研发大灯1", R.drawable.ic_light_all_open)
-        val headTextItem2 = LightHeadItem("研发大灯2", R.drawable.ic_light_all_close)
-        val headTextItem3 = LightHeadItem("研发大灯3", R.drawable.ic_sleep)
-        val headTextItem4 = LightHeadItem("研发大灯3", R.drawable.ic_work_off)
-        val headTextItem5 = LightHeadItem("研发大灯3", R.drawable.ic_tea)
+        val headTextItem1 = LightHeadItem("灯光全关", R.drawable.ic_light_all_open)
+        val headTextItem2 = LightHeadItem("灯光全开", R.drawable.ic_light_all_close)
+        val headTextItem3 = LightHeadItem("午休模式", R.drawable.ic_sleep)
+        val headTextItem4 = LightHeadItem("下班模式", R.drawable.ic_work_off)
+        val headTextItem5 = LightHeadItem("下午茶", R.drawable.ic_tea)
         items.add(headTextItem1)
         items.add(headTextItem2)
         items.add(headTextItem3)

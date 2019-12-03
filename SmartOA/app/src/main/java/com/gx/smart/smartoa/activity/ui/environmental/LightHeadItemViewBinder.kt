@@ -20,34 +20,34 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.blankj.utilcode.util.ActivityUtils
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
 
-/**
- * @author Drakeet Xu
- */
-class LightHeadItemViewBinder : ItemViewBinder<LightHeadItem, LightHeadItemViewBinder.TextHolder>() {
+class LightHeadItemViewBinder :
+    ItemViewBinder<LightHeadItem, LightHeadItemViewBinder.TextHolder>() {
 
 
-  class TextHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val text: TextView = itemView.findViewById(R.id.text)
-  }
+    class TextHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val text: TextView = itemView.findViewById(R.id.text)
+    }
 
-  override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): TextHolder {
-    return TextHolder(inflater.inflate(R.layout.item_environmental_control_head_text_view, parent, false))
-  }
+    override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): TextHolder {
+        return TextHolder(
+            inflater.inflate(
+                R.layout.item_environmental_control_head_text_view,
+                parent,
+                false
+            )
+        )
+    }
 
-  @SuppressLint("SetTextI18n")
-  override fun onBindViewHolder(holder: TextHolder, item: LightHeadItem) {
-    holder.text.text =  item.text
-    //val topDrawable = ActivityUtils.getTopActivity().resources.getDrawable(item.resId, null)
-    //holder.text.setCompoundDrawables(null, topDrawable, null, null)
-  }
+    @SuppressLint("SetTextI18n")
+    override fun onBindViewHolder(holder: TextHolder, item: LightHeadItem) {
+        holder.text.text = item.text
+        val topDrawable = holder.itemView.resources.getDrawable(item.resId, null)
+        holder.text.setCompoundDrawablesRelativeWithIntrinsicBounds(null, topDrawable, null, null)
+    }
 
 }

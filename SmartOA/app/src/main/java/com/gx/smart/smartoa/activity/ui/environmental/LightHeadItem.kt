@@ -16,43 +16,7 @@
 
 package  com.gx.smart.smartoa.activity.ui.environmental
 
-import com.google.gson.Gson
-import com.gx.smart.smartoa.activity.ui.Savable
-import java.nio.charset.Charset
+import androidx.annotation.DrawableRes
+import androidx.annotation.NonNull
 
-/**
- * @author Drakeet Xu
- */
-class LightHeadItem : Savable {
-
-    lateinit var text: String
-     var resId: Int = -1
-
-    constructor(text: String, resId: Int) {
-
-        this.text = text
-        this.resId = resId
-    }
-
-    constructor(data: ByteArray) {
-        init(data)
-    }
-
-    override fun init(data: ByteArray) {
-        val json = String(data, UTF_8)
-        this.text = Gson().fromJson(json, LightHeadItem::class.java).text
-        this.resId = Gson().fromJson(json, LightHeadItem::class.java).resId
-    }
-
-    override fun toBytes(): ByteArray {
-        return Gson().toJson(this).toByteArray(UTF_8)
-    }
-
-    override fun describe(): String {
-        return "Text"
-    }
-
-    companion object {
-        private val UTF_8 = Charset.forName("UTF-8")
-    }
-}
+data class LightHeadItem(@NonNull val text: String, @DrawableRes val resId: Int)

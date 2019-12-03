@@ -14,32 +14,40 @@
   ~ limitations under the License.
   -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/shape_list_item_background_color"
-    android:gravity="center"
-    android:paddingLeft="16dp"
-    android:paddingTop="11dp"
-    android:paddingRight="16dp"
-    android:paddingBottom="11dp">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/selector_environmental_light_panel_background"
-        android:drawablePadding="7.5dp"
-        android:gravity="center_vertical"
-        android:textColor="@drawable/selector_environmental_light_text_view"
-        android:textSize="@dimen/font_size_style_one"
-        tools:text="研发调光面板" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_item_height_style_two"
+        android:layout_marginLeft="@dimen/margin_style_four"
+        android:layout_marginTop="@dimen/margin_style_seven"
+        android:layout_marginRight="@dimen/margin_style_four"
+        android:layout_marginBottom="@dimen/margin_style_seven"
+        android:background="@drawable/shape_list_item_background_color"
+        android:gravity="center"
+        android:padding="@dimen/padding_style_one">
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switchLightPanel"
-        android:layout_width="44dp"
-        android:layout_height="16dp"
-        android:layout_alignParentEnd="true"
-        android:theme="@style/switchStyle" />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/selector_environmental_light_background"
+            android:drawablePadding="7.5dp"
+            android:gravity="center_vertical"
+            android:textColor="@drawable/selector_environmental_light_text_view"
+            android:textSize="@dimen/font_size_style_one"
+            tools:text="研发调光面板" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchLightPanel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:theme="@style/switchStyle" />
+    </RelativeLayout>
+</LinearLayout>
+
+

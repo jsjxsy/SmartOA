@@ -143,6 +143,9 @@
     <string name="tip">启用后，将不会收到来自\"智慧办公\"的任何通知消息</string>
     <string name="input_suggestion">输入你想说的话......</string>
     <string name="confirm_submit">确认提交</string>
+    <string name="open">打开</string>
+    <string name="pause">暂停</string>
+    <string name="close">关z闭</string>
 
 
 </resources>

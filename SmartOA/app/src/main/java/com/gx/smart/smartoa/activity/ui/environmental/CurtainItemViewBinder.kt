@@ -16,10 +16,10 @@
 
 package  com.gx.smart.smartoa.activity.ui.environmental
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.ItemViewBinder
@@ -32,6 +32,7 @@ class CurtainItemViewBinder : ItemViewBinder<CurtainItem, CurtainItemViewBinder.
 
     class TextHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val text: TextView = itemView.findViewById(R.id.text)
+        val curtainGroup: RadioGroup = itemView.findViewById(R.id.curtainGroup)
     }
 
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): TextHolder {
@@ -44,9 +45,12 @@ class CurtainItemViewBinder : ItemViewBinder<CurtainItem, CurtainItemViewBinder.
         )
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TextHolder, item: CurtainItem) {
         holder.text.text = item.text
+        holder.curtainGroup.setOnCheckedChangeListener { group, checkedId ->
+            holder.text.isPressed = true
+        }
+
     }
 
 }

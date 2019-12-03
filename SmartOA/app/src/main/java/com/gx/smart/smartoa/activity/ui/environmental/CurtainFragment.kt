@@ -33,8 +33,6 @@ class CurtainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(CurtainViewModel::class.java)
-        // TODO: Use the ViewModel
-
         val divider = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         val drawable = resources.getDrawable(R.drawable.shape_environmental_control_line, null)
         divider.setDrawable(drawable)

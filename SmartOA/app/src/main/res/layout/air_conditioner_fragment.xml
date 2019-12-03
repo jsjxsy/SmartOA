@@ -4,18 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_style_four"
     tools:context=".activity.ui.environmental.LightFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/airConditionerRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="12dp"
-        android:descendantFocusability="blocksDescendants"
-        android:clickable="true"
+        style="@style/recycleViewStyle"
+        android:background="@color/background_style_four"
         app:layoutManager="LinearLayoutManager"
         tools:itemCount="10"
         tools:listitem="@layout/item_environmental_control_light_panel_text_view" />

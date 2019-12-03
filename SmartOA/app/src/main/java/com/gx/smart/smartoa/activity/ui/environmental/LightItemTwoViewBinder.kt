@@ -16,12 +16,14 @@
 
 package  com.gx.smart.smartoa.activity.ui.environmental
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
+import android.widget.SeekBar
+import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatSeekBar
+import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
@@ -31,17 +33,41 @@ import com.gx.smart.smartoa.R
  */
 class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBinder.TextHolder>() {
 
-  class TextHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val text: TextView = itemView.findViewById(R.id.text)
-  }
+    class TextHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val text: TextView = itemView.findViewById(R.id.text)
+        val switchLight: SwitchCompat = itemView.findViewById(R.id.switchLight)
+        val seekBar: AppCompatSeekBar = itemView.findViewById(R.id.seekBar)
+    }
 
-  override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): TextHolder {
-    return TextHolder(inflater.inflate(R.layout.item_environmental_control_light_panel_text_view, parent, false))
-  }
+    override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): TextHolder {
+        return TextHolder(
+            inflater.inflate(
+                R.layout.item_environmental_control_light_panel_text_view,
+                parent,
+                false
+            )
+        )
+    }
 
-  @SuppressLint("SetTextI18n")
-  override fun onBindViewHolder(holder: TextHolder, item: LightItemTwo) {
-    holder.text.text = "hello: " + item.text
-  }
+    override fun onBindViewHolder(holder: TextHolder, item: LightItemTwo) {
+        holder.text.text = item.text
+        holder.switchLight.setOnCheckedChangeListener { _, isChecked ->
+            holder.text.isPressed = isChecked
+        }
+        holder.seekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+
+        })
+
+    }
 
 }

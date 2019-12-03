@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.gx.smart.smartoa.R
+import kotlinx.android.synthetic.main.air_quality_fragment.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 class AirQualityFragment : Fragment(), View.OnClickListener {
@@ -28,6 +29,7 @@ class AirQualityFragment : Fragment(), View.OnClickListener {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AirQualityViewModel::class.java)
         initTitle()
+        initContent()
     }
 
     private fun initTitle() {
@@ -39,6 +41,15 @@ class AirQualityFragment : Fragment(), View.OnClickListener {
             it.visibility = View.VISIBLE
             it.text = getString(R.string.air_quality)
         }
+    }
+
+    private fun initContent() {
+        val adapter = AirQualityAdapter()
+        adapter.mList = arrayListOf(
+            AirQuality("", ""),
+            AirQuality("", "")
+        )
+        recyclerView.adapter = adapter
     }
 
     override fun onClick(v: View?) {
