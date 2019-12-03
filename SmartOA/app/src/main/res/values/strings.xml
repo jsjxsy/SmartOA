@@ -129,4 +129,9 @@
     <string name="type">类型</string>
     <string name="content">内容</string>
     <string name="input_content">请输入内容......</string>
+    <string name="company_name">企业名称</string>
+    <string name="employee_name">员工姓名</string>
+
+    <string name="employee_card">工牌/名片</string>
+    <string name="phone_no">电话号码</string>
 </resources>

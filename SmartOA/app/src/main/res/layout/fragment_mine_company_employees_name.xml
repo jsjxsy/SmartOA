@@ -1,14 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ui.company.MineCompanyEmployeesNameFragment">
+    tools:context=".activity.ui.user.UserActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <include
+        android:id="@+id/title"
+        layout="@layout/layout_common_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="@dimen/title_height_style"
+        android:layout_marginTop="21dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/modifyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_item_height_style"
+        android:background="@android:color/white"
+        android:paddingLeft="@dimen/margin_style_two"
+        android:paddingRight="@dimen/margin_style_two"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@id/title">
+
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/list_item_height_style"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/selector_background_list_view_item"
+            android:gravity="center_vertical"
+            android:text="姓名"
+            android:textColor="@color/font_color_style_six"
+            android:textSize="@dimen/font_size_style_one" />
+
+
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_light_close"/>
+        <EditText
+            android:id="@+id/modifyName"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/list_item_height_style"
+            android:layout_toLeftOf="@id/delete"
+            android:layout_toRightOf="@id/phone"
+            android:hint="@string/input_name" />
+
+    </RelativeLayout>
+
+
+    <Button
+        style="@style/buttonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/save"
+        app:layout_constraintTop_toBottomOf="@id/modifyLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
