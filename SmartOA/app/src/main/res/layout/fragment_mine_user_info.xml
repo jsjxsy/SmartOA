@@ -18,7 +18,7 @@
 
 
     <RelativeLayout
-        android:id="@+id/mineUserInfoNameLayout"
+        android:id="@+id/notDisturbLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
@@ -56,10 +56,10 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/background_style_six"
-        app:layout_constraintTop_toBottomOf="@id/mineUserInfoNameLayout" />
+        app:layout_constraintTop_toBottomOf="@id/notDisturbLayout" />
 
     <RelativeLayout
-        android:id="@+id/phoneLayout"
+        android:id="@+id/cacheLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
@@ -91,10 +91,10 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/background_style_six"
-        app:layout_constraintTop_toBottomOf="@id/phoneLayout" />
+        app:layout_constraintTop_toBottomOf="@id/cacheLayout" />
 
     <RelativeLayout
-        android:id="@+id/sexLayout"
+        android:id="@+id/suggestionLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
@@ -127,11 +127,11 @@
         android:layout_height="0.5dp"
         android:layout_marginTop="@dimen/margin_style_one"
         android:background="@color/background_style_six"
-        app:layout_constraintTop_toBottomOf="@id/sexLayout" />
+        app:layout_constraintTop_toBottomOf="@id/suggestionLayout" />
 
 
     <RelativeLayout
-        android:id="@+id/modifyPhoneLayout"
+        android:id="@+id/aboutLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
@@ -163,7 +163,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/background_style_six"
-        app:layout_constraintTop_toBottomOf="@id/modifyPhoneLayout" />
+        app:layout_constraintTop_toBottomOf="@id/aboutLayout" />
 
 
     <RelativeLayout

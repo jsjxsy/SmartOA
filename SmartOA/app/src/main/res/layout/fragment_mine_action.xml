@@ -29,7 +29,6 @@
         android:descendantFocusability="blocksDescendants"
         android:overScrollMode="never"
         android:scrollbars="none"
-        android:visibility="invisible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="10"
         tools:listitem="@layout/item_action_layout" />

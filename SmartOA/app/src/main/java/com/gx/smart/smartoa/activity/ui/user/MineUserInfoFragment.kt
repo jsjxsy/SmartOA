@@ -59,10 +59,10 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
             )
         ).into(headImage)
 
-        phoneLayout.setOnClickListener {
+        cacheLayout.setOnClickListener {
             findNavController().navigate(R.id.action_mineUserInfoFragment_to_mineUserInfoModifyNameFragment)
         }
-        sexLayout.setOnClickListener {
+        suggestionLayout.setOnClickListener {
             val dialog = BottomTextListDialog.init(fragmentManager!!)
             dialog.setTextList(listOf("男", "女"))
                 .setOnItemClickListener(object : BottomTextListAdapter.OnItemClickListener {
@@ -82,7 +82,7 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
 
                 }).show()
         }
-        modifyPhoneLayout.setOnClickListener {
+        aboutLayout.setOnClickListener {
             findNavController().navigate(R.id.action_mineUserInfoFragment_to_mineUserInfoModifyPhoneFragment)
         }
 

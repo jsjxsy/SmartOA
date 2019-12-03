@@ -1,10 +1,10 @@
 package com.gx.smart.smartoa.activity.ui.work
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.base.BaseActivity
 
-class SharedWorkActivity : AppCompatActivity() {
+class SharedWorkActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

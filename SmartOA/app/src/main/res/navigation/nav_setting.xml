@@ -17,15 +17,15 @@
             android:id="@+id/action_settingFragment_to_notDisturbFragment"
             app:destination="@id/notDisturbFragment" />
         <action
-            android:id="@+id/action_settingFragment_to_clearCacheFragment"
-            app:destination="@id/clearCacheFragment" />
+            android:id="@+id/action_settingFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/clearCacheFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.setting.ClearCacheFragment"
-        android:label="fragment_clear_cache"
-        tools:layout="@layout/fragment_clear_cache" />
+        android:id="@+id/aboutFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.setting.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
 
     <fragment
         android:id="@+id/notDisturbFragment"

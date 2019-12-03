@@ -1,10 +1,10 @@
 package com.gx.smart.smartoa.activity.ui.setting
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.base.BaseActivity
 
-class SettingActivity : AppCompatActivity() {
+class SettingActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.gx.smart.smartoa.R
-import kotlinx.android.synthetic.main.fragment_mine_company.*
 import kotlinx.android.synthetic.main.fragment_mine_company_employees.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
@@ -52,7 +51,7 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initContent() {
-        phoneLayout.setOnClickListener {
+        cacheLayout.setOnClickListener {
             Navigation.findNavController(it)
                 .navigate(R.id.action_mineCompanyEmployeesFragment_to_mineCompanyEmployeesPhoneFragment)
         }
