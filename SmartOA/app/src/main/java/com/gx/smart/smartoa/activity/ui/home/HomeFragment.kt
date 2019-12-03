@@ -14,10 +14,7 @@ import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.features.*
 import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
-import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.scwang.smartrefresh.layout.api.RefreshLayout
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener
-import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment(), View.OnClickListener {
@@ -72,9 +69,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
 
     private fun initRecyclerView() {
-        val refreshLayout = view?.findViewById<SmartRefreshLayout>(R.id.refreshLayout)
-        refreshLayout?.setOnRefreshListener { refreshLayout.finishRefresh(2000) }
-        refreshLayout?.isEnableLoadmore = false
+        refreshLayout.setOnRefreshListener { refreshLayout.finishRefresh(2000) }
+        refreshLayout.isEnableLoadmore = false
 
         val recyclerView = view?.findViewById<RecyclerView>(R.id.homeRecyclerView)
         adapter.register(HomeHeadViewBinder())

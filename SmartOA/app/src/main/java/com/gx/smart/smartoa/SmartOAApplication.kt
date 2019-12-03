@@ -24,13 +24,19 @@ class SmartOAApplication : Application() {
     init {
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreater { context, layout ->
-            layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white)//全局设置主题颜色
+            layout.setPrimaryColorsId(
+                R.color.background_style_four,
+                R.color.font_color_style_six
+            )//全局设置主题颜色
             ClassicsHeader(context).setSpinnerStyle(SpinnerStyle.Translate)//指定为经典Header，默认是 贝塞尔雷达Header
         }
         //设置全局的Footer构建器
-        SmartRefreshLayout.setDefaultRefreshFooterCreater { context, _ ->
+        SmartRefreshLayout.setDefaultRefreshFooterCreater { context, layout ->
+            layout.setPrimaryColorsId(
+                R.color.background_style_four,
+                R.color.font_color_style_six
+            )//全局设置主题颜色
             ClassicsFooter(context).setSpinnerStyle(SpinnerStyle.Translate)
-
         }
     }
 

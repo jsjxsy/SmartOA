@@ -1,27 +1,27 @@
 package com.gx.smart.smartoa.activity.ui.environmental
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.drakeet.multitype.MultiTypeAdapter
-
 import com.gx.smart.smartoa.R
 import kotlinx.android.synthetic.main.evnironmental_control_fragment.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
-class EnvironmentalControlFragment : Fragment(),View.OnClickListener {
+class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
-        when(v?.id){
-         R.id.left_nav_image_view -> activity?.onBackPressed()
+        when (v?.id) {
+            R.id.left_nav_image_view -> activity?.onBackPressed()
         }
     }
 
     companion object {
         fun newInstance() = EnvironmentalControlFragment()
     }
+
     private lateinit var mPagerAdapter: PageAdapter
 
     private lateinit var viewModel: EnvironmentalControlViewModel
@@ -52,6 +52,9 @@ class EnvironmentalControlFragment : Fragment(),View.OnClickListener {
     }
 
     private fun initHead() {
+        refreshLayout.setOnRefreshListener { refreshLayout.finishRefresh(2000) }
+        refreshLayout.isEnableLoadmore = false
+
         adapter.register(LightHeadItemViewBinder())
         id_environmental_control_head.adapter = adapter
         val headTextItem1 = LightHeadItem("研发大灯1", R.drawable.ic_light_all_open)
@@ -72,7 +75,7 @@ class EnvironmentalControlFragment : Fragment(),View.OnClickListener {
 
         val titles = resources.getStringArray(R.array.environmental_control_items)
         mPagerAdapter = PageAdapter(fragmentManager!!)
-        for (i in 0 until titles.size){
+        for (i in 0 until titles.size) {
             mPagerAdapter.addPage(PageAdapter.PageFragmentContent(titles[i], i))
         }
         viewPager.adapter = mPagerAdapter

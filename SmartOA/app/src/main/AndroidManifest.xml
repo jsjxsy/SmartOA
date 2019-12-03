@@ -44,6 +44,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.ui.contact.ContactActivity"></activity>
+        <activity android:name=".activity.ui.Intelligence.IntelligenceParkingActivity" />
         <activity android:name=".activity.ui.user.UserActivity" />
         <activity android:name=".activity.ui.action.MineActionActivity" />
         <activity android:name=".activity.ui.air.AirQualityActivity" />
