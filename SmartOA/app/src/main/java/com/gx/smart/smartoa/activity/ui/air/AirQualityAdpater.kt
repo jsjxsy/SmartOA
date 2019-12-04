@@ -3,7 +3,6 @@ package com.gx.smart.smartoa.activity.ui.air
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.gx.smart.smartoa.R
@@ -40,18 +39,29 @@ class AirQualityAdapter :
     //填充视图
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mList!![position]
-        holder.mContent.text = item.content
+        holder.place.text = item.content
+        holder.temperature.text = item.content
+        holder.humidity.text = item.content
+        holder.pm.text = item.content
+        holder.co2.text = item.content
+        
         holder.onItemClick = onItemClick
     }
 
     class ViewHolder : RecyclerView.ViewHolder, View.OnClickListener {
         var onItemClick: OnItemClickListener? = null
-        var mContent: TextView
-        var mImage: ImageView
+        var place: TextView
+        var temperature: TextView
+        var humidity: TextView
+        var pm: TextView
+        var co2: TextView
 
         constructor(itemView: View) : super(itemView) {
-            mContent = itemView.findViewById(R.id.content)
-            mImage = itemView.findViewById(R.id.image)
+            place = itemView.findViewById(R.id.place)
+            temperature = itemView.findViewById(R.id.temperature)
+            humidity = itemView.findViewById(R.id.humidity)
+            pm = itemView.findViewById(R.id.pm)
+            co2 = itemView.findViewById(R.id.co2)
             itemView.setOnClickListener(this)
         }
 
