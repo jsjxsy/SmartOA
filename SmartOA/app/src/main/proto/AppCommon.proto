@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.gx.wisestone.work.app.grpc.common";
+option java_outer_classname = "AppCommon";
+package com.gx.wisestone.ezwork.app.grpc;
+
+
+message CommonResponse {
+    int32 code = 1;//返回码
+    string msg = 2;//返回消息
+    map<string,string> data = 3;
+    string jsonstr= 4;//json信息
+}
+
+message CommonEmptyRequest {
+
+}
+

@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package com.gx.wisestone.ezwork.app.grpc;
+option java_multiple_files = true;
+option java_package = "com.gx.wisestone.work.app.grpc.appfigure";
+option java_outer_classname = "AppFigureInterfaceService";
+
+
+service AppFigureInterface {
+
+    //广告图 所有app一样
+    rpc bannerFigure (BannerFigureRequest) returns (ImagesResponse) {
+    }
+    //轮播图 ，每个小区不同
+    rpc carouselFigure (CarouselFigureRequest) returns (ImagesResponse) {
+    }
+
+}
+
+
+message ImagesResponse {
+    int32 code = 1; //返回码
+    string msg = 2; //返回消息
+    map<string, string> data = 3;
+    repeated ImagesInfo imagesInfo = 4;
+}
+
+//广告图 所有app一样
+message BannerFigureRequest {
+
+}
+
+//轮播图 ，每个小区不同
+message CarouselFigureRequest {
+    //分库标识
+    int32 sys_tenant_no = 1;
+}
+
+message ImagesInfo {
+
+    int64 id = 1;
+    string image_url = 2; //url
+    string mime_type = 3; //扩展名
+    int32 size = 4; //大小
+    string forward_url = 5; //跳转链解
+    int32 images_index = 6;
+    int64 create_time = 7; //创建时间
+    int64 modify_time = 8; //修改时间
+    string image_key = 9; //key
+}

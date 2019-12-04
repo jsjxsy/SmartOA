@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package com.gx.wisestone.ezwork.app.grpc;
+option java_multiple_files = true;
+option java_package = "com.gx.wisestone.work.app.grpc.push";
+option java_outer_classname = "AppMessagePushProviderService";
+
+service AppMessagePushProvider{
+
+    //极光推送
+    rpc updateMessagePush(UpdateMessagePushDto) returns (UpdateMessagePushResponse) {}
+
+}
+message UpdateMessagePushResponse {
+    int32 code = 1; //返回码
+    string msg = 2; //返回消息
+}
+
+//由于要调极光id 所以这里传app_user_id
+message UpdateMessagePushDto {
+    //极光id
+    string jg_app_id = 2;
+}
+

@@ -1,6 +1,5 @@
 package com.gx.smart.smartoa.activity.ui.login
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,10 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.data.model.User
 import com.gx.smart.smartoa.databinding.FragmentLoginBinding
+import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
+import com.gx.wisestone.work.app.grpc.appuser.BindAppUserRequest
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.coroutines.*
+
 
 class LoginFragment : Fragment(), OnClickListener {
     override fun onClick(v: View) {
@@ -122,13 +124,56 @@ class LoginFragment : Fragment(), OnClickListener {
         //request network
         //result
         //jump page
-        if (user.phone.isNotEmpty() && user.password.isNotEmpty()) {
-            startActivity(Intent(activity, MainActivity::class.java))
+
+//        val nick_name: string = 2 //昵称
+//
+//        val name: string = 3 //用户姓名
+//
+//        val gender: int32 = 4 //性别1.男2女
+//
+//        val mobile: string = 5 //联系方式
+//
+//        val age: int32 = 6 //年龄
+//
+//        val identity_type: int32 = 7 //证件类型1居民身份证2居住证3签证4护照5户口本
+//
+//        val identity_card: string = 8 //证件号
+//
+//        val msg_notice: int32 = 9 //消息通知 1开启 2关闭
+//
+//        val type: int32 = 12 //用户类别1户主
+//
+//        val alarm_notice: int32 = 13 //报警通知 1开启 2关闭
+        val coroutineScope = CoroutineScope(Dispatchers.Main + Job())
+        coroutineScope.launch {
+            val response: AppInfoResponse = retrofitSuspendQuery()
+            id_login_button.text = response.msg
+
         }
+
+//        if (user.phone.isNotEmpty() && user.password.isNotEmpty()) {
+//            startActivity(Intent(activity, MainActivity::class.java))
+//        }
     }
 
     private fun getVerifyCode() {
 
+    }
+
+
+    suspend fun retrofitSuspendQuery(): AppInfoResponse {
+        return withContext(Dispatchers.Main) {
+            try {
+                val userService: UserService = ServiceCreator.create(UserService::class.java)
+                val request = BindAppUserRequest.newBuilder()
+                    .setAge(12)
+                    .setNickName("asdf")
+                    .build()
+                userService.bindAppUser(request)
+            } catch (e: Throwable) {
+                throw e
+            }
+        }
     }
 
 }

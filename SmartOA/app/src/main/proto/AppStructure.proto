@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package com.gx.wisestone.ezwork.app.grpc;
+import "AppCommon.proto";
+option java_multiple_files = true;
+option java_package = "com.gx.wisestone.work.app.grpc.structure";
+option java_outer_classname = "StructureInterfaceService";
+
+
+service StructureInterface {
+
+    //获取所有办公楼
+    rpc getSysTenantList(SysTenantListRequest) returns (CommonResponse) {}
+
+    //获取楼栋，公司，部门信息
+    rpc getBuildingInfo(AppGetBuildingInfoRequest) returns (CommonResponse) {}
+
+    //获取房间信息
+    rpc getDepartment(GetDepartmentRequest) returns (CommonResponse) {}
+
+    //申请成为公司成员
+    rpc applyEmployee(ApplyEmployeeRequest) returns (CommonResponse) {}
+
+    //修改对讲状态 不测
+    rpc appChangeSwitch(AppChangeSwitchRequest) returns (CommonResponse) {}
+
+    //添加400电话记录  不测
+    rpc appAddCustomerRecord(AddCustomerRecordRequest) returns (CommonResponse) {}
+
+}
+
+message AddCustomerRecordRequest {
+    int64 owner_id = 3;
+    string owner_name = 4;
+    string owner_mobile = 5;
+    string sys_tenant_name = 7;
+    string target_mobile = 8;  //所拨打的400电话号码
+}
+
+
+//小区列表
+message SysTenantListRequest {
+    string name = 7;
+}
+
+//获取分区信息
+message AppGetBuildingInfoRequest {
+
+}
+
+//申请成为员工 sys_tenant_no放入header
+message ApplyEmployeeRequest {
+    string name = 1;
+    string mobile = 2;
+    bytes image_bytes =3;//工牌名片
+    int64 company_id = 4; //申请哪个房间
+}
+
+//切换可视对讲状态
+message AppChangeSwitchRequest {
+    string switch_type = 1; //1可视对讲
+    string switch_value = 2;//开关 1开2关
+    int64 structure_id = 3;
+    int64 owner_id = 4;
+}
+
+//获取分区信息
+message GetDepartmentRequest {
+    int64 company_id = 1;
+}

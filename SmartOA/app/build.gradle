@@ -4,6 +4,10 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'com.google.protobuf'    //1.应用protobuf插件
+
+def GRPC_VERSION = '1.17.1'
+
 android {
     compileSdkVersion 28
     buildToolsVersion "29.0.2"
@@ -27,6 +31,10 @@ android {
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     signingConfigs {
         config {
@@ -39,7 +47,11 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled true //是否混淆
+            //是否设置zip对齐优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
@@ -53,6 +65,40 @@ android {
         //incremental true
         dexInProcess = true
     }
+
+    /*
+   * 2.添加sourceSets
+   *
+   * */
+    sourceSets {
+        main {
+            proto {
+                srcDir 'src/main/proto'
+                include '**/*.proto'
+            }
+            java {
+                srcDir 'src/main/java'
+            }
+        }
+    }
+
+//    if (variant.hasProperty('javaCompileProvider')) {
+//        // Android 3.3.0+
+//        javaCompileTask = variant.javaCompileProvider.get()
+//    } else {
+//        javaCompileTask = variant.javaCompile
+//    }
+}
+android.applicationVariants.all { variant ->
+//    variant.outputs.each { output ->
+//        println("$output")
+//    }
+//    if (variant.hasProperty('javaCompileProvider')) {
+//        // Android 3.3.0+
+//        javaCompileTask = variant.javaCompileProvider.get()
+//    } else {
+//        javaCompileTask = variant.javaCompile
+//    }
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
@@ -102,10 +148,9 @@ dependencies {
     implementation 'com.drakeet.multitype:multitype:4.0.0'
     //util
     implementation 'com.blankj:utilcodex:1.25.8'
-    //retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
-    implementation 'com.squareup.retrofit2:converter-protobuf:2.6.2'
-    implementation 'com.google.protobuf:protobuf-java:3.11.0'
+    //protobuf
+    implementation 'com.google.protobuf:protobuf-java:3.4.0'// 3.添加库的路径
+    implementation 'com.google.protobuf:protoc:3.4.0'      // 3.添加库的路径
     //okhttp
     implementation 'com.squareup.okhttp3:okhttp:4.2.2'
     //banner
@@ -114,8 +159,15 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     //recycleView
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
-    //xLog
+    //logger
     implementation 'com.orhanobut:logger:2.2.0'
+    //GRPC
+    implementation "io.grpc:grpc-okhttp:${GRPC_VERSION}"
+    implementation "io.grpc:grpc-protobuf-lite:${GRPC_VERSION}"
+    implementation "io.grpc:grpc-stub:${GRPC_VERSION}"
+    implementation 'javax.annotation:javax.annotation-api:1.2'
+    //WebSocket
+    implementation "org.java-websocket:Java-WebSocket:1.4.0"
     //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
@@ -125,4 +177,28 @@ dependencies {
     implementation project(path: ':custom_ldialog')
     implementation project(path: ':ldialog')
     implementation project(path: ':share')
+}
+
+
+/*
+* 4.添加protobuf
+* */
+protobuf {
+    protoc { artifact = 'com.google.protobuf:protoc:3.4.0' }
+    plugins {
+        javalite { artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0" }
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:${GRPC_VERSION}" // CURRENT_GRPC_VERSION
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.plugins {
+                javalite {}
+                grpc { // Options added to --grpc_out
+                    option 'lite'
+                }
+            }
+        }
+    }
 }

@@ -1,0 +1,631 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.gx.wisestone.service.grpc.lib.smarthome.unisiot";
+option java_outer_classname = "UnisiotApiProto";
+package com.gx.wisestone.service.grpc;
+
+//紫光乐联API (https://open.unisiot.com/open/api/view/docs/4.2.html)
+service UnisiotApi {
+    //获取TOKEN
+    rpc tokenGet (TokenGetReq) returns (TokenGetResp) {
+    }
+    //获取操作记录
+    rpc optionLogList (OptionLogListReq) returns (OptionLogListResp) {
+    }
+    //获取所有设备详情
+    rpc devList (DevListReq) returns (DevListResp) {
+    }
+    //修改设备
+    rpc devEdit (DevEditReq) returns (UnisiotResp) {
+    }
+    //删除设备
+    rpc devDel (DevDelReq) returns (UnisiotResp) {
+    }
+    //控制设备
+    rpc devCom (DevComReq) returns (UnisiotResp) {
+    }
+    //获取环境数据
+    rpc airBoxDataGet (AirBoxDataGetReq) returns (AirBoxDataGetResp) {
+    }
+    //获取所有场景列表
+    rpc sceneList (SceneListReq) returns (SceneListResp) {
+    }
+    //获取场景详情
+    rpc sceneGet (SceneGetReq) returns (SceneGetResp) {
+    }
+    //添加普通场景
+    rpc sceneAdd (SceneAddReq) returns (UnisiotResp) {
+    }
+    //修改普通场景
+    rpc sceneEdit (SceneEditReq) returns (UnisiotResp) {
+    }
+    //删除普通场景
+    rpc sceneDel (SceneDelReq) returns (UnisiotResp) {
+
+    }
+    //控制场景
+    rpc sceneCom (SceneComReq) returns (UnisiotResp) {
+    }
+    //修改场景名称
+    rpc sceneEditName (SceneEditNameReq) returns (UnisiotResp) {
+    }
+    //修改场景图标
+    rpc sceneEditIcon (SceneEditIconReq) returns (UnisiotResp) {
+//        option (google.api.http) = {
+//            post: "/com.gx.wisestone.service.grpc.UnisiotApi/sceneEditIcon"
+//            body: "*"
+//        };
+    }
+    //场景添加设备动作
+    rpc sceneAddDevList (SceneAddDevListReq) returns (UnisiotResp) {
+//        option (google.api.http) = {
+//            post: "/com.gx.wisestone.service.grpc.UnisiotApi/sceneAddDevList"
+//            body: "*"
+//        };
+    }
+    //场景修改设备动作
+    rpc sceneEditDevList (SceneEditDevListReq) returns (UnisiotResp) {
+//        option (google.api.http) = {
+//            post: "/com.gx.wisestone.service.grpc.UnisiotApi/sceneEditDevList"
+//            body: "*"
+//        };
+    }
+    //场景删除设备动作
+    rpc sceneDelDevList (SceneDelDevListReq) returns (UnisiotResp) {
+//        option (google.api.http) = {
+//            post: "/com.gx.wisestone.service.grpc.UnisiotApi/sceneDelDevList"
+//            body: "*"
+//        };
+    }
+    //系统布防
+    rpc hostSysProtection (HostSysProtectionReq) returns (HostSysProtectionResp) {
+//        option (google.api.http) = {
+//            post: "/com.gx.wisestone.service.grpc.UnisiotApi/hostSysProtection"
+//            body: "*"
+//        };
+    }
+    //系统撤防
+    rpc hostSysDisarm (HostSysDisarmReq) returns (HostSysDisarmResp) {
+//        option (google.api.http) = {
+//            post: "/com.gx.wisestone.service.grpc.UnisiotApi/hostSysDisarm"
+//            body: "*"
+//        };
+    }
+    //场景面板绑定场景
+    rpc scenePannelBind (ScenePannelBindReq) returns (ScenePannelBindResp) {
+//        option (google.api.http) = {
+//            post: "/com.gx.wisestone.service.grpc.UnisiotApi/scenePannelBind"
+//            body: "*"
+//        };
+    }
+    //场景面板解绑场景
+    rpc scenePannelUnbind (ScenePannelUnbindReq) returns (ScenePannelUnbindResp) {
+//        option (google.api.http) = {
+//            post: "/com.gx.wisestone.service.grpc.UnisiotApi/scenePannelUnbind"
+//            body: "*"
+//        };
+    }
+    //获取场景面板详情
+    rpc scenePannelGet (ScenePannelGetReq) returns (ScenePannelGetResp) {
+//        option (google.api.http) = {
+//             post: "/com.gx.wisestone.service.grpc.UnisiotApi/scenePannelGet"
+//             body: "*"
+//         };
+    }
+    //获取房间下设备列表
+    rpc areaDeviceList (AreaDeviceListReq) returns (AreaDeviceListResp) {
+//        option (google.api.http) = {
+//             post: "/com.gx.wisestone.service.grpc.UnisiotApi/areaDeviceList"
+//             body: "*"
+//         };
+    }
+    //获取房间下场景列表
+    rpc areaSceneList (AreaSceneListReq) returns (AreaSceneListResp) {
+//        option (google.api.http) = {
+//             post: "/com.gx.wisestone.service.grpc.UnisiotApi/areaSceneList"
+//             body: "*"
+//         };
+    }
+}
+
+//系统布防 请求体
+message HostSysProtectionReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+}
+
+//系统布防 返回体
+message HostSysProtectionResp {
+    int32 code = 1;
+    string msg = 2;
+    map<string, string> data = 3;
+    int32 result = 4;
+}
+
+//系统撤防 请求体
+message HostSysDisarmReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+}
+
+//系统撤防 返回体
+message HostSysDisarmResp {
+    int32 code = 1;
+    string msg = 2;
+    map<string, string> data = 3;
+    int32 result = 4;
+}
+
+//场景面板绑定场景 请求体
+message ScenePannelBindReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+    //设备类型
+    string category = 3;
+    //设备型号
+    string model = 4;
+    //场景面板ID
+    string uuid = 5;
+    //面板键位，如4键 有1、2、3、4
+    string key_num = 6;
+    //场景ID
+    string scene_id = 7;
+    //场景名称
+    string scene_name = 8;
+    //通道号
+    string channel = 9;
+}
+
+//场景面板绑定场景 返回体
+message ScenePannelBindResp {
+    int32 code = 1;
+    string msg = 2;
+    map<string, string> data = 3;
+    int32 result = 4;
+}
+
+//场景面板解绑场景 请求体
+message ScenePannelUnbindReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+    //场景面板ID
+    string uuid = 3;
+    //面板键位，如4键 有1、2、3、4
+    string key_num = 4;
+    //场景ID
+    string scene_id = 5;
+    //场景名称
+    string scene_name = 6;
+    //通道号
+    string channel = 7;
+    //关联ID
+    string link_id = 8;
+}
+
+//场景面板解绑场景 返回体
+message ScenePannelUnbindResp {
+    int32 code = 1;
+    string msg = 2;
+    map<string, string> data = 3;
+    int32 result = 4;
+}
+
+//获取场景面板详情 请求体
+message ScenePannelGetReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+    //场景面板ID
+    string uuid = 3;
+}
+
+//获取场景面板详情 返回体
+message ScenePannelGetResp {
+    int32 code = 1;
+    string msg = 2;
+    map<string, string> data = 3;
+    int32 result = 4;
+    repeated ScenePannelDto content = 5;
+}
+
+//场景面板详情 结构体
+message ScenePannelDto {
+    //面板键位，如4键 有1、2、3、4
+    string key_num = 1;
+    //场景ID
+    string scene_id = 2;
+    //场景名称
+    string scene_name = 3;
+    //场景图标
+    string icon_sign = 4;
+    //通道号
+    string channel = 5;
+    //关联ID
+    string link_id = 6;
+}
+
+//获取TOKEN 请求体
+message TokenGetReq {
+}
+
+//获取TOKEN 返回体
+message TokenGetResp {
+    int32 code = 1;
+    string msg = 2;
+    map<string, string> data = 3;
+    string token = 4;
+    int64 expire_at = 5;
+}
+
+//场景删除请求体
+message SceneDelDevListReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+    //场景Id
+    string scene_id = 3;
+    //关联ID
+    string link_id = 4;
+}
+//场景编辑请求体
+message SceneEditDevListReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+    //场景Id
+    string scene_id = 3;
+    //设备动作列表
+    repeated DeviceOrderDto dev_list = 4;
+}
+//场景增加请求体
+message SceneAddDevListReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+    //场景Id
+    string scene_id = 3;
+    //设备动作列表
+    repeated DeviceOrderDto dev_list = 4;
+}
+//设备动作
+message DeviceOrderDto {
+    string scene_id = 1;
+    string uuid = 2;
+    string category = 3;
+    string model = 4;
+    string channel = 5;
+    string val = 6;
+    string sort = 7;
+    string link_id = 8;
+}
+//场景图标编辑请求体
+message SceneEditIconReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+    //场景Id
+    string scene_id = 3;
+    //场景图标
+    string icon_sign = 4;
+}
+//场景名称编辑请求体
+message SceneEditNameReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+    //场景Id
+    string scene_id = 3;
+    //场景名称
+    string scene_name = 4;
+}
+//场景动作执行请求体
+message SceneComReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+    //场景Id
+    string scene_id = 3;
+}
+//场景删除请求体
+message SceneDelReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+    //场景Id
+    string scene_id = 3;
+}
+//场景编辑请求体
+message SceneEditReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+    //场景Id
+    string scene_id = 3;
+    //场景名称
+    string scene_name = 4;
+    //房间ID
+    string area_id = 5;
+    //场景图标
+    string icon_sign = 6;
+    //设备指令列表
+    repeated DeviceOrderDto dev_list = 7;
+}
+//场景增加请求体
+message SceneAddReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+    //场景名称
+    string scene_name = 3;
+    //房间ID
+    string area_id = 4;
+    //场景图标
+    string icon_sign = 5;
+    //设备指令列表
+    repeated DeviceOrderDto dev_list = 6;
+
+}
+//场景获取请求体
+message SceneGetReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+    //场景ID
+    string scene_id = 3;
+}
+//场景获取返回体
+message SceneGetResp {
+    int32 code = 1;
+    string msg = 2;
+    map<string, string> data = 3;
+    int32 result = 4;
+    repeated SceneGet content = 5;
+    string body = 6;
+}
+//场景获取
+message SceneGet {
+    //设备ID
+    string uuid = 1;
+    //设备类型
+    string category = 2;
+    //设备型号
+    string model = 3;
+    //设备通道号
+    string channel = 4;
+    //此信息用于修改、删除设备动作的
+    string link_id = 5;
+    //设置的设备动作指令
+    string val = 6;
+}
+//场景列表请求体
+message SceneListReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+}
+//场景列表返回体
+message SceneListResp {
+    int32 code = 1;
+    string msg = 2;
+    map<string, string> data = 3;
+    int32 result = 4;
+    repeated SceneDto content = 5;
+    string body = 6;
+}
+//场景
+message SceneDto {
+    //场景图标
+    string icon_sign = 1;
+    //场景ID
+    string scene_id = 2;
+    //场景名称
+    string scene_name = 3;
+    //该场景是否已经添加到定时，0表示已经加入，1表示还没有加入
+    string scene_type = 4;
+    //房间ID
+    string area_id = 5;
+}
+//环境信息获取请求体
+message AirBoxDataGetReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+}
+//环境信息获取返回体
+message AirBoxDataGetResp {
+    int32 code = 1;
+    string msg = 2;
+    map<string, string> data = 3;
+    int32 result = 4;
+    repeated AirBoxDataDto content = 5;
+    string body = 6;
+}
+//环境信息
+message AirBoxDataDto {
+    string dev_id = 1;
+    string area_name = 2;
+    string dev_name = 3;
+    repeated EnvDataDto envData = 4;
+}
+//环境数据
+message EnvDataDto {
+    string date = 1;
+    string time = 2;
+    //温度，湿度，光照，pm2.5,co2,甲醛
+    string value = 3;
+}
+//设备动作请求体
+message DevComReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+    //设备ID
+    string uuid = 3;
+    //设备类型
+    string category = 4;
+    //设备型号
+    string model = 5;
+    //设备通道
+    string channel = 6;
+    //指令值
+    string val = 7;
+}
+//设备删除请求体
+message DevDelReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+    //设备ID
+    string uuid = 3;
+    //DEVICE
+    string opt_type = 4;
+}
+//设备编辑请求体
+message DevEditReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+    //设备ID
+    string uuid = 3;
+    //设备名称
+    string dev_name = 4;
+    //房间ID
+    string area_id = 5;
+    //1 (获取所有设备时可获取到)
+    string control_type = 6;
+}
+//设备列表请求体
+message DevListReq {
+    //设备ID
+    int64 device_id = 1;
+    string host_sn = 2;
+}
+//设备列表返回体
+message DevListResp {
+    int32 code = 1;
+    string msg = 2;
+    map<string, string> data = 3;
+    int32 result = 4;
+    repeated DevDto content = 5;
+    string body = 6;
+}
+//设备
+message DevDto {
+    //设备指令，也可以表示设备当前状态，多个状态用逗号连接
+    string val = 1;
+    //设备在线状态，1：在线；0：离线
+    string link_state = 2;
+    //设备所在区域ID
+    string area_id = 3;
+    //控制方式（zigbee控制、网关控制）
+    string control_type = 4;
+    //设备通道号
+    string channel = 5;
+    //设备型号
+    string model = 6;
+    //设备名称
+    string dev_name = 7;
+    //设备类型
+    string category = 8;
+    //设备ID
+    string uuid = 9;
+    //房间设备关联Id，老版本主机此值为0
+    string area_dev_id = 10;
+}
+//操作日志列表请求体
+message OptionLogListReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+    //页数
+    string page = 3;
+}
+//操作日志列表返回体
+message OptionLogListResp {
+    int32 code = 1;
+    string msg = 2;
+    map<string, string> data = 3;
+    int32 result = 4;
+    repeated OptionLogDto content = 5;
+    //如果1代表还有下一页
+    string next_page = 6;
+}
+//操作日志
+message OptionLogDto {
+    string dev_name = 1;
+    string area_name = 2;
+    string time = 3;
+    string date = 4;
+    string control_type = 5;
+}
+//紫光乐联通用返回体
+message UnisiotResp {
+    int32 code = 1;
+    string msg = 2;
+    map<string, string> data = 3;
+    int32 result = 4;
+}
+
+//房间下设备列表 请求体
+message AreaDeviceListReq {
+    //设备ID
+    int64 device_id = 1;
+    string host_sn = 2;
+    //房间ID
+    string area_id = 3;
+}
+//房间下设备列表 返回体
+message AreaDeviceListResp {
+    int32 code = 1;
+    string msg = 2;
+    map<string, string> data = 3;
+    int32 result = 4;
+    repeated DevDto content = 5;
+    string body = 6;
+}
+
+//房间下场景列表 请求体
+message AreaSceneListReq {
+    //设备ID
+    int64 device_id = 1;
+    //UIOT智能服务器SN
+    string host_sn = 2;
+    //房间ID
+    string area_id = 3;
+}
+//房间下场景列表 返回体
+message AreaSceneListResp {
+    int32 code = 1;
+    string msg = 2;
+    map<string, string> data = 3;
+    int32 result = 4;
+    repeated SceneDto content = 5;
+    string body = 6;
+}
+
