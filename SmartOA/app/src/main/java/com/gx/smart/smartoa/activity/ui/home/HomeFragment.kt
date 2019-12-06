@@ -12,7 +12,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.activity.ui.features.*
+import com.gx.smart.smartoa.activity.ui.features.HomeActionViewBinder
+import com.gx.smart.smartoa.activity.ui.features.HomeCompanyAdvise
+import com.gx.smart.smartoa.activity.ui.features.HomeCompanyAdviseViewBinder
+import com.gx.smart.smartoa.activity.ui.features.HomeHeadViewBinder
 import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -66,8 +69,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 
 
-
-
     private fun initRecyclerView() {
         refreshLayout.setOnRefreshListener { refreshLayout.finishRefresh(2000) }
         refreshLayout.isEnableLoadmore = false
@@ -78,12 +79,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         adapter.register(HomeCompanyAdviseViewBinder())
         recyclerView?.adapter = adapter
 
-        val localImages = arrayListOf(
-            R.mipmap.home_banner_test,
-            R.mipmap.home_banner_test,
-            R.mipmap.home_banner_test
-        )
-        val item1 = HomeHead(localImages)
+        val item1 = HomeHead()
         items.add(item1)
 
         val actions = arrayListOf(

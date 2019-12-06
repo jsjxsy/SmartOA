@@ -183,7 +183,7 @@ class CustomX5WebView : WebView {
     }
 
     //   基本的WebViewSetting
-    fun initWebViewSettings() {
+    private fun initWebViewSettings() {
         setBackgroundColor(resources.getColor(android.R.color.white))
         webViewClient = client
         webChromeClient = chromeClient

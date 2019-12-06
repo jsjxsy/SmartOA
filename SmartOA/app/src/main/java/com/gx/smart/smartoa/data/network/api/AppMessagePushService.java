@@ -37,7 +37,7 @@ public class AppMessagePushService {
      * @param channel
      * @return
      */
-    public static AppMessagePushProviderGrpc.AppMessagePushProviderBlockingStub getMessagePushStub(ManagedChannel channel) {
+    public AppMessagePushProviderGrpc.AppMessagePushProviderBlockingStub getMessagePushStub(ManagedChannel channel) {
         return AppMessagePushProviderGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(TIMEOUT_NETWORK, TimeUnit.SECONDS);
 
@@ -50,7 +50,7 @@ public class AppMessagePushService {
      * @param jg_app_id 极光返回的设备Id
      * @return callBack返回值
      */
-    public static GrpcAsyncTask<String, Void, UpdateMessagePushResponse> updateMessagePush(final String jg_app_id, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, UpdateMessagePushResponse> updateMessagePush(final String jg_app_id, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, UpdateMessagePushResponse>(callBack) {
             @Override
             protected UpdateMessagePushResponse doRequestData(ManagedChannel channel) {

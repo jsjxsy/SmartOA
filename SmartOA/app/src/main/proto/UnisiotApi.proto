@@ -52,52 +52,24 @@ service UnisiotApi {
     }
     //修改场景图标
     rpc sceneEditIcon (SceneEditIconReq) returns (UnisiotResp) {
-//        option (google.api.http) = {
-//            post: "/com.gx.wisestone.service.grpc.UnisiotApi/sceneEditIcon"
-//            body: "*"
-//        };
     }
     //场景添加设备动作
     rpc sceneAddDevList (SceneAddDevListReq) returns (UnisiotResp) {
-//        option (google.api.http) = {
-//            post: "/com.gx.wisestone.service.grpc.UnisiotApi/sceneAddDevList"
-//            body: "*"
-//        };
     }
     //场景修改设备动作
     rpc sceneEditDevList (SceneEditDevListReq) returns (UnisiotResp) {
-//        option (google.api.http) = {
-//            post: "/com.gx.wisestone.service.grpc.UnisiotApi/sceneEditDevList"
-//            body: "*"
-//        };
     }
     //场景删除设备动作
     rpc sceneDelDevList (SceneDelDevListReq) returns (UnisiotResp) {
-//        option (google.api.http) = {
-//            post: "/com.gx.wisestone.service.grpc.UnisiotApi/sceneDelDevList"
-//            body: "*"
-//        };
     }
     //系统布防
     rpc hostSysProtection (HostSysProtectionReq) returns (HostSysProtectionResp) {
-//        option (google.api.http) = {
-//            post: "/com.gx.wisestone.service.grpc.UnisiotApi/hostSysProtection"
-//            body: "*"
-//        };
     }
     //系统撤防
     rpc hostSysDisarm (HostSysDisarmReq) returns (HostSysDisarmResp) {
-//        option (google.api.http) = {
-//            post: "/com.gx.wisestone.service.grpc.UnisiotApi/hostSysDisarm"
-//            body: "*"
-//        };
     }
     //场景面板绑定场景
     rpc scenePannelBind (ScenePannelBindReq) returns (ScenePannelBindResp) {
-//        option (google.api.http) = {
-//            post: "/com.gx.wisestone.service.grpc.UnisiotApi/scenePannelBind"
-//            body: "*"
-//        };
     }
     //场景面板解绑场景
     rpc scenePannelUnbind (ScenePannelUnbindReq) returns (ScenePannelUnbindResp) {

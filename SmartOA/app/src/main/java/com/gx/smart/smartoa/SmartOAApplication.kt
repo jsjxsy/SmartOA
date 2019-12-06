@@ -2,8 +2,10 @@ package com.gx.smart.smartoa
 
 import android.app.Application
 import android.content.Intent
+import android.text.TextUtils
 import cn.jpush.android.api.JPushInterface
 import com.blankj.utilcode.util.Utils
+import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.webview.X5NetService
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
@@ -70,6 +72,11 @@ class SmartOAApplication : Application() {
     private fun initPush() {
         JPushInterface.setDebugMode(true)
         JPushInterface.init(this)
+        val jPushToken = JPushInterface.getRegistrationID(this)
+        if (!TextUtils.isEmpty(jPushToken)) {
+            AppConfig.mJiGuangToekn = jPushToken
+        }
+        Logger.d("push", "jPushToken:$jPushToken")
     }
 
 

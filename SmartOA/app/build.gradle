@@ -149,8 +149,8 @@ dependencies {
     //util
     implementation 'com.blankj:utilcodex:1.25.8'
     //protobuf
-    implementation 'com.google.protobuf:protobuf-java:3.4.0'// 3.添加库的路径
-    implementation 'com.google.protobuf:protoc:3.4.0'      // 3.添加库的路径
+    //implementation 'com.google.protobuf:protobuf-java:3.4.0'// 3.添加库的路径
+//    implementation 'com.google.protobuf:protoc:3.4.0'      // 3.添加库的路径
     //okhttp
     implementation 'com.squareup.okhttp3:okhttp:4.2.2'
     //banner
@@ -168,6 +168,13 @@ dependencies {
     implementation 'javax.annotation:javax.annotation-api:1.2'
     //WebSocket
     implementation "org.java-websocket:Java-WebSocket:1.4.0"
+    //json
+    implementation('com.alibaba:fastjson:1.2.38')
+    //
+    implementation 'org.bitbucket.b_c:jose4j:0.6.5'
+    implementation 'com.auth0:java-jwt:3.8.1'
+    //cropper
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
     //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

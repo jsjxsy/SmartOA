@@ -18,7 +18,7 @@
 
 
     <RelativeLayout
-        android:id="@+id/notDisturbLayout"
+        android:id="@+id/headLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/background_style_six"
-        app:layout_constraintTop_toBottomOf="@id/notDisturbLayout" />
+        app:layout_constraintTop_toBottomOf="@id/headLayout" />
 
     <TextView
         android:layout_width="wrap_content"

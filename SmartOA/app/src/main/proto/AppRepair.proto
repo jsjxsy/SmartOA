@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package com.gx.wisestone.ezwork.app.grpc;
+import "AppCommon.proto";
+import "WscoreCommon.proto";
+option java_multiple_files = true;
+option java_package = "com.gx.wisestone.work.app.grpc.repair";
+option java_outer_classname = "AppRepairInterfaceService";
+
+
+service AppRepairInterface {
+
+    //添加报修
+    rpc addRepair (RepairRequest) returns (CommonResponse) {
+    }
+
+    //查询报修
+    rpc queryMyRepair (QueryMyRepairRequest) returns (RepairCommonResponse) {
+    }
+
+}
+
+message RepairCommonResponse {
+    int32 code = 1; //返回码
+    string msg = 2; //返回消息
+    com.gx.wisestone.core.grpc.common.QueryDto query = 3;
+    repeated RepairInfo repairInfo = 4; //结果列表
+    map<string, string> data = 5;
+}
+
+message RepairInfo {
+
+    int64 id = 1;
+    int64 app_user_id = 2; //appId
+    int64 employee_id = 3; //员工id
+    string employee_name = 4; //员工名字
+    string image_key = 5; //图片key
+    string image_url = 6; //图片url
+    string content = 7; //内容
+    int32 type = 8; //1.设备顺坏2.办公绿化3.公共卫生
+    int32 status = 9; //1.未处理2.处理中3.已完成
+    string address = 10; //处理时间
+    string employee_phone = 11; //联系方式
+    int64 handle_time = 12; //处理时间
+    int64 create_time = 13; //创建时间
+    int64 modify_time = 14; //修改时间
+}
+
+message RepairRequest {
+
+    string content = 7; //内容
+    int32 type = 8; //1.设备顺坏2.办公绿化3.公共卫生
+    string address = 10; //处理时间
+    string employee_phone = 11; //联系方式
+    bytes image_bytes = 14; //图片数据
+}
+
+message QueryMyRepairRequest {
+    com.gx.wisestone.core.grpc.common.QueryDto query = 1;
+}

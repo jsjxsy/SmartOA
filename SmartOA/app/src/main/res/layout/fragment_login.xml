@@ -43,35 +43,47 @@
                 android:layout_marginTop="57.5dp"
                 android:drawableLeft="@drawable/ic_login_phone_icon"
                 android:hint="@string/login_input_phone"
+                android:textColor="@color/font_color_style_six"
                 android:imeOptions="actionNext"
-                android:inputType="phone"
-                android:text="@={userModel.phone}" />
+                android:inputType="phone" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_style_two">
+
                 <EditText
                     android:id="@+id/id_input_password_edit_text"
                     style="@style/editTextStyle"
                     android:layout_width="match_parent"
                     android:drawableLeft="@drawable/ic_login_password"
-                    android:drawableRight="@drawable/ic_login_password_state"
                     android:hint="@string/login_input_password"
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"
+                    android:maxLength="12"
+                    android:textColor="@color/font_color_style_six"
                     android:text="@={userModel.password}" />
-                <TextView
-                    android:id="@+id/getVerifyCode"
+
+                <ImageView
+                    android:id="@+id/passwordState"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/get_verify_code"
-                    android:layout_marginRight="28dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="32dp"
+                    android:src="@drawable/ic_login_password_state" />
+
+                <TextView
+                    android:id="@+id/getVerifyCodeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28dp"
+                    android:text="@string/get_verify_code"
                     android:textColor="@color/font_color_style_two"
                     android:textSize="@dimen/font_size_style_one"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
             </RelativeLayout>
 
@@ -121,5 +133,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/id_login_input_layout" />
+
+        <com.gx.smart.smartoa.widget.LoadingView
+            android:id="@+id/loadingView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

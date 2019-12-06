@@ -108,7 +108,7 @@
 
 
         <TextView
-            android:id="@+id/getVerifyCode"
+            android:id="@+id/getVerifyCodeText"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -121,7 +121,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/list_item_height_style"
             android:layout_marginLeft="100dp"
-            android:layout_toLeftOf="@id/getVerifyCode"
+            android:layout_toLeftOf="@id/getVerifyCodeText"
             android:background="@android:color/white"
             android:hint="@string/input_verify_code" />
 

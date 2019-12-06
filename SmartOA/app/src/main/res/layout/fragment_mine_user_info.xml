@@ -18,7 +18,7 @@
 
 
     <RelativeLayout
-        android:id="@+id/notDisturbLayout"
+        android:id="@+id/headLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
@@ -41,7 +41,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:scaleType="fitXY"
-            tools:src="@mipmap/mine_head_test" />
+            android:src="@drawable/ic_head"
+            tools:src="@drawable/ic_head" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -56,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/background_style_six"
-        app:layout_constraintTop_toBottomOf="@id/notDisturbLayout" />
+        app:layout_constraintTop_toBottomOf="@id/headLayout" />
 
     <RelativeLayout
         android:id="@+id/cacheLayout"
@@ -83,6 +84,7 @@
             android:drawableRight="@drawable/ic_more_info"
             android:drawablePadding="10dp"
             android:gravity="center"
+            android:text="@string/input_nick_name"
             tools:text="张嘉译" />
     </RelativeLayout>
 
@@ -118,6 +120,7 @@
             android:drawableRight="@drawable/ic_more_info"
             android:drawablePadding="10dp"
             android:gravity="center"
+            android:text="未知"
             tools:text="男" />
     </RelativeLayout>
 

@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 
 import com.gx.smart.smartoa.data.network.ApiConfig;
+import com.gx.smart.smartoa.data.network.api.interceptor.WsClientInterceptor;
+import com.gx.smart.smartoa.data.network.api.interceptor.WsProvider;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,8 +20,11 @@ import io.grpc.ManagedChannelBuilder;
  */
 
 public abstract class GrpcAsyncTask<Params, Progress, Data> extends AsyncTask<Params, Progress, Data> {
-    private static String host = ApiConfig.USER_SERVER_URL;
-    private static String port = ApiConfig.USER_SERVER_PORT;
+    private String host = ApiConfig.USER_SERVER_URL;
+    private String port = ApiConfig.USER_SERVER_PORT;
+    private WsProvider PROVIDER = new WsProvider();
+    private WsClientInterceptor INTERCEPTOR = new WsClientInterceptor(PROVIDER);
+
     private ManagedChannel mChannel;
     private CallBack<Data> callBack;
 
@@ -29,6 +34,11 @@ public abstract class GrpcAsyncTask<Params, Progress, Data> extends AsyncTask<Pa
 
     public GrpcAsyncTask setHost(String host, String port) {
         this.host = host;
+        this.port = port;
+        return this;
+    }
+
+    public GrpcAsyncTask setPort(String port) {
         this.port = port;
         return this;
     }
@@ -55,8 +65,6 @@ public abstract class GrpcAsyncTask<Params, Progress, Data> extends AsyncTask<Pa
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
         return null;
     }
 
@@ -112,12 +120,12 @@ public abstract class GrpcAsyncTask<Params, Progress, Data> extends AsyncTask<Pa
      *
      * @return
      */
-    public static ManagedChannel getChannel() {
+    private ManagedChannel getChannel() {
         ManagedChannel mChannel = ManagedChannelBuilder.forAddress(host, Integer.parseInt(port))
                 .usePlaintext(true)
+                .intercept(INTERCEPTOR)
                 .build();
         return mChannel;
     }
-
 
 }

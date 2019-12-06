@@ -4,14 +4,36 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Log
 import android.view.WindowManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.NetworkUtils
+import com.blankj.utilcode.util.SPUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.activity.ui.login.LoginActivity
 import com.gx.smart.smartoa.base.BaseActivity
+import com.gx.smart.smartoa.data.network.AppConfig
+import com.gx.smart.smartoa.data.network.api.AppMessagePushService
+import com.gx.smart.smartoa.data.network.api.AuthApiService
+import com.gx.smart.smartoa.data.network.api.UserCenterService
+import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
+import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp
+import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
+import com.gx.wisestone.work.app.grpc.push.UpdateMessagePushResponse
 
 class SplashActivity : BaseActivity() {
+
+    private var loginTask: GrpcAsyncTask<String, Void, LoginResp>? = null
+    private var loginCallBack: CallBack<LoginResp?>? = null
+
+    private var bindTask: GrpcAsyncTask<String, Void, AppInfoResponse>? = null
+    private var bindCallBack: CallBack<AppInfoResponse?>? = null
 
     //权限列表
     var permissions = arrayOf(
@@ -50,14 +72,13 @@ class SplashActivity : BaseActivity() {
         if (mPermissionList.size > 0) { //有权限没有通过，需要申请
             ActivityCompat.requestPermissions(this, permissions, mRequestCode)
         } else { //说明权限都已经通过，可以做你想做的事情去
-            window.decorView.postDelayed(
-                {
-                    startActivity(Intent(SplashActivity@ this, LoginActivity::class.java))
-
-                },
-                DELAY_TIME
-            )
+            startEnter()
         }
+    }
+
+    private fun startEnter() {
+        val splashFragment = supportFragmentManager.findFragmentById(R.id.splashFragment)
+        (splashFragment as SplashFragment).showAd()
     }
 
 
@@ -78,13 +99,126 @@ class SplashActivity : BaseActivity() {
             if (hasPermissionDismiss) { //重新申请
                 ActivityCompat.requestPermissions(this, permissions, mRequestCode)
             } else {
-                window.decorView.postDelayed(
-                    {
-                        startActivity(Intent(SplashActivity@ this, LoginActivity::class.java))
+                startEnter()
+            }
+        }
+    }
 
-                    },
-                    DELAY_TIME
-                )
+
+    fun updateMessagePushAndLogin() {
+        //上传极光ID
+        if (null != AppConfig.mJiGuangToekn) {
+            AppMessagePushService.getInstance().updateMessagePush(
+                AppConfig.mJiGuangToekn,
+                object : CallBack<UpdateMessagePushResponse?>() {
+                    override fun callBack(result: UpdateMessagePushResponse?) {
+                        Log.i("jtpush", result.toString())
+                    }
+                })
+        }
+        loginAuto()
+    }
+
+
+    private fun loginActivity() {
+        finish()
+        startActivity(Intent(SplashActivity@ this, LoginActivity::class.java))
+    }
+
+    private fun loginAuto() {
+        if (!NetworkUtils.isConnected()) {
+            ToastUtils.showLong("网络连接不可用")
+            loginActivity()
+        } else {
+            val userName = SPUtils.getInstance().getString(AppConfig.SH_USERNAME, "")
+            val password = SPUtils.getInstance().getString(AppConfig.SH_PASSWORD, "")
+            if (!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(password)) {
+                //手机号密码登录
+                val loginType = 2
+                loginResponseCallBack(true, userName, password)
+                if (GrpcAsyncTask.isFinish(loginTask)) {
+                    loginTask = AuthApiService.getInstance()
+                        .login(userName, password, loginType, loginCallBack)
+                }
+            } else {
+                loginActivity()
+            }
+
+        }
+    }
+
+
+    /*******************************************登录回调 */
+    private fun loginResponseCallBack(
+        isPassWord: Boolean,
+        userName: String?,
+        password: String?
+    ) {
+        loginCallBack = object : CallBack<LoginResp?>() {
+            override fun callBack(result: LoginResp?) {
+                if (result == null) {
+                    ToastUtils.showLong("登录超时")
+                    LoginActivity()
+                    return
+                }
+                val msg = result.dataMap["errMsg"]
+                if (result.code == 100) {
+                    AppConfig.loginToken = result.token
+                    AppConfig.refreshToken = result.refreshToken
+                    //保存当前用户
+                    if (isPassWord) { //保存当前用户
+                        SPUtils.getInstance().put(AppConfig.SH_USERNAME, userName)
+                        SPUtils.getInstance().put(AppConfig.SH_PASSWORD, password)
+                    } else {
+                        SPUtils.getInstance().put(AppConfig.SH_USERNAME, userName)
+                    }
+                    bindAppCallBack()
+                    if (GrpcAsyncTask.isFinish(bindTask)) {
+                        bindTask =
+                            UserCenterService.getInstance()
+                                .bindAppUser(userName, userName, bindCallBack)
+                    }
+                } else {
+                    ToastUtils.showLong(msg)
+                    LoginActivity()
+                }
+            }
+        }
+    }
+
+
+    /*******************************************绑定回调 */
+    fun bindAppCallBack() {
+        bindCallBack = object : CallBack<AppInfoResponse?>() {
+            override fun callBack(result: AppInfoResponse?) {
+                if (result == null) {
+                    ToastUtils.showLong("登录后绑定超时")
+                    return
+                }
+
+                when (result.code) {
+                    100 -> {
+                        ActivityUtils.startActivity(
+                            Intent(
+                                this@SplashActivity,
+                                MainActivity::class.java
+                            )
+                        )
+                        //用户已经绑定
+                    }
+                    7003 -> {
+                        ActivityUtils.startActivity(
+                            Intent(
+                                this@SplashActivity,
+                                MainActivity::class.java
+                            )
+                        )
+                    }
+                    else -> {
+                        ToastUtils.showLong(result.msg)
+                        LoginActivity()
+                    }
+                }
             }
         }
     }

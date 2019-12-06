@@ -13,20 +13,23 @@ import com.bigkoo.convenientbanner.ConvenientBanner
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator
 import com.bigkoo.convenientbanner.holder.Holder
 import com.blankj.utilcode.util.ActivityUtils
+import com.bumptech.glide.Glide
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.WebViewActivity
 import com.gx.smart.smartoa.activity.ui.air.AirQualityActivity
-import com.gx.smart.smartoa.activity.ui.air.AirQualityFragment
 import com.gx.smart.smartoa.activity.ui.attendance.AttendanceActivity
 import com.gx.smart.smartoa.activity.ui.environmental.EnvironmentalActivity
+import com.gx.smart.smartoa.activity.ui.home.HomeHead
 import com.gx.smart.smartoa.activity.ui.meetings.MeetingScheduleActivity
-import com.gx.smart.smartoa.activity.ui.meetings.MeetingScheduleFragment
 import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
 import com.gx.smart.smartoa.activity.ui.repair.RepairActivity
-import com.gx.smart.smartoa.activity.ui.repair.RepairFragment
 import com.gx.smart.smartoa.activity.ui.visitor.VisitorActivity
 import com.gx.smart.smartoa.activity.ui.work.SharedWorkActivity
-import com.gx.smart.smartoa.activity.ui.work.SharedWorkFragment
+import com.gx.smart.smartoa.data.network.api.AppFigureService
+import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.wisestone.work.app.grpc.appfigure.ImagesInfoOrBuilder
+import com.gx.wisestone.work.app.grpc.appfigure.ImagesResponse
 
 
 /**
@@ -99,7 +102,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
                     SharedWorkActivity::class.java
                 )
             )
-            R.id.id_meeting_schedule_text_view ->  ActivityUtils.startActivity(
+            R.id.id_meeting_schedule_text_view -> ActivityUtils.startActivity(
                 Intent(
                     ActivityUtils.getTopActivity(),
                     MeetingScheduleActivity::class.java
@@ -117,7 +120,6 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
     }
 
     override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull homeHead: HomeHead) {
-        initBanner(holder.item, homeHead)
         initClickEvent(
             holder.id_environmental_control_text_view,
             holder.id_more_text_view,
@@ -133,10 +135,20 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
             holder.left_nav_text_view,
             holder.right_nav_Image_view
         )
+
+        AppFigureService.getInstance().carouselFigure(2, object : CallBack<ImagesResponse?>() {
+            override fun callBack(result: ImagesResponse?) {
+                if (result?.code == 100) {
+                    var list = result.imagesInfoOrBuilderList.toList()
+                    initBanner(holder.item, list)
+                }
+            }
+
+        })
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val item: ConvenientBanner<Int> = itemView.findViewById(R.id.headBanner)
+        val item: ConvenientBanner<ImagesInfoOrBuilder> = itemView.findViewById(R.id.headBanner)
         val id_environmental_control_text_view: TextView =
             itemView.findViewById(R.id.id_environmental_control_text_view)
         val id_more_text_view: TextView =
@@ -193,7 +205,9 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
         idMeetingScheduleTextView.setOnClickListener(this)
     }
 
-    private fun initBanner(convenientBanner: ConvenientBanner<Int>, homeHead: HomeHead) {
+    private fun initBanner(
+        convenientBanner: ConvenientBanner<ImagesInfoOrBuilder>, list: List<ImagesInfoOrBuilder>
+    ) {
 
         convenientBanner.setPages(object : CBViewHolderCreator {
             override fun createHolder(itemView: View): Holder<*> {
@@ -203,7 +217,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
             override fun getLayoutId(): Int {
                 return R.layout.item_home_head_item_localimage
             }
-        }, homeHead.images)
+        }, list)
             .setPageIndicator(
                 intArrayOf(
                     R.drawable.shape_page_indicator,
@@ -216,10 +230,17 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
     }
 
     //B、本地图片
-    inner class LocalImageHolderView(itemView: View) : Holder<Int>(itemView) {
-        lateinit var imageView: ImageView
-        override fun updateUI(data: Int) {
-            imageView.setImageResource(data)
+    inner class LocalImageHolderView(itemView: View) : Holder<ImagesInfoOrBuilder>(itemView) {
+        private lateinit var imageView: ImageView
+        override fun updateUI(data: ImagesInfoOrBuilder) {
+
+            if (ActivityUtils.isActivityAlive(itemView.context)) {
+                val imageUrl = data.imageUrl + "?v=" + data.modifyTime
+                Glide.with(itemView).load(imageUrl).into(imageView)
+                imageView.setOnClickListener {
+                    goWebView(data.forwardUrl)
+                }
+            }
         }
 
         override fun initView(itemView: View) {
@@ -227,5 +248,12 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
         }
 
     }
+
+    private fun goWebView(url: String) {
+        val intent = Intent(ActivityUtils.getTopActivity(), WebViewActivity::class.java)
+        intent.putExtra(WebViewActivity.URL, url)
+        ActivityUtils.startActivity(intent)
+    }
+
 
 }

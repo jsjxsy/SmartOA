@@ -9,10 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.SPUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.login.LoginActivity
+import com.gx.smart.smartoa.data.network.AppConfig
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.setting_fragment.*
+import top.limuyang2.customldialog.IOSMsgDialog
 
 class SettingFragment : Fragment(), View.OnClickListener {
 
@@ -49,7 +52,7 @@ class SettingFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initContent() {
-        notDisturbLayout.setOnClickListener {
+        headLayout.setOnClickListener {
             Navigation.findNavController(it)
                 .navigate(R.id.action_settingFragment_to_notDisturbFragment)
         }
@@ -69,12 +72,24 @@ class SettingFragment : Fragment(), View.OnClickListener {
         }
 
         logout.setOnClickListener {
-            ActivityUtils.startActivity(Intent(activity, LoginActivity::class.java))
+
+            IOSMsgDialog.init(fragmentManager!!)
+                .setTitle("退出登录")
+                .setMessage("确定要退出登录吗？")
+                .setNegativeButton("取消", View.OnClickListener {
+
+                })
+                .setPositiveButton("确定", View.OnClickListener {
+                    SPUtils.getInstance().put(AppConfig.SH_PASSWORD, "")
+                    ActivityUtils.startActivity(Intent(activity, LoginActivity::class.java))
+                }).show()
         }
     }
 
     override fun onClick(v: View?) {
-
+        when (v?.id) {
+            R.id.left_nav_image_view -> activity?.onBackPressed()
+        }
 
     }
 

@@ -38,7 +38,7 @@ public class AppFigureService {
      * @param channel
      * @return
      */
-    public static AppFigureInterfaceGrpc.AppFigureInterfaceBlockingStub getUserStub(ManagedChannel channel) {
+    public AppFigureInterfaceGrpc.AppFigureInterfaceBlockingStub getAppFigureStub(ManagedChannel channel) {
         return AppFigureInterfaceGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(TIMEOUT_NETWORK, TimeUnit.SECONDS);
 
@@ -50,7 +50,7 @@ public class AppFigureService {
      *
      * @return callBack返回值
      */
-    public static GrpcAsyncTask<String, Void, ImagesResponse> bannerFigure(CallBack callBack) {
+    public GrpcAsyncTask<String, Void, ImagesResponse> bannerFigure(CallBack callBack) {
         return new GrpcAsyncTask<String, Void, ImagesResponse>(callBack) {
             @Override
             protected ImagesResponse doRequestData(ManagedChannel channel) {
@@ -58,7 +58,7 @@ public class AppFigureService {
                         .build();
                 ImagesResponse response = null;
                 try {
-                    response = getUserStub(channel).bannerFigure(message);
+                    response = getAppFigureStub(channel).bannerFigure(message);
                 } catch (Exception e) {
                     Log.i("UserCenter_gRpc", e.getMessage());
                 }
@@ -74,7 +74,7 @@ public class AppFigureService {
      * @param sysTenantNo 小区Id
      * @return callBack返回值
      */
-    public static GrpcAsyncTask<String, Void, ImagesResponse> carouselFigure(final int sysTenantNo, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, ImagesResponse> carouselFigure(final int sysTenantNo, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, ImagesResponse>(callBack) {
             @Override
             protected ImagesResponse doRequestData(ManagedChannel channel) {
@@ -83,7 +83,7 @@ public class AppFigureService {
                         .build();
                 ImagesResponse response = null;
                 try {
-                    response = getUserStub(channel).carouselFigure(message);
+                    response = getAppFigureStub(channel).carouselFigure(message);
                 } catch (Exception e) {
                     Log.i("UserCenter_gRpc", e.getMessage());
                 }

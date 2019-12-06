@@ -14,6 +14,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.data.network.api.UserCenterService
+import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 class MineFragment : Fragment() {
@@ -44,9 +47,7 @@ class MineFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MineViewModel::class.java)
-        // TODO: Use the ViewModel
-        Glide.with(this).load(R.mipmap.mine_head_test)
-            .apply(RequestOptions.bitmapTransform(CircleCrop())).into(mine_head_image_view)
+        getUserInfo()
         val mineList = mine_setting_list_view as ListView
         val adapter = MineAdapter(activity as Context)
         adapter.lists = arrayListOf(
@@ -90,5 +91,22 @@ class MineFragment : Fragment() {
         }
     }
 
+
+    private fun getUserInfo() {
+        UserCenterService.getInstance().getAppUserInfo(object : CallBack<AppInfoResponse>() {
+            override fun callBack(result: AppInfoResponse?) {
+                if (result?.code == 100) {
+                    val userInfo = result.appUserInfoDto
+                    if (userInfo.imageUrl.isNotBlank()) {
+                        Glide.with(activity!!).load(userInfo.imageUrl)
+                            .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                            .into(mine_head_image_view)
+                    }
+                    mine_user_name_text_view.text = userInfo.name
+                }
+            }
+
+        })
+    }
 
 }
