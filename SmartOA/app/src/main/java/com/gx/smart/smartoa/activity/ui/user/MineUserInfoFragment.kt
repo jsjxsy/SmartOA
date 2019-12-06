@@ -34,9 +34,7 @@ import com.gx.smart.smartoa.data.network.api.UserCenterService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
-import com.orhanobut.logger.Logger
 import com.theartofdev.edmodo.cropper.CropImage
-import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.fragment_mine_user_info.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import top.limuyang2.customldialog.BottomTextListDialog
@@ -97,11 +95,22 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                     override fun onClick(view: View, position: Int) {
                         when (position) {
                             0 -> {
-                                Logger.i("hello")
+                                changeUserGender("1");
+                                if (GrpcAsyncTask.isFinish(task)) {
+                                    task =
+                                        UserCenterService.getInstance()
+                                            .changeUserGender(1, callBack);
+                                }
                                 dialog.dismiss()
                             }
                             1 -> {
-                                Logger.i("hello")
+                                changeUserGender("2");
+
+                                if (GrpcAsyncTask.isFinish(task)) {
+                                    task =
+                                        UserCenterService.getInstance()
+                                            .changeUserGender(1, callBack);
+                                }
                                 dialog.dismiss()
                             }
 
@@ -279,13 +288,12 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
         val reqWidth = ScreenUtils.getScreenWidth()
         var reqHeight = reqWidth
         CropImage.activity(uri)
-            .setGuidelines(CropImageView.Guidelines.ON)
-            .setFixAspectRatio(true)
             .setAspectRatio(reqWidth, reqHeight)
             .setActivityTitle("裁剪")
             .setRequestedSize(reqWidth, reqHeight)
             .setCropMenuCropButtonIcon(R.mipmap.ic_crop)
             .start(activity!!)
+
     }
 
 
@@ -345,6 +353,33 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
             }
         }
         return data
+    }
+
+
+    fun changeUserGender(gender: String) {
+        callBack = object : CallBack<AppInfoResponse?>() {
+            override fun callBack(result: AppInfoResponse?) {
+                if (result == null) {
+                    ToastUtils.showLong("修改性别超时")
+                    return
+                }
+                if (result.code === 100) {
+                    if (result.msg == "成功") {
+                        ToastUtils.showLong("保存成功")
+                    } else {
+                        ToastUtils.showLong("保存失败")
+                    }
+                    sex.text.apply {
+                        if (gender == "1")
+                            "男"
+                        else
+                            "女"
+                    }
+                } else {
+                    ToastUtils.showLong(result.msg)
+                }
+            }
+        }
     }
 
 }
