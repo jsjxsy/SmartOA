@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package com.gx.wisestone.ezwork.app.grpc;
+import "AppCommon.proto";
+import "WscoreCommon.proto";
+option java_multiple_files = true;
+option java_package = "com.gx.wisestone.work.app.grpc.attendance";
+option java_outer_classname = "AppAttendanceInterfaceService";
+
+
+service AppAttendanceInterface {
+
+    //考勤
+    rpc attendance (AttendanceRequest) returns (CommonResponse) {
+    }
+
+}
+
+message AttendanceRequest {
+
+    string longitude = 7; //经度
+    string latitude = 8; //纬度
+    string address = 9; //地址
+
+}

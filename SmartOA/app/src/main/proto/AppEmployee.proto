@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package com.gx.wisestone.ezwork.app.grpc;
+import "AppCommon.proto";
+import "WscoreCommon.proto";
+option java_multiple_files = true;
+option java_package = "com.gx.wisestone.work.app.grpc.employee";
+option java_outer_classname = "AppEmployeeInterfaceService";
+
+service AppEmployeeInterface {
+
+
+}

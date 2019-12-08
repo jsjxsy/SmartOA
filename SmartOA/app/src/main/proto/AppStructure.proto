@@ -21,6 +21,9 @@ service StructureInterface {
     //申请成为公司成员
     rpc applyEmployee(ApplyEmployeeRequest) returns (CommonResponse) {}
 
+    //确认
+    rpc conformEmployeeApply(ConformEmployeeApplyRequest) returns (CommonResponse) {}
+
     //修改对讲状态 不测
     rpc appChangeSwitch(AppChangeSwitchRequest) returns (CommonResponse) {}
 
@@ -30,17 +33,20 @@ service StructureInterface {
 }
 
 message AddCustomerRecordRequest {
-    int64 owner_id = 3;
-    string owner_name = 4;
-    string owner_mobile = 5;
-    string sys_tenant_name = 7;
-    string target_mobile = 8;  //所拨打的400电话号码
+    string target_mobile = 8; //所拨打的400电话号码
 }
 
 
 //小区列表
 message SysTenantListRequest {
     string name = 7;
+}
+
+//小区列表
+message ConformEmployeeApplyRequest {
+    int64 employee_apply_record_Id = 1;//申请记录id
+    int32 status = 2;//2=通过；3=拒绝
+
 }
 
 //获取分区信息

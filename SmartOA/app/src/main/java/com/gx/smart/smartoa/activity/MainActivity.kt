@@ -2,10 +2,14 @@ package com.gx.smart.smartoa.activity
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
 import android.widget.RadioGroup
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import com.blankj.utilcode.util.FragmentUtils
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.ui.home.HomeFragment
+import com.gx.smart.smartoa.activity.ui.mine.MineFragment
+import com.gx.smart.smartoa.activity.ui.open.OpenDoorFragment
 import com.gx.smart.smartoa.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -18,7 +22,6 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
         val navView = nav_view as RadioGroup
         navView.setOnCheckedChangeListener(this)
     }
-
 
 
     override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
@@ -39,13 +42,17 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
                     R.id.nav_host_fragment
                 ).navigate(R.id.action_global_mineFragment)
         }
+        stateSetting()
     }
 
-    /**
-     * ******** mine Fragment ***********
-     */
-    fun mineSettings(view: View) {
-
+    private fun stateSetting() {
+        val fragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        when (FragmentUtils.getTop(fragment.childFragmentManager)) {
+            is HomeFragment -> id_tab_home.isChecked = true
+            is OpenDoorFragment -> id_tab_open.isChecked = true
+            is MineFragment -> id_tab_mine.isChecked = true
+        }
     }
 
 }

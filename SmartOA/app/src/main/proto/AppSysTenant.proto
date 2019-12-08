@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package com.gx.wisestone.appserver.grpc;
+
+import "AppCommon.proto";
+option java_multiple_files = true;
+option java_package = "com.gx.wisestone.work.app.grpc.systenant";
+option java_outer_classname = "AppSysTenantService";
+option objc_class_prefix = "WS";
+
+service AppSysTenant{
+    //小区列表
+    rpc getSysTenantList(SysTenantListRequest) returns (AppBuildingResponse) {}
+
+    //获取分区 楼栋 单元
+    rpc getBuildingInfo(AppGetBuildingInfoRequest) returns (AppCompanyResponse) {}
+
+}
+
+message SysTenantListRequest {
+
+}
+
+message AppBuildingResponse {
+
+}
+
+message AppGetBuildingInfoRequest {
+    int32 sys_tenant_no = 1;
+}
+
+message AppCompanyResponse {
+    int32 sys_tenant_no = 1;
+}

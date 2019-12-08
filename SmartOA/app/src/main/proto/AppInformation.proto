@@ -19,7 +19,6 @@ service AppInformation{
 
 
 message PersonInformationRequest {
-    int64 app_user_id = 1;
     com.gx.wisestone.core.grpc.common.QueryDto query = 2;
 }
 

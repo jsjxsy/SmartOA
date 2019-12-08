@@ -15,8 +15,12 @@ service AppUserCenterInterface {
     rpc updateAppUser (UpdateAppUserRequest) returns (AppInfoResponse) {}
     //获取用户信息
     rpc getAppUserInfo (GetAppUserInfoRequest) returns (AppInfoResponse) {}
+    //实名认证
+    rpc verified (VerifiedRequest) returns (CommonResponse) {}
     //退出接口
     rpc appLogout (AppLogoutRequest) returns (CommonResponse) {}
+    //意见反馈
+    rpc addOpinion (AddOpinionRequest) returns (CommonResponse) {}
 
 }
 
@@ -24,6 +28,12 @@ service AppUserCenterInterface {
 //绑定校验
 message BindAppUserValidationRequest {
 
+}
+
+
+message VerifiedRequest {
+    string name = 1;//姓名
+    string identity_card = 2;//证件号
 }
 
 message AppGetRoomInfoRequest {
@@ -37,6 +47,11 @@ message GetRoomsRequest {
 //退出app
 message AppLogoutRequest {
 
+}
+
+message AddOpinionRequest {
+
+    string content = 1;  //内容
 }
 
 //
@@ -121,8 +136,16 @@ message AppUserInfoDto {
     string user_id = 7;
     //年龄
     int32 age = 9;
+
+    int32 identity_type = 10;  //证件类型1居民身份证2居住证3签证4护照5户口本
+
+    string identity_card = 11;  //证件号
+    int32 msg_notice = 12;  //消息通知 1开启 2关闭
+
     //消息推送开关：1 是；2 否
     int32 msg_switch = 13;
+
+    int32 verified = 17;  //1.已认证2.未认证
 }
 
 
