@@ -71,15 +71,13 @@ public class AppFigureService {
     /**
      * 轮播图 ，每个小区不同
      *
-     * @param sysTenantNo 小区Id
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, ImagesResponse> carouselFigure(final int sysTenantNo, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, ImagesResponse> carouselFigure(CallBack callBack) {
         return new GrpcAsyncTask<String, Void, ImagesResponse>(callBack) {
             @Override
             protected ImagesResponse doRequestData(ManagedChannel channel) {
                 CarouselFigureRequest message = CarouselFigureRequest.newBuilder()
-                        .setSysTenantNo(sysTenantNo)
                         .build();
                 ImagesResponse response = null;
                 try {

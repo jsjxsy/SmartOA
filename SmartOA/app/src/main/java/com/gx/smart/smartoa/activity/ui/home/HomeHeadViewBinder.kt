@@ -136,7 +136,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
             holder.right_nav_Image_view
         )
 
-        AppFigureService.getInstance().carouselFigure(2, object : CallBack<ImagesResponse?>() {
+        AppFigureService.getInstance().carouselFigure(object : CallBack<ImagesResponse?>() {
             override fun callBack(result: ImagesResponse?) {
                 if (result?.code == 100) {
                     var list = result.imagesInfoOrBuilderList.toList()
