@@ -5,12 +5,14 @@ import android.util.Log;
 import com.google.protobuf.ByteString;
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
+import com.gx.wisestone.work.app.grpc.appuser.AddOpinionRequest;
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse;
 import com.gx.wisestone.work.app.grpc.appuser.AppLogoutRequest;
 import com.gx.wisestone.work.app.grpc.appuser.AppUserCenterInterfaceGrpc;
 import com.gx.wisestone.work.app.grpc.appuser.BindAppUserRequest;
 import com.gx.wisestone.work.app.grpc.appuser.GetAppUserInfoRequest;
 import com.gx.wisestone.work.app.grpc.appuser.UpdateAppUserRequest;
+import com.gx.wisestone.work.app.grpc.appuser.VerifiedRequest;
 import com.gx.wisestone.work.app.grpc.common.CommonResponse;
 
 import java.util.concurrent.TimeUnit;
@@ -163,21 +165,21 @@ public class UserCenterService {
     }
 
     /**
-     * 更新app信息
+     * 意见反馈
      *
-     * @param identityCard 姓名
+     * @param content 内容
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, AppInfoResponse> updateAppUserIdCard(final String identityCard, CallBack callBack) {
-        return new GrpcAsyncTask<String, Void, AppInfoResponse>(callBack) {
+    public GrpcAsyncTask<String, Void, CommonResponse> addOpinion(final String content, CallBack callBack) {
+        return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
             @Override
-            protected AppInfoResponse doRequestData(ManagedChannel channel) {
-                UpdateAppUserRequest message = UpdateAppUserRequest.newBuilder()
-                        .setIdentityCard(identityCard)
+            protected CommonResponse doRequestData(ManagedChannel channel) {
+                AddOpinionRequest message = AddOpinionRequest.newBuilder()
+                        .setContent(content)
                         .build();
-                AppInfoResponse response = null;
+                CommonResponse response = null;
                 try {
-                    response = getUserStub(channel).updateAppUser(message);
+                    response = getUserStub(channel).addOpinion(message);
                 } catch (Exception e) {
                     Log.i("UserCenterService", e.getMessage());
                 }
@@ -192,16 +194,17 @@ public class UserCenterService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, AppInfoResponse> changeUserMsgNotice(final int msgNotice, CallBack callBack) {
-        return new GrpcAsyncTask<String, Void, AppInfoResponse>(callBack) {
+    public GrpcAsyncTask<String, Void, CommonResponse> verified(final String name, final String identityCard, CallBack callBack) {
+        return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
             @Override
-            protected AppInfoResponse doRequestData(ManagedChannel channel) {
-                UpdateAppUserRequest message = UpdateAppUserRequest.newBuilder()
-                        .setMsgNotice(msgNotice)
+            protected CommonResponse doRequestData(ManagedChannel channel) {
+                VerifiedRequest message = VerifiedRequest.newBuilder()
+                        .setIdentityCard(identityCard)
+                        .setName(name)
                         .build();
-                AppInfoResponse response = null;
+                CommonResponse response = null;
                 try {
-                    response = getUserStub(channel).updateAppUser(message);
+                    response = getUserStub(channel).verified(message);
                 } catch (Exception e) {
                     Log.i("UserCenterService", e.getMessage());
                 }

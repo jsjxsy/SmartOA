@@ -132,7 +132,7 @@ public class AuthApiService {
      * @param mobile_verify_code 手机验证码
      * @return callBack返回值
      */
-    public static GrpcAsyncTask<String, Void, UserModifyResp> userModifyMobile(final String mobile, final String mobile_verify_code, final String userId, final String token, CallBack callBack) {
+    public  GrpcAsyncTask<String, Void, UserModifyResp> userModifyMobile(final String mobile, final String mobile_verify_code, final String userId, final String token, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, UserModifyResp>(callBack) {
             @Override
             protected UserModifyResp doRequestData(ManagedChannel channel) {
@@ -161,7 +161,7 @@ public class AuthApiService {
      * @param password (必) 密码/验证码 根据登录类型而定
      * @return callBack返回值
      */
-    public static GrpcAsyncTask<String, Void, UserModifyResp> userModifyPassWord(final String password, final String userId, final String token, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, UserModifyResp> userModifyPassWord(final String password, final String userId, final String token, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, UserModifyResp>(callBack) {
             @Override
             protected UserModifyResp doRequestData(ManagedChannel channel) {

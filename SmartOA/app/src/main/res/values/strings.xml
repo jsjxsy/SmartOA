@@ -145,8 +145,9 @@
     <string name="confirm_submit">确认提交</string>
     <string name="open">打开</string>
     <string name="pause">暂停</string>
-    <string name="close">关z闭</string>
+    <string name="close">关闭</string>
     <string name="input_nick_name">请输入昵称</string>
 
+    <string name="name">姓名</string>
 
 </resources>

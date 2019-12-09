@@ -10,9 +10,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.login.LoginActivity
 import com.gx.smart.smartoa.data.network.AppConfig
+import com.gx.smart.smartoa.data.network.api.UserCenterService
+import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
+import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.setting_fragment.*
 import top.limuyang2.customldialog.IOSMsgDialog
@@ -23,6 +28,8 @@ class SettingFragment : Fragment(), View.OnClickListener {
         fun newInstance() = SettingFragment()
     }
 
+    private var appLogoutCallBack: CallBack<CommonResponse>? = null
+    private var appLogoutTask: GrpcAsyncTask<String, Void, CommonResponse>? = null
     private lateinit var viewModel: SettingViewModel
 
     override fun onCreateView(
@@ -80,8 +87,7 @@ class SettingFragment : Fragment(), View.OnClickListener {
 
                 })
                 .setPositiveButton("确定", View.OnClickListener {
-                    SPUtils.getInstance().put(AppConfig.SH_PASSWORD, "")
-                    ActivityUtils.startActivity(Intent(activity, LoginActivity::class.java))
+                    logout()
                 }).show()
         }
     }
@@ -93,5 +99,34 @@ class SettingFragment : Fragment(), View.OnClickListener {
 
     }
 
+    private fun logout() {
+        appLogout()
+        if (GrpcAsyncTask.isFinish(appLogoutTask)) {
+            appLogoutTask = UserCenterService.getInstance().appLogout(appLogoutCallBack)
+        }
+    }
+
+    //验证登录手机号回调
+    private fun appLogout() {
+        appLogoutCallBack = object : CallBack<CommonResponse>() {
+            override fun callBack(result: CommonResponse?) {
+                if (result == null) {
+                    ToastUtils.showLong("退出登录失败")
+                    return
+                }
+                if (result.code === 100) {
+                    //跳转登录界面
+                    SPUtils.getInstance().put(AppConfig.SH_PASSWORD, "")
+                    ActivityUtils.startActivity(Intent(activity, LoginActivity::class.java))
+                    ToastUtils.showLong("退出登录成功")
+                } else {
+                    //设置自动登录关闭
+                    SPUtils.getInstance().put(AppConfig.SH_PASSWORD, "")
+                    ActivityUtils.startActivity(Intent(activity, LoginActivity::class.java))
+                    ToastUtils.showLong("退出登录失败")
+                }
+            }
+        }
+    }
 
 }

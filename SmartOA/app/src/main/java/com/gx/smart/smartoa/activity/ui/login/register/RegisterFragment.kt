@@ -76,7 +76,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(RegisterViewModel::class.java)
-        verifyCodeText = getVerifyCodeText
+
         mLoadingView = loadingView
         initTitle()
         initData()
@@ -163,6 +163,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initData() {
+        verifyCodeText = getVerifyCodeText
         mTime = TimeCount(60000, 1000, verifyCodeText)
     }
 
@@ -180,16 +181,14 @@ class RegisterFragment : Fragment(), View.OnClickListener {
         CountDownTimer(millisInFuture, countDownInterval) {
         override fun onFinish() {
             verifyCodeText.text = "获取验证码"
-            verifyCodeText.setClickable(true)
+            verifyCodeText.isClickable = true
         }
 
         override fun onTick(millisUntilFinished: Long) {
-            verifyCodeText.setClickable(false)
-            verifyCodeText.setText(
-                String.format(
-                    "%s",
-                    millisUntilFinished.div(1000).toString() + "s"
-                )
+            verifyCodeText.isClickable = false
+            verifyCodeText.text = String.format(
+                "%s",
+                millisUntilFinished.div(1000).toString() + "s"
             )
         }
     }

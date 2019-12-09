@@ -14,6 +14,9 @@
             android:id="@+id/action_mineUserInfoFragment_to_mineUserInfoModifyNameFragment"
             app:destination="@id/mineUserInfoModifyNameFragment" />
         <action
+            android:id="@+id/action_mineUserInfoFragment_to_mineUserInfoModifyNickNameFragment"
+            app:destination="@id/mineUserInfoModifyNickNameFragment" />
+        <action
             android:id="@+id/action_mineUserInfoFragment_to_mineUserInfoModifyPasswordFragment"
             app:destination="@id/mineUserInfoModifyPasswordFragment" />
         <action
@@ -34,6 +37,11 @@
         android:name="com.gx.smart.smartoa.activity.ui.user.MineUserInfoModifyNameFragment"
         android:label="fragment_mine_user_info_modify_name"
         tools:layout="@layout/fragment_mine_user_info_modify_name" />
+    <fragment
+        android:id="@+id/mineUserInfoModifyNickNameFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.user.MineUserInfoModifyNickNameFragment"
+        android:label="fragment_mine_user_info_modify_nick_name"
+        tools:layout="@layout/fragment_mine_user_info_modify_nick_name" />
     <fragment
         android:id="@+id/mineUserInfoModifyPhoneFragment"
         android:name="com.gx.smart.smartoa.activity.ui.user.MineUserInfoModifyPhoneFragment"

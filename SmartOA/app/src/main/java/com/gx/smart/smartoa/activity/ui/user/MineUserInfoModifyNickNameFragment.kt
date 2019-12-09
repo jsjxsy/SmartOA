@@ -13,13 +13,13 @@ import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.UserCenterService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
-import kotlinx.android.synthetic.main.fragment_mine_user_info_modify_name.*
+import kotlinx.android.synthetic.main.fragment_mine_user_info_modify_nick_name.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class MineUserInfoModifyNameFragment : Fragment(), View.OnClickListener {
+class MineUserInfoModifyNickNameFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()
@@ -31,7 +31,7 @@ class MineUserInfoModifyNameFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mine_user_info_modify_name, container, false)
+        return inflater.inflate(R.layout.fragment_mine_user_info_modify_nick_name, container, false)
     }
 
 
@@ -81,7 +81,7 @@ class MineUserInfoModifyNameFragment : Fragment(), View.OnClickListener {
             loadingView.visibility = View.VISIBLE
             val name = modifyName.text.toString()
             UserCenterService.getInstance()
-                .updateAppUserName(name, object : CallBack<AppInfoResponse>() {
+                .updateAppUserNickName(name, object : CallBack<AppInfoResponse>() {
                     override fun callBack(result: AppInfoResponse?) {
                         loadingView.visibility = View.GONE
                         if (result == null) {

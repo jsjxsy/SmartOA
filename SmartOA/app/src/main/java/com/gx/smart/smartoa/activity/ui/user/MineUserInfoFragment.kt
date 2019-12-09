@@ -51,7 +51,7 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
     private var callBack: CallBack<AppInfoResponse?>? = null
     //调用照相机返回图片文件
     private var tempFile: File? = null
-
+    private var mobile: String? = null
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()
@@ -85,8 +85,12 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
 
     private fun initContent() {
         getUserInfo()
-        cacheLayout.setOnClickListener {
+        nameLayout.setOnClickListener {
             findNavController().navigate(R.id.action_mineUserInfoFragment_to_mineUserInfoModifyNameFragment)
+        }
+
+        nickNameLayout.setOnClickListener {
+            findNavController().navigate(R.id.action_mineUserInfoFragment_to_mineUserInfoModifyNickNameFragment)
         }
         suggestionLayout.setOnClickListener {
             val dialog = BottomTextListDialog.init(fragmentManager!!)
@@ -104,7 +108,7 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                                 dialog.dismiss()
                             }
                             1 -> {
-                                changeUserGender("2");
+                                changeUserGender("2")
 
                                 if (GrpcAsyncTask.isFinish(task)) {
                                     task =
@@ -120,7 +124,12 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                 }).show()
         }
         aboutLayout.setOnClickListener {
-            findNavController().navigate(R.id.action_mineUserInfoFragment_to_mineUserInfoModifyPhoneFragment)
+            val bundle = Bundle()
+            bundle.putString(MineUserInfoModifyPhoneFragment.ARG_PHONE_NUMBER, mobile)
+            findNavController().navigate(
+                R.id.action_mineUserInfoFragment_to_mineUserInfoModifyPhoneFragment,
+                bundle
+            )
         }
 
         causeLayout.setOnClickListener {
@@ -128,12 +137,21 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
         }
 
         modifyPasswordLayout.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString(MineUserInfoModifyPasswordFragment.ARG_PHONE_NUMBER, mobile)
             findNavController().navigate(R.id.action_mineUserInfoFragment_to_mineUserInfoModifyPasswordFragment)
         }
         headLayout.setOnClickListener {
             uploadHeadImage()
         }
 
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden) {
+            getUserInfo()
+        }
     }
 
 
@@ -147,6 +165,9 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                             .apply(RequestOptions.bitmapTransform(CircleCrop()))
                             .into(headImage)
                     }
+                    if (userInfo.name.isNotBlank()) {
+                        name.text = userInfo.name
+                    }
                     if (userInfo.nickName.isNotBlank()) {
                         nickName.text = userInfo.nickName
                     }
@@ -157,6 +178,7 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                     }
 
                     if (userInfo.mobile.isNotBlank()) {
+                        mobile = userInfo.mobile
                         val phoneNo =
                             userInfo.mobile.replace("(\\d{3})\\d{4}(\\d{4})".toRegex(), "$1****$2")
                         phone.text = phoneNo
@@ -314,7 +336,6 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                 } else {
                     ToastUtils.showLong(result.msg)
                 }
-                //处理数据,刷新UI
             }
         }
     }
@@ -366,15 +387,16 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                 if (result.code === 100) {
                     if (result.msg == "成功") {
                         ToastUtils.showLong("保存成功")
+                        sex.text = sex.text.apply {
+                            if (gender == "1")
+                                "男"
+                            else
+                                "女"
+                        }
                     } else {
                         ToastUtils.showLong("保存失败")
                     }
-                    sex.text.apply {
-                        if (gender == "1")
-                            "男"
-                        else
-                            "女"
-                    }
+
                 } else {
                     ToastUtils.showLong(result.msg)
                 }

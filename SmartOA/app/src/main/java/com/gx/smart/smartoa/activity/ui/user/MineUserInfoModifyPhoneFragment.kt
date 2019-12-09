@@ -1,41 +1,62 @@
 package com.gx.smart.smartoa.activity.ui.user
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.NetworkUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.ui.login.LoginActivity
+import com.gx.smart.smartoa.data.network.AppConfig
+import com.gx.smart.smartoa.data.network.api.AuthApiService
+import com.gx.smart.smartoa.data.network.api.UserCenterService
+import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
+import com.gx.smart.smartoa.data.network.api.lib.model.JwtHolder
+import com.gx.smart.smartoa.data.network.api.lib.utils.AuthUtils
+import com.gx.smart.smartoa.utils.DataCheckUtil
+import com.gx.smart.smartoa.widget.LoadingView
+import com.gx.wisestone.uaa.grpc.lib.auth.UserModifyResp
+import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp
+import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
+import kotlinx.android.synthetic.main.fragment_mine_user_info_modify_phone.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [MineUserInfoModifyPhoneFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [MineUserInfoModifyPhoneFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()
+            R.id.save -> save()
         }
     }
 
-    private var param1: String? = null
-    private var param2: String? = null
+    private var updateAppUserMobileTask: GrpcAsyncTask<String, Void, AppInfoResponse>? = null
+    private var updateAppUserMobileCallBack: CallBack<AppInfoResponse>? = null
+
+    private var userModifyMobileCallBack: CallBack<UserModifyResp>? = null
+    private var userModifyMobileTask: GrpcAsyncTask<String, Void, UserModifyResp>? = null
+
+    private var phone: String? = null
+    private var mTime: TimeCount? = null
+    private lateinit var verifyCodeText: TextView
+    private lateinit var mLoadingView: LoadingView
+
+    private var verifyTask: GrpcAsyncTask<String, Void, VerifyCodeResp>? = null
+    private var verifyCallBack: CallBack<VerifyCodeResp?>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            phone = it.getString(ARG_PHONE_NUMBER)
         }
     }
 
@@ -66,19 +87,173 @@ class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initContent() {
+        mLoadingView = loadingView
+        phoneNumber.text = phone?.replace("(\\d{3})\\d{4}(\\d{4})".toRegex(), "$1****$2")
+        initVerifyCode()
+        save.setOnClickListener(this)
+    }
 
+    private fun initVerifyCode() {
+        verifyCodeText = getVerifyCodeText.apply {
+            this.setOnClickListener {
+                getVerifyCode()
+            }
+        }
+        mTime = TimeCount(60000, 1000, verifyCodeText)
+    }
+
+    private fun save() {
+        mLoadingView.visibility = View.VISIBLE
+        val token1: String = AppConfig.loginToken
+        val holder1: JwtHolder = AuthUtils.parseJwtHolder(token1)
+        val userId1: String = holder1.subject
+        val verifyCode: String = verifyCode.text.toString().trim()
+        val newPhone: String = newPhone.text.toString().trim()
+        if (TextUtils.isEmpty(newPhone)) {
+            ToastUtils.showLong("手机号码不能为空")
+        } else if (TextUtils.isEmpty(verifyCode)) {
+            ToastUtils.showLong("验证码不能为空")
+        } else if (newPhone.length != 6) {
+            ToastUtils.showLong("验证码长度不正确")
+        } else if (newPhone.length != 11 || !DataCheckUtil.isMobile(newPhone)
+        ) {
+            ToastUtils.showLong("非法手机号")
+        } else if (newPhone == phone) {
+            ToastUtils.showLong("与登陆手机号相同")
+        } else {
+            changePhone(verifyCode)
+            if (GrpcAsyncTask.isFinish(userModifyMobileTask)) {
+                userModifyMobileTask = AuthApiService.getInstance().userModifyMobile(
+                    verifyCode,
+                    newPhone,
+                    userId1,
+                    token1,
+                    userModifyMobileCallBack
+                )
+            }
+        }
+    }
+
+
+    /*******************************************修改手机号回调 */
+    private fun changePhone(changeNo: String?) {
+        userModifyMobileCallBack = object : CallBack<UserModifyResp>() {
+            override fun callBack(result: UserModifyResp?) {
+                if (result == null) {
+                    ToastUtils.showLong("修改手机号超时")
+                    return
+                }
+                val msg = result.dataMap["errMsg"]
+                if (result?.code == 100) {
+                    mTime!!.start()
+                    changeUserMobile()
+                    if (GrpcAsyncTask.isFinish(updateAppUserMobileTask)) {
+                        updateAppUserMobileTask = UserCenterService.getInstance()
+                            .updateAppUserMobile(changeNo, updateAppUserMobileCallBack)
+                    }
+                } else {
+                    ToastUtils.showLong(msg)
+                }
+                //处理数据,刷新UI
+            }
+        }
+    }
+
+    fun changeUserMobile() {
+        updateAppUserMobileCallBack = object : CallBack<AppInfoResponse>() {
+            override fun callBack(result: AppInfoResponse?) {
+                mLoadingView.visibility = View.GONE
+                if (result == null) {
+                    ToastUtils.showLong("修改手机号超时")
+                    return
+                }
+                if (result?.code === 100) {
+                    ToastUtils.showLong("修改手机号成功")
+                    activity?.finish()
+                    ActivityUtils.startActivity(activity!!, LoginActivity::class.java)
+                } else {
+                    ToastUtils.showLong(result?.msg)
+                }
+                //处理数据,刷新UI
+            }
+        }
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mTime?.cancel()
+    }
+
+    //获取验证码定时器
+    class TimeCount(
+        millisInFuture: Long,
+        countDownInterval: Long,
+        private val verifyCodeText: TextView
+    ) :
+        CountDownTimer(millisInFuture, countDownInterval) {
+        override fun onFinish() {
+            verifyCodeText.text = "获取验证码"
+            verifyCodeText.isClickable = true
+        }
+
+        override fun onTick(millisUntilFinished: Long) {
+            verifyCodeText.isClickable = false
+            verifyCodeText.text = String.format(
+                "%s",
+                millisUntilFinished.div(1000).toString() + "s"
+            )
+        }
+    }
+
+
+    private fun getVerifyCode() {
+        val phoneNumber = newPhone.text.toString()
+        if (!NetworkUtils.isConnected()) {
+            ToastUtils.showLong("网络连接不可用")
+            return
+        }
+        if (TextUtils.isEmpty(phone)) {
+            ToastUtils.showLong("手机号不能为空")
+        } else if (phoneNumber!!.length != 11 || !DataCheckUtil.isMobile(phoneNumber)) {
+            ToastUtils.showLong("非法手机号")
+        } else {
+            getVerifyCodeCallback()
+            val targetType = 1
+            val purpose = 2
+            if (GrpcAsyncTask.isFinish(verifyTask)) {
+                verifyTask = AuthApiService.getInstance()
+                    .verifyCode(phoneNumber, targetType, purpose, verifyCallBack)
+            }
+        }
+    }
+
+    /*******************************************获取验证码回调 */
+    private fun getVerifyCodeCallback() {
+        verifyCallBack = object : CallBack<VerifyCodeResp?>() {
+            override fun callBack(result: VerifyCodeResp?) {
+                if (result == null) {
+                    ToastUtils.showLong("验证码请求超时")
+                    return
+                }
+                val msg = result.dataMap["errMsg"]
+                if (result.code == 100) {
+                    mTime?.start()
+                    ToastUtils.showLong("获取验证码成功")
+                } else {
+                    ToastUtils.showLong(msg)
+                    val userId = result.dataMap["userId"]
+                    if (!TextUtils.isEmpty(userId)) {
+                        activity?.finish()
+                        ActivityUtils.startActivity(Intent(activity, LoginActivity::class.java))
+                    }
+                }
+            }
+        }
     }
 
 
     companion object {
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MineUserInfoModifyPhoneFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        const val ARG_PHONE_NUMBER = "phoneNumber"
     }
 }

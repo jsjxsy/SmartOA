@@ -51,16 +51,52 @@
             android:layout_centerVertical="true"
             android:src="@drawable/ic_more_info" />
     </RelativeLayout>
-
     <View
-        android:id="@+id/line"
+        android:id="@+id/line_1"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/background_style_six"
         app:layout_constraintTop_toBottomOf="@id/headLayout" />
 
     <RelativeLayout
-        android:id="@+id/cacheLayout"
+        android:id="@+id/nameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:paddingLeft="@dimen/margin_style_two"
+        android:paddingRight="@dimen/margin_style_two"
+        app:layout_constraintTop_toBottomOf="@id/line_1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/list_item_height_style"
+            android:gravity="center_vertical"
+            android:text="@string/name"
+            android:textColor="@color/font_color_style_six"
+            android:textSize="@dimen/font_size_style_one" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/list_item_height_style"
+            android:layout_alignParentRight="true"
+            android:drawableRight="@drawable/ic_more_info"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/input_nick_name"
+            tools:text="张嘉译" />
+    </RelativeLayout>
+
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/background_style_six"
+        app:layout_constraintTop_toBottomOf="@id/nameLayout" />
+
+    <RelativeLayout
+        android:id="@+id/nickNameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
@@ -93,7 +129,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/background_style_six"
-        app:layout_constraintTop_toBottomOf="@id/cacheLayout" />
+        app:layout_constraintTop_toBottomOf="@id/nickNameLayout" />
 
     <RelativeLayout
         android:id="@+id/suggestionLayout"
