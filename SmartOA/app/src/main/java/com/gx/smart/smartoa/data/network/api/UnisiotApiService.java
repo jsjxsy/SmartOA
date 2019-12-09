@@ -2,6 +2,8 @@ package com.gx.smart.smartoa.data.network.api;
 
 import android.util.Log;
 
+import com.gx.smart.smartoa.data.network.ApiConfig;
+import com.gx.smart.smartoa.data.network.AppConfig;
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.AirBoxDataGetReq;
@@ -102,7 +104,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
     /**
@@ -130,7 +132,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
     /**
@@ -139,7 +141,7 @@ public class UnisiotApiService {
      * @param host_sn 主机SN
      * @return callBack返回值
      */
-    public static GrpcAsyncTask<String, Void, DevListResp> devList(final String host_sn, CallBack callBack) {
+    public  GrpcAsyncTask<String, Void, DevListResp> devList(final String host_sn, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, DevListResp>(callBack) {
             @Override
             protected DevListResp doRequestData(ManagedChannel channel) {
@@ -155,7 +157,7 @@ public class UnisiotApiService {
                 }
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -188,7 +190,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
     /**
@@ -218,7 +220,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
     /**
@@ -254,7 +256,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -281,7 +283,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -291,7 +293,7 @@ public class UnisiotApiService {
      * @param host_sn 主机SN
      * @return callBack返回值
      */
-    public static GrpcAsyncTask<String, Void, SceneListResp> sceneList(final String host_sn, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, SceneListResp> sceneList(final String host_sn, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, SceneListResp>(callBack) {
             @Override
             protected SceneListResp doRequestData(ManagedChannel channel) {
@@ -308,7 +310,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -337,7 +339,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -370,7 +372,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -407,7 +409,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -436,7 +438,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -447,7 +449,7 @@ public class UnisiotApiService {
      * @param scene_id 场景id
      * @return callBack返回值
      */
-    public static GrpcAsyncTask<String, Void, UnisiotResp> sceneCom(final String host_sn, final String scene_id, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, UnisiotResp> sceneCom(final String host_sn, final String scene_id, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, UnisiotResp>(callBack) {
             @Override
             protected UnisiotResp doRequestData(ManagedChannel channel) {
@@ -465,7 +467,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
     /**
@@ -476,7 +478,7 @@ public class UnisiotApiService {
      * @param scene_name 场景名称
      * @return callBack返回值
      */
-    public static GrpcAsyncTask<String, Void, UnisiotResp> sceneEditName(final String host_sn, final String scene_name, final String scene_id, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, UnisiotResp> sceneEditName(final String host_sn, final String scene_name, final String scene_id, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, UnisiotResp>(callBack) {
             @Override
             protected UnisiotResp doRequestData(ManagedChannel channel) {
@@ -495,7 +497,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -526,7 +528,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -557,7 +559,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -588,7 +590,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -619,7 +621,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -646,7 +648,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
     /**
@@ -672,7 +674,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
     /**
@@ -700,7 +702,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -734,7 +736,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -767,7 +769,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost("","").doExecute();
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 

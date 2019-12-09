@@ -74,7 +74,7 @@ class SmartOAApplication : Application() {
         JPushInterface.init(this)
         val jPushToken = JPushInterface.getRegistrationID(this)
         if (!TextUtils.isEmpty(jPushToken)) {
-            AppConfig.mJiGuangToekn = jPushToken
+            AppConfig.mJiGuangToken = jPushToken
         }
         Logger.d("push", "jPushToken:$jPushToken")
     }

@@ -12,7 +12,7 @@ public class ApiConfig {
     //auth
     public static String AUTH_API_SERVER_PORT = "31772";
     //紫光
-
+    public static String  ZG_SERVICE_PORT = "30501";
     //
     public static String HUISHI_USER_SPACE = "b60bcfe2";//用户池
 

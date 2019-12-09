@@ -24,9 +24,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
+import top.limuyang2.customldialog.adapter.BottomTextListAdapter
 
 class LightHeadItemViewBinder :
-    ItemViewBinder<LightHeadItem, LightHeadItemViewBinder.TextHolder>() {
+    ItemViewBinder<LightHeadItem, LightHeadItemViewBinder.TextHolder>(),View.OnClickListener {
 
 
     class TextHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -48,6 +49,20 @@ class LightHeadItemViewBinder :
         holder.text.text = item.text
         val topDrawable = holder.itemView.resources.getDrawable(item.resId, null)
         holder.text.setCompoundDrawablesRelativeWithIntrinsicBounds(null, topDrawable, null, null)
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.onClick(it, getPosition(holder))
+        }
+    }
+
+
+     var onItemClickListener: OnItemClickListener? = null
+
+    interface OnItemClickListener {
+        fun onClick(view: View, position: Int)
+    }
+
+    override fun onClick(v: View?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }

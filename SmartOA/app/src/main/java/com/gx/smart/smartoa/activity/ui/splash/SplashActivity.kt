@@ -107,9 +107,9 @@ class SplashActivity : BaseActivity() {
 
     fun updateMessagePushAndLogin() {
         //上传极光ID
-        if (null != AppConfig.mJiGuangToekn) {
+        if (null != AppConfig.mJiGuangToken) {
             AppMessagePushService.getInstance().updateMessagePush(
-                AppConfig.mJiGuangToekn,
+                AppConfig.mJiGuangToken,
                 object : CallBack<UpdateMessagePushResponse?>() {
                     override fun callBack(result: UpdateMessagePushResponse?) {
                         Log.i("jtpush", result.toString())
