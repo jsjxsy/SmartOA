@@ -38,12 +38,8 @@ class MineUserInfoModifyPasswordFragment : Fragment(), View.OnClickListener {
     private var userModifyPassWordTask: GrpcAsyncTask<String, Void, UserModifyResp>? = null
     private var userModifyPassWordTaskCallBack: CallBack<UserModifyResp>? = null
     private var phone: String? = null
-    private var mTime: TimeCount? = null
-    private lateinit var verifyCodeText: TextView
     private lateinit var mLoadingView: LoadingView
 
-    private var verifyTask: GrpcAsyncTask<String, Void, VerifyCodeResp>? = null
-    private var verifyCallBack: CallBack<VerifyCodeResp?>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,10 +76,8 @@ class MineUserInfoModifyPasswordFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initContent() {
-        initVerifyCode()
         mLoadingView = loadingView
         phoneNumber.text = phone?.replace("(\\d{3})\\d{4}(\\d{4})".toRegex(), "$1****$2")
-        initVerifyCode()
         save.setOnClickListener(this)
     }
 
@@ -137,75 +131,7 @@ class MineUserInfoModifyPasswordFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun initVerifyCode() {
-        verifyCodeText = getVerifyCodeText.apply {
-            this.setOnClickListener {
-                getVerifyCode()
-            }
-        }
-        mTime = TimeCount(60000, 1000, verifyCodeText)
-    }
 
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mTime?.cancel()
-    }
-
-    //获取验证码定时器
-    class TimeCount(
-        millisInFuture: Long,
-        countDownInterval: Long,
-        private val verifyCodeText: TextView
-    ) :
-        CountDownTimer(millisInFuture, countDownInterval) {
-        override fun onFinish() {
-            verifyCodeText.text = "获取验证码"
-            verifyCodeText.isClickable = true
-        }
-
-        override fun onTick(millisUntilFinished: Long) {
-            verifyCodeText.isClickable = false
-            verifyCodeText.text = String.format(
-                "%s",
-                millisUntilFinished.div(1000).toString() + "s"
-            )
-        }
-    }
-
-
-    private fun getVerifyCode() {
-        if (!NetworkUtils.isConnected()) {
-            ToastUtils.showLong("网络连接不可用")
-            return
-        }
-        getVerifyCodeCallback()
-        val targetType = 1
-        val purpose = 3
-        if (GrpcAsyncTask.isFinish(verifyTask)) {
-            verifyTask = AuthApiService.getInstance()
-                .verifyCode(phone, targetType, purpose, verifyCallBack)
-        }
-    }
-
-    /*******************************************获取验证码回调 */
-    private fun getVerifyCodeCallback() {
-        verifyCallBack = object : CallBack<VerifyCodeResp?>() {
-            override fun callBack(result: VerifyCodeResp?) {
-                if (result == null) {
-                    ToastUtils.showLong("验证码请求超时")
-                    return
-                }
-                val msg = result.dataMap["errMsg"]
-                if (result.code == 100) {
-                    mTime?.start()
-                    ToastUtils.showLong("获取验证码成功")
-                } else {
-                    ToastUtils.showLong(msg)
-                }
-            }
-        }
-    }
 
     companion object {
         const val ARG_PHONE_NUMBER = "phoneNumber"

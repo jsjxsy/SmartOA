@@ -3,6 +3,7 @@ package com.gx.smart.smartoa.activity.ui.user
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
@@ -20,9 +21,17 @@ import kotlinx.android.synthetic.main.layout_common_title.*
  * A simple [Fragment] subclass.
  */
 class MineUserInfoModifyNickNameFragment : Fragment(), View.OnClickListener {
+    private var nickName: String = ""
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            nickName = it.getString(ARG_NICK_NAME)
         }
     }
 
@@ -53,6 +62,7 @@ class MineUserInfoModifyNickNameFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initContent() {
+        modifyName.setText(nickName)
         delete.setOnClickListener {
             modifyName.editableText.clear()
         }
@@ -80,24 +90,37 @@ class MineUserInfoModifyNickNameFragment : Fragment(), View.OnClickListener {
         save.setOnClickListener {
             loadingView.visibility = View.VISIBLE
             val name = modifyName.text.toString()
-            UserCenterService.getInstance()
-                .updateAppUserNickName(name, object : CallBack<AppInfoResponse>() {
-                    override fun callBack(result: AppInfoResponse?) {
-                        loadingView.visibility = View.GONE
-                        if (result == null) {
-                            ToastUtils.showLong("修改姓名超时")
-                            return
-                        }
-                        if (result?.code == 100) {
-                            ToastUtils.showLong("修改姓名成功")
-                            activity?.onBackPressed()
-                        } else {
-                            ToastUtils.showLong(result?.msg)
-                        }
-                    }
-
-                })
+            if (TextUtils.isEmpty(name)) {
+                ToastUtils.showLong("昵称不能为空")
+            } else {
+                updateNickName(name)
+            }
         }
+
+    }
+
+    private fun updateNickName(name: String) {
+        UserCenterService.getInstance()
+            .updateAppUserNickName(name, object : CallBack<AppInfoResponse>() {
+                override fun callBack(result: AppInfoResponse?) {
+                    loadingView.visibility = View.GONE
+                    if (result == null) {
+                        ToastUtils.showLong("修改姓名超时")
+                        return
+                    }
+                    if (result?.code == 100) {
+                        ToastUtils.showLong("修改姓名成功")
+                        activity?.onBackPressed()
+                    } else {
+                        ToastUtils.showLong(result?.msg)
+                    }
+                }
+
+            })
+    }
+
+    companion object {
+        const val ARG_NICK_NAME = "nickName"
     }
 
 

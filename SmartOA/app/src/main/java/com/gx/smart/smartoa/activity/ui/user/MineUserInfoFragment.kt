@@ -47,6 +47,7 @@ import java.io.File
  */
 class MineUserInfoFragment : Fragment(), View.OnClickListener {
 
+    private var nick: String = ""
     private var verify: Int = 2
     private var task: GrpcAsyncTask<String, Void, AppInfoResponse>? = null
     private var callBack: CallBack<AppInfoResponse?>? = null
@@ -91,7 +92,12 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
         }
 
         nickNameLayout.setOnClickListener {
-            findNavController().navigate(R.id.action_mineUserInfoFragment_to_mineUserInfoModifyNickNameFragment)
+            val bundle = Bundle()
+            bundle.putString(MineUserInfoModifyNickNameFragment.ARG_NICK_NAME, nick)
+            findNavController().navigate(
+                R.id.action_mineUserInfoFragment_to_mineUserInfoModifyNickNameFragment,
+                bundle
+            )
         }
         suggestionLayout.setOnClickListener {
             val dialog = BottomTextListDialog.init(fragmentManager!!)
@@ -136,8 +142,10 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
         causeLayout.setOnClickListener {
             val bundle = Bundle()
             bundle.putInt(MineVerifyFragment.ARG_VERIFY, verify)
-            findNavController().navigate(R.id.action_mineUserInfoFragment_to_mineVerifyFragment,
-                bundle)
+            findNavController().navigate(
+                R.id.action_mineUserInfoFragment_to_mineVerifyFragment,
+                bundle
+            )
         }
 
         modifyPasswordLayout.setOnClickListener {
@@ -176,6 +184,7 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                         name.text = userInfo.name
                     }
                     if (userInfo.nickName.isNotBlank()) {
+                        nick = userInfo.nickName
                         nickName.text = userInfo.nickName
                     }
                     when (userInfo.gender) {
