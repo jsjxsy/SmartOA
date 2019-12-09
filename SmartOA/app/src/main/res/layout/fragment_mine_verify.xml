@@ -118,5 +118,17 @@
         android:text="@string/save"
         app:layout_constraintTop_toBottomOf="@id/lineFour" />
 
+    <TextView
+        android:id="@+id/verifyState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/verified"
+        android:textColor="@color/font_color_style_night"
+        android:textSize="@dimen/font_size_style_six"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/lineFour" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,6 +47,7 @@ import java.io.File
  */
 class MineUserInfoFragment : Fragment(), View.OnClickListener {
 
+    private var verify: Int = 2
     private var task: GrpcAsyncTask<String, Void, AppInfoResponse>? = null
     private var callBack: CallBack<AppInfoResponse?>? = null
     //调用照相机返回图片文件
@@ -133,7 +134,10 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
         }
 
         causeLayout.setOnClickListener {
-            findNavController().navigate(R.id.action_mineUserInfoFragment_to_mineVerifyFragment)
+            val bundle = Bundle()
+            bundle.putInt(MineVerifyFragment.ARG_VERIFY, verify)
+            findNavController().navigate(R.id.action_mineUserInfoFragment_to_mineVerifyFragment,
+                bundle)
         }
 
         modifyPasswordLayout.setOnClickListener {
@@ -188,6 +192,7 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                     } else {
                         phone.text = "请绑定手机"
                     }
+                    verify = userInfo.verified
                     when (userInfo.verified) {
                         1 -> identificationVerify.text = "已认证"
                         2 -> identificationVerify.text = "未认证"

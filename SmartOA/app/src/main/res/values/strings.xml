@@ -149,5 +149,7 @@
     <string name="input_nick_name">请输入昵称</string>
 
     <string name="name">姓名</string>
+    <string name="verified">已认证</string>
+
 
 </resources>
