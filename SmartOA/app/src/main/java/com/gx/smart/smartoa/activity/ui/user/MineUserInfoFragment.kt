@@ -139,7 +139,10 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
         modifyPasswordLayout.setOnClickListener {
             val bundle = Bundle()
             bundle.putString(MineUserInfoModifyPasswordFragment.ARG_PHONE_NUMBER, mobile)
-            findNavController().navigate(R.id.action_mineUserInfoFragment_to_mineUserInfoModifyPasswordFragment)
+            findNavController().navigate(
+                R.id.action_mineUserInfoFragment_to_mineUserInfoModifyPasswordFragment,
+                bundle
+            )
         }
         headLayout.setOnClickListener {
             uploadHeadImage()
@@ -185,8 +188,10 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                     } else {
                         phone.text = "请绑定手机"
                     }
-
-                    identificationVerify.text = "未认证"
+                    when (userInfo.verified) {
+                        1 -> identificationVerify.text = "已认证"
+                        2 -> identificationVerify.text = "未认证"
+                    }
                 }
             }
 

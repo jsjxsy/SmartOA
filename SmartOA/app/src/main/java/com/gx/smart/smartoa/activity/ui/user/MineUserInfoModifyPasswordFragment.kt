@@ -181,7 +181,7 @@ class MineUserInfoModifyPasswordFragment : Fragment(), View.OnClickListener {
         }
         getVerifyCodeCallback()
         val targetType = 1
-        val purpose = 2
+        val purpose = 3
         if (GrpcAsyncTask.isFinish(verifyTask)) {
             verifyTask = AuthApiService.getInstance()
                 .verifyCode(phone, targetType, purpose, verifyCallBack)
@@ -202,12 +202,6 @@ class MineUserInfoModifyPasswordFragment : Fragment(), View.OnClickListener {
                     ToastUtils.showLong("获取验证码成功")
                 } else {
                     ToastUtils.showLong(msg)
-                    mLoadingView.visibility = View.GONE
-                    val userId = result.dataMap["userId"]
-                    if (!TextUtils.isEmpty(userId)) {
-                        activity?.finish()
-                        ActivityUtils.startActivity(Intent(activity, LoginActivity::class.java))
-                    }
                 }
             }
         }

@@ -1,6 +1,5 @@
 package com.gx.smart.smartoa.activity.ui.user
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.TextUtils
@@ -111,15 +110,19 @@ class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
         val newPhone: String = newPhone.text.toString().trim()
         if (TextUtils.isEmpty(newPhone)) {
             ToastUtils.showLong("手机号码不能为空")
+            mLoadingView.visibility = View.GONE
         } else if (TextUtils.isEmpty(verifyCode)) {
             ToastUtils.showLong("验证码不能为空")
-        } else if (newPhone.length != 6) {
+            mLoadingView.visibility = View.GONE
+        } else if (verifyCode.length != 6) {
             ToastUtils.showLong("验证码长度不正确")
-        } else if (newPhone.length != 11 || !DataCheckUtil.isMobile(newPhone)
-        ) {
+            mLoadingView.visibility = View.GONE
+        } else if (newPhone.length != 11 || !DataCheckUtil.isMobile(newPhone)) {
             ToastUtils.showLong("非法手机号")
+            mLoadingView.visibility = View.GONE
         } else if (newPhone == phone) {
             ToastUtils.showLong("与登陆手机号相同")
+            mLoadingView.visibility = View.GONE
         } else {
             changePhone(verifyCode)
             if (GrpcAsyncTask.isFinish(userModifyMobileTask)) {
@@ -213,14 +216,14 @@ class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
             ToastUtils.showLong("网络连接不可用")
             return
         }
-        if (TextUtils.isEmpty(phone)) {
+        if (TextUtils.isEmpty(phoneNumber)) {
             ToastUtils.showLong("手机号不能为空")
         } else if (phoneNumber!!.length != 11 || !DataCheckUtil.isMobile(phoneNumber)) {
             ToastUtils.showLong("非法手机号")
         } else {
             getVerifyCodeCallback()
             val targetType = 1
-            val purpose = 2
+            val purpose = 3
             if (GrpcAsyncTask.isFinish(verifyTask)) {
                 verifyTask = AuthApiService.getInstance()
                     .verifyCode(phoneNumber, targetType, purpose, verifyCallBack)
@@ -242,11 +245,6 @@ class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
                     ToastUtils.showLong("获取验证码成功")
                 } else {
                     ToastUtils.showLong(msg)
-                    val userId = result.dataMap["userId"]
-                    if (!TextUtils.isEmpty(userId)) {
-                        activity?.finish()
-                        ActivityUtils.startActivity(Intent(activity, LoginActivity::class.java))
-                    }
                 }
             }
         }

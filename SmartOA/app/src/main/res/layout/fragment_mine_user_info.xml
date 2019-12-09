@@ -230,7 +230,7 @@
             android:drawableRight="@drawable/ic_more_info"
             android:drawablePadding="10dp"
             android:gravity="center"
-            tools:text="未认证" />
+            android:text="未认证" />
     </RelativeLayout>
 
     <View
