@@ -22,15 +22,14 @@
         android:layout_width="match_parent"
         android:layout_height="240dp"
         android:background="@android:color/white"
-        android:padding="@dimen/margin_style_two"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        android:hint="@string/input_suggestion"
         android:gravity="start"
-        />
+        android:hint="@string/input_suggestion"
+        android:padding="@dimen/margin_style_two"
+        app:layout_constraintTop_toBottomOf="@id/title" />
 
 
     <Button
-        android:id="@+id/logout"
+        android:id="@+id/submit"
         style="@style/buttonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

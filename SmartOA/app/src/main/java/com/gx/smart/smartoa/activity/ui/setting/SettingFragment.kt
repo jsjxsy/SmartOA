@@ -13,6 +13,7 @@ import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.login.LoginActivity
+import com.gx.smart.smartoa.activity.ui.setting.utils.DataCleanManager
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.UserCenterService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
@@ -59,13 +60,20 @@ class SettingFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initContent() {
+        val totalSize = DataCleanManager.getTotalSize(activity)
+        cacheSize.text = DataCleanManager.getTotalCacheSize(activity)
         headLayout.setOnClickListener {
             Navigation.findNavController(it)
                 .navigate(R.id.action_settingFragment_to_notDisturbFragment)
         }
 
         cacheLayout.setOnClickListener {
-
+            DataCleanManager.clearAllCache(activity)
+            val newTotalSize = DataCleanManager.getTotalSize(activity)
+            val deleteSize =
+                DataCleanManager.getFormatSize(totalSize.toDouble() - newTotalSize.toDouble())
+            ToastUtils.showLong(getString(R.string.cleared_cache) + deleteSize)
+            cacheSize.text = DataCleanManager.getFormatSize(newTotalSize.toDouble())
         }
 
         suggestionLayout.setOnClickListener {

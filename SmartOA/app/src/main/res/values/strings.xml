@@ -150,6 +150,7 @@
 
     <string name="name">姓名</string>
     <string name="verified">已认证</string>
+    <string name="cleared_cache">已清空缓存</string>
 
 
 </resources>

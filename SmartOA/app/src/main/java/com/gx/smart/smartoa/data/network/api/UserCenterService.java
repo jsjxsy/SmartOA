@@ -214,29 +214,6 @@ public class UserCenterService {
         }.doExecute();
     }
 
-    /**
-     * 更新消息推送设置
-     *
-     * @return callBack返回值
-     */
-    public GrpcAsyncTask<String, Void, AppInfoResponse> changeUserAlarmNotice(final int alarmNotice, CallBack callBack) {
-        return new GrpcAsyncTask<String, Void, AppInfoResponse>(callBack) {
-            @Override
-            protected AppInfoResponse doRequestData(ManagedChannel channel) {
-                UpdateAppUserRequest message = UpdateAppUserRequest.newBuilder()
-                        .setAlarmNotice(alarmNotice)
-                        .build();
-                AppInfoResponse response = null;
-                try {
-                    response = getUserStub(channel).updateAppUser(message);
-                } catch (Exception e) {
-                    Log.i("UserCenterService", e.getMessage());
-                }
-
-                return response;
-            }
-        }.doExecute();
-    }
 
     /**
      * 更新消息推送设置

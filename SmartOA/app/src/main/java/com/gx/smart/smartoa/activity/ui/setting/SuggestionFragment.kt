@@ -2,11 +2,17 @@ package com.gx.smart.smartoa.activity.ui.setting
 
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.data.network.api.UserCenterService
+import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.wisestone.work.app.grpc.common.CommonResponse
+import kotlinx.android.synthetic.main.fragment_suggestion.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 /**
@@ -26,6 +32,7 @@ class SuggestionFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initTitle()
+        initContent()
     }
 
 
@@ -40,7 +47,41 @@ class SuggestionFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    override fun onClick(v: View?) {
-
+    private fun initContent() {
+        submit.setOnClickListener(this)
     }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.left_nav_image_view -> activity?.onBackPressed()
+            R.id.submit -> applySuggestion()
+        }
+    }
+
+
+    private fun applySuggestion() {
+        val content = suggestionEdit.text.toString()
+        if(TextUtils.isEmpty(content)){
+            ToastUtils.showLong("提交的建议不能为空!")
+        }else{
+            UserCenterService.getInstance().addOpinion(content, object: CallBack<CommonResponse>() {
+                override fun callBack(result: CommonResponse?) {
+                    if(result == null) {
+                        ToastUtils.showLong("提交建议超时")
+                        return
+                    }
+
+                    if(result?.code == 100) {
+                        ToastUtils.showLong("提交建议成功")
+                        activity?.onBackPressed()
+                    }else{
+                        ToastUtils.showLong(result.msg)
+                    }
+                }
+
+            })
+        }
+    }
+
+
 }

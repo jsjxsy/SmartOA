@@ -73,31 +73,15 @@ service UnisiotApi {
     }
     //场景面板解绑场景
     rpc scenePannelUnbind (ScenePannelUnbindReq) returns (ScenePannelUnbindResp) {
-//        option (google.api.http) = {
-//            post: "/com.gx.wisestone.service.grpc.UnisiotApi/scenePannelUnbind"
-//            body: "*"
-//        };
     }
     //获取场景面板详情
     rpc scenePannelGet (ScenePannelGetReq) returns (ScenePannelGetResp) {
-//        option (google.api.http) = {
-//             post: "/com.gx.wisestone.service.grpc.UnisiotApi/scenePannelGet"
-//             body: "*"
-//         };
     }
     //获取房间下设备列表
     rpc areaDeviceList (AreaDeviceListReq) returns (AreaDeviceListResp) {
-//        option (google.api.http) = {
-//             post: "/com.gx.wisestone.service.grpc.UnisiotApi/areaDeviceList"
-//             body: "*"
-//         };
     }
     //获取房间下场景列表
     rpc areaSceneList (AreaSceneListReq) returns (AreaSceneListResp) {
-//        option (google.api.http) = {
-//             post: "/com.gx.wisestone.service.grpc.UnisiotApi/areaSceneList"
-//             body: "*"
-//         };
     }
 }
 
