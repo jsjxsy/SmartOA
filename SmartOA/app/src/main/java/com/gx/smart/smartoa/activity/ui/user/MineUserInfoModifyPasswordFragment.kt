@@ -88,16 +88,21 @@ class MineUserInfoModifyPasswordFragment : Fragment(), View.OnClickListener {
         val confirmPassword: String = confirmNewPassword.text.toString().trim()
         if (TextUtils.isEmpty(password)) {
             ToastUtils.showLong("密码不能为空")
+            mLoadingView.visibility = View.GONE
         } else if (doExcute(password) < 2) {
             ToastUtils.showLong("密码过于简单")
+            mLoadingView.visibility = View.GONE
         } else if (password.length < 8) {
             ToastUtils.showLong("密码长度不得小于8位")
+            mLoadingView.visibility = View.GONE
         } else if (password.length > 16) {
             ToastUtils.showLong("密码长度不得大于16位")
         } else if (TextUtils.isEmpty(confirmPassword)) {
             ToastUtils.showLong("确认密码不能为空")
+            mLoadingView.visibility = View.GONE
         } else if (password != confirmPassword) {
             ToastUtils.showLong("确认密码与密码不一致")
+            mLoadingView.visibility = View.GONE
         } else {
             appModifyPassword()
             val token = AppConfig.loginToken

@@ -127,8 +127,8 @@ class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
             changePhone(verifyCode)
             if (GrpcAsyncTask.isFinish(userModifyMobileTask)) {
                 userModifyMobileTask = AuthApiService.getInstance().userModifyMobile(
-                    verifyCode,
                     newPhone,
+                    verifyCode,
                     userId1,
                     token1,
                     userModifyMobileCallBack
@@ -143,6 +143,7 @@ class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
         userModifyMobileCallBack = object : CallBack<UserModifyResp>() {
             override fun callBack(result: UserModifyResp?) {
                 if (result == null) {
+                    mLoadingView.visibility = View.GONE
                     ToastUtils.showLong("修改手机号超时")
                     return
                 }
@@ -155,9 +156,9 @@ class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
                             .updateAppUserMobile(changeNo, updateAppUserMobileCallBack)
                     }
                 } else {
+                    mLoadingView.visibility = View.GONE
                     ToastUtils.showLong(msg)
                 }
-                //处理数据,刷新UI
             }
         }
     }
@@ -177,7 +178,6 @@ class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
                 } else {
                     ToastUtils.showLong(result?.msg)
                 }
-                //处理数据,刷新UI
             }
         }
     }
