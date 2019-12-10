@@ -1,22 +1,21 @@
 package com.gx.smart.smartoa.activity.ui.environmental
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.drakeet.multitype.MultiTypeAdapter
-
 import com.gx.smart.smartoa.R
+import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDto
 import kotlinx.android.synthetic.main.curtain_fragment.*
 
-class CurtainFragment : Fragment() {
+class CurtainFragment(private val curtainList: List<DevDto>) : Fragment() {
 
     companion object {
-        fun newInstance() = CurtainFragment()
-        const val  CURTAIN_TYPE = 1
+        const val CURTAIN_TYPE = 1
     }
 
     private lateinit var viewModel: CurtainViewModel
@@ -41,14 +40,10 @@ class CurtainFragment : Fragment() {
         adapter.register(CurtainItemViewBinder())
         curtainRecyclerView?.adapter = adapter
 
-        val textItem1 = CurtainItem("研发窗帘1")
-        val textItem2 = CurtainItem("研发窗帘2")
-        val textItem3 = CurtainItem("研发窗帘3")
-
-        items.add(textItem1)
-        items.add(textItem2)
-        items.add(textItem3)
-
+        for (curtain in curtainList) {
+            val textItem1 = CurtainItem(curtain.devName)
+            items.add(textItem1)
+        }
         adapter.items = items
         adapter.notifyDataSetChanged()
     }

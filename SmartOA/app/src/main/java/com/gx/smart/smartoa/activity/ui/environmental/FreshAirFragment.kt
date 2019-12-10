@@ -1,20 +1,19 @@
 package com.gx.smart.smartoa.activity.ui.environmental
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
-
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.base.BaseFragment
+import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDto
 import kotlinx.android.synthetic.main.fragment_fresh_air.*
 
-class FreshAirFragment : BaseFragment() {
+class FreshAirFragment(private val freshAirList: List<DevDto>) : BaseFragment() {
 
     companion object {
-        fun newInstance() = FreshAirFragment()
         const val FRESH_AIR_TYPE = 3
     }
 
@@ -39,13 +38,10 @@ class FreshAirFragment : BaseFragment() {
         adapter.register(FreshAirViewBinder())
         freshAirRecyclerView?.adapter = adapter
 
-        val textItem1 = FreshAir("新风1")
-        val textItem2 = FreshAir("新风2")
-        val textItem3 = FreshAir("新风3")
-
-        items.add(textItem1)
-        items.add(textItem2)
-        items.add(textItem3)
+        for (freshAir in freshAirList) {
+            val textItem1 = FreshAir(freshAir.devName)
+            items.add(textItem1)
+        }
 
         adapter.items = items
         adapter.notifyDataSetChanged()

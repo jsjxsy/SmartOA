@@ -14,9 +14,9 @@ public class ApiUtils {
      * @param iconId 情景模式ID
      * @return 图片资源ID
      */
-    public static int getImageResouce(String iconId) {
+    public static int getImageResource(String iconId) {
 
-        int mIconId = 0;
+        int mIconId = R.drawable.ic_light_all_open;
         switch (iconId) {
             case "0":
                 mIconId = R.drawable.ic_light_all_open;

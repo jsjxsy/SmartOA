@@ -8,12 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.smartoa.R
+import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDto
 import kotlinx.android.synthetic.main.light_fragment.*
 
-class LightFragment : Fragment() {
-
+class LightFragment(private val lightList: List<DevDto>) : Fragment() {
     companion object {
-        fun newInstance() = LightFragment()
         const val LIGHT_TYPE = 0
     }
 
@@ -35,21 +34,18 @@ class LightFragment : Fragment() {
         adapter.register(LightItemTwoViewBinder())
         lightRecyclerView.adapter = adapter
 
-        val textItem1 = LightItemOne("研发大灯1")
-        val textItem2 = LightItemOne("研发大灯2")
-        val textItem3 = LightItemOne("研发大灯3")
-
-        items.add(textItem1)
-        items.add(textItem2)
-        items.add(textItem3)
-
-        val textItem21 = LightItemTwo("研发调光面板")
-        val textItem22 = LightItemTwo("研发调光面板")
-        val textItem23 = LightItemTwo("研发调光面板")
-
-        items.add(textItem21)
-        items.add(textItem22)
-        items.add(textItem23)
+        for (light in lightList) {
+            when (light.category) {
+                "single_zf_switch", "single_fire_switch", "mechanical_switch", "l_color_dimmer_controller" -> {
+                    val textItem1 = LightItemOne(light.devName)
+                    items.add(textItem1)
+                }
+                else -> {
+                    val textItem2 = LightItemTwo(light.devName)
+                    items.add(textItem2)
+                }
+            }
+        }
 
         adapter.items = items
         adapter.notifyDataSetChanged()

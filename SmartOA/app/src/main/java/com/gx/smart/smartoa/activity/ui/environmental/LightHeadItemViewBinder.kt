@@ -24,10 +24,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
-import top.limuyang2.customldialog.adapter.BottomTextListAdapter
 
 class LightHeadItemViewBinder :
-    ItemViewBinder<LightHeadItem, LightHeadItemViewBinder.TextHolder>(),View.OnClickListener {
+    ItemViewBinder<LightHeadItem, LightHeadItemViewBinder.TextHolder>() {
 
 
     class TextHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -55,14 +54,10 @@ class LightHeadItemViewBinder :
     }
 
 
-     var onItemClickListener: OnItemClickListener? = null
+    var onItemClickListener: OnItemClickListener? = null
 
     interface OnItemClickListener {
         fun onClick(view: View, position: Int)
-    }
-
-    override fun onClick(v: View?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }

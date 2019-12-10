@@ -1,6 +1,7 @@
 package com.gx.smart.smartoa.activity.ui.environmental
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.blankj.utilcode.util.ToastUtils
 import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.activity.ui.environmental.bean.ZGDevListBean
 import com.gx.smart.smartoa.activity.ui.environmental.utils.ApiUtils
 import com.gx.smart.smartoa.activity.ui.environmental.utils.ZGManager
 import com.gx.smart.smartoa.activity.ui.environmental.utils.ZGUtil
@@ -17,8 +17,10 @@ import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.UnisiotApiService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
-import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevListResp
-import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.SceneListResp
+import com.gx.smart.smartoa.widget.LoadingView
+import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.AreaDeviceListResp
+import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.AreaSceneListResp
+import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDto
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.UnisiotResp
 import kotlinx.android.synthetic.main.evnironmental_control_fragment.*
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -34,15 +36,16 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
         fun newInstance() = EnvironmentalControlFragment()
     }
 
-    private var devListTask: GrpcAsyncTask<String, Void, DevListResp>? = null
+    private var devListTask: GrpcAsyncTask<String, Void, AreaDeviceListResp>? = null
     private var sceneComTask: GrpcAsyncTask<String, Void, UnisiotResp>? = null
     private lateinit var headItemView: LightHeadItemViewBinder
-    private var sceneListTask: GrpcAsyncTask<String, Void, SceneListResp>? = null
+    private lateinit var sceneListTask: GrpcAsyncTask<String, Void, AreaSceneListResp>
     private lateinit var mPagerAdapter: PageAdapter
 
     private lateinit var viewModel: EnvironmentalControlViewModel
     private val adapter = MultiTypeAdapter()
     private val items = ArrayList<Any>()
+    private lateinit var mLoadingView: LoadingView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,6 +60,7 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
         initTitle()
         initHead()
         initContent()
+        mLoadingView = loadingView
     }
 
     private fun initTitle() {
@@ -78,14 +82,13 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
 
     private fun initContent() {
         getDevList()
-        val titles = resources.getStringArray(R.array.environmental_control_items)
         mPagerAdapter = PageAdapter(fragmentManager!!)
-        for (i in 0 until titles.size) {
-            mPagerAdapter.addPage(PageAdapter.PageFragmentContent(titles[i], i))
-        }
+//        val titles = resources.getStringArray(R.array.environmental_control_items)
+//        for (i in 0 until titles.size) {
+//            mPagerAdapter.addPage(PageAdapter.PageFragmentContent(titles[i], i))
+//        }
         viewPager.adapter = mPagerAdapter
         viewPager.offscreenPageLimit = 3
-        mPagerAdapter.notifyDataSetChanged()
         id_environmental_control_tab.setupWithViewPager(viewPager)
     }
 
@@ -94,9 +97,9 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
      * 获取场景列表
      */
     private fun getZGSceneList() {
-        sceneListTask = UnisiotApiService.getInstance()
-            .sceneList(AppConfig.SMART_HOME_SN, object : CallBack<SceneListResp>() {
-                override fun callBack(result: SceneListResp?) {
+        sceneListTask = UnisiotApiService.getInstance().areaSceneList(AppConfig.ROOM_ID,
+            AppConfig.SMART_HOME_SN, object : CallBack<AreaSceneListResp>() {
+                override fun callBack(result: AreaSceneListResp?) {
                     if (result == null) {
                         return
                     }
@@ -105,7 +108,7 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                         for (content in contentList) {
                             val headTextItem = LightHeadItem(
                                 content.sceneName,
-                                ApiUtils.getImageResouce(content.iconSign)
+                                ApiUtils.getImageResource(content.iconSign)
                             )
                             items.add(headTextItem)
                         }
@@ -141,8 +144,12 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                         ToastUtils.showLong("执行场景超时")
                         return
                     }
-                    if (result?.code == 100 && result?.result == 0) {
-
+                    if (result?.code == 100) {
+                        when (result.result) {
+                            0 -> showLoadingSuccess()
+                            100 -> showLoading()
+                            else -> showLoadingFail()
+                        }
                     } else {
                         ToastUtils.showLong(result?.msg)
                     }
@@ -153,29 +160,99 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
     private fun getDevList() {
         if (GrpcAsyncTask.isFinish(devListTask)) {
             devListTask = UnisiotApiService.getInstance()
-                .devList(AppConfig.SMART_HOME_SN, object : CallBack<DevListResp>() {
-                    override fun callBack(result: DevListResp?) {
-                        if (result == null) {
-                            ToastUtils.showLong("获取设备列表超时")
-                            return
-                        }
+                .areaDeviceList(
+                    AppConfig.ROOM_ID,
+                    AppConfig.SMART_HOME_SN,
+                    object : CallBack<AreaDeviceListResp>() {
+                        override fun callBack(result: AreaDeviceListResp?) {
+                            if (result == null) {
+                                ToastUtils.showLong("获取设备列表超时")
+                                return
+                            }
 
-                        if (result?.code == 100 && result?.result == 0) {
-                            val contentList = result.contentList
+                            if (result?.code == 100 && result?.result == 0) {
+                                val contentList = result.contentList
                                 //显示对应设备列表
-//                                val lightList: List<ZGDevListBean.DataResponseBean.DevBean> = ZGUtil.getDevList(
-//                                    ZGManager.DEV_TYPE_LIGHT, contentList
-//                                )
-//                                if (lightList.isNotEmpty()) {
-//
-//                                }
-                        } else {
-                            ToastUtils.showLong(result?.msg)
-                        }
-                    }
+                                val lightList: List<DevDto> = ZGUtil.getDevList(
+                                    ZGManager.DEV_TYPE_LIGHT, contentList
+                                )
+                                val titles =
+                                    resources.getStringArray(R.array.environmental_control_items)
+                                if (lightList.isNotEmpty()) {
+                                    mPagerAdapter.addPage(
+                                        PageAdapter.PageFragmentContent(
+                                            titles[0],
+                                            LightFragment.LIGHT_TYPE,
+                                            lightList
+                                        )
+                                    )
+                                }
+                                val curtainList: List<DevDto> = ZGUtil.getDevList(
+                                    ZGManager.DEV_TYPE_CURTAIN, contentList
+                                )
 
-                })
+                                if (curtainList.isNotEmpty()) {
+                                    mPagerAdapter.addPage(
+                                        PageAdapter.PageFragmentContent(
+                                            titles[1],
+                                            CurtainFragment.CURTAIN_TYPE,
+                                            curtainList
+                                        )
+                                    )
+                                }
+
+                                val airConditionerList: List<DevDto> = ZGUtil.getDevList(
+                                    ZGManager.DEV_TYPE_AIR_CONDITIONER, contentList
+                                )
+
+                                if (airConditionerList.isNotEmpty()) {
+                                    mPagerAdapter.addPage(
+                                        PageAdapter.PageFragmentContent(
+                                            titles[2],
+                                            AirConditionerFragment.AIR_CONDITIONER_TYPE,
+                                            airConditionerList
+                                        )
+                                    )
+                                }
+
+                                val freshAirList: List<DevDto> = ZGUtil.getDevList(
+                                    ZGManager.DEV_TYPE_NEW_WIND, contentList
+                                )
+
+                                if (freshAirList.isNotEmpty()) {
+                                    mPagerAdapter.addPage(
+                                        PageAdapter.PageFragmentContent(
+                                            titles[3],
+                                            FreshAirFragment.FRESH_AIR_TYPE, freshAirList
+                                        )
+                                    )
+                                }
+                                mPagerAdapter.notifyDataSetChanged()
+                            } else {
+                                ToastUtils.showLong(result?.msg)
+                            }
+                        }
+
+                    })
         }
+    }
+
+
+    private fun showLoading() {
+        mLoadingView.setText("执行中")
+        mLoadingView.showLoading()
+    }
+
+    private fun showLoadingSuccess() {
+        mLoadingView.setText("执行成功")
+        mLoadingView.showSuccess()
+        Handler().postDelayed({ mLoadingView.setVisibility(View.GONE) }, 1000)
+    }
+
+    private fun showLoadingFail() {
+        mLoadingView.setText("执行失败")
+        mLoadingView.showFail()
+        Handler().postDelayed({ mLoadingView.setVisibility(View.GONE) }, 1000)
     }
 
 

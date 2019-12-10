@@ -3,6 +3,7 @@ package com.gx.smart.smartoa.activity.ui.environmental.utils;
 
 import com.gx.smart.smartoa.activity.ui.environmental.bean.AddDevActionBean;
 import com.gx.smart.smartoa.activity.ui.environmental.bean.ZGDevListBean;
+import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,12 +131,12 @@ public class ZGUtil {
      * @param devList 所有设备列表
      * @return 相应设备类型列表
      */
-    public static List<ZGDevListBean.DataResponseBean.DevBean> getDevList(int type, List<ZGDevListBean.DataResponseBean.DevBean> devList) {
-        List<ZGDevListBean.DataResponseBean.DevBean> list;
+    public static List<DevDto> getDevList(int type, List<DevDto> devList) {
+        List<DevDto> list;
         switch (type) {
             case ZGManager.DEV_TYPE_LIGHT://灯光
                 list = new ArrayList<>();
-                for (ZGDevListBean.DataResponseBean.DevBean bean : devList) {
+                for (DevDto bean : devList) {
                     if (bean.getCategory().equals("single_zf_switch")//零火线触摸开关
                             || bean.getCategory().equals("single_fire_switch")//单火线触摸开关
                             || bean.getCategory().equals("mechanical_switch")) {//机械开关
@@ -152,7 +153,7 @@ public class ZGUtil {
                 break;
             case ZGManager.DEV_TYPE_CURTAIN://窗帘
                 list = new ArrayList<>();
-                for (ZGDevListBean.DataResponseBean.DevBean bean : devList) {
+                for (DevDto bean : devList) {
                     if (bean.getCategory().equals("curtain_controller")//窗帘控制器
                             || bean.getCategory().equals("window_controller")) {//开窗器
                         list.add(bean);
@@ -161,7 +162,7 @@ public class ZGUtil {
                 break;
             case ZGManager.DEV_TYPE_AIR_CONDITIONER://空调
                 list = new ArrayList<>();
-                for (ZGDevListBean.DataResponseBean.DevBean bean : devList) {
+                for (DevDto bean : devList) {
                     if (bean.getCategory().equals("air_conditioner")) {//中央空调
                         list.add(bean);
                     } else if (bean.getCategory().equals("infrared_device") //红外空调
@@ -179,7 +180,7 @@ public class ZGUtil {
                 break;
             case ZGManager.DEV_TYPE_NEW_WIND://新风
                 list = new ArrayList<>();
-                for (ZGDevListBean.DataResponseBean.DevBean bean : devList) {
+                for (DevDto bean : devList) {
                     if ((bean.getCategory().equals("thermostat")//风机盘管温控器（3H1）
                             && bean.getModel().equals("th_ducted_3h1_conditioner"))
                             || (bean.getCategory().equals("thermostat")//风机盘管中央空调温控器
@@ -195,7 +196,7 @@ public class ZGUtil {
                 break;
             case ZGManager.DEV_TYPE_FLOOR_HEAT://地暖
                 list = new ArrayList<>();
-                for (ZGDevListBean.DataResponseBean.DevBean bean : devList) {
+                for (DevDto bean : devList) {
                     if ((bean.getCategory().equals("thermostat")//水地暖温控器（3H1）
                             && bean.getModel().equals("th_water_3h1_conditioner"))
                             || (bean.getCategory().equals("thermostat")//水地暖温控器
@@ -211,7 +212,7 @@ public class ZGUtil {
                 break;
             case ZGManager.DEV_TYPE_MONITOR://监控
                 list = new ArrayList<>();
-                for (ZGDevListBean.DataResponseBean.DevBean bean : devList) {
+                for (DevDto bean : devList) {
                     if (bean.getCategory().equals("camera")) {
                         list.add(bean);
                     }
@@ -219,7 +220,7 @@ public class ZGUtil {
                 break;
             case ZGManager.DEV_TYPE_MEDIA://背景音乐
                 list = new ArrayList<>();
-                for (ZGDevListBean.DataResponseBean.DevBean bean : devList) {
+                for (DevDto bean : devList) {
                     if (bean.getCategory().equals("background_music")) {//背景音乐
                         list.add(bean);
                     }
@@ -227,7 +228,7 @@ public class ZGUtil {
                 break;
             case ZGManager.DEV_TYPE_AIR_BOX://空气盒子
                 list = new ArrayList<>();
-                for (ZGDevListBean.DataResponseBean.DevBean bean : devList) {
+                for (DevDto bean : devList) {
                     if (bean.getCategory().equals("env_probe")) {//空气盒子
                         list.add(bean);
                     }
@@ -235,7 +236,7 @@ public class ZGUtil {
                 break;
             case ZGManager.DEV_TYPE_AIR_CLEANER://空气净化器
                 list = new ArrayList<>();
-                for (ZGDevListBean.DataResponseBean.DevBean bean : devList) {
+                for (DevDto bean : devList) {
                     if (bean.getCategory().equals("air_cleaner")) {
                         list.add(bean);
                     }
@@ -243,7 +244,7 @@ public class ZGUtil {
                 break;
             case ZGManager.DEV_TYPE_SECURITY_SENSOR:
                 list = new ArrayList<>();
-                for (ZGDevListBean.DataResponseBean.DevBean bean : devList) {
+                for (DevDto bean : devList) {
                     if (bean.getCategory().equals("security_sensor")
                             || bean.getCategory().equals("protocol_converter")
                             || bean.getCategory().equals("door_lock")) {
@@ -253,7 +254,7 @@ public class ZGUtil {
                 break;
             case ZGManager.DEV_TYPE_SCENE_PLANE://场景设备
                 list = new ArrayList<>();
-                for (ZGDevListBean.DataResponseBean.DevBean bean : devList) {
+                for (DevDto bean : devList) {
                     if (bean.getCategory().equals("scene_dev")) {
                         list.add(bean);
                     }

@@ -3,11 +3,14 @@ package com.gx.smart.smartoa.data.network.api;
 import android.util.Log;
 
 import com.gx.smart.smartoa.data.network.ApiConfig;
-import com.gx.smart.smartoa.data.network.AppConfig;
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.AirBoxDataGetReq;
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.AirBoxDataGetResp;
+import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.AreaDeviceListReq;
+import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.AreaDeviceListResp;
+import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.AreaSceneListReq;
+import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.AreaSceneListResp;
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevComReq;
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDelReq;
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevEditReq;
@@ -141,7 +144,7 @@ public class UnisiotApiService {
      * @param host_sn 主机SN
      * @return callBack返回值
      */
-    public  GrpcAsyncTask<String, Void, DevListResp> devList(final String host_sn, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, DevListResp> devList(final String host_sn, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, DevListResp>(callBack) {
             @Override
             protected DevListResp doRequestData(ManagedChannel channel) {
@@ -773,4 +776,58 @@ public class UnisiotApiService {
     }
 
 
+    /**
+     * 获取房间下设备列表
+     *
+     * @param host_sn 主机SN
+     * @return callBack返回值
+     */
+    public GrpcAsyncTask<String, Void, AreaDeviceListResp> areaDeviceList(String areaId, final String host_sn, CallBack callBack) {
+        return new GrpcAsyncTask<String, Void, AreaDeviceListResp>(callBack) {
+            @Override
+            protected AreaDeviceListResp doRequestData(ManagedChannel channel) {
+                AreaDeviceListReq message = AreaDeviceListReq.newBuilder()
+                        .setAreaId(areaId)
+                        .setHostSn(host_sn)
+                        .build();
+
+                AreaDeviceListResp response = null;
+                try {
+                    response = getZiGuangStub(channel).areaDeviceList(message);
+                } catch (Exception e) {
+                    Log.i("UserCenter_gRpc", e.getMessage());
+                }
+
+                return response;
+            }
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+    }
+
+
+    /**
+     * 获取房间下设备列表
+     *
+     * @param host_sn 主机SN
+     * @return callBack返回值
+     */
+    public GrpcAsyncTask<String, Void, AreaSceneListResp> areaSceneList(final String areaId, final String host_sn, CallBack callBack) {
+        return new GrpcAsyncTask<String, Void, AreaSceneListResp>(callBack) {
+            @Override
+            protected AreaSceneListResp doRequestData(ManagedChannel channel) {
+                AreaSceneListReq message = AreaSceneListReq.newBuilder()
+                        .setAreaId(areaId)
+                        .setHostSn(host_sn)
+                        .build();
+
+                AreaSceneListResp response = null;
+                try {
+                    response = getZiGuangStub(channel).areaSceneList(message);
+                } catch (Exception e) {
+                    Log.i("UserCenter_gRpc", e.getMessage());
+                }
+
+                return response;
+            }
+        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+    }
 }

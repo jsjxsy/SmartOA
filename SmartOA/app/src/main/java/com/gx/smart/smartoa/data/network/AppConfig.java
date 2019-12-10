@@ -18,4 +18,5 @@ public class AppConfig {
     public static final String SH_USERNAME = "USERNAME";
     public static final String SH_PASSWORD = "PASSWORD";
     public static final String SMART_HOME_SN = "1741hf14f2df425db6f228e21b3d8d86";
+    public static final String ROOM_ID = "19";
 }

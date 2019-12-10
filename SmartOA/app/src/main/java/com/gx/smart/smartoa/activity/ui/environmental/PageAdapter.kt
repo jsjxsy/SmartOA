@@ -3,6 +3,7 @@ package com.gx.smart.smartoa.activity.ui.environmental
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDto
 
 /**
  *@author xiaosy
@@ -16,15 +17,23 @@ class PageAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(
 
     private val mPageFragment = ArrayList<PageFragmentContent>()
 
-    override fun getItem(position: Int):Fragment {
+    override fun getItem(position: Int): Fragment {
         val pageFragmentContent = mPageFragment[position]
-        when(pageFragmentContent.type){
-            LightFragment.LIGHT_TYPE ->{ return LightFragment.newInstance()}
-            CurtainFragment.CURTAIN_TYPE ->{ return CurtainFragment.newInstance()}
-            AirConditionerFragment.AIR_CONDITIONER_TYPE ->{ return AirConditionerFragment.newInstance()}
-            FreshAirFragment.FRESH_AIR_TYPE ->{ return FreshAirFragment.newInstance()}
+        when (pageFragmentContent.type) {
+            LightFragment.LIGHT_TYPE -> {
+                return LightFragment(pageFragmentContent.itemList)
+            }
+            CurtainFragment.CURTAIN_TYPE -> {
+                return CurtainFragment(pageFragmentContent.itemList)
+            }
+            AirConditionerFragment.AIR_CONDITIONER_TYPE -> {
+                return AirConditionerFragment(pageFragmentContent.itemList)
+            }
+            FreshAirFragment.FRESH_AIR_TYPE -> {
+                return FreshAirFragment(pageFragmentContent.itemList)
+            }
         }
-        return LightFragment.newInstance()
+        return Fragment()
     }
 
     override fun getCount() = mPageFragment.size
@@ -38,5 +47,5 @@ class PageAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(
     }
 
 
-    class PageFragmentContent(var title: String, var type: Int)
+    class PageFragmentContent(var title: String, var type: Int, var itemList: List<DevDto>)
 }

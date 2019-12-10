@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.base.BaseFragment
+import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDto
 import kotlinx.android.synthetic.main.air_conditioner_fragment.*
 
-class AirConditionerFragment : BaseFragment() {
+class AirConditionerFragment(private val airConditionerList: List<DevDto>) : BaseFragment() {
 
     companion object {
-        fun newInstance() = AirConditionerFragment()
         const val AIR_CONDITIONER_TYPE = 2
     }
 
@@ -32,13 +32,11 @@ class AirConditionerFragment : BaseFragment() {
         adapter.register(AirConditionerViewBinder())
         airConditionerRecyclerView?.adapter = adapter
 
-        val textItem1 = AirConditioner("研发窗帘1")
-        val textItem2 = AirConditioner("研发窗帘2")
-        val textItem3 = AirConditioner("研发窗帘3")
+        for (airConditioner in airConditionerList) {
+            val textItem1 = AirConditioner(airConditioner.devName)
+            items.add(textItem1)
+        }
 
-        items.add(textItem1)
-        items.add(textItem2)
-        items.add(textItem3)
 
         adapter.items = items
         adapter.notifyDataSetChanged()
