@@ -78,6 +78,9 @@ class CurtainItemViewBinder : ItemViewBinder<CurtainItem, CurtainItemViewBinder.
                     ToastUtils.showLong("设备离线")
                     holder.curtainGroup.clearCheck()
                 }
+                "1" -> {
+                    fragment?.showLoadingView()
+                }
 
             }
         }
@@ -90,9 +93,11 @@ class CurtainItemViewBinder : ItemViewBinder<CurtainItem, CurtainItemViewBinder.
                     2 -> holder.pause.isChecked = true
                 }
                 holder.text.isPressed = true
+                holder.curtainGroup.isEnabled = true
             }
             else -> {
                 holder.text.isPressed = false
+                holder.curtainGroup.isEnabled = false
             }
         }
 

@@ -97,6 +97,7 @@ class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBind
                     ToastUtils.showLong("请先开启设备")
                     return
                 }
+                fragment?.showLoadingView()
                 if (!(progress < 0 || progress > 5)) {
                     mControlValue = 0
                 } else if (!(progress <= 5 || progress > 15)) {
@@ -132,6 +133,7 @@ class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBind
                         override fun callBack(result: UnisiotResp?) {
                             if (result == null) {
                                 ToastUtils.showLong("控制灯光超时")
+                                fragment?.showLoadingFail()
                                 return
                             }
                             if (result.code == 100) {
@@ -149,6 +151,7 @@ class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBind
                             } else {
                                 val msg = result.msg
                                 ToastUtils.showLong(msg)
+                                fragment?.showLoadingFail()
                             }
                         }
                     })

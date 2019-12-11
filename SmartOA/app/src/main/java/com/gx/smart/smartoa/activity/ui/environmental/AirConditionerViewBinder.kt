@@ -118,7 +118,9 @@ class AirConditionerViewBinder :
         } else if (!TextUtils.isEmpty(value)) {
             turnStatus = value.toInt()
         }
-
+        holder.switchLight.setOnClickListener {
+            openSwitch(turnStatus, item)
+        }
         if (item.light.linkState != "1") {
             holder.text.isPressed = false
             holder.auto.isEnabled = false
@@ -170,9 +172,6 @@ class AirConditionerViewBinder :
         } else {
             holder.text.isPressed = true
             holder.switchLight.isEnabled = true
-            holder.switchLight.setOnClickListener {
-                openSwitch(turnStatus, item)
-            }
             holder.auto.isEnabled = true
             holder.auto.setOnClickListener {
                 auto(mode, item)
@@ -536,6 +535,7 @@ class AirConditionerViewBinder :
 
 
     private fun setStateAction(type: Int, cmd: String, airConditioner: DevDto) {
+        fragment?.showLoadingView()
         devComTask = UnisiotApiService.getInstance().devCom(
             AppConfig.SMART_HOME_SN,
             java.lang.String.valueOf(airConditioner.uuid),

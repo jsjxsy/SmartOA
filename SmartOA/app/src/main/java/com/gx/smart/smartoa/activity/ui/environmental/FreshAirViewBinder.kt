@@ -135,6 +135,7 @@ class FreshAirViewBinder : ItemViewBinder<FreshAir, FreshAirViewBinder.ViewHolde
 
 
     private fun setStateAction(type: Int, cmd: String, airConditioner: DevDto) {
+        fragment?.showLoadingView()
         devComTask = UnisiotApiService.getInstance().devCom(
             AppConfig.SMART_HOME_SN,
             java.lang.String.valueOf(airConditioner.uuid),
