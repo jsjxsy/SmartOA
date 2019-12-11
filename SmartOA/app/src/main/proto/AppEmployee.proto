@@ -12,9 +12,33 @@ service AppEmployeeInterface {
 
     //解绑公司 注意：header添加sys_tenant_no，employee_id
     rpc cancelCompanyBind(CancelCompanyBindRequest) returns (CommonResponse) {}
+    //我的企业
+    rpc myCompany (MyCompanyRequest) returns (AppMyCompanyResponse) {}
+
 
 }
 
 message CancelCompanyBindRequest {
 
+}
+
+message MyCompanyRequest {
+
+}
+message AppMyCompanyResponse {
+    int32 code = 1;//返回码
+    string msg = 2;//返回消息
+    map<string,string> data = 3;
+    repeated EmployeeInfo employeeInfo= 4;
+}
+
+
+message EmployeeInfo {
+    int64 department_id = 5;
+    int64 company_structure_id = 6;
+    string company_name = 7;
+    string department_name = 8;
+    int32 status = 9; //1=申请；2=通过；3=拒绝
+    int64 create_time = 12;//申请时间
+    string image_url = 16; //工牌
 }

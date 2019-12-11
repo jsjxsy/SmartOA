@@ -14,12 +14,24 @@ service AppInformation{
     rpc getInformation(PersonInformationRequest) returns (AppInformationResponse) {}
     //物业公告
     rpc getAnnouncement(AnnouncementRequest) returns (AppAnnouncementResponse) {}
+    //信息已读
+    rpc messageRead(MessageReadRequest) returns (MessageReadResponse) {}
 }
-
-
 
 message PersonInformationRequest {
     com.gx.wisestone.core.grpc.common.QueryDto query = 2;
+}
+
+
+message MessageReadRequest {
+    int64 message_id = 1;
+    int32 message_type = 2; //1个人信息，2物业公告，3.活动报名
+}
+
+message MessageReadResponse {
+    int32 code = 1;//返回码
+    string msg = 2;//返回消息
+    map<string,string> data = 3;
 }
 
 message AnnouncementRequest {
@@ -28,11 +40,11 @@ message AnnouncementRequest {
 
 
 message AppInformationResponse{
-     int32 code = 1;//返回码
-     string msg = 2;//返回消息
-     map<string,string> data = 3;
-     repeated AppInformationNoticeRecordDto appInformationNoticeRecordDto = 4; //返回消息
-     com.gx.wisestone.core.grpc.common.QueryDto query = 5;
+    int32 code = 1;//返回码
+    string msg = 2;//返回消息
+    map<string,string> data = 3;
+    repeated AppInformationNoticeRecordDto appInformationNoticeRecordDto = 4; //返回消息
+    com.gx.wisestone.core.grpc.common.QueryDto query = 5;
 }
 message AppAnnouncementResponse{
     int32 code = 1;//返回码
@@ -52,6 +64,7 @@ message AppInformationNoticeRecordDto {
     int64 create_time = 6;
     int32 type = 7;  //1 鹰眼监控 2 智慧访客 3 亲人关怀 4 房屋绑定
     string user_id = 8; // 用户id
+    bool has_read = 9; //true已读
 }
 
 message AppAnnouncementDto {
@@ -66,5 +79,5 @@ message AppAnnouncementDto {
     int64 push_time = 9;  //发布时间
     int64 end_time = 10;  //结束时间
     int32 status = 11;  //1 发布状态 2过期状态
-    string sys_tenant_no = 12;
+    bool has_read = 12; //true已读
 }

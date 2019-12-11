@@ -59,7 +59,7 @@ message ApplyEmployeeRequest {
     string name = 1;
     string mobile = 2;
     bytes image_bytes =3;//工牌名片
-    int64 company_id = 4; //申请哪个房间
+    int64 company_structure_id = 4; //申请哪个房间
 }
 
 //切换可视对讲状态
@@ -72,5 +72,5 @@ message AppChangeSwitchRequest {
 
 //获取分区信息
 message GetDepartmentRequest {
-    int64 company_id = 1;
+    int64 company_structure_id = 1;
 }

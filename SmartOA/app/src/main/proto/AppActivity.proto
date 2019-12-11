@@ -10,20 +10,15 @@ option java_outer_classname = "AppActivityInterfaceService";
 service AppActivityInterface {
 
     //添加活动
-    rpc addActivity (ActivityRequest) returns (AppActivityResponse) {
-    }
+    rpc addActivity (ActivityRequest) returns (AppActivityResponse) {}
     //查询活动列表
-    rpc findAllApplyInfos (ActivityQueryRequest) returns (ActivityCommonResponse) {
-    }
+    rpc findAllApplyInfos(ActivityQueryRequest) returns (ActivityCommonResponse) {}
     // 活动报名
-    rpc apply (AppActivityApplyDto) returns (AppActivityApplyResponse) {
-    }
+    rpc apply (AppActivityApplyDto) returns (AppActivityApplyResponse) {}
     //取消报名
-    rpc cancelApply (AppActivityApplyDto) returns (AppActivityApplyResponse) {
-    }
+    rpc cancelApply (AppActivityApplyDto) returns (AppActivityApplyResponse) {}
     //查询报名信息
-    rpc findApplyInfo (AppActivityApplyDto) returns (AppActivityApplyResponse) {
-    }
+    rpc findApplyInfo (AppActivityApplyDto) returns (AppActivityApplyResponse) {}
 }
 
 message ActivityCommonResponse {
@@ -34,14 +29,14 @@ message ActivityCommonResponse {
     map<string, string> data = 5;
 }
 
-message AppActivityResponse {
+message AppActivityResponse{
     int32 code = 1; //返回码
     string msg = 2; //返回消息
     AppActivityDto activityDto = 3;
     map<string, string> data = 5;
 }
 
-message AppActivityDto {
+message AppActivityDto{
     int64 id = 1;
     int64 create_time = 2; //创建时间
     int64 modify_time = 3; //修改时间
@@ -54,6 +49,7 @@ message AppActivityDto {
     int32 total_num = 10; //计划报名人数，0表示不限人数
     string image_url = 11; //banner图300*200
     string company_ids = 12; //公司id
+    bool has_read = 13; //true已读
 }
 
 message ActivityRequest {
@@ -62,14 +58,14 @@ message ActivityRequest {
     int64 end_time = 5; //活动截止时间 notnull
     string title = 6; //活动标题 notnull
     string content = 7; //活动内容，type=2为跳转url
-    int32 type = 8; //1.显示内容2.跳转url
+    int32 type= 8; //1.显示内容2.跳转url
     int32 current_num = 9; //当前报名人数
     int32 total_num = 10; //计划报名人数，0表示不限人数
     string image_url = 11; //banner图300*200
     string company_ids = 12; //公司id notnull
 }
 
-message ActivityQueryRequest {
+message ActivityQueryRequest{
     com.gx.wisestone.core.grpc.common.QueryDto query = 3;
     ActivityRequest content = 4; //结果列表
 }
