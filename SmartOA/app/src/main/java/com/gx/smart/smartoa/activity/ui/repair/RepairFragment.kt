@@ -7,7 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.blankj.utilcode.util.ToastUtils
+import com.google.protobuf.ByteString
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.data.network.api.AppAttendanceService
+import com.gx.smart.smartoa.data.network.api.AppRepairService
+import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.repair_fragment.*
 
@@ -58,6 +64,27 @@ class RepairFragment : Fragment(), View.OnClickListener {
             R.id.left_nav_image_view -> activity?.onBackPressed()
             R.id.right_nav_text_view -> Navigation.findNavController(v).navigate(R.id.action_repairFragment_to_repairRecordFragment)
         }
+    }
+
+
+    private fun addRepair(content:String,
+                           type:Int,
+                           address:String,
+                           employee_phone: String,
+                           image_bytes: ByteString
+                           ) {
+        AppRepairService.getInstance()
+            .addRepair(content, type, address, employee_phone, image_bytes, object : CallBack<CommonResponse>() {
+                override fun callBack(result: CommonResponse?) {
+                    if (result == null) {
+                        ToastUtils.showLong("添加超时!")
+                        return
+                    }
+                    if (result?.code == 100) {
+                    }
+                }
+
+            })
     }
 
 

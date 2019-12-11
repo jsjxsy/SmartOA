@@ -6,7 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.data.network.api.AppActivityService
+import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
+import com.gx.wisestone.work.app.grpc.activity.AppActivityApplyResponse
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.list_action_layout.*
 
@@ -49,5 +54,38 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
 
+    }
+
+
+    private fun cancelApply() {
+        AppActivityService.getInstance()
+            .cancelApply(object : CallBack<ActivityCommonResponse>() {
+                override fun callBack(result: ActivityCommonResponse?) {
+                    if (result == null) {
+                        ToastUtils.showLong("取消报名超时!")
+                        return
+                    }
+                    if (result?.code == 100) {
+                    }
+                }
+
+            })
+    }
+
+
+    private fun apply() {
+        AppActivityService.getInstance()
+            .apply(object : CallBack<AppActivityApplyResponse>() {
+                override fun callBack(result: AppActivityApplyResponse?) {
+                    if (result == null) {
+                        ToastUtils.showLong("报名超时!")
+                        return
+                    }
+                    if (result?.code == 100) {
+
+                    }
+                }
+
+            })
     }
 }

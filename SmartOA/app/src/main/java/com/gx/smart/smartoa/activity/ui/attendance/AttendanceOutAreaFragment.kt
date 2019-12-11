@@ -1,13 +1,16 @@
 package com.gx.smart.smartoa.activity.ui.attendance
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
+import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.data.network.api.AppAttendanceService
+import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.wisestone.work.app.grpc.common.CommonResponse
 
 class AttendanceOutAreaFragment : Fragment() {
 
@@ -28,6 +31,25 @@ class AttendanceOutAreaFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AttendanceOutAreaViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+
+    private fun attendance(
+        latitude: String, longitude: String,
+        address: String
+    ) {
+        AppAttendanceService.getInstance()
+            .attendance(latitude, longitude, address, object : CallBack<CommonResponse>() {
+                override fun callBack(result: CommonResponse?) {
+                    if (result == null) {
+                        ToastUtils.showLong("外勤打卡超时!")
+                        return
+                    }
+                    if (result?.code == 100) {
+                    }
+                }
+
+            })
     }
 
 }
