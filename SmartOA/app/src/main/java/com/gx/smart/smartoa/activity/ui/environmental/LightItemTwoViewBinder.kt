@@ -16,6 +16,8 @@
 
 package  com.gx.smart.smartoa.activity.ui.environmental
 
+import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,13 +27,22 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatSeekBar
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.ToastUtils
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.data.network.AppConfig
+import com.gx.smart.smartoa.data.network.api.UnisiotApiService
+import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
+import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.UnisiotResp
 
 /**
  * @author Drakeet Xu
  */
 class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBinder.TextHolder>() {
+
+    private var devComTask: GrpcAsyncTask<String, Void, UnisiotResp>? = null
+    var fragment: EnvironmentalControlFragment? = null
 
     class TextHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val text: TextView = itemView.findViewById(R.id.text)
@@ -50,7 +61,10 @@ class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBind
     }
 
     override fun onBindViewHolder(holder: TextHolder, item: LightItemTwo) {
-        holder.text.text = item.text
+        holder.text.text = item.light.devName
+        var status = (getLightStatus(item.light.`val`) == 1)
+        holder.text.isPressed = status
+        holder.switchLight.isChecked = status
         holder.switchLight.setOnCheckedChangeListener { _, isChecked ->
             holder.text.isPressed = isChecked
         }
@@ -60,14 +74,119 @@ class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBind
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-
+                if (!status) {
+                    ToastUtils.showLong("请先开启设备")
+                }
             }
 
+            var mControlValue = 0
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                val progress = seekBar!!.progress
+                if (!status) {
+                    ToastUtils.showLong("请先开启设备")
+                    return
+                }
+                if (!(progress < 0 || progress > 5)) {
+                    mControlValue = 0
+                } else if (!(progress <= 5 || progress > 15)) {
+                    mControlValue = 10
+                } else if (!(progress <= 15 || progress > 25)) {
+                    mControlValue = 20
+                } else if (!(progress <= 25 || progress > 35)) {
+                    mControlValue = 30
+                } else if (!(progress <= 35 || progress > 45)) {
+                    mControlValue = 40
+                } else if (!(progress <= 45 || progress > 55)) {
+                    mControlValue = 50
+                } else if (!(progress <= 55 || progress > 65)) {
+                    mControlValue = 60
+                } else if (!(progress <= 65 || progress > 75)) {
+                    mControlValue = 70
+                } else if (!(progress <= 75 || progress > 85)) {
+                    mControlValue = 80
+                } else if (!(progress <= 85 || progress > 95)) {
+                    mControlValue = 90
+                } else if (!(progress <= 95 || progress > 100)) {
+                    mControlValue = 100
+                }
+                val cmd: String = mControlValue.toString()
+                devComTask = UnisiotApiService.getInstance().devCom(
+                    AppConfig.SMART_HOME_SN,
+                    java.lang.String.valueOf(item.light.uuid),
+                    item.light.category,
+                    item.light.model,
+                    item.light.channel,
+                    cmd,
+                    object : CallBack<UnisiotResp>() {
+                        override fun callBack(result: UnisiotResp?) {
+                            if (result == null) {
+                                ToastUtils.showLong("控制灯光超时")
+                                return
+                            }
+                            if (result.code == 100) {
+                                when (result.result) {
+                                    0 -> {
+                                        fragment?.showLoadingSuccess()
+                                    }
+                                    100 -> {
+                                        fragment?.showLoading()
+                                    }
+                                    else -> {
+                                        fragment?.showLoadingFail()
+                                    }
+                                }
+                            } else {
+                                val msg = result.msg
+                                ToastUtils.showLong(msg)
+                            }
+                        }
+                    })
             }
 
         })
+        holder.seekBar.progress = getLightValue(item.light.`val`)
 
+    }
+
+
+    private fun getLightValue(value: String): Int {
+        var lightValue = 0
+        if (value.contains(",")) {
+            val devVal: List<String> = value.split(",")
+            if (devVal.size >= 2) {
+                if (devVal[1].isNotEmpty()) {
+                    lightValue = devVal[1].toInt()
+                }
+            }
+        }
+        return lightValue
+    }
+
+
+    private fun getLightStatus(value: String): Int {
+        var turnStatus = 0
+        if (value.contains(",")) {
+            val devVal: List<String> = value.split(",")
+            if (devVal.size == 1) {
+                if (!devVal[0].isEmpty()) {
+                    turnStatus = devVal[0].toInt()
+                }
+            } else if (devVal.size >= 2) {
+                if (!devVal[0].isEmpty()) {
+                    turnStatus = devVal[0].toInt()
+                }
+            }
+        } else if (!TextUtils.isEmpty(value)) {
+            if (value.isNotEmpty()) {
+                val valueNew = value.replace("0x", "")
+                turnStatus = if (valueNew.contains("x")) {
+                    valueNew.toInt(16)
+                } else {
+                    valueNew.toInt()
+                }
+            }
+        }
+        return turnStatus
     }
 
 }

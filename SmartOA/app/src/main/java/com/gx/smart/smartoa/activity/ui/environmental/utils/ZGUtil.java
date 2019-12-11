@@ -155,7 +155,8 @@ public class ZGUtil {
                 list = new ArrayList<>();
                 for (DevDto bean : devList) {
                     if (bean.getCategory().equals("curtain_controller")//窗帘控制器
-                            || bean.getCategory().equals("window_controller")) {//开窗器
+                            || bean.getCategory().equals("window_controller")//开窗器
+                    || bean.getCategory().equals("c_wisdom_motor")) {
                         list.add(bean);
                     }
                 }

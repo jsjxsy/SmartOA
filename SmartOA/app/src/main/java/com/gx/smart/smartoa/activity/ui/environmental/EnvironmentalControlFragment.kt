@@ -71,7 +71,10 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initHead() {
-        refreshLayout.setOnRefreshListener { refreshLayout.finishRefresh(2000) }
+        refreshLayout.setOnRefreshListener {
+            getZGSceneList()
+            getDevList()
+        }
         refreshLayout.isEnableLoadmore = false
         headItemView = LightHeadItemViewBinder()
         adapter.register(headItemView)
@@ -83,10 +86,6 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
     private fun initContent() {
         getDevList()
         mPagerAdapter = PageAdapter(fragmentManager!!)
-//        val titles = resources.getStringArray(R.array.environmental_control_items)
-//        for (i in 0 until titles.size) {
-//            mPagerAdapter.addPage(PageAdapter.PageFragmentContent(titles[i], i))
-//        }
         viewPager.adapter = mPagerAdapter
         viewPager.offscreenPageLimit = 3
         id_environmental_control_tab.setupWithViewPager(viewPager)
@@ -105,6 +104,7 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                     }
                     if (result?.code == 100) {
                         val contentList = result.contentList
+                        items.clear()
                         for (content in contentList) {
                             val headTextItem = LightHeadItem(
                                 content.sceneName,
@@ -116,6 +116,7 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                         val onItemClickListener =
                             object : LightHeadItemViewBinder.OnItemClickListener {
                                 override fun onClick(view: View, position: Int) {
+                                    showLoadingView()
                                     executeScene(contentList[position].sceneId)
                                 }
                             }
@@ -165,8 +166,10 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                     AppConfig.SMART_HOME_SN,
                     object : CallBack<AreaDeviceListResp>() {
                         override fun callBack(result: AreaDeviceListResp?) {
+                            refreshLayout.finishRefresh()
                             if (result == null) {
                                 ToastUtils.showLong("获取设备列表超时")
+                                showLoadingFail()
                                 return
                             }
 
@@ -178,12 +181,14 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                                 )
                                 val titles =
                                     resources.getStringArray(R.array.environmental_control_items)
+                                mPagerAdapter.clearPage()
                                 if (lightList.isNotEmpty()) {
                                     mPagerAdapter.addPage(
                                         PageAdapter.PageFragmentContent(
                                             titles[0],
                                             LightFragment.LIGHT_TYPE,
-                                            lightList
+                                            lightList,
+                                            this@EnvironmentalControlFragment
                                         )
                                     )
                                 }
@@ -196,7 +201,8 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                                         PageAdapter.PageFragmentContent(
                                             titles[1],
                                             CurtainFragment.CURTAIN_TYPE,
-                                            curtainList
+                                            curtainList,
+                                            this@EnvironmentalControlFragment
                                         )
                                     )
                                 }
@@ -210,7 +216,8 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                                         PageAdapter.PageFragmentContent(
                                             titles[2],
                                             AirConditionerFragment.AIR_CONDITIONER_TYPE,
-                                            airConditionerList
+                                            airConditionerList,
+                                            this@EnvironmentalControlFragment
                                         )
                                     )
                                 }
@@ -223,13 +230,16 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                                     mPagerAdapter.addPage(
                                         PageAdapter.PageFragmentContent(
                                             titles[3],
-                                            FreshAirFragment.FRESH_AIR_TYPE, freshAirList
+                                            FreshAirFragment.FRESH_AIR_TYPE,
+                                            freshAirList,
+                                            this@EnvironmentalControlFragment
                                         )
                                     )
                                 }
                                 mPagerAdapter.notifyDataSetChanged()
                             } else {
                                 ToastUtils.showLong(result?.msg)
+                                showLoadingFail()
                             }
                         }
 
@@ -237,22 +247,26 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    fun showLoadingView() {
+        mLoadingView.visibility = View.VISIBLE
+        mLoadingView.setOnClickListener(null)
+    }
 
-    private fun showLoading() {
+    fun showLoading() {
         mLoadingView.setText("执行中")
         mLoadingView.showLoading()
     }
 
-    private fun showLoadingSuccess() {
+    fun showLoadingSuccess() {
         mLoadingView.setText("执行成功")
         mLoadingView.showSuccess()
-        Handler().postDelayed({ mLoadingView.setVisibility(View.GONE) }, 1000)
+        Handler().postDelayed({ mLoadingView.visibility = View.GONE }, 1000)
     }
 
-    private fun showLoadingFail() {
+    fun showLoadingFail() {
         mLoadingView.setText("执行失败")
         mLoadingView.showFail()
-        Handler().postDelayed({ mLoadingView.setVisibility(View.GONE) }, 1000)
+        Handler().postDelayed({ mLoadingView.visibility = View.GONE }, 1000)
     }
 
 

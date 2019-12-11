@@ -8,7 +8,9 @@ import com.gx.wisestone.work.app.grpc.appfigure.AppFigureInterfaceGrpc;
 import com.gx.wisestone.work.app.grpc.appfigure.BannerFigureRequest;
 import com.gx.wisestone.work.app.grpc.appfigure.CarouselFigureRequest;
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesResponse;
+import com.gx.wisestone.work.app.grpc.common.CommonResponse;
 import com.gx.wisestone.work.app.grpc.employee.AppEmployeeInterfaceGrpc;
+import com.gx.wisestone.work.app.grpc.employee.CancelCompanyBindRequest;
 
 import java.util.concurrent.TimeUnit;
 
@@ -46,52 +48,29 @@ public class AppEmployeeService {
     }
 
 
-//    /**
-//     * 广告图 所有app一样
-//     *
-//     * @return callBack返回值
-//     */
-//    public GrpcAsyncTask<String, Void, ImagesResponse> bannerFigure(CallBack callBack) {
-//        return new GrpcAsyncTask<String, Void, ImagesResponse>(callBack) {
-//            @Override
-//            protected ImagesResponse doRequestData(ManagedChannel channel) {
-//                BannerFigureRequest message = BannerFigureRequest.newBuilder()
-//                        .build();
-//                ImagesResponse response = null;
-//                try {
-//                    response = getAppEmployeeStub(channel).(message);
-//                } catch (Exception e) {
-//                    Log.i("UserCenter_gRpc", e.getMessage());
-//                }
-//
-//                return response;
-//            }
-//        }.doExecute();
-//    }
+    /**
+     * 解绑公司 注意：header添加sys_tenant_no，employee_id
+     *
+     * @return callBack返回值
+     */
+    public GrpcAsyncTask<String, Void, CommonResponse> cancelCompanyBind(CallBack callBack) {
+        return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
+            @Override
+            protected CommonResponse doRequestData(ManagedChannel channel) {
+                CancelCompanyBindRequest message = CancelCompanyBindRequest.newBuilder()
+                        .build();
+                CommonResponse response = null;
+                try {
+                    response = getAppEmployeeStub(channel).cancelCompanyBind(message);
+                } catch (Exception e) {
+                    Log.i("UserCenter_gRpc", e.getMessage());
+                }
 
-//    /**
-//     * 轮播图 ，每个小区不同
-//     *
-//     * @param sysTenantNo 小区Id
-//     * @return callBack返回值
-//     */
-//    public GrpcAsyncTask<String, Void, ImagesResponse> carouselFigure(final int sysTenantNo, CallBack callBack) {
-//        return new GrpcAsyncTask<String, Void, ImagesResponse>(callBack) {
-//            @Override
-//            protected ImagesResponse doRequestData(ManagedChannel channel) {
-//                CarouselFigureRequest message = CarouselFigureRequest.newBuilder()
-//                        .build();
-//                ImagesResponse response = null;
-//                try {
-//                    response = getAppFigureStub(channel).carouselFigure(message);
-//                } catch (Exception e) {
-//                    Log.i("UserCenter_gRpc", e.getMessage());
-//                }
-//
-//                return response;
-//            }
-//        }.doExecute();
-//    }
+                return response;
+            }
+        }.doExecute();
+    }
+
 
 
 }

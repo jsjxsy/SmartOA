@@ -17,11 +17,15 @@ public class WsClientCall<ReqT, RespT> extends ForwardingClientCall.SimpleForwar
         if (null != provider) {
             String token = provider.token();
             Integer sysTenantNo = provider.sysTenantNo();
+            Long employeeId = provider.employeeId();
             if (null != token && token.length() > 0) {
                 headers.put(IntercepterConstants.AUTHORIZATION_KEY, IntercepterConstants.BEARER + token);
             }
             if (null != sysTenantNo) {
                 headers.put(IntercepterConstants.META_KEY_SYS_TENANT_NO, String.valueOf(sysTenantNo));
+            }
+            if (null != employeeId) {
+                headers.put(IntercepterConstants.META_KEY_EMPLOYEE_ID, String.valueOf(employeeId));
             }
 
         }
@@ -32,5 +36,7 @@ public class WsClientCall<ReqT, RespT> extends ForwardingClientCall.SimpleForwar
         String token();
 
         Integer sysTenantNo();
+
+        Long employeeId();
     }
 }

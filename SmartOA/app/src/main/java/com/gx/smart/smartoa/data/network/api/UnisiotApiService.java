@@ -237,7 +237,7 @@ public class UnisiotApiService {
      * @param val        指令值
      * @return callBack返回值
      */
-    public static GrpcAsyncTask<String, Void, UnisiotResp> devCom(final String host_sn, final String uuid, final String category, final String model, final String channel_id, final String val, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, UnisiotResp> devCom(final String host_sn, final String uuid, final String category, final String model, final String channel_id, final String val, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, UnisiotResp>(callBack) {
             @Override
             protected UnisiotResp doRequestData(ManagedChannel channel) {

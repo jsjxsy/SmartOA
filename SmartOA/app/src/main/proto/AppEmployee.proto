@@ -7,7 +7,14 @@ option java_multiple_files = true;
 option java_package = "com.gx.wisestone.work.app.grpc.employee";
 option java_outer_classname = "AppEmployeeInterfaceService";
 
+//其他关于公司申请接口在 AppStructure.proto
 service AppEmployeeInterface {
 
+    //解绑公司 注意：header添加sys_tenant_no，employee_id
+    rpc cancelCompanyBind(CancelCompanyBindRequest) returns (CommonResponse) {}
+
+}
+
+message CancelCompanyBindRequest {
 
 }

@@ -16,40 +16,9 @@
 
 package  com.gx.smart.smartoa.activity.ui.environmental
 
-import com.google.gson.Gson
-import com.gx.smart.smartoa.activity.ui.Savable
-import java.nio.charset.Charset
+import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDto
 
 /**
  * @author Drakeet Xu
  */
-class LightItemOne : Savable {
-
-  lateinit var text: String
-
-  constructor(text: String) {
-
-    this.text = text
-  }
-
-  constructor(data: ByteArray) {
-    init(data)
-  }
-
-  override fun init(data: ByteArray) {
-    val json = String(data, UTF_8)
-    this.text = Gson().fromJson(json, LightItemTwo::class.java).text
-  }
-
-  override fun toBytes(): ByteArray {
-    return Gson().toJson(this).toByteArray(UTF_8)
-  }
-
-  override fun describe(): String {
-    return "Text"
-  }
-
-  companion object {
-    private val UTF_8 = Charset.forName("UTF-8")
-  }
-}
+data class LightItemOne(val light: DevDto)

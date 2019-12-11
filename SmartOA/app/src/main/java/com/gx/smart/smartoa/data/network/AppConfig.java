@@ -10,6 +10,7 @@ public class AppConfig {
     public static String loginToken;
     public static String refreshToken;
     public static String mJiGuangToken;
+    public static long employeeId;
 
 
     //是不是第一次登录

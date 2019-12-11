@@ -15,4 +15,8 @@ public class WsProvider implements WsClientCall.Provider {
         return AppConfig.currentSysTenantNo;
     }
 
+    public Long employeeId() {
+        return AppConfig.employeeId;
+    }
+
 }

@@ -42,13 +42,15 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
                     R.id.nav_host_fragment
                 ).navigate(R.id.action_global_mineFragment)
         }
-        stateSetting()
     }
 
-    private fun stateSetting() {
+
+
+    fun stateSetting() {
         val fragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        when (FragmentUtils.getTop(fragment.childFragmentManager)) {
+        var childFragment = fragment.childFragmentManager.fragments[0]
+        when (childFragment) {
             is HomeFragment -> id_tab_home.isChecked = true
             is OpenDoorFragment -> id_tab_open.isChecked = true
             is MineFragment -> id_tab_mine.isChecked = true

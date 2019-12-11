@@ -24,6 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="正在加载"
-        android:textColor="#fff" />
+        android:textColor="@color/font_color_style_six" />
 
 </LinearLayout>

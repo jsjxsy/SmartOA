@@ -16,19 +16,30 @@
 
 package  com.gx.smart.smartoa.activity.ui.environmental
 
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.ToastUtils
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.data.network.AppConfig
+import com.gx.smart.smartoa.data.network.api.UnisiotApiService
+import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
+import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDto
+import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.UnisiotResp
 
 /**
  * @author Drakeet Xu
  */
 class LightItemOneViewBinder : ItemViewBinder<LightItemOne, LightItemOneViewBinder.TextHolder>() {
+
+    private var devComTask: GrpcAsyncTask<String, Void, UnisiotResp>? = null
+    var fragment: EnvironmentalControlFragment? = null
 
     class TextHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val text: TextView = itemView.findViewById(R.id.text)
@@ -46,10 +57,83 @@ class LightItemOneViewBinder : ItemViewBinder<LightItemOne, LightItemOneViewBind
     }
 
     override fun onBindViewHolder(holder: TextHolder, item: LightItemOne) {
-        holder.text.text = item.text
-        holder.switchLightPanel.setOnCheckedChangeListener { buttonView, isChecked ->
+        holder.text.text = item.light.devName
+        var statsValue = getLightStatus(item.light.`val`)
+        var status = (statsValue == 1)
+        holder.text.isPressed = status
+        holder.switchLightPanel.isChecked = status
+        holder.switchLightPanel.setOnClickListener {
+            fragment?.showLoadingView()
+            switchLightAction(statsValue, item.light)
+        }
+        holder.switchLightPanel.setOnCheckedChangeListener { _, isChecked ->
             holder.text.isPressed = isChecked
         }
+    }
+
+    private fun getLightStatus(value: String): Int {
+        var turnStatus = 0
+        if (value.contains(",")) {
+            val devVal: List<String> = value.split(",")
+            if (devVal.size == 1) {
+                if (!devVal[0].isEmpty()) {
+                    turnStatus = devVal[0].toInt()
+                }
+            } else if (devVal.size >= 2) {
+                if (!devVal[0].isEmpty()) {
+                    turnStatus = devVal[0].toInt()
+                }
+            }
+        } else if (!TextUtils.isEmpty(value)) {
+            if (value.isNotEmpty()) {
+                val valueNew = value.replace("0x", "")
+                turnStatus = if (valueNew.contains("x")) {
+                    valueNew.toInt(16)
+                } else {
+                    valueNew.toInt()
+                }
+            }
+        }
+        return turnStatus
+    }
+
+
+    private fun switchLightAction(
+        finalTurnStatus: Int,
+        light: DevDto
+    ) {
+        val cmd = if (finalTurnStatus == 1) "-1" else "1"
+        devComTask = UnisiotApiService.getInstance().devCom(
+            AppConfig.SMART_HOME_SN,
+            java.lang.String.valueOf(light.uuid),
+            light.category,
+            light.model,
+            light.channel,
+            cmd,
+            object : CallBack<UnisiotResp>() {
+                override fun callBack(result: UnisiotResp?) {
+                    if (result == null) {
+                        ToastUtils.showLong("控制灯光超时")
+                        return
+                    }
+                    if (result.code == 100) {
+                        when (result.result) {
+                            0 -> {
+                                fragment?.showLoadingSuccess()
+                            }
+                            100 -> {
+                                fragment?.showLoading()
+                            }
+                            else -> {
+                                fragment?.showLoadingFail()
+                            }
+                        }
+                    } else {
+                        val msg = result.msg
+                        ToastUtils.showLong(msg)
+                    }
+                }
+            })
     }
 
 }

@@ -33,11 +33,9 @@ class AirConditionerFragment(private val airConditionerList: List<DevDto>) : Bas
         airConditionerRecyclerView?.adapter = adapter
 
         for (airConditioner in airConditionerList) {
-            val textItem1 = AirConditioner(airConditioner.devName)
+            val textItem1 = AirConditioner(airConditioner)
             items.add(textItem1)
         }
-
-
         adapter.items = items
         adapter.notifyDataSetChanged()
     }

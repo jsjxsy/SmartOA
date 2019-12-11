@@ -21,10 +21,14 @@ class PageAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(
         val pageFragmentContent = mPageFragment[position]
         when (pageFragmentContent.type) {
             LightFragment.LIGHT_TYPE -> {
-                return LightFragment(pageFragmentContent.itemList)
+                val lightFragment = LightFragment(pageFragmentContent.itemList)
+                lightFragment.fragment = pageFragmentContent.fragment
+                return lightFragment
             }
             CurtainFragment.CURTAIN_TYPE -> {
-                return CurtainFragment(pageFragmentContent.itemList)
+                val curtainFragment = CurtainFragment(pageFragmentContent.itemList)
+                curtainFragment.fragment
+                return curtainFragment
             }
             AirConditionerFragment.AIR_CONDITIONER_TYPE -> {
                 return AirConditionerFragment(pageFragmentContent.itemList)
@@ -46,6 +50,15 @@ class PageAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(
         mPageFragment.add(page)
     }
 
+    fun clearPage() {
+        mPageFragment.clear()
+    }
 
-    class PageFragmentContent(var title: String, var type: Int, var itemList: List<DevDto>)
+
+    class PageFragmentContent(
+        var title: String,
+        var type: Int,
+        var itemList: List<DevDto>,
+        var fragment: EnvironmentalControlFragment
+    )
 }

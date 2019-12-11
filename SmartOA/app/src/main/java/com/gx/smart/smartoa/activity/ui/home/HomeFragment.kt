@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.activity.ui.features.HomeActionViewBinder
 import com.gx.smart.smartoa.activity.ui.features.HomeCompanyAdvise
 import com.gx.smart.smartoa.activity.ui.features.HomeCompanyAdviseViewBinder
@@ -50,6 +51,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     override fun onStart() {
         super.onStart()
         activity?.window?.statusBarColor = Color.TRANSPARENT
+        (activity as MainActivity).stateSetting()
     }
 
 
@@ -67,7 +69,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
         context = requireActivity()
         initRecyclerView()
     }
-
 
     private fun initRecyclerView() {
         refreshLayout.setOnRefreshListener { refreshLayout.finishRefresh(2000) }

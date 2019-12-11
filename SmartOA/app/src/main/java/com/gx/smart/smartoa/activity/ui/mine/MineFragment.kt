@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.data.network.api.UserCenterService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
@@ -35,6 +36,8 @@ class MineFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         activity?.window?.statusBarColor = Color.TRANSPARENT
+        (activity as MainActivity).stateSetting()
+        getUserInfo()
     }
 
     override fun onCreateView(
@@ -47,7 +50,6 @@ class MineFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MineViewModel::class.java)
-        getUserInfo()
         val mineList = mine_setting_list_view as ListView
         val adapter = MineAdapter(activity as Context)
         adapter.lists = arrayListOf(
@@ -97,16 +99,18 @@ class MineFragment : Fragment() {
             override fun callBack(result: AppInfoResponse?) {
                 if (result?.code == 100) {
                     val userInfo = result.appUserInfoDto
-                    if (userInfo.imageUrl.isNotBlank()) {
+                    if (userInfo.imageUrl.isNotBlank() && !isDetached) {
                         Glide.with(activity!!).load(userInfo.imageUrl)
                             .apply(RequestOptions.bitmapTransform(CircleCrop()))
                             .into(mine_head_image_view)
                     }
-                    mine_user_name_text_view.text = userInfo.name
+                    mine_user_name_text_view.text = userInfo.nickName
                 }
             }
 
         })
     }
+
+
 
 }

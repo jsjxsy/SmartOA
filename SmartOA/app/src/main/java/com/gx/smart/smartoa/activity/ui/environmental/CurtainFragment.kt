@@ -21,6 +21,7 @@ class CurtainFragment(private val curtainList: List<DevDto>) : Fragment() {
     private lateinit var viewModel: CurtainViewModel
     private val adapter = MultiTypeAdapter()
     private val items = ArrayList<Any>()
+    var fragment: EnvironmentalControlFragment? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,12 +37,13 @@ class CurtainFragment(private val curtainList: List<DevDto>) : Fragment() {
         val drawable = resources.getDrawable(R.drawable.shape_environmental_control_line, null)
         divider.setDrawable(drawable)
         curtainRecyclerView!!.addItemDecoration(divider)
-
-        adapter.register(CurtainItemViewBinder())
+        val curtainItemViewBinder = CurtainItemViewBinder()
+        curtainItemViewBinder.fragment = fragment
+        adapter.register(curtainItemViewBinder)
         curtainRecyclerView?.adapter = adapter
 
         for (curtain in curtainList) {
-            val textItem1 = CurtainItem(curtain.devName)
+            val textItem1 = CurtainItem(curtain)
             items.add(textItem1)
         }
         adapter.items = items
