@@ -80,4 +80,21 @@ class MineActionFragment : Fragment(), View.OnClickListener {
             })
     }
 
+
+    private fun findApplyInfo() {
+        AppActivityService.getInstance()
+            .findApplyInfo(object : CallBack<ActivityCommonResponse>() {
+                override fun callBack(result: ActivityCommonResponse?) {
+                    if (result == null) {
+                        ToastUtils.showLong("查询活动超时!")
+                        return
+                    }
+                    if (result?.code == 100) {
+                        result.contentList
+                    }
+                }
+
+            })
+    }
+
 }

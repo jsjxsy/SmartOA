@@ -51,16 +51,15 @@ public class AppStructureService {
 
 
     /**
-     *获取所有办公楼
+     * 获取所有办公楼
      *
      * @return callBack返回值
      */
-    public static GrpcAsyncTask<String, Void, CommonResponse> getSysTenantList(String name,CallBack callBack) {
+    public GrpcAsyncTask<String, Void, CommonResponse> getSysTenantList(CallBack callBack) {
         return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
             @Override
             protected CommonResponse doRequestData(ManagedChannel channel) {
                 SysTenantListRequest message = SysTenantListRequest.newBuilder()
-                        .setName(name)
                         .build();
                 CommonResponse response = null;
                 try {
@@ -77,10 +76,9 @@ public class AppStructureService {
     /**
      * 轮播图 ，每个小区不同
      *
-     * @param sysTenantNo 小区Id
      * @return callBack返回值
      */
-    public static GrpcAsyncTask<String, Void, CommonResponse> getBuildingInfo(final int sysTenantNo, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, CommonResponse> getBuildingInfo(CallBack callBack) {
         return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
             @Override
             protected CommonResponse doRequestData(ManagedChannel channel) {
@@ -107,7 +105,7 @@ public class AppStructureService {
      * @param companyId 小区Id
      * @return callBack返回值
      */
-    public static GrpcAsyncTask<String, Void, CommonResponse> getDepartment(final long companyId, CallBack callBack) {
+    public  GrpcAsyncTask<String, Void, CommonResponse> getDepartment(final long companyId, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
             @Override
             protected CommonResponse doRequestData(ManagedChannel channel) {
@@ -129,12 +127,13 @@ public class AppStructureService {
     /**
      * 轮播图 ，每个小区不同
      * string name = 1;
-     *     string mobile = 2;
-     *     bytes image_bytes =3;//工牌名片
-     *     int64 company_id = 4; //申请哪个房间
+     * string mobile = 2;
+     * bytes image_bytes =3;//工牌名片
+     * int64 company_id = 4; //申请哪个房间
+     *
      * @return callBack返回值
      */
-    public static GrpcAsyncTask<String, Void, CommonResponse> applyEmployee(
+    public  GrpcAsyncTask<String, Void, CommonResponse> applyEmployee(
             String name, String mobile, ByteString image, final long companyId,
             CallBack callBack) {
         return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
@@ -161,9 +160,10 @@ public class AppStructureService {
     /**
      * 轮播图 ，每个小区不同
      * string switch_type = 1; //1可视对讲
-     *     string switch_value = 2;//开关 1开2关
-     *     int64 structure_id = 3;
-     *     int64 owner_id = 4;
+     * string switch_value = 2;//开关 1开2关
+     * int64 structure_id = 3;
+     * int64 owner_id = 4;
+     *
      * @return callBack返回值
      */
     public static GrpcAsyncTask<String, Void, CommonResponse> appChangeSwitch(String switch_type,

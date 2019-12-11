@@ -7,7 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.data.network.api.AppEmployeeService
+import com.gx.smart.smartoa.data.network.api.AppStructureService
+import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import kotlinx.android.synthetic.main.fragment_mine_company.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
@@ -49,4 +54,23 @@ class MineCompanyFragment : Fragment(), View.OnClickListener {
         }
 
     }
+
+    private fun cancelCompanyBind() {
+        AppEmployeeService.getInstance()
+            .cancelCompanyBind(
+                object : CallBack<CommonResponse>() {
+                    override fun callBack(result: CommonResponse?) {
+                        if (result == null) {
+                            ToastUtils.showLong("添加超时!")
+                            return
+                        }
+                        if (result?.code == 100) {
+                        }
+                    }
+
+                })
+    }
+
+
+
 }

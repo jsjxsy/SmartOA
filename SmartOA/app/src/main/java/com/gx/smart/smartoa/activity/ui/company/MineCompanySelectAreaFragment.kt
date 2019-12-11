@@ -8,10 +8,14 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.features.Divider
 import com.gx.smart.smartoa.activity.ui.features.DividerViewBinder
 import com.gx.smart.smartoa.base.BaseFragment
+import com.gx.smart.smartoa.data.network.api.AppStructureService
+import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import kotlinx.android.synthetic.main.fragment_mine_company_select_area.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
@@ -89,4 +93,23 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
         adapter.items = items
         adapter.notifyDataSetChanged()
     }
+
+
+    private fun getSysTenantList() {
+        AppStructureService.getInstance()
+            .getSysTenantList(
+                object : CallBack<CommonResponse>() {
+                    override fun callBack(result: CommonResponse?) {
+                        if (result == null) {
+                            ToastUtils.showLong("添加超时!")
+                            return
+                        }
+                        if (result?.code == 100) {
+                        }
+                    }
+
+                })
+    }
+
+
 }

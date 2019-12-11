@@ -5,7 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.data.network.api.AppRepairService
+import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.wisestone.work.app.grpc.repair.RepairCommonResponse
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 class RepairRecordFragment : Fragment(), View.OnClickListener {
@@ -43,6 +47,23 @@ class RepairRecordFragment : Fragment(), View.OnClickListener {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()
         }
+    }
+
+
+    private fun queryMyRepair() {
+        AppRepairService.getInstance()
+            .queryMyRepair(
+                object : CallBack<RepairCommonResponse>() {
+                    override fun callBack(result: RepairCommonResponse?) {
+                        if (result == null) {
+                            ToastUtils.showLong("查询超时!")
+                            return
+                        }
+                        if (result?.code == 100) {
+                        }
+                    }
+
+                })
     }
 
 

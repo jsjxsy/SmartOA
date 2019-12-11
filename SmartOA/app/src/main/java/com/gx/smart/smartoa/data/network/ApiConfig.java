@@ -10,12 +10,15 @@ public class ApiConfig {
     //
     public static final String USER_SERVER_PORT = "32331";
     //auth
-    public static String AUTH_API_SERVER_PORT = "31772";
+    public static final String AUTH_API_SERVER_PORT = "31772";
     //紫光
-    public static String  ZG_SERVICE_PORT = "30501";
+    public static final String ZG_SERVICE_PORT = "30501";
     //
-    public static String HUISHI_USER_SPACE = "b60bcfe2";//用户池
+    public static final String ATTANDANCE_SERVER_PORT = "31003";
 
-    public static String AGREEMENT_FORMAL_URL = "http://joylife.jrjkg.com.cn/AppH5/useage.html";//协议URL
+
+    public static final String HUISHI_USER_SPACE = "b60bcfe2";//用户池
+
+    public static final String AGREEMENT_FORMAL_URL = "http://joylife.jrjkg.com.cn/AppH5/useage.html";//协议URL
 
 }

@@ -10,7 +10,6 @@ import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ToastUtils
 import com.google.protobuf.ByteString
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.data.network.api.AppAttendanceService
 import com.gx.smart.smartoa.data.network.api.AppRepairService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
@@ -37,7 +36,8 @@ class RepairFragment : Fragment(), View.OnClickListener {
         viewModel = ViewModelProviders.of(this).get(RepairViewModel::class.java)
         initTitle()
         repair_type.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_repairFragment_to_repairTypeFragment)
+            Navigation.findNavController(it)
+                .navigate(R.id.action_repairFragment_to_repairTypeFragment)
         }
     }
 
@@ -67,24 +67,31 @@ class RepairFragment : Fragment(), View.OnClickListener {
     }
 
 
-    private fun addRepair(content:String,
-                           type:Int,
-                           address:String,
-                           employee_phone: String,
-                           image_bytes: ByteString
-                           ) {
+    private fun addRepair(
+        content: String,
+        type: Int,
+        address: String,
+        employee_phone: String,
+        image_bytes: ByteString
+    ) {
         AppRepairService.getInstance()
-            .addRepair(content, type, address, employee_phone, image_bytes, object : CallBack<CommonResponse>() {
-                override fun callBack(result: CommonResponse?) {
-                    if (result == null) {
-                        ToastUtils.showLong("添加超时!")
-                        return
+            .addRepair(
+                content,
+                type,
+                address,
+                employee_phone,
+                image_bytes,
+                object : CallBack<CommonResponse>() {
+                    override fun callBack(result: CommonResponse?) {
+                        if (result == null) {
+                            ToastUtils.showLong("添加超时!")
+                            return
+                        }
+                        if (result?.code == 100) {
+                        }
                     }
-                    if (result?.code == 100) {
-                    }
-                }
 
-            })
+                })
     }
 
 
