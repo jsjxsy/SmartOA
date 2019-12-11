@@ -44,22 +44,54 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:launchMode="singleTop" android:name=".activity.WebViewActivity"></activity>
-        <activity android:launchMode="singleTop" android:name=".activity.ui.contact.ContactActivity" />
-        <activity android:launchMode="singleTop" android:name=".activity.ui.Intelligence.IntelligenceParkingActivity" />
-        <activity android:launchMode="singleTop" android:name=".activity.ui.user.UserActivity" />
-        <activity android:launchMode="singleTop" android:name=".activity.ui.action.MineActionActivity" />
-        <activity android:launchMode="singleTop" android:name=".activity.ui.air.AirQualityActivity" />
-        <activity android:launchMode="singleTop" android:name=".activity.ui.setting.SettingActivity" />
-        <activity android:launchMode="singleTop" android:name=".activity.ui.repair.RepairActivity" />
-        <activity android:launchMode="singleTop" android:name=".activity.ui.work.SharedWorkActivity" />
-        <activity android:launchMode="singleTop" android:name=".activity.ui.meetings.MeetingScheduleActivity" />
-        <activity android:launchMode="singleTop" android:name=".activity.ui.company.MineCompanyActivity" />
-        <activity android:launchMode="singleTop" android:name=".activity.ui.visitor.VisitorActivity" />
-        <activity android:launchMode="singleTop" android:name=".activity.ui.attendance.AttendanceActivity" />
-        <activity android:launchMode="singleTop" android:name=".activity.ui.features.AllFeatureActivity" />
-        <activity android:launchMode="singleTop" android:name=".activity.ui.messages.MessageActivity" />
-        <activity android:launchMode="singleTop" android:name=".activity.ui.environmental.EnvironmentalActivity" />
+        <activity
+            android:name=".activity.WebViewActivity"
+            android:launchMode="singleTop"></activity>
+        <activity
+            android:name=".activity.ui.contact.ContactActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.ui.Intelligence.IntelligenceParkingActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.ui.user.UserActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.ui.action.MineActionActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.ui.air.AirQualityActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.ui.setting.SettingActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.ui.repair.RepairActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.ui.work.SharedWorkActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.ui.meetings.MeetingScheduleActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.ui.company.MineCompanyActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.ui.visitor.VisitorActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.ui.attendance.AttendanceActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.ui.features.AllFeatureActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.ui.messages.MessageActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.ui.environmental.EnvironmentalActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".activity.ui.splash.SplashActivity"
             android:launchMode="singleTop">
@@ -78,8 +110,25 @@
             android:launchMode="singleTop"
             android:windowSoftInputMode="stateVisible|adjustResize" />
 
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+
+        <!-- WebSocket推送服务 -->
+        <service
+            android:name=".activity.ui.environmental.websocket.WebSocketClientService"
+            android:enabled="true"
+            android:label="WebSocketService">
+            <intent-filter>
+                <action android:name="android.intent.action.RESPOND_VIA_MESSAGE" />
+            </intent-filter>
+        </service>
+
+        <receiver android:name=".activity.ui.environmental.websocket.WebSocketBroadcastReceiver">
+            <intent-filter android:priority="200">
+                <action android:name="com.gx.websocket.broadcastereceiver" />
+            </intent-filter>
+        </receiver>
 
         <!-- 文件提供者，个人头像拍照编辑时用到 -->
         <provider

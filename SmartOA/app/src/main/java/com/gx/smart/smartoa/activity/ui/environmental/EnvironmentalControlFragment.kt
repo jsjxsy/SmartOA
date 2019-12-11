@@ -1,7 +1,11 @@
 package com.gx.smart.smartoa.activity.ui.environmental
 
-import android.os.Bundle
-import android.os.Handler
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
+import android.os.*
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +17,9 @@ import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.environmental.utils.ApiUtils
 import com.gx.smart.smartoa.activity.ui.environmental.utils.ZGManager
 import com.gx.smart.smartoa.activity.ui.environmental.utils.ZGUtil
+import com.gx.smart.smartoa.activity.ui.environmental.websocket.WebSocketClientService
+import com.gx.smart.smartoa.activity.ui.environmental.websocket.WebSocketNotifyClient
+import com.gx.smart.smartoa.activity.ui.environmental.websocket.WsNotifyBean
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.UnisiotApiService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
@@ -57,6 +64,7 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(EnvironmentalControlViewModel::class.java)
+        startWebSocketClient()
         initTitle()
         initHead()
         initContent()
@@ -267,6 +275,72 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
         mLoadingView.setText("执行失败")
         mLoadingView.showFail()
         Handler().postDelayed({ mLoadingView.visibility = View.GONE }, 1000)
+    }
+
+
+    var mNotifyHandler: Handler = object : Handler() {
+        override fun handleMessage(msg: Message) {
+            val bundle = msg.data
+            if (bundle != null) {
+                val notifyBean: WsNotifyBean =
+                    bundle.getParcelable<Parcelable>("notifyBean") as WsNotifyBean
+                if (null != notifyBean) {
+                    Log.e("joylife", "notifyBean:" + notifyBean.getVal())
+                    //更新UI设备状态
+                    //updateDevStatus(notifyBean)
+                }
+            }
+        }
+    }
+
+
+    private val mServiceConnection: ServiceConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName, service: IBinder) {
+            WebSocketNotifyClient.getInstance().handler = mNotifyHandler
+            Log.d("joylife", "onServiceConnected  ")
+        }
+
+        override fun onServiceDisconnected(name: ComponentName) {
+        }
+    }
+
+    private fun startWebSocketClient() {
+        var userId = AppConfig.userId
+        var token = AppConfig.loginToken
+        val wsClient: WebSocketNotifyClient = WebSocketNotifyClient.getInstance()
+        wsClient.setHandler(mNotifyHandler)
+        val wsInent = Intent(this.context, WebSocketClientService::class.java)
+        wsInent.action = "android.intent.action.RESPOND_VIA_MESSAGE"
+        wsInent.putExtra("id", userId)
+        wsInent.putExtra("token", token)
+        context!!.bindService(
+            wsInent,
+            mServiceConnection,
+            Context.BIND_AUTO_CREATE
+        )
+    }
+
+    private fun updateDevAdapter(
+        //adapter: BaseQuickAdapter<DevBean, BaseViewHolder>,
+        notifyBean: WsNotifyBean
+    ) {
+        var idx = 0
+//        for (devBean in adapter.getData()) {
+//            if (notifyBean.uuid.compareToIgnoreCase("" + devBean.getUuid()) === 0
+//                && notifyBean.category.compareToIgnoreCase(devBean.getCategory()) === 0
+//                && notifyBean.model.compareToIgnoreCase(devBean.getModel()) === 0
+//            ) {
+//                val value = "" + notifyBean.getVal()
+//                //去掉后面多余的逗号
+//                if (0 != value.compareTo(devBean.getVal(), ignoreCase = true)) {
+//                    devBean.setVal(value)
+//                    adapter.notifyItemChanged(idx)
+//                }
+//                //不需要批量更新，应当break
+//                break
+//            }
+//            idx++
+//        }
     }
 
 

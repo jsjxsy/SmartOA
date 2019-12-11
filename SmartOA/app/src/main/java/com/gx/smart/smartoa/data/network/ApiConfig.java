@@ -21,4 +21,8 @@ public class ApiConfig {
 
     public static final String AGREEMENT_FORMAL_URL = "http://joylife.jrjkg.com.cn/AppH5/useage.html";//协议URL
 
+    public static final String JoyLife_gRPC_Server_2_FORMAL = "api.huishi.cloud";
+    public static final String WEB_SOCKET_URL = "wss://" + JoyLife_gRPC_Server_2_FORMAL + ":30152/websocket/{ID}/{TOKEN}/app";//WebSocket通知地址
+
+    public static final String WEB_SOCKET_TEST_URL = "ws://192.168.137.240:30152/websocket/{ID}/{TOKEN}/app";//WebSocket通知地址
 }
