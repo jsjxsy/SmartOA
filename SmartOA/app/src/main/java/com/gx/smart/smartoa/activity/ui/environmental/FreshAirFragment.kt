@@ -18,7 +18,7 @@ class FreshAirFragment(private val freshAirList: List<DevDto>) : BaseFragment() 
     }
 
     private lateinit var viewModel: FreshAirViewModel
-
+    var fragment: EnvironmentalControlFragment? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,12 +34,13 @@ class FreshAirFragment(private val freshAirList: List<DevDto>) : BaseFragment() 
         val drawable = resources.getDrawable(R.drawable.shape_environmental_control_line, null)
         divider.setDrawable(drawable)
         freshAirRecyclerView!!.addItemDecoration(divider)
-
+        val freshAirViewBinder = FreshAirViewBinder()
+        freshAirViewBinder.fragment = fragment
         adapter.register(FreshAirViewBinder())
         freshAirRecyclerView?.adapter = adapter
 
         for (freshAir in freshAirList) {
-            val textItem1 = FreshAir(freshAir.devName)
+            val textItem1 = FreshAir(freshAir)
             items.add(textItem1)
         }
 

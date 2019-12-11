@@ -27,14 +27,18 @@ class PageAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(
             }
             CurtainFragment.CURTAIN_TYPE -> {
                 val curtainFragment = CurtainFragment(pageFragmentContent.itemList)
-                curtainFragment.fragment
+                curtainFragment.fragment = pageFragmentContent.fragment
                 return curtainFragment
             }
             AirConditionerFragment.AIR_CONDITIONER_TYPE -> {
-                return AirConditionerFragment(pageFragmentContent.itemList)
+                val airConditionerFragment = AirConditionerFragment(pageFragmentContent.itemList)
+                airConditionerFragment.fragment = pageFragmentContent.fragment
+                return airConditionerFragment
             }
             FreshAirFragment.FRESH_AIR_TYPE -> {
-                return FreshAirFragment(pageFragmentContent.itemList)
+                val freshAirFragment = FreshAirFragment(pageFragmentContent.itemList)
+                freshAirFragment.fragment = pageFragmentContent.fragment
+                return freshAirFragment
             }
         }
         return Fragment()

@@ -17,7 +17,7 @@ class AirConditionerFragment(private val airConditionerList: List<DevDto>) : Bas
     }
 
     private lateinit var viewModel: AirConditionerViewModel
-
+    var fragment: EnvironmentalControlFragment? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,6 +28,8 @@ class AirConditionerFragment(private val airConditionerList: List<DevDto>) : Bas
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AirConditionerViewModel::class.java)
+        val airConditionerViewBinder = AirConditionerViewBinder()
+        airConditionerViewBinder.fragment = fragment
 
         adapter.register(AirConditionerViewBinder())
         airConditionerRecyclerView?.adapter = adapter

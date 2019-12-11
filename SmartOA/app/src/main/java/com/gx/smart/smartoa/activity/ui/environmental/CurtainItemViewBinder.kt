@@ -62,8 +62,8 @@ class CurtainItemViewBinder : ItemViewBinder<CurtainItem, CurtainItemViewBinder.
 
     override fun onBindViewHolder(holder: TextHolder, item: CurtainItem) {
         holder.text.text = item.light.devName
+
         holder.curtainGroup.setOnCheckedChangeListener { _, checkedId ->
-            holder.text.isPressed = true
             when (checkedId) {
                 R.id.open -> setStateAction(1, item.light)
                 R.id.close -> setStateAction(-1, item.light)
@@ -72,9 +72,18 @@ class CurtainItemViewBinder : ItemViewBinder<CurtainItem, CurtainItemViewBinder.
 
         }
 
+        holder.curtainGroup.setOnClickListener {
+            when (item.light.linkState) {
+                "0" -> {
+                    ToastUtils.showLong("设备离线")
+                    holder.curtainGroup.clearCheck()
+                }
+
+            }
+        }
+
         when (item.light.linkState) {
             "1" -> {
-                holder.curtainGroup.isEnabled = true
                 when (getCurtainState(item.light.`val`)) {
                     1 -> holder.open.isChecked = true
                     -1 -> holder.close.isChecked = true
@@ -83,8 +92,7 @@ class CurtainItemViewBinder : ItemViewBinder<CurtainItem, CurtainItemViewBinder.
                 holder.text.isPressed = true
             }
             else -> {
-                holder.curtainGroup.isEnabled = false
-                holder.text.isPressed = true
+                holder.text.isPressed = false
             }
         }
 

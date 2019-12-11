@@ -17,7 +17,6 @@
 package  com.gx.smart.smartoa.activity.ui.environmental
 
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +33,7 @@ import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.UnisiotApiService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
+import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDto
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.UnisiotResp
 
 /**
@@ -43,6 +43,7 @@ class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBind
 
     private var devComTask: GrpcAsyncTask<String, Void, UnisiotResp>? = null
     var fragment: EnvironmentalControlFragment? = null
+    var statsValue = 0
 
     class TextHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val text: TextView = itemView.findViewById(R.id.text)
@@ -62,11 +63,21 @@ class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBind
 
     override fun onBindViewHolder(holder: TextHolder, item: LightItemTwo) {
         holder.text.text = item.light.devName
-        var status = (getLightStatus(item.light.`val`) == 1)
-        holder.text.isPressed = status
-        holder.switchLight.isChecked = status
-        holder.switchLight.setOnCheckedChangeListener { _, isChecked ->
-            holder.text.isPressed = isChecked
+        statsValue = getLightStatus(item.light.`val`)
+        holder.switchLight.isChecked = (statsValue == 1)
+        when (item.light.linkState) {
+            "0" -> holder.text.isPressed = false
+            "1" -> holder.text.isPressed = true
+        }
+
+        holder.switchLight.setOnClickListener {
+            when (item.light.linkState) {
+                "0" -> ToastUtils.showLong("设备离线")
+                "1" -> {
+                    fragment?.showLoadingView()
+                    switchLightAction(statsValue, item.light)
+                }
+            }
         }
         holder.seekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -74,7 +85,7 @@ class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBind
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                if (!status) {
+                if (statsValue != 1) {
                     ToastUtils.showLong("请先开启设备")
                 }
             }
@@ -82,7 +93,7 @@ class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBind
             var mControlValue = 0
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 val progress = seekBar!!.progress
-                if (!status) {
+                if (statsValue != 1) {
                     ToastUtils.showLong("请先开启设备")
                     return
                 }
@@ -168,11 +179,11 @@ class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBind
         if (value.contains(",")) {
             val devVal: List<String> = value.split(",")
             if (devVal.size == 1) {
-                if (!devVal[0].isEmpty()) {
+                if (devVal[0].isNotEmpty()) {
                     turnStatus = devVal[0].toInt()
                 }
             } else if (devVal.size >= 2) {
-                if (!devVal[0].isEmpty()) {
+                if (devVal[0].isNotEmpty()) {
                     turnStatus = devVal[0].toInt()
                 }
             }
@@ -187,6 +198,49 @@ class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBind
             }
         }
         return turnStatus
+    }
+
+    private fun switchLightAction(
+        finalTurnStatus: Int,
+        light: DevDto
+    ) {
+        val cmd = if (finalTurnStatus == 1) "-1" else "1"
+        devComTask = UnisiotApiService.getInstance().devCom(
+            AppConfig.SMART_HOME_SN,
+            java.lang.String.valueOf(light.uuid),
+            light.category,
+            light.model,
+            light.channel,
+            cmd,
+            object : CallBack<UnisiotResp>() {
+                override fun callBack(result: UnisiotResp?) {
+                    if (result == null) {
+                        ToastUtils.showLong("控制灯光超时")
+                        return
+                    }
+                    if (result.code == 100) {
+                        when (result.result) {
+                            0 -> {
+                                statsValue = if (finalTurnStatus == 1) {
+                                    -1
+                                } else {
+                                    1
+                                }
+                                fragment?.showLoadingSuccess()
+                            }
+                            100 -> {
+                                fragment?.showLoading()
+                            }
+                            else -> {
+                                fragment?.showLoadingFail()
+                            }
+                        }
+                    } else {
+                        val msg = result.msg
+                        ToastUtils.showLong(msg)
+                    }
+                }
+            })
     }
 
 }

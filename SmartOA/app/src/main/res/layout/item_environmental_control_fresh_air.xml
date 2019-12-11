@@ -61,7 +61,7 @@
 
 
         <RadioGroup
-            android:id="@+id/nav_view"
+            android:id="@+id/wind"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/line"
@@ -71,13 +71,13 @@
             android:paddingBottom="5dp">
 
             <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/id_tab_home"
+                android:id="@+id/lowWind"
                 style="@style/bottomTabTitle"
                 android:drawableTop="@drawable/selector_environmental_fresh_air_low_wind"
                 android:text="@string/low_wind" />
 
             <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/id_tab_mine"
+                android:id="@+id/highWind"
                 style="@style/bottomTabTitle"
                 android:drawableTop="@drawable/selector_environmental_fresh_air_high_wind"
                 android:text="@string/high_wind_two" />

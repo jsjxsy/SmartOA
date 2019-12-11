@@ -58,16 +58,21 @@ class LightItemOneViewBinder : ItemViewBinder<LightItemOne, LightItemOneViewBind
 
     override fun onBindViewHolder(holder: TextHolder, item: LightItemOne) {
         holder.text.text = item.light.devName
+        when (item.light.linkState) {
+            "0" -> holder.text.isPressed = false
+            "1" -> holder.text.isPressed = true
+        }
         var statsValue = getLightStatus(item.light.`val`)
         var status = (statsValue == 1)
-        holder.text.isPressed = status
         holder.switchLightPanel.isChecked = status
         holder.switchLightPanel.setOnClickListener {
-            fragment?.showLoadingView()
-            switchLightAction(statsValue, item.light)
-        }
-        holder.switchLightPanel.setOnCheckedChangeListener { _, isChecked ->
-            holder.text.isPressed = isChecked
+            when (item.light.linkState) {
+                "0" -> ToastUtils.showLong("设备离线")
+                "1" -> {
+                    fragment?.showLoadingView()
+                    switchLightAction(statsValue, item.light)
+                }
+            }
         }
     }
 
@@ -76,11 +81,11 @@ class LightItemOneViewBinder : ItemViewBinder<LightItemOne, LightItemOneViewBind
         if (value.contains(",")) {
             val devVal: List<String> = value.split(",")
             if (devVal.size == 1) {
-                if (!devVal[0].isEmpty()) {
+                if (devVal[0].isNotEmpty()) {
                     turnStatus = devVal[0].toInt()
                 }
             } else if (devVal.size >= 2) {
-                if (!devVal[0].isEmpty()) {
+                if (devVal[0].isNotEmpty()) {
                     turnStatus = devVal[0].toInt()
                 }
             }
