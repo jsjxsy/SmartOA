@@ -67,7 +67,7 @@ class SettingFragment : Fragment(), View.OnClickListener {
                 .navigate(R.id.action_settingFragment_to_notDisturbFragment)
         }
 
-        cacheLayout.setOnClickListener {
+        contactLayout.setOnClickListener {
             DataCleanManager.clearAllCache(activity)
             val newTotalSize = DataCleanManager.getTotalSize(activity)
             val deleteSize =

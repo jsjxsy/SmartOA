@@ -24,7 +24,7 @@
         app:layout_constraintTop_toBottomOf="@id/title" />
 
     <RelativeLayout
-        android:id="@+id/realNameLayout"
+        android:id="@+id/phoneLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
@@ -56,10 +56,10 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/background_style_six"
-        app:layout_constraintTop_toBottomOf="@id/realNameLayout" />
+        app:layout_constraintTop_toBottomOf="@id/phoneLayout" />
 
     <RelativeLayout
-        android:id="@+id/cacheLayout"
+        android:id="@+id/contactLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
@@ -101,10 +101,10 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/background_style_six"
-        app:layout_constraintTop_toBottomOf="@id/cacheLayout" />
+        app:layout_constraintTop_toBottomOf="@id/contactLayout" />
 
     <RelativeLayout
-        android:id="@+id/causeLayout"
+        android:id="@+id/newPasswordLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
@@ -136,11 +136,11 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/background_style_six"
-        app:layout_constraintTop_toBottomOf="@id/causeLayout" />
+        app:layout_constraintTop_toBottomOf="@id/newPasswordLayout" />
 
 
     <RelativeLayout
-        android:id="@+id/timeLayout"
+        android:id="@+id/confirmPasswordLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
@@ -171,7 +171,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/background_style_six"
-        app:layout_constraintTop_toBottomOf="@id/timeLayout" />
+        app:layout_constraintTop_toBottomOf="@id/confirmPasswordLayout" />
 
 
     <Button

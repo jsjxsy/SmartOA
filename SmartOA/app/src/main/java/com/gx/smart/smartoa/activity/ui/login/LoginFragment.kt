@@ -23,6 +23,7 @@ import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
+import com.gx.smart.smartoa.activity.ui.login.password.ForgetPasswordFragment
 import com.gx.smart.smartoa.activity.ui.splash.SplashActivity.Companion.DELAY_TIME
 import com.gx.smart.smartoa.data.model.User
 import com.gx.smart.smartoa.data.network.AppConfig
@@ -43,8 +44,21 @@ class LoginFragment : Fragment(), OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.id_login_button -> login()
-            R.id.id_forget_password_text_view ->
-                Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_forgetPasswordFragment)
+            R.id.id_forget_password_text_view -> {
+                val userName = SPUtils.getInstance().getString(AppConfig.SH_USERNAME, "")
+                if (TextUtils.isEmpty(userName)) {
+                    ToastUtils.showLong("请先注册")
+                    Navigation.findNavController(v)
+                        .navigate(R.id.action_loginFragment_to_registerFragment)
+                } else {
+                    val bundle = Bundle()
+                    bundle.putString(ForgetPasswordFragment.ARG_PHONE_NUMBER, userName)
+                    Navigation.findNavController(v)
+                        .navigate(R.id.action_loginFragment_to_forgetPasswordFragment, bundle)
+                }
+
+            }
+
             R.id.id_register_text_view ->
                 Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment)
             R.id.loginType -> loginType()
@@ -260,16 +274,14 @@ class LoginFragment : Fragment(), OnClickListener {
         CountDownTimer(millisInFuture, countDownInterval) {
         override fun onFinish() {
             verifyCodeText.text = "获取验证码"
-            verifyCodeText.setClickable(true)
+            verifyCodeText.isClickable = true
         }
 
         override fun onTick(millisUntilFinished: Long) {
-            verifyCodeText.setClickable(false)
-            verifyCodeText.setText(
-                String.format(
-                    "%s",
-                    millisUntilFinished.div(1000).toString() + "s"
-                )
+            verifyCodeText.isClickable = false
+            verifyCodeText.text = String.format(
+                "%s",
+                millisUntilFinished.div(1000).toString() + "s"
             )
         }
     }

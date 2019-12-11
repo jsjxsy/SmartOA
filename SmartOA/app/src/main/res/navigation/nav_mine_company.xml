@@ -8,7 +8,7 @@
         android:id="@+id/mineCompanyFragment"
         android:name="com.gx.smart.smartoa.activity.ui.company.MineCompanyFragment"
         android:label="fragment_mine_company"
-        tools:layout="@layout/fragment_mine_company" >
+        tools:layout="@layout/fragment_mine_company">
         <action
             android:id="@+id/action_mineCompanyFragment_to_mineCompanySelectAreaFragment"
             app:destination="@id/mineCompanySelectAreaFragment" />
@@ -17,7 +17,7 @@
         android:id="@+id/mineCompanySelectAreaFragment"
         android:name="com.gx.smart.smartoa.activity.ui.company.MineCompanySelectAreaFragment"
         android:label="fragment_mine_company_select_area"
-        tools:layout="@layout/fragment_mine_company_select_area" >
+        tools:layout="@layout/fragment_mine_company_select_area">
         <action
             android:id="@+id/action_mineCompanySelectAreaFragment_to_mineCompanySelectCompanyFragment"
             app:destination="@id/mineCompanySelectCompanyFragment" />
@@ -26,7 +26,7 @@
         android:id="@+id/mineCompanySelectCompanyFragment"
         android:name="com.gx.smart.smartoa.activity.ui.company.MineCompanySelectCompanyFragment"
         android:label="fragment_mine_company_select_company"
-        tools:layout="@layout/fragment_mine_company_select_company" >
+        tools:layout="@layout/fragment_mine_company_select_company">
         <action
             android:id="@+id/action_mineCompanySelectCompanyFragment_to_mineCompanyEmployeesFragment"
             app:destination="@id/mineCompanyEmployeesFragment" />
@@ -36,24 +36,6 @@
         android:id="@+id/mineCompanyEmployeesFragment"
         android:name="com.gx.smart.smartoa.activity.ui.company.MineCompanyEmployeesFragment"
         android:label="fragment_mine_company_employees"
-        tools:layout="@layout/fragment_mine_company_employees" >
-        <action
-            android:id="@+id/action_mineCompanyEmployeesFragment_to_mineCompanyEmployeesNameFragment"
-            app:destination="@id/mineCompanyEmployeesNameFragment" />
-        <action
-            android:id="@+id/action_mineCompanyEmployeesFragment_to_mineCompanyEmployeesPhoneFragment"
-            app:destination="@id/mineCompanyEmployeesPhoneFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/mineCompanyEmployeesNameFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.company.MineCompanyEmployeesNameFragment"
-        android:label="fragment_mine_company_employees_name"
-        tools:layout="@layout/fragment_mine_company_employees_name" />
-    <fragment
-        android:id="@+id/mineCompanyEmployeesPhoneFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.company.MineCompanyEmployeesPhoneFragment"
-        android:label="fragment_mine_company_employees_phone"
-        tools:layout="@layout/fragment_mine_company_employees_phone" />
-
+        tools:layout="@layout/fragment_mine_company_employees" />
 
 </navigation>

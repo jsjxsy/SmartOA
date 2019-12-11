@@ -139,7 +139,7 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
             )
         }
 
-        causeLayout.setOnClickListener {
+        newPasswordLayout.setOnClickListener {
             val bundle = Bundle()
             bundle.putInt(MineVerifyFragment.ARG_VERIFY, verify)
             findNavController().navigate(

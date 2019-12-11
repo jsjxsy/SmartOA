@@ -56,15 +56,6 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initContent() {
-        cacheLayout.setOnClickListener {
-            Navigation.findNavController(it)
-                .navigate(R.id.action_mineCompanyEmployeesFragment_to_mineCompanyEmployeesPhoneFragment)
-        }
-
-        employeeNameLayout.setOnClickListener {
-            Navigation.findNavController(it)
-                .navigate(R.id.action_mineCompanyEmployeesFragment_to_mineCompanyEmployeesNameFragment)
-        }
     }
 
 
