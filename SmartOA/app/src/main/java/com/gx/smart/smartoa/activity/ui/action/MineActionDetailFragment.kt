@@ -12,13 +12,28 @@ import com.gx.smart.smartoa.data.network.api.AppActivityService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
 import com.gx.wisestone.work.app.grpc.activity.AppActivityApplyResponse
+import kotlinx.android.synthetic.main.fragment_mine_action_detail.*
 import kotlinx.android.synthetic.main.layout_common_title.*
-import kotlinx.android.synthetic.main.list_action_layout.*
 
 /**
  * A simple [Fragment] subclass.
  */
 class MineActionDetailFragment : Fragment(), View.OnClickListener {
+
+    private var title: String? = null
+    private var time: String? = null
+    private var content: String? = null
+    private var comment: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            title = it.getString(ARG_TITLE)
+            time = it.getString(ARG_TIME)
+            content = it.getString(ARG_CONTENT)
+            comment = it.getString(ARG_COMMENT)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,13 +62,20 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initContent() {
-        val adapter = ActionAdapter()
-        adapter.mList = arrayListOf(Action("", ""))
-        recyclerView.adapter = adapter
+        titleContent.text = title
+        timeContent.text = time
+        contentContent.text = content
+        commentText.text = comment
+        submit.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.submit -> {
+                apply()
+            }
 
+        }
     }
 
 
@@ -66,6 +88,10 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
                         return
                     }
                     if (result?.code == 100) {
+                        ToastUtils.showLong("取消报名成功")
+                        activity?.finish()
+                    } else {
+                        ToastUtils.showLong(result.msg)
                     }
                 }
 
@@ -82,10 +108,20 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
                         return
                     }
                     if (result?.code == 100) {
-
+                        ToastUtils.showLong("申请报名成功")
+                        activity?.finish()
+                    } else {
+                        ToastUtils.showLong(result.msg)
                     }
                 }
 
             })
+    }
+
+    companion object {
+        const val ARG_TITLE = "title"
+        const val ARG_TIME = "time"
+        const val ARG_CONTENT = "content"
+        const val ARG_COMMENT = "comment"
     }
 }

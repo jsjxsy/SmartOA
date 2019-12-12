@@ -5,4 +5,4 @@ package com.gx.smart.smartoa.activity.ui.repair
  * @create 2019-11-08
  * @Describe
  */
-data class RepairType(var imageUrl: String?, var content: String?)
+data class RepairType(var type: Int?, var content: String?)

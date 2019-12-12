@@ -6,16 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".activity.ui.repair.RepairActivity">
 
-    <include
-        android:id="@+id/title"
-        layout="@layout/layout_common_title"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height_style"
-        android:layout_marginTop="21dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <RelativeLayout
         android:id="@+id/companyNameLayout"
@@ -24,7 +14,7 @@
         android:background="@android:color/white"
         android:paddingLeft="@dimen/margin_style_two"
         android:paddingRight="@dimen/margin_style_two"
-        app:layout_constraintTop_toBottomOf="@id/title">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,7 +26,7 @@
             android:textSize="@dimen/font_size_style_one" />
 
         <TextView
-            android:id="@+id/companyName"
+            android:id="@+id/companyNameText"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/list_item_height_style"
             android:layout_alignParentRight="true"
@@ -70,7 +60,7 @@
             android:textSize="@dimen/font_size_style_one" />
 
         <EditText
-            android:id="@+id/employee_name"
+            android:id="@+id/employeeNameEdit"
             android:layout_width="144dp"
             android:layout_height="@dimen/list_item_height_style"
             android:layout_alignParentRight="true"
@@ -157,7 +147,7 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/submit_apply"
+        android:id="@+id/submitApply"
         style="@style/buttonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

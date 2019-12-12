@@ -8,8 +8,10 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.alibaba.fastjson.JSON
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.ui.company.model.SysTenantList
 import com.gx.smart.smartoa.activity.ui.features.Divider
 import com.gx.smart.smartoa.activity.ui.features.DividerViewBinder
 import com.gx.smart.smartoa.base.BaseFragment
@@ -40,7 +42,7 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initTitle()
-        initData()
+        initContent()
     }
 
 
@@ -56,7 +58,7 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
 
     }
 
-    private fun initData() {
+    private fun initContent() {
         val divider = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         val drawable = resources.getDrawable(R.drawable.shape_company_select_are_list_line, null)
         divider.setDrawable(drawable)
@@ -66,32 +68,9 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
         adapter.register(CompanyAreaPlaceViewBinder())
         adapter.register(DividerViewBinder())
         selectAreaRecyclerView.adapter = adapter
+        getSysTenantList()
 
-        val item1 =
-            CompanyAreaCity("杭州市")
-        val item11 =
-            CompanyAreaPlace("悦盛国际中心")
-        val item12 =
-            CompanyAreaPlace("广孚中心")
 
-        items.add(item1)
-        items.add(item11)
-        items.add(item12)
-
-        items.add(Divider())
-
-        val item2 =
-            CompanyAreaCity("上海市")
-        val item21 =
-            CompanyAreaPlace("悦盛国际中心")
-        val item22 =
-            CompanyAreaPlace("广孚中心")
-        items.add(item2)
-        items.add(item21)
-        items.add(item22)
-
-        adapter.items = items
-        adapter.notifyDataSetChanged()
     }
 
 
@@ -100,16 +79,66 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
             .getSysTenantList(
                 object : CallBack<CommonResponse>() {
                     override fun callBack(result: CommonResponse?) {
+                        items.clear()
                         if (result == null) {
                             ToastUtils.showLong("添加超时!")
                             return
                         }
                         if (result?.code == 100) {
+                            val sysTenantsList =
+                                JSON.parseArray(result.jsonstr, SysTenantList::class.java)
+
+                            for (sysTenants in sysTenantsList) {
+                                val item1 = CompanyAreaCity(sysTenants.title)
+                                items.add(item1)
+                                for (sysTenant in sysTenants.sysTenants) {
+                                    val item11 =
+                                        CompanyAreaPlace(sysTenant)
+                                    items.add(item11)
+                                }
+                                items.add(Divider())
+
+                            }
+                            adapter.items = items
+                            adapter.notifyDataSetChanged()
                         }
                     }
 
                 })
     }
 
+
+    private fun getSysTenantListByName(name: String) {
+        AppStructureService.getInstance()
+            .getSysTenantList(name,
+                object : CallBack<CommonResponse>() {
+                    override fun callBack(result: CommonResponse?) {
+                        items.clear()
+                        if (result == null) {
+                            ToastUtils.showLong("添加超时!")
+                            return
+                        }
+                        if (result?.code == 100) {
+                            val sysTenantsList =
+                                JSON.parseArray(result.jsonstr, SysTenantList::class.java)
+
+                            for (sysTenants in sysTenantsList) {
+                                val item1 = CompanyAreaCity(sysTenants.title)
+                                items.add(item1)
+                                for (sysTenant in sysTenants.sysTenants) {
+                                    val item11 =
+                                        CompanyAreaPlace(sysTenant)
+                                    items.add(item11)
+                                }
+                                items.add(Divider())
+
+                            }
+                            adapter.items = items
+                            adapter.notifyDataSetChanged()
+                        }
+                    }
+
+                })
+    }
 
 }

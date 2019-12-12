@@ -129,9 +129,10 @@ public class WebSocketNotifyClient {
     }
 
     public void close() {
-        if (null == wsClient) {
+        if (null != wsClient) {
             wsClient.close();
             clientThread = null;
+            wsClient = null;
         }
     }
 

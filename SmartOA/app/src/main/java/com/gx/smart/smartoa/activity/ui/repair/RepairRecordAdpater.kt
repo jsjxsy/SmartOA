@@ -3,15 +3,15 @@ package com.gx.smart.smartoa.activity.ui.repair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.gx.smart.smartoa.R
+import com.gx.wisestone.work.app.grpc.repair.RepairInfoOrBuilder
 
 class RepairRecordAdapter :
     RecyclerView.Adapter<RepairRecordAdapter.ViewHolder>() {
 
-    var mList: List<RepairRecord>? = null
+    var mList: List<RepairInfoOrBuilder>? = null
 
     interface OnItemClickListener {
         fun onItemClick(view: View, position: Int)
@@ -44,17 +44,31 @@ class RepairRecordAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mList!![position]
         holder.mContent.text = item.content
+        holder.state.text = when (item.status) {
+            //1.未处理2.处理中3.已完成
+            1 -> "未处理"
+            2 -> "处理中"
+            3 -> "已完成"
+            else -> "未知"
+
+        }
+        holder.employeeName.text = item.employeeName
+        holder.time.text = "${item.handleTime}"
         holder.onItemClick = onItemClick
     }
 
     class ViewHolder : RecyclerView.ViewHolder, View.OnClickListener {
         var onItemClick: OnItemClickListener? = null
         var mContent: TextView
-        var mImage: ImageView
+        var state: TextView
+        var employeeName: TextView
+        var time: TextView
 
         constructor(itemView: View) : super(itemView) {
             mContent = itemView.findViewById(R.id.content)
-            mImage = itemView.findViewById(R.id.image)
+            state = itemView.findViewById(R.id.state)
+            employeeName = itemView.findViewById(R.id.employeeName)
+            time = itemView.findViewById(R.id.time)
             itemView.setOnClickListener(this)
         }
 

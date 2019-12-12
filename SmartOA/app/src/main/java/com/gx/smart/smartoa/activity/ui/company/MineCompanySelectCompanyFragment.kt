@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.alibaba.fastjson.JSON
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.ui.company.model.Company
 import com.gx.smart.smartoa.data.network.api.AppStructureService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
@@ -19,9 +21,17 @@ import kotlinx.android.synthetic.main.layout_common_title.*
  * A simple [Fragment] subclass.
  */
 class MineCompanySelectCompanyFragment : Fragment(), View.OnClickListener {
+    lateinit var placeName:String
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            placeName = it.getString(ARG_PLACE_NAME)
         }
     }
 
@@ -36,7 +46,7 @@ class MineCompanySelectCompanyFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initTitle()
-        initData()
+        initContent()
     }
 
     private fun initTitle() {
@@ -46,25 +56,29 @@ class MineCompanySelectCompanyFragment : Fragment(), View.OnClickListener {
         }
         center_title.let {
             it.visibility = View.VISIBLE
-            it.text = arguments?.getString("place")
+            it.text = placeName
         }
 
     }
 
-    private fun initData() {
+    lateinit var adapter: CompanyAdapter
+    private fun initContent() {
 
-        val adapter = CompanyAdapter()
+        adapter = CompanyAdapter()
         recyclerView.adapter = adapter
-        adapter.mList = arrayListOf(
-            Company("1"),
-            Company("2"),
-            Company("3")
-        )
+        getBuildingInfo()
+
         val onItemClick =
             object : CompanyAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, position: Int) {
+                    var bundle = Bundle()
+                    bundle.putInt("company_id", adapter.mList!![position].id)
+                    bundle.putString("company_name", adapter.mList!![position].name)
                     Navigation.findNavController(view)
-                        .navigate(R.id.action_mineCompanySelectCompanyFragment_to_mineCompanyEmployeesFragment)
+                        .navigate(
+                            R.id.action_mineCompanySelectCompanyFragment_to_mineCompanyEmployeesFragment,
+                            bundle
+                        )
                 }
 
             }
@@ -83,9 +97,19 @@ class MineCompanySelectCompanyFragment : Fragment(), View.OnClickListener {
                             return
                         }
                         if (result?.code == 100) {
+                            val companyList =
+                                JSON.parseArray(result.jsonstr, Company::class.java).toList()
+                            adapter.mList = companyList
+                        } else {
+                            ToastUtils.showLong(result.msg)
                         }
+
                     }
 
                 })
+    }
+
+    companion object {
+        const val ARG_PLACE_NAME = "place_name"
     }
 }

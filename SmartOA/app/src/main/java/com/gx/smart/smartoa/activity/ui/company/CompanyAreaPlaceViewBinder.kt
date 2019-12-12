@@ -10,6 +10,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.data.network.AppConfig
 
 
 /**
@@ -26,11 +27,12 @@ class CompanyAreaPlaceViewBinder :
         return ViewHolder(root)
     }
 
-    override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull companyAreaPlace: CompanyAreaPlace) {
-        val args = Bundle()
-        args.putString("place", companyAreaPlace.place)
-        holder.place.text = companyAreaPlace.place
+    override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull item: CompanyAreaPlace) {
+        AppConfig.currentSysTenantNo = item.place.sysTenantNo
+        holder.place.text = item.place.name
         holder.itemView.setOnClickListener {
+            val args = Bundle()
+            args.putString(MineCompanySelectCompanyFragment.ARG_PLACE_NAME, item.place.name)
             Navigation.findNavController(holder.itemView)
                 .navigate(
                     R.id.action_mineCompanySelectAreaFragment_to_mineCompanySelectCompanyFragment,

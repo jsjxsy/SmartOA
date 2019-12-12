@@ -10,4 +10,8 @@ class MineCompanyActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mine_company)
     }
+
+
+
+
 }

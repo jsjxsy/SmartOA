@@ -45,9 +45,9 @@
     </string-array>
 
     <string-array name="message_items">
-        <item>全部</item>
         <item>公告</item>
         <item>活动</item>
+        <item>会议</item>
     </string-array>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>

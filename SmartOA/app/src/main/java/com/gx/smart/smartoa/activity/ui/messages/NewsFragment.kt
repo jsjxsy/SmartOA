@@ -11,35 +11,34 @@ import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.AppInformationService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
-import com.gx.wisestone.work.app.grpc.information.AppAnnouncementResponse
+import com.gx.wisestone.work.app.grpc.information.AppInformationResponse
 import kotlinx.android.synthetic.main.news_fragment.*
 
-class NoticeFragment : Fragment() {
+class NewsFragment : Fragment() {
+    private var mViewModel: NewsViewModel? = null
+    private lateinit var adapter: NewsAdapter
 
     companion object {
         fun newInstance() = NoticeFragment()
-        const val NOTICE_TYPE = 3
+        const val NOTICE_NEWS = 1
     }
-
-    private lateinit var adapter: NoticeAdapter
-    private lateinit var viewModel: NoticeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.notice_fragment, container, false)
+        return inflater.inflate(R.layout.news_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(NoticeViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
         initContent()
     }
 
     private fun initContent() {
-        adapter = NoticeAdapter()
-        val onItemClick = object : NoticeAdapter.OnItemClickListener {
+        adapter = NewsAdapter()
+        val onItemClick = object : NewsAdapter.OnItemClickListener {
             override fun onItemClick(view: View?, position: Int) {
                 val list = adapter.getList()
                 val item = list!![position]
@@ -55,19 +54,18 @@ class NoticeFragment : Fragment() {
         getInformation()
     }
 
-
     private fun getInformation() {
         AppInformationService.getInstance()
-            .getAnnouncement(object : CallBack<AppAnnouncementResponse>() {
-                override fun callBack(result: AppAnnouncementResponse?) {
+            .getInformation(object : CallBack<AppInformationResponse>() {
+                override fun callBack(result: AppInformationResponse?) {
                     if (result == null) {
                         ToastUtils.showLong("获取消息超时!")
                         return
                     }
                     if (result?.code == 100) {
-                        val appAnnouncementDtoList =
-                            result.appAnnouncementDtoList.toList()
-                        adapter.setList(appAnnouncementDtoList)
+                        val appInformationNoticeRecordDtoList =
+                            result.appInformationNoticeRecordDtoOrBuilderList.toList()
+                        adapter.setList(appInformationNoticeRecordDtoList)
                     } else {
                         ToastUtils.showLong(result.msg)
                     }
@@ -75,5 +73,4 @@ class NoticeFragment : Fragment() {
 
             })
     }
-
 }

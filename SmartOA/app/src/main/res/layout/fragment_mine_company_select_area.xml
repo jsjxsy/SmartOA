@@ -28,7 +28,9 @@
         android:drawableLeft="@drawable/ic_search_ic"
         android:hint="请输入办公大楼名称"
         android:textColorHint="@color/font_color_style_eight"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:inputType="text"
+        android:imeOptions="actionSearch"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/selectAreaRecyclerView"

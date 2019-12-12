@@ -1,50 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.ui.visitor.VisitorFragment">
+    android:layout_height="match_parent">
 
     <include
         android:id="@+id/title"
         layout="@layout/layout_common_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height_style"
-        android:layout_marginTop="21dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="21dp" />
 
-    <LinearLayout
-        android:id="@+id/contentLayout"
+    <FrameLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:background="@android:color/white"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title" />
+
+    <com.gx.smart.smartoa.widget.LoadingView
+        android:id="@+id/loadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/title">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_mine_company_large" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_style_two"
-            android:gravity="center"
-            android:text="@string/apply_company" />
-    </LinearLayout>
-
-
-    <Button
-        android:id="@+id/addCompany"
-        style="@style/buttonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_style_two"
-        android:text="@string/add_company"
-        app:layout_constraintTop_toBottomOf="@id/contentLayout" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:visibility="gone" />
+</RelativeLayout>

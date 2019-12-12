@@ -3,10 +3,10 @@ package com.gx.smart.smartoa.activity.ui.company
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.ui.company.model.Company
 
 class CompanyAdapter :
     RecyclerView.Adapter<CompanyAdapter.ViewHolder>() {
@@ -38,7 +38,7 @@ class CompanyAdapter :
     //填充视图
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mList!![position]
-        holder.mContent.text = item.content
+        holder.mContent.text = item.name
         holder.onItemClick = onItemClick
     }
 

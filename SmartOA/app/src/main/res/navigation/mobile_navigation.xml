@@ -9,8 +9,7 @@
         android:id="@+id/navigation_home"
         android:name="com.gx.smart.smartoa.activity.ui.home.HomeFragment"
         android:label="@string/main_title_home"
-        tools:layout="@layout/fragment_home">
-    </fragment>
+        tools:layout="@layout/fragment_home"></fragment>
 
     <fragment
         android:id="@+id/openDoorFragment"
@@ -34,7 +33,13 @@
             app:destination="@id/settingActivity" />
         <action
             android:id="@+id/action_mineFragment_to_mineActionActivity"
-            app:destination="@id/mineActionActivity" />
+            app:destination="@id/mineActionActivity">
+            <argument
+                android:name="fromMine"
+                android:defaultValue="fromMine"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
         <action
             android:id="@+id/action_mineFragment_to_visitorActivity"
             app:destination="@id/visitorActivity" />
@@ -50,26 +55,25 @@
         tools:layout="@layout/meeting_schedule_fragment">
         <argument
             android:name="toMeetingMyReservationFragment"
-            app:nullable="false"
-            app:argType="string"
             android:defaultValue="toMeetingMyReservationFragment"
-            />
+            app:argType="string"
+            app:nullable="false" />
     </activity>
     <activity
         android:id="@+id/mineCompanyActivity"
         android:name="com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity"
         android:label="fragment_mine_company"
-        tools:layout="@layout/fragment_mine_company"/>
+        tools:layout="@layout/fragment_mine_company" />
     <activity
         android:id="@+id/settingActivity"
         android:name="com.gx.smart.smartoa.activity.ui.setting.SettingActivity"
         android:label="SettingActivity"
-        tools:layout="@layout/setting_fragment"/>
+        tools:layout="@layout/setting_fragment" />
     <activity
         android:id="@+id/mineActionActivity"
         android:name="com.gx.smart.smartoa.activity.ui.action.MineActionActivity"
         android:label="MineActionActivity"
-        tools:layout="@layout/fragment_mine_action"/>
+        tools:layout="@layout/fragment_mine_action" />
 
     <activity
         android:id="@+id/visitorActivity"
@@ -86,7 +90,7 @@
         android:id="@+id/userActivity"
         android:name="com.gx.smart.smartoa.activity.ui.user.UserActivity"
         android:label="UserActivity"
-        tools:layout="@layout/fragment_mine_user_info"/>
+        tools:layout="@layout/fragment_mine_user_info" />
 
     <action
         android:id="@+id/action_global_navigation_home"
@@ -97,7 +101,6 @@
     <action
         android:id="@+id/action_global_openDoorFragment"
         app:destination="@id/openDoorFragment" />
-
 
 
 </navigation>

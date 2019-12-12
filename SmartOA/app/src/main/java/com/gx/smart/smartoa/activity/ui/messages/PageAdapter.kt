@@ -20,15 +20,16 @@ class PageAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(
     override fun getItem(position: Int): Fragment {
         val pageFragmentContent = mPageFragment[position]
         when (pageFragmentContent.type) {
-            AllFragment.ALL_TYPE -> {
-                return AllFragment.newInstance()
-            }
-            NoticeFragment.NOTICE_TYPE -> {
-                return NoticeFragment.newInstance()
+            NewsFragment.NOTICE_NEWS -> {
+                return NewsFragment.newInstance()
             }
             MineActionFragment.ACTION_TYPE -> {
                 return MineActionFragment.newInstance()
             }
+            NoticeFragment.NOTICE_TYPE -> {
+                return NoticeFragment.newInstance()
+            }
+
         }
         return AllFragment.newInstance()
     }

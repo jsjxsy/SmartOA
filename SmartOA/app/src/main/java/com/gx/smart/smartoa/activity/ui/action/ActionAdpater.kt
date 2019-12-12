@@ -6,12 +6,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.gx.smart.smartoa.R
+import com.gx.wisestone.work.app.grpc.activity.AppActivityDto
 
 class ActionAdapter :
     RecyclerView.Adapter<ActionAdapter.ViewHolder>() {
 
-    var mList: List<Action>? = null
+    var mList: List<AppActivityDto>? = null
 
     interface OnItemClickListener {
         fun onItemClick(view: View, position: Int)
@@ -40,18 +42,25 @@ class ActionAdapter :
     //填充视图
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mList!![position]
-        holder.mContent.text = item.content
+        holder.actionTitle.text = item.title
+        Glide.with(holder.itemView).load(item.imageUrl).into(holder.mImage)
+        holder.actionTime.text = "${item.startTime} - ${item.endTime}"
+        holder.actionNumber.text = "${item.currentNum}人参加"
         holder.onItemClick = onItemClick
     }
 
     class ViewHolder : RecyclerView.ViewHolder, View.OnClickListener {
         var onItemClick: OnItemClickListener? = null
-        var mContent: TextView
+        var actionTitle: TextView
+        var actionTime: TextView
+        var actionNumber: TextView
         var mImage: ImageView
 
         constructor(itemView: View) : super(itemView) {
-            mContent = itemView.findViewById(R.id.id_home_action_recommend_title)
-            mImage = itemView.findViewById(R.id.id_home_action_recommend_image_view)
+            actionTitle = itemView.findViewById(R.id.actionTitle)
+            mImage = itemView.findViewById(R.id.actionImageView)
+            actionTime = itemView.findViewById(R.id.actionTime)
+            actionNumber = itemView.findViewById(R.id.actionNumber)
             itemView.setOnClickListener(this)
         }
 

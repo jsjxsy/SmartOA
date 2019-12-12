@@ -20,7 +20,11 @@
         android:id="@+id/repairTypeFragment"
         android:name="com.gx.smart.smartoa.activity.ui.repair.RepairTypeFragment"
         android:label="repair_type_fragment"
-        tools:layout="@layout/repair_type_fragment" />
+        tools:layout="@layout/repair_type_fragment" >
+        <action
+            android:id="@+id/action_repairTypeFragment_to_repairFragment"
+            app:destination="@id/repairFragment" />
+    </fragment>
     <fragment
         android:id="@+id/repairRecordFragment"
         android:name="com.gx.smart.smartoa.activity.ui.repair.RepairRecordFragment"

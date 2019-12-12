@@ -10,11 +10,12 @@ import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.AppRepairService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.repair.RepairCommonResponse
+import kotlinx.android.synthetic.main.fragment_repair_record_list.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 class RepairRecordFragment : Fragment(), View.OnClickListener {
 
-
+    private lateinit var adapter: RepairRecordAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,7 +27,7 @@ class RepairRecordFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initTitle()
-
+        initContent()
     }
 
 
@@ -39,8 +40,12 @@ class RepairRecordFragment : Fragment(), View.OnClickListener {
             it.visibility = View.VISIBLE
             it.text = getString(R.string.repair_record)
         }
+    }
 
-
+    private fun initContent() {
+        adapter = RepairRecordAdapter()
+        recyclerView.adapter = adapter
+        queryMyRepair()
     }
 
     override fun onClick(v: View?) {
@@ -60,6 +65,10 @@ class RepairRecordFragment : Fragment(), View.OnClickListener {
                             return
                         }
                         if (result?.code == 100) {
+                            val list = result.repairInfoOrBuilderList.toList()
+                            adapter.mList = list
+                        } else {
+                            ToastUtils.showLong(result.msg)
                         }
                     }
 

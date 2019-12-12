@@ -28,9 +28,11 @@ public class WebSocketClientService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         Log.i("joylife", "WebSocketClientService onBind - Thread ID = " + Thread.currentThread().getId());
-        String id = intent.getStringExtra("id");
-        String token = intent.getStringExtra("token");
-        wsClient.connect(id,token);
+        if(wsClient != null) {
+            String id = intent.getStringExtra("id");
+            String token = intent.getStringExtra("token");
+            wsClient.connect(id,token);
+        }
         return null;
     }
 

@@ -73,6 +73,31 @@ public class AppStructureService {
         }.doExecute();
     }
 
+
+    /**
+     * 获取所有办公楼
+     *
+     * @return callBack返回值
+     */
+    public GrpcAsyncTask<String, Void, CommonResponse> getSysTenantList(String name, CallBack callBack) {
+        return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
+            @Override
+            protected CommonResponse doRequestData(ManagedChannel channel) {
+                SysTenantListRequest message = SysTenantListRequest.newBuilder()
+                        .setName(name)
+                        .build();
+                CommonResponse response = null;
+                try {
+                    response = getStructureStub(channel).getSysTenantList(message);
+                } catch (Exception e) {
+                    Log.i("UserCenter_gRpc", e.getMessage());
+                }
+
+                return response;
+            }
+        }.doExecute();
+    }
+
     /**
      * 轮播图 ，每个小区不同
      *
@@ -110,7 +135,7 @@ public class AppStructureService {
             @Override
             protected CommonResponse doRequestData(ManagedChannel channel) {
                 GetDepartmentRequest message = GetDepartmentRequest.newBuilder()
-                        .setCompanyId(companyId)
+                        .setCompanyStructureId(companyId)
                         .build();
                 CommonResponse response = null;
                 try {
@@ -143,7 +168,7 @@ public class AppStructureService {
                         .setName(name)
                         .setMobile(mobile)
                         .setImageBytes(image)
-                        .setCompanyId(companyId)
+                        .setCompanyStructureId(companyId)
                         .build();
                 CommonResponse response = null;
                 try {

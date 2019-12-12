@@ -9,7 +9,7 @@ import com.gx.smart.smartoa.R
 
 class RepairTypeAdapter :
     RecyclerView.Adapter<RepairTypeAdapter.ViewHolder>() {
-    private var mList: List<RepairType>? = null
+    var mList: List<RepairType>? = null
 
     interface OnItemClickListener {
         fun onItemClick(view: View, position: Int)

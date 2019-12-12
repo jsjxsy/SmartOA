@@ -63,16 +63,7 @@ class CurtainItemViewBinder : ItemViewBinder<CurtainItem, CurtainItemViewBinder.
     override fun onBindViewHolder(holder: TextHolder, item: CurtainItem) {
         holder.text.text = item.light.devName
 
-        holder.curtainGroup.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                R.id.open -> setStateAction(1, item.light)
-                R.id.close -> setStateAction(-1, item.light)
-                R.id.pause -> setStateAction(2, item.light)
-            }
-
-        }
-
-        holder.curtainGroup.setOnClickListener {
+        holder.open.setOnClickListener {
             when (item.light.linkState) {
                 "0" -> {
                     ToastUtils.showLong("设备离线")
@@ -80,8 +71,34 @@ class CurtainItemViewBinder : ItemViewBinder<CurtainItem, CurtainItemViewBinder.
                 }
                 "1" -> {
                     fragment?.showLoadingView()
+                    setStateAction(1, item.light)
                 }
+            }
+        }
 
+        holder.close.setOnClickListener {
+            when (item.light.linkState) {
+                "0" -> {
+                    ToastUtils.showLong("设备离线")
+                    holder.curtainGroup.clearCheck()
+                }
+                "1" -> {
+                    fragment?.showLoadingView()
+                    setStateAction(-1, item.light)
+                }
+            }
+        }
+
+        holder.pause.setOnClickListener {
+            when (item.light.linkState) {
+                "0" -> {
+                    ToastUtils.showLong("设备离线")
+                    holder.curtainGroup.clearCheck()
+                }
+                "1" -> {
+                    fragment?.showLoadingView()
+                    setStateAction(2, item.light)
+                }
             }
         }
 
@@ -122,6 +139,7 @@ class CurtainItemViewBinder : ItemViewBinder<CurtainItem, CurtainItemViewBinder.
 
 
     private fun setStateAction(state: Int, curtain: DevDto) {
+
         val cmd = state.toString()
         devComTask = UnisiotApiService.getInstance().devCom(
             AppConfig.SMART_HOME_SN,

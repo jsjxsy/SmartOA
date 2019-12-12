@@ -91,10 +91,10 @@ class HomeActionViewBinder : ItemViewBinder<HomeActionRecommend, HomeActionViewB
         }
 
         override fun initView(itemView: View) {
-            imageView = itemView.findViewById(R.id.id_home_action_recommend_image_view)
-            title = itemView.findViewById(R.id.id_home_action_recommend_title)
-            time = itemView.findViewById(R.id.id_time_action_recommend)
-            number = itemView.findViewById(R.id.id_number_action_recommend)
+            imageView = itemView.findViewById(R.id.actionImageView)
+            title = itemView.findViewById(R.id.actionTitle)
+            time = itemView.findViewById(R.id.actionTime)
+            number = itemView.findViewById(R.id.actionNumber)
             more = itemView.findViewById(R.id.id_home_action_recommend_more)
             itemView.setOnClickListener {
 

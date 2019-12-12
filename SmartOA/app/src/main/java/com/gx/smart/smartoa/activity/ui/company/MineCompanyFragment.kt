@@ -6,13 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.AppEmployeeService
-import com.gx.smart.smartoa.data.network.api.AppStructureService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
-import com.gx.wisestone.work.app.grpc.common.CommonResponse
+import com.gx.smart.smartoa.widget.LoadingView
+import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
+import com.gx.wisestone.work.app.grpc.employee.EmployeeInfo
 import kotlinx.android.synthetic.main.fragment_mine_company.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
@@ -20,9 +22,9 @@ import kotlinx.android.synthetic.main.layout_common_title.*
  * A simple [Fragment] subclass.
  */
 class MineCompanyFragment : Fragment(), View.OnClickListener {
+    var mLoadingView: LoadingView? = null
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.addCompany -> Navigation.findNavController(v).navigate(R.id.action_mineCompanyFragment_to_mineCompanySelectAreaFragment)
             R.id.left_nav_image_view -> activity?.onBackPressed()
         }
 
@@ -33,15 +35,19 @@ class MineCompanyFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mine_company, container, false)
+        return inflater.inflate(
+            R.layout.fragment_mine_company,
+            container,
+            false
+        )
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initTitle()
-        addCompany.setOnClickListener(this)
+        myCompany()
     }
-
 
     private fun initTitle() {
         left_nav_image_view?.let {
@@ -52,25 +58,50 @@ class MineCompanyFragment : Fragment(), View.OnClickListener {
             it.visibility = View.VISIBLE
             it.text = getString(R.string.mine_company)
         }
+        mLoadingView = loadingView
 
     }
 
-    private fun cancelCompanyBind() {
+
+    private fun myCompany() {
+        mLoadingView?.visibility = View.VISIBLE
         AppEmployeeService.getInstance()
-            .cancelCompanyBind(
-                object : CallBack<CommonResponse>() {
-                    override fun callBack(result: CommonResponse?) {
+            .myCompany(
+                object : CallBack<AppMyCompanyResponse>() {
+                    override fun callBack(result: AppMyCompanyResponse?) {
+                        mLoadingView?.visibility = View.GONE
                         if (result == null) {
-                            ToastUtils.showLong("添加超时!")
+                            ToastUtils.showLong("查询我的企业超时!")
                             return
                         }
                         if (result?.code == 100) {
+                            val employeeList = result.employeeInfoList
+                            if (employeeList.isEmpty()) {
+                                toMineCompanyFragmentAdd()
+                            } else {
+                                toMineCompanyFragmentAdded(employeeList[0])
+                            }
+                        } else {
+                            ToastUtils.showLong(result.msg)
                         }
                     }
 
                 })
     }
 
+    private fun toMineCompanyFragmentAdd() {
+        val fm: FragmentManager = childFragmentManager
+        val transaction: FragmentTransaction = fm.beginTransaction()
+        transaction.replace(R.id.content, MineCompanyFragmentAdd())
+        transaction.commit()
+    }
 
-
+    private fun toMineCompanyFragmentAdded(employeeInfo: EmployeeInfo) {
+        val fm: FragmentManager = childFragmentManager
+        val transaction: FragmentTransaction = fm.beginTransaction()
+        val fragment = MineCompanyFragmentAdded()
+        fragment.employeeInfo = employeeInfo
+        transaction.replace(R.id.content, MineCompanyFragmentAdd())
+        transaction.commit()
+    }
 }

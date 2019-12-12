@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ToastUtils
 import com.drakeet.multitype.ItemViewBinder
+import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.UnisiotApiService
@@ -220,7 +221,6 @@ class AirConditionerViewBinder :
                 reduceTemperature(temperature, item)
             }
 
-            holder.add.isEnabled = true
             //红外空调特殊，只能限定几个温度值
             if (item.light.model == ("ir_air_conditioner")) {
                 //4=22℃-制热-高风，5=24℃-制热-高风， 6=26℃-制热-低风，7=28℃-制热-高风，
@@ -600,7 +600,6 @@ class AirConditionerViewBinder :
                                 if (type == MODE_AUTO_WIND) {
                                     mode = 10
                                 }
-
                                 fragment?.showLoadingSuccess()
                             }
                             100 -> {

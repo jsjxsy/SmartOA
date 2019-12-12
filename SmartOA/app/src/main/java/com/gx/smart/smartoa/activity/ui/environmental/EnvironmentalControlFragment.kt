@@ -95,7 +95,6 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
         getDevList()
         mPagerAdapter = PageAdapter(fragmentManager!!)
         viewPager.adapter = mPagerAdapter
-        viewPager.offscreenPageLimit = 3
         id_environmental_control_tab.setupWithViewPager(viewPager)
     }
 
@@ -245,6 +244,7 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                                     )
                                 }
                                 mPagerAdapter.notifyDataSetChanged()
+                                viewPager.offscreenPageLimit = 3
                             } else {
                                 ToastUtils.showLong(result?.msg)
                                 showLoadingFail()
@@ -308,7 +308,7 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
         var userId = AppConfig.userId
         var token = AppConfig.loginToken
         val wsClient: WebSocketNotifyClient = WebSocketNotifyClient.getInstance()
-        wsClient.setHandler(mNotifyHandler)
+        wsClient.handler = mNotifyHandler
         val wsInent = Intent(this.context, WebSocketClientService::class.java)
         wsInent.action = "android.intent.action.RESPOND_VIA_MESSAGE"
         wsInent.putExtra("id", userId)

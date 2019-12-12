@@ -30,7 +30,6 @@ class AirConditionerFragment(private val airConditionerList: List<DevDto>) : Bas
         viewModel = ViewModelProviders.of(this).get(AirConditionerViewModel::class.java)
         val airConditionerViewBinder = AirConditionerViewBinder()
         airConditionerViewBinder.fragment = fragment
-
         adapter.register(AirConditionerViewBinder())
         airConditionerRecyclerView?.adapter = adapter
 
@@ -39,6 +38,10 @@ class AirConditionerFragment(private val airConditionerList: List<DevDto>) : Bas
             items.add(textItem1)
         }
         adapter.items = items
+        adapter.notifyDataSetChanged()
+    }
+
+    fun notifyDataSetChanged() {
         adapter.notifyDataSetChanged()
     }
 

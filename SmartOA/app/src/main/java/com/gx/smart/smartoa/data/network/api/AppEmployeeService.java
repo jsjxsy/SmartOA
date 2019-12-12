@@ -10,7 +10,9 @@ import com.gx.wisestone.work.app.grpc.appfigure.CarouselFigureRequest;
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesResponse;
 import com.gx.wisestone.work.app.grpc.common.CommonResponse;
 import com.gx.wisestone.work.app.grpc.employee.AppEmployeeInterfaceGrpc;
+import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse;
 import com.gx.wisestone.work.app.grpc.employee.CancelCompanyBindRequest;
+import com.gx.wisestone.work.app.grpc.employee.MyCompanyRequest;
 
 import java.util.concurrent.TimeUnit;
 
@@ -73,4 +75,26 @@ public class AppEmployeeService {
 
 
 
+    /**
+     * 我的企业
+     *
+     * @return callBack返回值
+     */
+    public GrpcAsyncTask<String, Void, AppMyCompanyResponse> myCompany(CallBack callBack) {
+        return new GrpcAsyncTask<String, Void, AppMyCompanyResponse>(callBack) {
+            @Override
+            protected AppMyCompanyResponse doRequestData(ManagedChannel channel) {
+                MyCompanyRequest message = MyCompanyRequest.newBuilder()
+                        .build();
+                AppMyCompanyResponse response = null;
+                try {
+                    response = getAppEmployeeStub(channel).myCompany(message);
+                } catch (Exception e) {
+                    Log.i("UserCenter_gRpc", e.getMessage());
+                }
+
+                return response;
+            }
+        }.doExecute();
+    }
 }

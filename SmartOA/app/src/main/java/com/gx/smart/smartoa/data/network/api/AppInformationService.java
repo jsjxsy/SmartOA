@@ -51,7 +51,7 @@ public class AppInformationService {
      *
      * @return callBack返回值
      */
-    public static GrpcAsyncTask<String, Void, AppInformationResponse> getInformation(CallBack callBack) {
+    public GrpcAsyncTask<String, Void, AppInformationResponse> getInformation(CallBack callBack) {
         return new GrpcAsyncTask<String, Void, AppInformationResponse>(callBack) {
             @Override
             protected AppInformationResponse doRequestData(ManagedChannel channel) {
@@ -72,10 +72,9 @@ public class AppInformationService {
     /**
      * 物业公告
      *
-     * @param sysTenantNo 小区Id
      * @return callBack返回值
      */
-    public static GrpcAsyncTask<String, Void, AppAnnouncementResponse> getAnnouncement(final int sysTenantNo, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, AppAnnouncementResponse> getAnnouncement(CallBack callBack) {
         return new GrpcAsyncTask<String, Void, AppAnnouncementResponse>(callBack) {
             @Override
             protected AppAnnouncementResponse doRequestData(ManagedChannel channel) {

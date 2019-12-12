@@ -2,16 +2,17 @@ package com.gx.smart.smartoa.activity.ui.company
 
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ToastUtils
 import com.google.protobuf.ByteString
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.AppStructureService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.smart.smartoa.utils.DataCheckUtil
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import kotlinx.android.synthetic.main.fragment_mine_company_employees.*
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -20,12 +21,40 @@ import kotlinx.android.synthetic.main.layout_common_title.*
  * A simple [Fragment] subclass.
  */
 class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
+
+    private var companyId: Int = 0
+    private lateinit var companyName: String
+    private var employeeName: String? = null
+    private var phoneNumber: String? = null
+    private var image: ByteString? = null
+
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.addCompany -> Navigation.findNavController(v).navigate(R.id.action_mineCompanyFragment_to_mineCompanySelectAreaFragment)
+            R.id.submitApply -> {
+                employeeName = employeeNameEdit.text.toString()
+                phoneNumber = phone.text.toString()
+                if (TextUtils.isEmpty(phoneNumber)) {
+                    ToastUtils.showLong("手机号不能为空")
+                } else if (phoneNumber!!.length != 11 || !DataCheckUtil.isMobile(phoneNumber)) {
+                    ToastUtils.showLong("非法手机号")
+                } else if (TextUtils.isEmpty(employeeName)) {
+                    ToastUtils.showLong("姓名不能为空")
+                } else if (image != null) {
+                    ToastUtils.showLong("工牌不能为空")
+                }
+                applyEmployee(employeeName!!, phoneNumber!!, image!!, companyId.toLong())
+            }
             R.id.left_nav_image_view -> activity?.onBackPressed()
         }
 
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            companyId = it.getInt(ARG_COMPANY_ID)
+            companyName = it.getString(ARG_COMPANY_NAME)
+        }
     }
 
     override fun onCreateView(
@@ -40,6 +69,7 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
         super.onActivityCreated(savedInstanceState)
         initTitle()
         initContent()
+
     }
 
 
@@ -56,6 +86,8 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initContent() {
+        companyNameText.text = companyName
+        submitApply.setOnClickListener(this)
     }
 
 
@@ -74,10 +106,19 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
                             return
                         }
                         if (result?.code == 100) {
+                            ToastUtils.showLong("申请成功!")
+                            activity?.finish()
+                        } else {
+                            ToastUtils.showLong(result.msg)
                         }
                     }
 
                 })
+    }
+
+    companion object {
+        const val ARG_COMPANY_ID = "company_id"
+        const val ARG_COMPANY_NAME = "company_name"
     }
 
 }

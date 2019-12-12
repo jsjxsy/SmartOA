@@ -37,13 +37,12 @@
             />
 
         <TextView
-            android:id="@+id/visitorName"
+            android:id="@+id/placeName"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/list_item_height_style"
             android:layout_alignParentRight="true"
             android:gravity="center"
-            android:text="国际中心"
-            />
+            android:text="国际中心" />
     </RelativeLayout>
     <View
         android:id="@+id/line"
