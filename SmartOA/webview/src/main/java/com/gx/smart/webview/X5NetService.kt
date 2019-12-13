@@ -15,16 +15,16 @@ class X5NetService : IntentService {
     private var cb: QbSdk.PreInitCallback = object : QbSdk.PreInitCallback {
         override fun onViewInitFinished(success: Boolean) {
             //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动
-            if(success){
-                Log.e(TAG,"x5 初始化成功")
-            }else{
-                Log.d(TAG,"x5 初始化失败")
+            if (success) {
+                Log.e(TAG, "x5 初始化成功")
+            } else {
+                Log.d(TAG, "x5 初始化失败")
             }
 
         }
 
         override fun onCoreInitFinished() {
-            // TODO Auto-generated method stub
+            Log.e("--->", "onCoreInitFinished()")
         }
     }
 
@@ -32,7 +32,7 @@ class X5NetService : IntentService {
     constructor(name: String) : super(TAG) {}
 
     public override fun onHandleIntent(intent: Intent?) {
-        Log.e("--->","onHandleIntent")
+        Log.e("--->", "onHandleIntent")
         initX5Web()
     }
 

@@ -2,10 +2,14 @@ package com.gx.smart.smartoa.activity.ui.company
 
 
 import android.os.Bundle
+import android.text.TextUtils
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView.OnEditorActionListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.alibaba.fastjson.JSON
@@ -20,6 +24,7 @@ import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import kotlinx.android.synthetic.main.fragment_mine_company_select_area.*
 import kotlinx.android.synthetic.main.layout_common_title.*
+
 
 /**
  * A simple [Fragment] subclass.
@@ -70,6 +75,17 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
         selectAreaRecyclerView.adapter = adapter
         getSysTenantList()
 
+        searchArea.setOnEditorActionListener(OnEditorActionListener { _, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || event != null && event.keyCode === KeyEvent.KEYCODE_ENTER) {
+                val name = searchArea.text.toString()
+                if (TextUtils.isEmpty(name)) {
+                    ToastUtils.showLong("搜索办公地点不能为空!")
+                }
+                getSysTenantListByName(name)
+                return@OnEditorActionListener true
+            }
+            false
+        })
 
     }
 
