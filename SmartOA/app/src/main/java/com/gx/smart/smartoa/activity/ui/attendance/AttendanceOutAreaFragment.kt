@@ -25,6 +25,18 @@ import java.util.*
 
 class AttendanceOutAreaFragment : Fragment(), MapLocationHelper.LocationCallBack {
 
+    /**
+     * 格式化 个位数格式
+     * @param number Int
+     */
+    private fun formatInt(number: Int): String {
+        return when (number < 10) {
+            true -> "0$number"
+            else -> "$number"
+        }
+    }
+
+
     companion object {
         fun newInstance() = AttendanceOutAreaFragment()
         private class TimeHandler(private val timeTextView: TextView) :
@@ -40,8 +52,8 @@ class AttendanceOutAreaFragment : Fragment(), MapLocationHelper.LocationCallBack
             override fun handleMessage(msg: Message?) {
                 super.handleMessage(msg)
                 val calendar = Calendar.getInstance(TimeZone.getDefault())
-                val hour = calendar.get(Calendar.HOUR_OF_DAY)
-                val minute = calendar.get(Calendar.MINUTE)
+                val hour = formatInt(calendar.get(Calendar.HOUR_OF_DAY))
+                val minute = formatInt(calendar.get(Calendar.MINUTE))
 
                 if (!mStopped) {
                     timeTextView.text = "${hour}:${minute}"
@@ -53,6 +65,13 @@ class AttendanceOutAreaFragment : Fragment(), MapLocationHelper.LocationCallBack
             fun startScheduleUpdate() {
                 mStopped = false
                 post()
+            }
+
+            fun formatInt(number: Int): String {
+                return when (number < 10) {
+                    true -> "0$number"
+                    else -> "$number"
+                }
             }
 
         }
@@ -87,10 +106,10 @@ class AttendanceOutAreaFragment : Fragment(), MapLocationHelper.LocationCallBack
     private fun initContent() {
         val calendar = Calendar.getInstance(TimeZone.getDefault())
         val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH) + 1
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-        val hour = calendar.get(Calendar.HOUR_OF_DAY)
-        val minute = calendar.get(Calendar.MINUTE)
+        val month = formatInt(calendar.get(Calendar.MONTH) + 1)
+        val day = formatInt(calendar.get(Calendar.DAY_OF_MONTH))
+        val hour = formatInt(calendar.get(Calendar.HOUR_OF_DAY))
+        val minute = formatInt(calendar.get(Calendar.MINUTE))
         dateText.text = "${year}年${month}月${day}日"
 
         status.text = "${hour}:${minute}"

@@ -64,11 +64,11 @@ class AttendanceFragment : Fragment(), View.OnClickListener {
         TimeHandler(time).startScheduleUpdate()
         val calendar = Calendar.getInstance(TimeZone.getDefault())
         val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH) + 1
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-        val hour = calendar.get(Calendar.HOUR_OF_DAY)
-        val minute = calendar.get(Calendar.MINUTE)
-        val second = calendar.get(Calendar.SECOND)
+        val month = formatInt(calendar.get(Calendar.MONTH) + 1)
+        val day = formatInt(calendar.get(Calendar.DAY_OF_MONTH))
+        val hour = formatInt(calendar.get(Calendar.HOUR_OF_DAY))
+        val minute = formatInt(calendar.get(Calendar.MINUTE))
+        val second = formatInt(calendar.get(Calendar.SECOND))
 
         dateText.text = "${year}年${month}月${day}日 星期" + getWeak(calendar)
         time.text = "${hour}:${minute}:${second}"
@@ -89,9 +89,9 @@ class AttendanceFragment : Fragment(), View.OnClickListener {
             override fun handleMessage(msg: Message?) {
                 super.handleMessage(msg)
                 val calendar = Calendar.getInstance(TimeZone.getDefault())
-                val hour = calendar.get(Calendar.HOUR_OF_DAY)
-                val minute = calendar.get(Calendar.MINUTE)
-                val second = calendar.get(Calendar.SECOND)
+                val hour = formatInt(calendar.get(Calendar.HOUR_OF_DAY))
+                val minute = formatInt(calendar.get(Calendar.MINUTE))
+                val second = formatInt(calendar.get(Calendar.SECOND))
 
                 if (!mStopped) {
                     timeTextView.text = "${hour}:${minute}:${second}"
@@ -105,7 +105,19 @@ class AttendanceFragment : Fragment(), View.OnClickListener {
                 post()
             }
 
+            /**
+             * 格式化 个位数格式
+             * @param number Int
+             */
+            fun formatInt(number: Int): String {
+                return when (number < 10) {
+                    true -> "0$number"
+                    else -> "$number"
+                }
+            }
+
         }
+
     }
 
     /**
@@ -122,6 +134,17 @@ class AttendanceFragment : Fragment(), View.OnClickListener {
             5 -> "四"
             6 -> "五"
             else -> "六"
+        }
+    }
+
+    /**
+     * 格式化 个位数格式
+     * @param number Int
+     */
+    private fun formatInt(number: Int): String {
+        return when (number < 10) {
+            true -> "0$number"
+            else -> "$number"
         }
     }
 
