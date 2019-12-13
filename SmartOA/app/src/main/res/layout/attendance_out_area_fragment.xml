@@ -1,13 +1,105 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ui.attendance.AttendanceOutAreaFragment">
+    android:orientation="vertical">
 
-    <TextView
+    <include
+        android:id="@+id/title"
+        layout="@layout/layout_common_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="@dimen/title_height_style"
+        android:layout_marginTop="21dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <RelativeLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_style_two"
+        android:background="@android:color/white"
+        android:padding="@dimen/padding_style_one"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_time_ic"
+            android:drawableTint="@color/background_style_two"
+            android:drawableTintMode="src_over"
+            android:textColor="@color/font_color_style_six"
+            android:textSize="@dimen/font_size_style_three"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="2019年9月17日" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/date"
+            android:background="@drawable/shape_environmental_control_line" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line"
+            android:layout_marginTop="15dp"
+            android:text="--:--:--"
+            android:textColor="@color/font_color_style_six"
+            android:textSize="@dimen/font_size_style_five"
+            tools:text="金融界公寓" />
+
+
+        <com.gx.smart.webview.CustomX5WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@id/address"
+            android:layout_marginTop="@dimen/margin_style_four" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/apply"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="@dimen/margin_style_two"
+        android:background="@drawable/shape_circle_background"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/contentLayout">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_style_four"
+            android:text="签到"
+            android:textColor="@color/background_style_four"
+            android:textSize="@dimen/font_size_style_three" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_style_seven"
+            android:text="11:20"
+            android:textColor="@color/background_style_four"
+            android:textSize="@dimen/font_size_style_seven" />
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

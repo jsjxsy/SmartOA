@@ -16,6 +16,7 @@
 
     <dimen name="font_size_style_one">14sp</dimen>
     <dimen name="font_size_style_two">16sp</dimen>
+    <dimen name="font_size_style_seven">20sp</dimen>
     <dimen name="font_size_style_three">12sp</dimen>
     <dimen name="font_size_style_four">10sp</dimen>
     <dimen name="font_size_style_five">40sp</dimen>

@@ -15,6 +15,8 @@ public class ApiConfig {
     public static final String ZG_SERVICE_PORT = "30501";
     //
     public static final String ATTANDANCE_SERVER_PORT = "31003";
+    //天气
+    public static String GENERALINFO_SERVICE_PORT = "30155";
 
 
     public static final String HUISHI_USER_SPACE = "b60bcfe2";//用户池

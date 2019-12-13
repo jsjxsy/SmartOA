@@ -1,16 +1,16 @@
-package com.gx.smart.smartoa.activity.ui.air
+package com.gx.smart.smartoa.activity.ui.attendance
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.gx.smart.smartoa.R
 
-class AirQualityAdapter :
-    RecyclerView.Adapter<AirQualityAdapter.ViewHolder>() {
+class AttendanceRecordAdapter :
+    RecyclerView.Adapter<AttendanceRecordAdapter.ViewHolder>() {
 
-    var mList: List<AirQuality>? = null
+    var mList: List<AttendanceRecord>? = null
 
     interface OnItemClickListener {
         fun onItemClick(view: View, position: Int)
@@ -29,7 +29,7 @@ class AirQualityAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.item_air_quality_layout,
+                R.layout.item_attendance_record_layout,
                 parent,
                 false
             )
@@ -39,29 +39,18 @@ class AirQualityAdapter :
     //填充视图
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mList!![position]
-        holder.place.text = "测试"
-        holder.temperature.text = item.temperature
-        holder.humidity.text = item.humidity
-        holder.pm.text = item.pm
-        holder.co2.text = item.co2
-
+        holder.mContent.text = item.content
         holder.onItemClick = onItemClick
     }
 
     class ViewHolder : RecyclerView.ViewHolder, View.OnClickListener {
         var onItemClick: OnItemClickListener? = null
-        var place: TextView
-        var temperature: TextView
-        var humidity: TextView
-        var pm: TextView
-        var co2: TextView
+        var mContent: TextView
+        var mImage: ImageView
 
         constructor(itemView: View) : super(itemView) {
-            place = itemView.findViewById(R.id.place)
-            temperature = itemView.findViewById(R.id.temperature)
-            humidity = itemView.findViewById(R.id.humidity)
-            pm = itemView.findViewById(R.id.pm)
-            co2 = itemView.findViewById(R.id.co2)
+            mContent = itemView.findViewById(R.id.content)
+            mImage = itemView.findViewById(R.id.image)
             itemView.setOnClickListener(this)
         }
 

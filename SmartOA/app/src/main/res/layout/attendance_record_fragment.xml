@@ -1,13 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ui.attendance.AttendanceRecordFragment">
+    android:orientation="vertical">
 
-    <TextView
+    <include
+        android:id="@+id/title"
+        layout="@layout/layout_common_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="@dimen/title_height_style"
+        android:layout_marginTop="21dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+
+    <Spinner
+        android:id="@+id/month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:spinnerMode="dropdown"
+        android:entries="@array/environmental_control_items"
+        tools:count="1"
+        tools:listitem="@layout/item_mine_company_select_area_city"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/selectAreaRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="1"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/white"
+        android:descendantFocusability="blocksDescendants"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/month"
+        tools:itemCount="10"
+        tools:listitem="@layout/item_attendance_record_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

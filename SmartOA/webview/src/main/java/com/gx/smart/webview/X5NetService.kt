@@ -16,7 +16,7 @@ class X5NetService : IntentService {
         override fun onViewInitFinished(success: Boolean) {
             //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动
             if(success){
-                Log.d(TAG,"x5 初始化成功")
+                Log.e(TAG,"x5 初始化成功")
             }else{
                 Log.d(TAG,"x5 初始化失败")
             }
@@ -32,10 +32,11 @@ class X5NetService : IntentService {
     constructor(name: String) : super(TAG) {}
 
     public override fun onHandleIntent(intent: Intent?) {
+        Log.e("--->","onHandleIntent")
         initX5Web()
     }
 
-    fun initX5Web() {
+    private fun initX5Web() {
         if (!QbSdk.isTbsCoreInited()) {
             // 设置X5初始化完成的回调接口
             QbSdk.preInit(applicationContext, null)
@@ -44,8 +45,7 @@ class X5NetService : IntentService {
     }
 
     companion object {
-
-        val TAG = X5NetService::class.java.simpleName
+        private val TAG = X5NetService::class.java.simpleName
     }
 
 
