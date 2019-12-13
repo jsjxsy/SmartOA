@@ -42,6 +42,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private val adapter = MultiTypeAdapter()
     private val items = ArrayList<Any>()
     private lateinit var context: FragmentActivity
+    private lateinit var homeBindView: HomeHeadViewBinder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,7 +76,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
         refreshLayout.isEnableLoadmore = false
 
         val recyclerView = view?.findViewById<RecyclerView>(R.id.homeRecyclerView)
-        adapter.register(HomeHeadViewBinder())
+        homeBindView = HomeHeadViewBinder()
+        adapter.register(homeBindView)
         adapter.register(HomeActionViewBinder())
         adapter.register(HomeCompanyAdviseViewBinder())
         recyclerView?.adapter = adapter
@@ -106,4 +108,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 
 
+    override fun onDestroy() {
+        super.onDestroy()
+        homeBindView.onDestroy()
+    }
 }

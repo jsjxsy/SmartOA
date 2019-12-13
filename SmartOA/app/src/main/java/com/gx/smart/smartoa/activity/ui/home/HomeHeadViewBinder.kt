@@ -9,12 +9,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
+import com.amap.api.location.AMapLocation
 import com.bigkoo.convenientbanner.ConvenientBanner
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator
 import com.bigkoo.convenientbanner.holder.Holder
 import com.blankj.utilcode.util.ActivityUtils
 import com.bumptech.glide.Glide
 import com.drakeet.multitype.ItemViewBinder
+import com.gx.smart.map.MapLocationHelper
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.WebViewActivity
 import com.gx.smart.smartoa.activity.ui.air.AirQualityActivity
@@ -38,8 +40,9 @@ import com.gx.wisestone.work.app.grpc.appfigure.ImagesResponse
  * @Describe
  */
 class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolder>(),
-    View.OnClickListener {
-
+    View.OnClickListener, MapLocationHelper.LocationCallBack {
+    private lateinit var helper: MapLocationHelper
+    private lateinit var titleText: TextView
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.id_environmental_control_text_view ->
@@ -120,6 +123,8 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
     }
 
     override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull homeHead: HomeHead) {
+        helper = MapLocationHelper(holder.itemView.context, this)
+        helper.startMapLocation()
         initClickEvent(
             holder.id_environmental_control_text_view,
             holder.id_more_text_view,
@@ -171,6 +176,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
         val right_nav_Image_view: ImageView =
             itemView.findViewById(R.id.right_nav_Image_view)
 
+
     }
 
     private fun initTitleView(
@@ -179,8 +185,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
         right_nav_Image_view: ImageView
     ) {
         title.setBackgroundColor(Color.TRANSPARENT)
-        left_nav_text_view.visibility = View.VISIBLE
-        left_nav_text_view.text = "悦盛国际"
+        titleText = left_nav_text_view
         right_nav_Image_view.visibility = View.VISIBLE
         right_nav_Image_view.setOnClickListener(this)
     }
@@ -255,5 +260,15 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
         ActivityUtils.startActivity(intent)
     }
 
+    override fun onCallLocationSuc(location: AMapLocation?) {
+        titleText?.let {
+            it.visibility = View.VISIBLE
+            it.text = location?.address
+        }
 
+    }
+
+    fun onDestroy() {
+        helper.stopMapLocation()
+    }
 }

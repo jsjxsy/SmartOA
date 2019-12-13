@@ -184,6 +184,7 @@ dependencies {
     implementation project(path: ':custom_ldialog')
     implementation project(path: ':ldialog')
     implementation project(path: ':share')
+    implementation project(path: ':map')
 }
 
 
