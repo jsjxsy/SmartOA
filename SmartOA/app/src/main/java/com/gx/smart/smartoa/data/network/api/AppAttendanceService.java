@@ -69,7 +69,7 @@ public class AppAttendanceService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ATTANDANCE_SERVER_PORT).doExecute();
+        }.doExecute();
     }
 
 }

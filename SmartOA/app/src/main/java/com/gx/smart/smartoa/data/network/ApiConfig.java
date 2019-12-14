@@ -13,8 +13,6 @@ public class ApiConfig {
     public static final String AUTH_API_SERVER_PORT = "31772";
     //紫光
     public static final String ZG_SERVICE_PORT = "30501";
-    //
-    public static final String ATTANDANCE_SERVER_PORT = "31003";
     //天气
     public static String GENERALINFO_SERVICE_PORT = "30155";
 
