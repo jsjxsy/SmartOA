@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".activity.ui.visitor.VisitorFragment">
 
-    <include
-        android:id="@+id/title"
-        layout="@layout/layout_common_title"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height_style"
-        android:layout_marginTop="21dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
     <RelativeLayout
         android:id="@+id/companyLayout"
         android:layout_width="match_parent"
@@ -24,14 +13,14 @@
         android:background="@android:color/white"
         android:padding="@dimen/padding_style_one"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/logoCompany"
             android:layout_width="53dp"
             android:layout_height="53dp"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
             android:contentDescription="@null"
@@ -55,9 +44,9 @@
             android:layout_below="@id/companyName"
             android:layout_marginTop="@dimen/margin_style_four"
             android:layout_toRightOf="@id/logoCompany"
-            tools:text="研发部"
             android:textColor="@color/font_color_style_seven"
-            android:textSize="@dimen/font_size_style_one" />
+            android:textSize="@dimen/font_size_style_one"
+            tools:text="研发部" />
 
         <TextView
             android:id="@+id/verify"
@@ -76,6 +65,7 @@
     <Button
         android:id="@+id/unbindCompany"
         style="@style/buttonStyle"
+        android:background="@color/background_style_eight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_style_two"

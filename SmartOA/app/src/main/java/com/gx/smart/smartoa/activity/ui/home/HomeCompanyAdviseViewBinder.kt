@@ -63,8 +63,8 @@ class HomeCompanyAdviseViewBinder :
             }
         }, data).setPageIndicator(
             intArrayOf(
-                com.gx.smart.smartoa.R.drawable.shape_action_page_indicator,
-                com.gx.smart.smartoa.R.drawable.shape_action_page_indicator_focus
+                R.drawable.shape_action_page_indicator,
+                R.drawable.shape_action_page_indicator_focus
             )
         )
             .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)

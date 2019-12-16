@@ -13,6 +13,7 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.gx.smart.smartoa.IntroActivity
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.activity.ui.login.LoginActivity
@@ -81,6 +82,7 @@ class SplashActivity : BaseActivity() {
     private fun startEnter() {
         val splashFragment = supportFragmentManager.findFragmentById(R.id.splashFragment)
         (splashFragment as SplashFragment).showAd()
+//        startActivity(Intent(this , IntroActivity::class.java))
     }
 
 
@@ -132,7 +134,7 @@ class SplashActivity : BaseActivity() {
             ToastUtils.showLong("网络连接不可用")
             loginActivity()
         } else {
-            val userName = SPUtils.getInstance().getString(AppConfig.SH_USERNAME, "")
+            val userName = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")
             val password = SPUtils.getInstance().getString(AppConfig.SH_PASSWORD, "")
             if (!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(password)) {
                 //手机号密码登录
@@ -169,10 +171,10 @@ class SplashActivity : BaseActivity() {
                     AppConfig.refreshToken = result.refreshToken
                     //保存当前用户
                     if (isPassWord) { //保存当前用户
-                        SPUtils.getInstance().put(AppConfig.SH_USERNAME, userName)
+                        SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, userName)
                         SPUtils.getInstance().put(AppConfig.SH_PASSWORD, password)
                     } else {
-                        SPUtils.getInstance().put(AppConfig.SH_USERNAME, userName)
+                        SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, userName)
                     }
                     bindAppCallBack()
                     if (GrpcAsyncTask.isFinish(bindTask)) {

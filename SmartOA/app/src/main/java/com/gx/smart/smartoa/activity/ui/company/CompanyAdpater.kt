@@ -39,23 +39,16 @@ class CompanyAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mList!![position]
         holder.mContent.text = item.name
-        holder.onItemClick = onItemClick
+        holder.itemView.setOnClickListener {
+            onItemClick?.onItemClick(it, position)
+        }
     }
 
-    class ViewHolder : RecyclerView.ViewHolder, View.OnClickListener {
-        var onItemClick: OnItemClickListener? = null
+    class ViewHolder : RecyclerView.ViewHolder {
         var mContent: TextView
 
         constructor(itemView: View) : super(itemView) {
             mContent = itemView.findViewById(R.id.company)
-            itemView.setOnClickListener(this)
         }
-
-        override fun onClick(v: View?) {
-            itemView.setOnClickListener {
-                onItemClick?.onItemClick(it, layoutPosition)
-            }
-        }
-
     }
 }

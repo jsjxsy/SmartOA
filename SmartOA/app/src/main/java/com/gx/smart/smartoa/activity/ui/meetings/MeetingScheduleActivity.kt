@@ -13,7 +13,7 @@ class MeetingScheduleActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_meeting_schedule)
-        val navHostFragment = meetingScheduleFragment as NavHostFragment
+        val navHostFragment = meetingScheduleFragmentEnter as NavHostFragment
         val inflater = navHostFragment.navController.navInflater
         val graph = inflater.inflate(R.navigation.nav_meeting_schedule)
         if (intent.hasExtra("toMeetingMyReservationFragment")) {
@@ -25,5 +25,5 @@ class MeetingScheduleActivity : BaseActivity() {
     }
 
     override fun onSupportNavigateUp() =
-        findNavController(this, R.id.meetingScheduleFragment).navigateUp()
+        findNavController(this, R.id.meetingScheduleFragmentEnter).navigateUp()
 }

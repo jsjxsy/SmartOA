@@ -65,7 +65,7 @@ public class AppStructureService {
                 try {
                     response = getStructureStub(channel).getSysTenantList(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Log.e("AppStructureService", e.getMessage());
                 }
 
                 return response;
@@ -90,7 +90,7 @@ public class AppStructureService {
                 try {
                     response = getStructureStub(channel).getSysTenantList(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Log.e("AppStructureService", e.getMessage());
                 }
 
                 return response;
@@ -113,7 +113,7 @@ public class AppStructureService {
                 try {
                     response = getStructureStub(channel).getBuildingInfo(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Log.e("AppStructureService", e.getMessage());
                 }
 
                 return response;
@@ -130,7 +130,7 @@ public class AppStructureService {
      * @param companyId 小区Id
      * @return callBack返回值
      */
-    public  GrpcAsyncTask<String, Void, CommonResponse> getDepartment(final long companyId, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, CommonResponse> getDepartment(final long companyId, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
             @Override
             protected CommonResponse doRequestData(ManagedChannel channel) {
@@ -141,7 +141,7 @@ public class AppStructureService {
                 try {
                     response = getStructureStub(channel).getDepartment(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Log.e("AppStructureService", e.getMessage());
                 }
 
                 return response;
@@ -158,23 +158,33 @@ public class AppStructureService {
      *
      * @return callBack返回值
      */
-    public  GrpcAsyncTask<String, Void, CommonResponse> applyEmployee(
+    public GrpcAsyncTask<String, Void, CommonResponse> applyEmployee(
             String name, String mobile, ByteString image, final long companyId,
             CallBack callBack) {
         return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
             @Override
             protected CommonResponse doRequestData(ManagedChannel channel) {
-                ApplyEmployeeRequest message = ApplyEmployeeRequest.newBuilder()
-                        .setName(name)
-                        .setMobile(mobile)
-                        .setImageBytes(image)
-                        .setCompanyStructureId(companyId)
-                        .build();
+                ApplyEmployeeRequest message;
+                if (image != null) {
+                    message = ApplyEmployeeRequest.newBuilder()
+                            .setName(name)
+                            .setMobile(mobile)
+                            .setImageBytes(image)
+                            .setCompanyStructureId(companyId)
+                            .build();
+                } else {
+                    message = ApplyEmployeeRequest.newBuilder()
+                            .setName(name)
+                            .setMobile(mobile)
+                            .setCompanyStructureId(companyId)
+                            .build();
+                }
+
                 CommonResponse response = null;
                 try {
                     response = getStructureStub(channel).applyEmployee(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Log.e("AppStructureService", e.getMessage());
                 }
 
                 return response;
@@ -207,7 +217,7 @@ public class AppStructureService {
                 try {
                     response = getStructureStub(channel).appChangeSwitch(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Log.e("AppStructureService", e.getMessage());
                 }
 
                 return response;
@@ -233,7 +243,7 @@ public class AppStructureService {
                 try {
                     response = getStructureStub(channel).appAddCustomerRecord(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Log.e("AppStructureService", e.getMessage());
                 }
 
                 return response;

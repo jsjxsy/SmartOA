@@ -265,7 +265,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                     AppConfig.loginToken = token
                     AppConfig.refreshToken = refreshToken
                     //保存当前用户
-                    SPUtils.getInstance().put(AppConfig.SH_USERNAME, mPhone)
+                    SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, mPhone)
                     SPUtils.getInstance().put(AppConfig.SH_PASSWORD, passWord)
                     bindAppCallBack()
                     if (GrpcAsyncTask.isFinish(bindTask)) {

@@ -24,7 +24,8 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
     private var time: String? = null
     private var content: String? = null
     private var comment: String? = null
-
+    private var activityId: Long? = null
+    private var flag: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -32,6 +33,7 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
             time = it.getString(ARG_TIME)
             content = it.getString(ARG_CONTENT)
             comment = it.getString(ARG_COMMENT)
+            activityId = it.getLong(ARG_ACTIVITY_ID)
         }
     }
 
@@ -67,13 +69,20 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
         contentContent.text = content
         commentText.text = comment
         submit.setOnClickListener(this)
+        findApplyInfo(activityId!!)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.submit -> {
-                apply()
+                if (flag) {
+                    apply()
+                } else {
+                    cancelApply()
+                }
+
             }
+            R.id.left_nav_image_view -> activity?.onBackPressed()
 
         }
     }
@@ -118,10 +127,39 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
             })
     }
 
+
+    private fun findApplyInfo(activityId: Long) {
+        AppActivityService.getInstance()
+            .findApplyInfo(activityId, object : CallBack<AppActivityApplyResponse>() {
+                override fun callBack(result: AppActivityApplyResponse?) {
+                    if (result == null) {
+                        ToastUtils.showLong("报名超时!")
+                        return
+                    }
+                    if (result?.code == 100) {
+                        flag = result.contentOrBuilderList.size > 0
+                        submit?.let {
+                            if (flag) {
+                                it.text = getString(R.string.apply_action)
+                                it.setBackgroundResource(R.color.background_style_two)
+                            } else {
+                                it.text = getString(R.string.cancel_action)
+                                it.setBackgroundResource(R.color.background_style_eight)
+                            }
+                        }
+                    } else {
+                        ToastUtils.showLong(result.msg)
+                    }
+                }
+
+            })
+    }
+
     companion object {
         const val ARG_TITLE = "title"
         const val ARG_TIME = "time"
         const val ARG_CONTENT = "content"
         const val ARG_COMMENT = "comment"
+        const val ARG_ACTIVITY_ID = "activity_id"
     }
 }

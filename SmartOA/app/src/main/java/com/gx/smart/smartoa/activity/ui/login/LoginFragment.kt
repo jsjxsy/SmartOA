@@ -45,7 +45,7 @@ class LoginFragment : Fragment(), OnClickListener {
         when (v.id) {
             R.id.id_login_button -> login()
             R.id.id_forget_password_text_view -> {
-                val userName = SPUtils.getInstance().getString(AppConfig.SH_USERNAME, "")
+                val userName = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")
                 if (TextUtils.isEmpty(userName)) {
                     ToastUtils.showLong("请先注册")
                     Navigation.findNavController(v)
@@ -137,7 +137,7 @@ class LoginFragment : Fragment(), OnClickListener {
         id_input_password_edit_text.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
         id_input_password_edit_text.transformationMethod =
             PasswordTransformationMethod.getInstance()
-        val userName = SPUtils.getInstance().getString(AppConfig.SH_USERNAME, "")
+        val userName = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")
         id_input_phone_edit_text.setText(userName)
         id_input_phone_edit_text.setSelection(userName.length)
     }
@@ -333,7 +333,7 @@ class LoginFragment : Fragment(), OnClickListener {
     /*******************************************登录回调 */
     private fun loginResponseCallBack(
         isPassWord: Boolean,
-        userName: String?,
+        phone: String?,
         password: String?
     ) {
         loginCallBack = object : CallBack<LoginResp?>() {
@@ -349,16 +349,16 @@ class LoginFragment : Fragment(), OnClickListener {
                     AppConfig.refreshToken = result.refreshToken
                     //保存当前用户
                     if (isPassWord) { //保存当前用户
-                        SPUtils.getInstance().put(AppConfig.SH_USERNAME, userName)
+                        SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, phone)
                         SPUtils.getInstance().put(AppConfig.SH_PASSWORD, password)
                     } else {
-                        SPUtils.getInstance().put(AppConfig.SH_USERNAME, userName)
+                        SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, phone)
                     }
                     bindAppCallBack()
                     if (GrpcAsyncTask.isFinish(bindTask)) {
                         bindTask =
                             UserCenterService.getInstance()
-                                .bindAppUser(userName, userName, bindCallBack)
+                                .bindAppUser(phone, phone, bindCallBack)
                     }
                 } else {
                     mLoadingView.visibility = View.GONE

@@ -2,13 +2,11 @@ package com.gx.smart.push
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
-
-import cn.jpush.android.api.CmdMessage
-import cn.jpush.android.api.CustomMessage
-import cn.jpush.android.api.JPushInterface
-import cn.jpush.android.api.JPushMessage
-import cn.jpush.android.api.NotificationMessage
+import cn.jpush.android.api.*
 import cn.jpush.android.service.JPushMessageReceiver
 
 class PushMessageReceiver : JPushMessageReceiver() {
@@ -115,9 +113,13 @@ class PushMessageReceiver : JPushMessageReceiver() {
         //            }
         //            LocalBroadcastManager.getInstance(context).sendBroadcast(msgIntent);
         //        }
+
+
     }
 
     companion object {
-        private val TAG = "PushMessageReceiver"
+        private const val TAG = "PushMessageReceiver"
     }
+
+
 }

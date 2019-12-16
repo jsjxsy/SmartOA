@@ -175,6 +175,7 @@ dependencies {
     implementation 'com.auth0:java-jwt:3.8.1'
     //cropper
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+    implementation 'com.github.AppIntro:AppIntro:5.1.0'
     //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

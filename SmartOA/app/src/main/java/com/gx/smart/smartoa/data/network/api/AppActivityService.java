@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
+import com.gx.wisestone.core.grpc.lib.common.QueryDto;
 import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse;
 import com.gx.wisestone.work.app.grpc.activity.ActivityQueryRequest;
 import com.gx.wisestone.work.app.grpc.activity.ActivityRequest;
@@ -63,7 +64,7 @@ public class AppActivityService {
                 try {
                     response = getAppActivityStub(channel).addActivity(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Log.e("AppActivityService", e.getMessage());
                 }
 
                 return response;
@@ -76,23 +77,50 @@ public class AppActivityService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, ActivityCommonResponse> findAllApplyInfos(CallBack callBack) {
+    public GrpcAsyncTask<String, Void, ActivityCommonResponse> findAllApplyInfos(QueryDto query, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, ActivityCommonResponse>(callBack) {
             @Override
             protected ActivityCommonResponse doRequestData(ManagedChannel channel) {
                 ActivityQueryRequest message = ActivityQueryRequest.newBuilder()
+                        .setQuery(query)
                         .build();
                 ActivityCommonResponse response = null;
                 try {
                     response = getAppActivityStub(channel).findAllApplyInfos(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Log.e("AppActivityService", e.getMessage());
                 }
 
                 return response;
             }
         }.doExecute();
     }
+
+
+    /**
+     * 我的申请列表
+     *
+     * @return callBack返回值
+     */
+    public GrpcAsyncTask<String, Void, ActivityCommonResponse> findMyApplyInfos(QueryDto query, CallBack callBack) {
+        return new GrpcAsyncTask<String, Void, ActivityCommonResponse>(callBack) {
+            @Override
+            protected ActivityCommonResponse doRequestData(ManagedChannel channel) {
+                ActivityQueryRequest message = ActivityQueryRequest.newBuilder()
+                        .setQuery(query)
+                        .build();
+                ActivityCommonResponse response = null;
+                try {
+                    response = getAppActivityStub(channel).findMyApplyInfos(message);
+                } catch (Exception e) {
+                    Log.e("AppActivityService", e.getMessage());
+                }
+
+                return response;
+            }
+        }.doExecute();
+    }
+
 
     /**
      * 活动报名
@@ -109,7 +137,7 @@ public class AppActivityService {
                 try {
                     response = getAppActivityStub(channel).apply(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Log.e("AppActivityService", e.getMessage());
                 }
 
                 return response;
@@ -132,7 +160,7 @@ public class AppActivityService {
                 try {
                     response = getAppActivityStub(channel).cancelApply(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Log.e("AppActivityService", e.getMessage());
                 }
 
                 return response;
@@ -145,17 +173,18 @@ public class AppActivityService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, AppActivityApplyResponse> findApplyInfo(CallBack callBack) {
+    public GrpcAsyncTask<String, Void, AppActivityApplyResponse> findApplyInfo(long activityId, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, AppActivityApplyResponse>(callBack) {
             @Override
             protected AppActivityApplyResponse doRequestData(ManagedChannel channel) {
                 AppActivityApplyDto message = AppActivityApplyDto.newBuilder()
+                        .setActivityId(activityId)
                         .build();
                 AppActivityApplyResponse response = null;
                 try {
                     response = getAppActivityStub(channel).findApplyInfo(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Log.e("AppActivityService", e.getMessage());
                 }
 
                 return response;

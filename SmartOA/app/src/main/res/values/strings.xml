@@ -50,6 +50,13 @@
         <item>会议</item>
     </string-array>
 
+    <string-array name="month_items">
+        <item>本月</item>
+        <item>2月</item>
+        <item>3月</item>
+        <item>4月</item>
+    </string-array>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="auto">自动</string>
     <string name="refrigeration">制冷</string>
@@ -151,6 +158,9 @@
     <string name="name">姓名</string>
     <string name="verified">已认证</string>
     <string name="cleared_cache">已清空缓存</string>
+    <string name="employee_information">身份信息</string>
+    <string name="apply_action">我要报名</string>
+    <string name="cancel_action">取消报名</string>
 
 
 </resources>

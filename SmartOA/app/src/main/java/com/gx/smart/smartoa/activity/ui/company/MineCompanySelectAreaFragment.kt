@@ -97,7 +97,7 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
                     override fun callBack(result: CommonResponse?) {
                         items.clear()
                         if (result == null) {
-                            ToastUtils.showLong("添加超时!")
+                            ToastUtils.showLong("获取办公地点超时!")
                             return
                         }
                         if (result?.code == 100) {
@@ -131,7 +131,7 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
                     override fun callBack(result: CommonResponse?) {
                         items.clear()
                         if (result == null) {
-                            ToastUtils.showLong("添加超时!")
+                            ToastUtils.showLong("获取办公地点超时!")
                             return
                         }
                         if (result?.code == 100) {

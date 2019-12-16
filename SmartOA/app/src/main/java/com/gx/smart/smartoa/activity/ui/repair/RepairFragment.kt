@@ -30,9 +30,7 @@ import com.google.protobuf.ByteString
 import com.gx.smart.smartoa.BuildConfig
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.AppRepairService
-import com.gx.smart.smartoa.data.network.api.UserCenterService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
-import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import kotlinx.android.synthetic.main.fragment_mine_user_info.*
@@ -51,9 +49,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
 
     private lateinit var viewModel: RepairViewModel
     private var type: Int? = null
-
-    private var task: GrpcAsyncTask<String, Void, AppInfoResponse>? = null
-    private var callBack: CallBack<AppInfoResponse?>? = null
+    private var imageString: ByteString? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,16 +109,12 @@ class RepairFragment : Fragment(), View.OnClickListener {
                 val content = contentEdit.text.toString()
                 val employeePhone = phone.text.toString()
                 val address = placeName.text.toString()
-                val images: ByteString? = null
+
                 if (type == null) {
                     ToastUtils.showLong("类型不能为空!")
                     return
                 }
-                if (images == null) {
-                    ToastUtils.showLong("图片不能为空!")
-                    return
-                }
-                addRepair(content, type!!, address, employeePhone, images)
+                addRepair(content, type!!, address, employeePhone, imageString)
             }
         }
     }
@@ -133,7 +125,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
         type: Int,
         address: String,
         employee_phone: String,
-        image_bytes: ByteString
+        image_bytes: ByteString?
     ) {
         AppRepairService.getInstance()
             .addRepair(
@@ -250,40 +242,14 @@ class RepairFragment : Fragment(), View.OnClickListener {
     private fun uploadImage(uri: Uri) {
         val cropImagePath: String? = getRealFilePathFromUri(activity!!, uri)
         //此处后面可以将bitMap转为二进制上传后台网络
-        //上传头像
-        uploadHeadImageCallBack(cropImagePath)
         val bitmap =
             BitmapFactory.decodeFile(cropImagePath)
         val baos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val byteArray = baos.toByteArray()
-        val imageString = ByteString.copyFrom(byteArray)
-        if (GrpcAsyncTask.isFinish(task)) {
-            task = UserCenterService.getInstance().updateAppUserImage(imageString, callBack)
-        }
+        imageString = ByteString.copyFrom(byteArray)
     }
 
-
-    private fun uploadHeadImageCallBack(cropImagePath: String?) {
-        callBack = object : CallBack<AppInfoResponse?>() {
-            override fun callBack(result: AppInfoResponse?) {
-                if (result == null) {
-                    ToastUtils.showLong("头像上传超时")
-                    return
-                }
-                if (result.code === 100) {
-                    if (ActivityUtils.isActivityAlive(activity)) {
-                        Glide.with(activity!!).load(cropImagePath)
-                            .apply(RequestOptions.bitmapTransform(CircleCrop()))
-                            .into(headImage)
-                    }
-                    ToastUtils.showLong("头像上传成功")
-                } else {
-                    ToastUtils.showLong(result.msg)
-                }
-            }
-        }
-    }
 
     /**
      * 根据Uri返回文件绝对路径

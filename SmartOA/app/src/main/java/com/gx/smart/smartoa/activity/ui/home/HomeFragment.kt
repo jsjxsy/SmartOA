@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.ToastUtils
 import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
@@ -18,6 +19,10 @@ import com.gx.smart.smartoa.activity.ui.features.HomeCompanyAdvise
 import com.gx.smart.smartoa.activity.ui.features.HomeCompanyAdviseViewBinder
 import com.gx.smart.smartoa.activity.ui.features.HomeHeadViewBinder
 import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
+import com.gx.smart.smartoa.data.network.api.AppActivityService
+import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.wisestone.core.grpc.lib.common.QueryDto
+import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -85,13 +90,9 @@ class HomeFragment : Fragment(), View.OnClickListener {
         val item1 = HomeHead()
         items.add(item1)
 
-        val actions = arrayListOf(
-            ActionRecommend(R.mipmap.home_banner_test, "广信篮球队报名开始啦！", "2019-10-10 14:39", 10),
-            ActionRecommend(R.mipmap.home_banner_test, "广信篮球队报名开始啦！", "2019-10-10 14:39", 5),
-            ActionRecommend(R.mipmap.home_banner_test, "广信篮球队报名开始啦！", "2019-10-10 14:39", 1)
-        )
 
-        val item12 = HomeActionRecommend(actions)
+
+        val item12 = HomeActionRecommend()
         items.add(item12)
 
 
@@ -108,8 +109,5 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-        homeBindView.onDestroy()
-    }
+
 }

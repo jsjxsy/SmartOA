@@ -100,6 +100,7 @@ class MineCompanySelectCompanyFragment : Fragment(), View.OnClickListener {
                             val companyList =
                                 JSON.parseArray(result.jsonstr, Company::class.java).toList()
                             adapter.mList = companyList
+                            adapter.notifyDataSetChanged()
                         } else {
                             ToastUtils.showLong(result.msg)
                         }

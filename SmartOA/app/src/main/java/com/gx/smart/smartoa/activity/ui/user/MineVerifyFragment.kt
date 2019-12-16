@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.UserCenterService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
@@ -97,7 +99,7 @@ class MineVerifyFragment : Fragment(), View.OnClickListener {
         } else if (idCard.length != 18 || !CheckIdCard(idCard)) {
             ToastUtils.showLong("无效的身份证")
         } else {
-            changeUserIdCard()
+            changeUserIdCard(name)
             if (GrpcAsyncTask.isFinish(verifiedTask)) {
                 verifiedTask =
                     UserCenterService.getInstance().verified(name, idCard, verifiedCallBack)
@@ -113,6 +115,7 @@ class MineVerifyFragment : Fragment(), View.OnClickListener {
                     val userInfo = result.appUserInfoDto
                     if (userInfo.name.isNotBlank()) {
                         realNameEdit.setText(userInfo.name)
+                        SPUtils.getInstance().put(AppConfig.SH_USER_REAL_NAME, userInfo.name)
                         identificationNumberEdit.setText(userInfo.identityCard)
                     }
 
@@ -123,7 +126,7 @@ class MineVerifyFragment : Fragment(), View.OnClickListener {
     }
 
     /*******************************************修改身份证号回调 */
-    private fun changeUserIdCard() {
+    private fun changeUserIdCard(name: String) {
         verifiedCallBack = object : CallBack<CommonResponse>() {
             override fun callBack(result: CommonResponse?) {
                 if (result == null) {
@@ -132,6 +135,7 @@ class MineVerifyFragment : Fragment(), View.OnClickListener {
                 }
                 if (result.code === 100) {
                     ToastUtils.showLong("修改身份证号成功")
+                    SPUtils.getInstance().put(AppConfig.SH_USER_REAL_NAME, name)
                     activity?.onBackPressed()
                 } else {
                     ToastUtils.showLong(result.msg)

@@ -3,7 +3,6 @@ package com.gx.smart.smartoa.activity.ui.attendance
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.gx.smart.smartoa.R
@@ -12,13 +11,6 @@ class AttendanceRecordAdapter :
     RecyclerView.Adapter<AttendanceRecordAdapter.ViewHolder>() {
 
     var mList: List<AttendanceRecord>? = null
-
-    interface OnItemClickListener {
-        fun onItemClick(view: View, position: Int)
-    }
-
-    var onItemClick: OnItemClickListener? = null
-
 
     //返回item个数
     override fun getItemCount(): Int {
@@ -40,25 +32,21 @@ class AttendanceRecordAdapter :
     //填充视图
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mList!![position]
-        holder.mContent.text = item.content
-        holder.onItemClick = onItemClick
+        holder.timeWorkOn.text = item.content
+        holder.timeWorkOff.text = item.content
+        holder.date.text = item.content
+        holder.timeWorkOn.text = item.content
     }
 
-    class ViewHolder : RecyclerView.ViewHolder, View.OnClickListener {
-        var onItemClick: OnItemClickListener? = null
-        var mContent: TextView
-        var mImage: ImageView
+    class ViewHolder : RecyclerView.ViewHolder {
+        var timeWorkOn: TextView
+        var timeWorkOff: TextView
+        var date: TextView
 
         constructor(itemView: View) : super(itemView) {
-            mContent = itemView.findViewById(R.id.content)
-            mImage = itemView.findViewById(R.id.image)
-            itemView.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View?) {
-            itemView.setOnClickListener {
-                onItemClick?.onItemClick(it, layoutPosition)
-            }
+            timeWorkOn = itemView.findViewById(R.id.timeWorkOn)
+            timeWorkOff = itemView.findViewById(R.id.timeWorkOff)
+            date = itemView.findViewById(R.id.date)
         }
 
     }

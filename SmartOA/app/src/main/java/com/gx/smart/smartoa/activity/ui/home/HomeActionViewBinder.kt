@@ -12,14 +12,20 @@ import com.bigkoo.convenientbanner.ConvenientBanner
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator
 import com.bigkoo.convenientbanner.holder.Holder
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.activity.ui.home.ActionRecommend
+import com.gx.smart.smartoa.activity.WebViewActivity
 import com.gx.smart.smartoa.activity.ui.home.HomeActionRecommend
 import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
+import com.gx.smart.smartoa.data.network.api.AppActivityService
+import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.wisestone.core.grpc.lib.common.QueryDto
+import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
+import com.gx.wisestone.work.app.grpc.activity.AppActivityDto
 
 
 /**
@@ -44,18 +50,23 @@ class HomeActionViewBinder : ItemViewBinder<HomeActionRecommend, HomeActionViewB
     }
 
     override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull actionRecommendList: HomeActionRecommend) {
-        initActionRecommend(holder.item, actionRecommendList)
+        findAllApplyInfos(holder.item)
+        holder.more.setOnClickListener {
+            val intent = Intent(holder.itemView.context, MessageActivity::class.java)
+            intent.putExtra(MessageActivity.INTENT_KEY, MessageActivity.INTENT_MESSAGE)
+            ActivityUtils.startActivity(intent)
+        }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val item: ConvenientBanner<ActionRecommend> = itemView.findViewById(R.id.banner)
-
+        val item: ConvenientBanner<AppActivityDto> = itemView.findViewById(R.id.banner)
+        val more: TextView = itemView.findViewById(R.id.id_home_action_recommend_more)
     }
 
 
     private fun initActionRecommend(
-        actionRecommendBanner: ConvenientBanner<ActionRecommend>,
-        actionRecommend: HomeActionRecommend
+        actionRecommendBanner: ConvenientBanner<AppActivityDto>,
+        items: List<AppActivityDto>
     ) {
         actionRecommendBanner.setPages(object : CBViewHolderCreator {
             override fun createHolder(itemView: View): Holder<*> {
@@ -65,7 +76,7 @@ class HomeActionViewBinder : ItemViewBinder<HomeActionRecommend, HomeActionViewB
             override fun getLayoutId(): Int {
                 return R.layout.item_home_action_recommend
             }
-        }, actionRecommend.actionRecommendList).setPageIndicator(
+        }, items).setPageIndicator(
             intArrayOf(
                 R.drawable.shape_action_page_indicator,
                 R.drawable.shape_action_page_indicator_focus
@@ -76,18 +87,20 @@ class HomeActionViewBinder : ItemViewBinder<HomeActionRecommend, HomeActionViewB
 
     }
 
-    class ActionRecommendHolderView(itemView: View) : Holder<ActionRecommend>(itemView) {
+    class ActionRecommendHolderView(itemView: View) : Holder<AppActivityDto>(itemView) {
         private lateinit var imageView: ImageView
         private lateinit var title: TextView
         private lateinit var time: TextView
         private lateinit var number: TextView
-        private lateinit var more: TextView
-        override fun updateUI(data: ActionRecommend) {
-            Glide.with(itemView).load(data.resId).transform(CenterCrop(), RoundedCorners(10))
+        override fun updateUI(data: AppActivityDto) {
+            Glide.with(itemView).load(data.imageUrl).transform(CenterCrop(), RoundedCorners(10))
                 .into(imageView)
             title.text = data.title
-            time.text = data.time
-            number.text = data.number.toString() + "人参加"
+            time.text = "${data.startTime - data.endTime}"
+            number.text = data.currentNum.toString() + "人参加"
+            itemView.setOnClickListener {
+                goWebView(itemView, data.content)
+            }
         }
 
         override fun initView(itemView: View) {
@@ -95,17 +108,44 @@ class HomeActionViewBinder : ItemViewBinder<HomeActionRecommend, HomeActionViewB
             title = itemView.findViewById(R.id.actionTitle)
             time = itemView.findViewById(R.id.actionTime)
             number = itemView.findViewById(R.id.actionNumber)
-            more = itemView.findViewById(R.id.id_home_action_recommend_more)
-            itemView.setOnClickListener {
 
-            }
-            more.setOnClickListener {
-                val intent = Intent(itemView.context, MessageActivity::class.java)
-                intent.putExtra(MessageActivity.INTENT_KEY, MessageActivity.INTENT_MESSAGE)
-                ActivityUtils.startActivity(intent)
-            }
+        }
+
+        private fun goWebView(view: View, url: String) {
+            val intent = Intent(view.context, WebViewActivity::class.java)
+            intent.putExtra(WebViewActivity.URL, url)
+            ActivityUtils.startActivity(intent)
         }
 
     }
+
+
+    private fun findAllApplyInfos(actionRecommendBanner: ConvenientBanner<AppActivityDto>) {
+        val query = QueryDto.newBuilder()
+            .setPage(1)
+            .setPageSize(10)
+            .build()
+        AppActivityService.getInstance()
+            .findAllApplyInfos(query, object : CallBack<ActivityCommonResponse>() {
+                override fun callBack(result: ActivityCommonResponse?) {
+                    if (result == null) {
+                        ToastUtils.showLong("查询活动超时!")
+                        return
+                    }
+                    if (result?.code == 100) {
+                        var list = result.contentList.toList()
+                        if (result.contentList.size > 3) {
+                            list = result.contentList.subList(0, 3).toList()
+                        }
+                        initActionRecommend(actionRecommendBanner, list)
+
+                    } else {
+                        ToastUtils.showLong(result.msg)
+                    }
+                }
+
+            })
+    }
+
 
 }

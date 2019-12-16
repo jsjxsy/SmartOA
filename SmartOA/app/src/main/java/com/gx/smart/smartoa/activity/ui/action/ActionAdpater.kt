@@ -46,10 +46,12 @@ class ActionAdapter :
         Glide.with(holder.itemView).load(item.imageUrl).into(holder.mImage)
         holder.actionTime.text = "${item.startTime} - ${item.endTime}"
         holder.actionNumber.text = "${item.currentNum}人参加"
-        holder.onItemClick = onItemClick
+        holder.itemView.setOnClickListener {
+            onItemClick?.onItemClick(it, position)
+        }
     }
 
-    class ViewHolder : RecyclerView.ViewHolder, View.OnClickListener {
+    class ViewHolder : RecyclerView.ViewHolder {
         var onItemClick: OnItemClickListener? = null
         var actionTitle: TextView
         var actionTime: TextView
@@ -61,13 +63,6 @@ class ActionAdapter :
             mImage = itemView.findViewById(R.id.actionImageView)
             actionTime = itemView.findViewById(R.id.actionTime)
             actionNumber = itemView.findViewById(R.id.actionNumber)
-            itemView.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View?) {
-            itemView.setOnClickListener {
-                onItemClick?.onItemClick(it, layoutPosition)
-            }
         }
 
     }

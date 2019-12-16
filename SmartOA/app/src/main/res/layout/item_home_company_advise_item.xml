@@ -1,10 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.bigkoo.convenientbanner.ConvenientBanner xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/banner"
     android:layout_width="match_parent"
     android:layout_height="144dp"
-    android:layout_marginTop="8dp"
-    android:background="@android:color/white"
-    android:padding="12dp"
-    app:canLoop="true" />
+    android:padding="@dimen/padding_style_one"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/actionHead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/shape_home_action_recommend"
+        android:drawablePadding="4.5dp"
+        android:text="@string/company_advise"
+        android:textColor="@color/font_color_style_six"
+        android:textSize="@dimen/font_size_style_two" />
+
+    <TextView
+        android:id="@+id/id_home_company_advise_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:drawableRight="@drawable/ic_more_info"
+        android:drawablePadding="3.5dp"
+        android:text="@string/more"
+        android:textColor="@color/font_color_style_five"
+        android:textSize="@dimen/font_size_style_one"
+        />
+
+    <com.bigkoo.convenientbanner.ConvenientBanner
+        android:layout_below="@id/actionHead"
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="144dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/white"
+        android:padding="12dp"
+        app:canLoop="true" />
+</RelativeLayout>
+

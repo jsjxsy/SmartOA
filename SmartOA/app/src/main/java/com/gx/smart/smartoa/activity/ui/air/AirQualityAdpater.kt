@@ -45,10 +45,12 @@ class AirQualityAdapter :
         holder.pm.text = item.pm
         holder.co2.text = item.co2
 
-        holder.onItemClick = onItemClick
+        holder.itemView.setOnClickListener {
+            onItemClick?.onItemClick(it, position)
+        }
     }
 
-    class ViewHolder : RecyclerView.ViewHolder, View.OnClickListener {
+    class ViewHolder : RecyclerView.ViewHolder {
         var onItemClick: OnItemClickListener? = null
         var place: TextView
         var temperature: TextView
@@ -62,13 +64,6 @@ class AirQualityAdapter :
             humidity = itemView.findViewById(R.id.humidity)
             pm = itemView.findViewById(R.id.pm)
             co2 = itemView.findViewById(R.id.co2)
-            itemView.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View?) {
-            itemView.setOnClickListener {
-                onItemClick?.onItemClick(it, layoutPosition)
-            }
         }
 
     }

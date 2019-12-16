@@ -28,9 +28,9 @@ class CompanyAreaPlaceViewBinder :
     }
 
     override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull item: CompanyAreaPlace) {
-        AppConfig.currentSysTenantNo = item.place.sysTenantNo
         holder.place.text = item.place.name
         holder.itemView.setOnClickListener {
+            AppConfig.currentSysTenantNo = item.place.sysTenantNo
             val args = Bundle()
             args.putString(MineCompanySelectCompanyFragment.ARG_PLACE_NAME, item.place.name)
             Navigation.findNavController(holder.itemView)

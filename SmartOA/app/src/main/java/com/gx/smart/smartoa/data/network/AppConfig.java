@@ -17,8 +17,10 @@ public class AppConfig {
     //是不是第一次登录
     public static final String SH_FIRST_OPEN = "FIRST_OPEN";
     //保存登录用户信息
-    public static final String SH_USERNAME = "USERNAME";
-    public static final String SH_PASSWORD = "PASSWORD";
+    public static final String SH_USER_ACCOUNT = "account";
+    public static final String SH_USER_REAL_NAME = "userName";
+    public static final String SH_PASSWORD = "password";
     public static final String SMART_HOME_SN = "1741hf14f2df425db6f228e21b3d8d86";
     public static final String ROOM_ID = "19";
+    public static final String EMPLOYEE_ID = "employee_id";
 }

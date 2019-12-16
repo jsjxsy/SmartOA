@@ -9,18 +9,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
-import com.amap.api.location.AMapLocation
+import com.alibaba.fastjson.JSON
 import com.bigkoo.convenientbanner.ConvenientBanner
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator
 import com.bigkoo.convenientbanner.holder.Holder
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.drakeet.multitype.ItemViewBinder
-import com.gx.smart.map.MapLocationHelper
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.WebViewActivity
 import com.gx.smart.smartoa.activity.ui.air.AirQualityActivity
 import com.gx.smart.smartoa.activity.ui.attendance.AttendanceActivity
+import com.gx.smart.smartoa.activity.ui.company.model.Company
 import com.gx.smart.smartoa.activity.ui.environmental.EnvironmentalActivity
 import com.gx.smart.smartoa.activity.ui.home.HomeHead
 import com.gx.smart.smartoa.activity.ui.meetings.MeetingScheduleActivity
@@ -29,9 +30,11 @@ import com.gx.smart.smartoa.activity.ui.repair.RepairActivity
 import com.gx.smart.smartoa.activity.ui.visitor.VisitorActivity
 import com.gx.smart.smartoa.activity.ui.work.SharedWorkActivity
 import com.gx.smart.smartoa.data.network.api.AppFigureService
+import com.gx.smart.smartoa.data.network.api.AppStructureService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesInfoOrBuilder
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesResponse
+import com.gx.wisestone.work.app.grpc.common.CommonResponse
 
 
 /**
@@ -40,8 +43,7 @@ import com.gx.wisestone.work.app.grpc.appfigure.ImagesResponse
  * @Describe
  */
 class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolder>(),
-    View.OnClickListener, MapLocationHelper.LocationCallBack {
-    private lateinit var helper: MapLocationHelper
+    View.OnClickListener {
     private lateinit var titleText: TextView
     override fun onClick(v: View?) {
         when (v!!.id) {
@@ -123,8 +125,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
     }
 
     override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull homeHead: HomeHead) {
-        helper = MapLocationHelper(holder.itemView.context, this)
-        helper.startMapLocation()
+        getBuildingInfo()
         initClickEvent(
             holder.id_environmental_control_text_view,
             holder.id_more_text_view,
@@ -260,15 +261,30 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
         ActivityUtils.startActivity(intent)
     }
 
-    override fun onCallLocationSuc(location: AMapLocation?) {
-        titleText?.let {
-            it.visibility = View.VISIBLE
-            it.text = location?.address
-        }
+    private fun getBuildingInfo() {
+        AppStructureService.getInstance()
+            .getBuildingInfo(
+                object : CallBack<CommonResponse>() {
+                    override fun callBack(result: CommonResponse?) {
+                        if (result == null) {
+                            ToastUtils.showLong("添加超时!")
+                            return
+                        }
+                        if (result?.code == 100) {
+                            val companyList =
+                                JSON.parseArray(result.jsonstr, Company::class.java).toList()
 
+                            titleText?.let {
+                                it.visibility = View.VISIBLE
+                                it.text = companyList[0].name
+                            }
+                        } else {
+                            ToastUtils.showLong(result.msg)
+                        }
+
+                    }
+
+                })
     }
 
-    fun onDestroy() {
-        helper.stopMapLocation()
-    }
 }

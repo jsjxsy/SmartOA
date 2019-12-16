@@ -47,8 +47,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".IntroActivity"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".activity.WebViewActivity"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop" />
         <activity
             android:name=".activity.ui.contact.ContactActivity"
             android:launchMode="singleTop" />
@@ -96,7 +99,8 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".activity.ui.splash.SplashActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -111,12 +115,9 @@
             android:name=".activity.ui.login.LoginActivity"
             android:launchMode="singleTop"
             android:windowSoftInputMode="stateVisible|adjustResize" />
-
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
-
-        <!-- WebSocket推送服务 -->
+            android:theme="@style/Base.Theme.AppCompat" /> <!-- WebSocket推送服务 -->
         <service
             android:name=".activity.ui.environmental.websocket.WebSocketClientService"
             android:enabled="true"
@@ -130,9 +131,7 @@
             <intent-filter android:priority="200">
                 <action android:name="com.gx.websocket.broadcastereceiver" />
             </intent-filter>
-        </receiver>
-
-        <!-- 文件提供者，个人头像拍照编辑时用到 -->
+        </receiver> <!-- 文件提供者，个人头像拍照编辑时用到 -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -142,7 +141,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
 </manifest>

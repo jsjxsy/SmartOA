@@ -7,15 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AppEmployeeService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import com.gx.wisestone.work.app.grpc.employee.EmployeeInfo
 import kotlinx.android.synthetic.main.fragment_mine_company_added.*
-import kotlinx.android.synthetic.main.layout_common_title.*
 
 /**
  * A simple [Fragment] subclass.
@@ -42,29 +43,19 @@ class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        initTitle()
         initContent()
         unbindCompany.setOnClickListener(this)
     }
 
 
-    private fun initTitle() {
-        left_nav_image_view?.let {
-            it.visibility = View.VISIBLE
-            it.setOnClickListener(this)
-        }
-        center_title.let {
-            it.visibility = View.VISIBLE
-            it.text = getString(R.string.mine_company)
-        }
-
-    }
-
-
     private fun initContent() {
-        Glide.with(this).load(employeeInfo.imageUrl).into(logoCompany)
+        if (employeeInfo.imageUrl.isNotBlank()) {
+            Glide.with(this).load(employeeInfo.imageUrl).into(logoCompany)
+        }
         companyName.text = employeeInfo.companyName
         companyDepartment.text = employeeInfo.departmentName
+        SPUtils.getInstance().put(AppConfig.EMPLOYEE_ID, employeeInfo.employeeId)
+        AppConfig.employeeId = employeeInfo.employeeId
         verify.text = when (employeeInfo.status) {
             1 -> {
                 verify.setTextColor(Color.YELLOW)
@@ -88,11 +79,14 @@ class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
                 object : CallBack<CommonResponse>() {
                     override fun callBack(result: CommonResponse?) {
                         if (result == null) {
-                            ToastUtils.showLong("添加超时!")
+                            ToastUtils.showLong("解绑公司超时!")
                             return
                         }
                         if (result?.code == 100) {
-
+                            ToastUtils.showLong("解绑公司成功!")
+                            activity?.onBackPressed()
+                        } else {
+                            ToastUtils.showLong(result.msg)
                         }
                     }
 

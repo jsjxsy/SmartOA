@@ -101,7 +101,7 @@ class MineCompanyFragment : Fragment(), View.OnClickListener {
         val transaction: FragmentTransaction = fm.beginTransaction()
         val fragment = MineCompanyFragmentAdded()
         fragment.employeeInfo = employeeInfo
-        transaction.replace(R.id.content, MineCompanyFragmentAdd())
+        transaction.replace(R.id.content, fragment)
         transaction.commit()
     }
 }
