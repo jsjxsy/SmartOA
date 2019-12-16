@@ -1,5 +1,6 @@
 package com.gx.smart.smartoa.activity.ui.repair
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -49,7 +50,6 @@ class RepairTypeFragment : Fragment(), View.OnClickListener {
             it.text = getString(R.string.repair_type)
         }
 
-
     }
 
 
@@ -59,9 +59,9 @@ class RepairTypeFragment : Fragment(), View.OnClickListener {
 
             override fun onItemClick(view: View, position: Int) {
                 val item = adapter.mList!![position]
-                val args = Bundle()
-                args.putInt(RepairFragment.ARG_TYPE, item.type!!)
-                findNavController().navigate(R.id.action_repairTypeFragment_to_repairFragment, args)
+                val intent  = Intent()
+                intent.putExtra(RepairFragment.ARG_TYPE, item)
+                activity?.setResult(RepairFragment.REQUEST_TYPE, intent)
             }
 
         }

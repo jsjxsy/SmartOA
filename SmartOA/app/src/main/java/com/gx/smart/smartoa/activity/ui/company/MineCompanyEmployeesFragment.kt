@@ -22,6 +22,7 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.SPUtils
+import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.google.protobuf.ByteString
@@ -32,6 +33,7 @@ import com.gx.smart.smartoa.data.network.api.AppStructureService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.smart.smartoa.utils.DataCheckUtil
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
+import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.fragment_mine_company_employees.*
 import kotlinx.android.synthetic.main.fragment_mine_company_employees.phone
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -218,14 +220,40 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
 
         when (requestCode) {
             REQUEST_CAPTURE -> if (resultCode == Activity.RESULT_OK) {
-                uploadImage(Uri.fromFile(tempFile))
+                cropPhoto(Uri.fromFile(tempFile))
             }
             REQUEST_PICK -> if (resultCode == Activity.RESULT_OK) {
                 val uri = data?.data
-                uploadImage(uri!!)
+                cropPhoto(uri)
+            }
+            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) {
+                val result: CropImage.ActivityResult = CropImage.getActivityResult(data)
+                uploadImage(result.uri)
             }
         }
     }
+
+
+    /**
+     * 对指定图片进行裁剪。
+     * @param uri
+     * 图片的uri地址。
+     */
+    private fun cropPhoto(uri: Uri?) {
+        if (uri == null) {
+            return
+        }
+        val reqWidth = ScreenUtils.getScreenWidth()
+        var reqHeight = reqWidth
+        CropImage.activity(uri)
+            .setAspectRatio(reqWidth, reqHeight)
+            .setActivityTitle("裁剪")
+            .setRequestedSize(reqWidth, reqHeight)
+            .setCropMenuCropButtonIcon(R.mipmap.ic_crop)
+            .start(activity!!)
+
+    }
+
 
 
     private fun uploadImage(uri: Uri) {

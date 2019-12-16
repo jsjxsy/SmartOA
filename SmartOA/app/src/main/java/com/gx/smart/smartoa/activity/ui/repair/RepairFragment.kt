@@ -20,23 +20,18 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.FileUtils
+import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.bumptech.glide.request.RequestOptions
 import com.google.protobuf.ByteString
 import com.gx.smart.smartoa.BuildConfig
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.AppRepairService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
-import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
-import kotlinx.android.synthetic.main.fragment_mine_user_info.*
+import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.repair_fragment.*
-import kotlinx.android.synthetic.main.repair_fragment.phone
 import java.io.ByteArrayOutputStream
 import java.io.File
 
@@ -45,16 +40,17 @@ class RepairFragment : Fragment(), View.OnClickListener {
     companion object {
         fun newInstance() = RepairFragment()
         const val ARG_TYPE = "type"
+        const val REQUEST_TYPE = 200
     }
 
     private lateinit var viewModel: RepairViewModel
-    private var type: Int? = null
+    private var type: RepairType? = null
     private var imageString: ByteString? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            type = it.getInt(ARG_TYPE)
+
         }
     }
 
@@ -97,14 +93,17 @@ class RepairFragment : Fragment(), View.OnClickListener {
     private fun initContent() {
         save.setOnClickListener(this)
         repair_type.setOnClickListener(this)
+        addImage.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()
             R.id.right_nav_text_view -> Navigation.findNavController(v).navigate(R.id.action_repairFragment_to_repairRecordFragment)
-            R.id.repair_type -> Navigation.findNavController(v)
-                .navigate(R.id.action_repairFragment_to_repairTypeFragment)
+            R.id.repair_type -> {
+                val intent = Intent(activity, RepairTypeActivity::class.java)
+                startActivityForResult(intent, REQUEST_TYPE)
+            }
             R.id.save -> {
                 val content = contentEdit.text.toString()
                 val employeePhone = phone.text.toString()
@@ -114,9 +113,13 @@ class RepairFragment : Fragment(), View.OnClickListener {
                     ToastUtils.showLong("类型不能为空!")
                     return
                 }
-                addRepair(content, type!!, address, employeePhone, imageString)
+                addRepair(content, type!!.type, address, employeePhone, imageString)
             }
+
+            R.id.addImage -> uploadHeadImage()
         }
+
+
     }
 
 
@@ -229,15 +232,44 @@ class RepairFragment : Fragment(), View.OnClickListener {
 
         when (requestCode) {
             REQUEST_CAPTURE -> if (resultCode == Activity.RESULT_OK) {
-                uploadImage(Uri.fromFile(tempFile))
+                cropPhoto(Uri.fromFile(tempFile))
             }
             REQUEST_PICK -> if (resultCode == Activity.RESULT_OK) {
                 val uri = data?.data
-                uploadImage(uri!!)
+                cropPhoto(uri)
+            }
+            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) {
+                val result: CropImage.ActivityResult = CropImage.getActivityResult(data)
+                uploadImage(result.uri)
+            }
+
+            REQUEST_TYPE -> if (resultCode == Activity.RESULT_OK) {
+                type = data?.getSerializableExtra(ARG_TYPE) as RepairType
+                repair_type.text = type?.content
             }
         }
     }
 
+
+    /**
+     * 对指定图片进行裁剪。
+     * @param uri
+     * 图片的uri地址。
+     */
+    private fun cropPhoto(uri: Uri?) {
+        if (uri == null) {
+            return
+        }
+        val reqWidth = ScreenUtils.getScreenWidth()
+        var reqHeight = reqWidth
+        CropImage.activity(uri)
+            .setAspectRatio(reqWidth, reqHeight)
+            .setActivityTitle("裁剪")
+            .setRequestedSize(reqWidth, reqHeight)
+            .setCropMenuCropButtonIcon(R.mipmap.ic_crop)
+            .start(activity!!)
+
+    }
 
     private fun uploadImage(uri: Uri) {
         val cropImagePath: String? = getRealFilePathFromUri(activity!!, uri)
