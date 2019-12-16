@@ -23,6 +23,7 @@ import androidx.navigation.Navigation
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.bumptech.glide.Glide
 import com.google.protobuf.ByteString
 import com.gx.smart.smartoa.BuildConfig
 import com.gx.smart.smartoa.R
@@ -66,10 +67,6 @@ class RepairFragment : Fragment(), View.OnClickListener {
         viewModel = ViewModelProviders.of(this).get(RepairViewModel::class.java)
         initTitle()
         initContent();
-        repair_type.setOnClickListener {
-            Navigation.findNavController(it)
-                .navigate(R.id.action_repairFragment_to_repairTypeFragment)
-        }
     }
 
     private fun initTitle() {
@@ -280,6 +277,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val byteArray = baos.toByteArray()
         imageString = ByteString.copyFrom(byteArray)
+        Glide.with(this).load(cropImagePath).into(addImage)
     }
 
 

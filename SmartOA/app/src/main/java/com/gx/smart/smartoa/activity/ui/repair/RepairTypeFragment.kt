@@ -1,5 +1,6 @@
 package com.gx.smart.smartoa.activity.ui.repair
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.gx.smart.smartoa.R
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.repair_type_fragment.*
+
 
 class RepairTypeFragment : Fragment(), View.OnClickListener {
 
@@ -61,7 +63,8 @@ class RepairTypeFragment : Fragment(), View.OnClickListener {
                 val item = adapter.mList!![position]
                 val intent  = Intent()
                 intent.putExtra(RepairFragment.ARG_TYPE, item)
-                activity?.setResult(RepairFragment.REQUEST_TYPE, intent)
+                activity?.setResult(Activity.RESULT_OK, intent)
+                activity?.finish()
             }
 
         }
@@ -73,5 +76,8 @@ class RepairTypeFragment : Fragment(), View.OnClickListener {
         )
 
         recyclerView.adapter = adapter
+        //添加Android自带的分割线
+        //添加Android自带的分割线
+        recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
     }
 }

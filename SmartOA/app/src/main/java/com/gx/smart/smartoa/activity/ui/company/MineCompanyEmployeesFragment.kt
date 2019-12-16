@@ -35,7 +35,6 @@ import com.gx.smart.smartoa.utils.DataCheckUtil
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.fragment_mine_company_employees.*
-import kotlinx.android.synthetic.main.fragment_mine_company_employees.phone
 import kotlinx.android.synthetic.main.layout_common_title.*
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -255,7 +254,6 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
     }
 
 
-
     private fun uploadImage(uri: Uri) {
         val cropImagePath: String? = getRealFilePathFromUri(activity!!, uri)
         //此处后面可以将bitMap转为二进制上传后台网络
@@ -265,7 +263,7 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val byteArray = baos.toByteArray()
         imageString = ByteString.copyFrom(byteArray)
-        Glide.with(activity!!).load(cropImagePath)
+        Glide.with(this).load(cropImagePath)
             .into(addImage)
     }
 

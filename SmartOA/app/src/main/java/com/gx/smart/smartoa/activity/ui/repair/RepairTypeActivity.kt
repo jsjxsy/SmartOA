@@ -1,10 +1,10 @@
 package com.gx.smart.smartoa.activity.ui.repair
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.base.BaseActivity
 
-class RepairTypeActivity : AppCompatActivity() {
+class RepairTypeActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
