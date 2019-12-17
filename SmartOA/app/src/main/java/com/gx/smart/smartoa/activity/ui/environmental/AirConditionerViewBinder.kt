@@ -365,7 +365,8 @@ class AirConditionerViewBinder :
             return
         }
         val cmd = 10.toString()
-        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd,
+            MODE_AUTO_WIND, item.light, position)
     }
 
     private fun highWind(
@@ -383,7 +384,8 @@ class AirConditionerViewBinder :
             return
         }
         val cmd = 9.toString()
-        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd,
+            MODE_HIGH_WIND, item.light, position)
     }
 
     private fun midWind(
@@ -401,7 +403,7 @@ class AirConditionerViewBinder :
             return
         }
         val cmd = 8.toString()
-        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd, MODE_MID_WIND, item.light, position)
     }
 
     private fun lowWind(
@@ -419,7 +421,8 @@ class AirConditionerViewBinder :
             return
         }
         val cmd = 7.toString()
-        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd,
+            MODE_LOW_WIND, item.light, position)
     }
 
     private fun wind(
@@ -437,7 +440,7 @@ class AirConditionerViewBinder :
             return
         }
         val cmd = 6.toString()
-        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd, MODE_WIND, item.light, position)
     }
 
     private fun water(
@@ -455,7 +458,7 @@ class AirConditionerViewBinder :
             return
         }
         val cmd = 4.toString()
-        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd, MODE_WATER, item.light, position)
     }
 
     private fun hot(
@@ -473,7 +476,7 @@ class AirConditionerViewBinder :
             return
         }
         val cmd = 3.toString()
-        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd, MODE_HOT, item.light, position)
     }
 
     private fun refrigeration(
@@ -491,7 +494,8 @@ class AirConditionerViewBinder :
             return
         }
         val cmd = 2.toString()
-        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd,
+            MODE_REFRIGERATION, item.light, position)
     }
 
     private fun auto(
@@ -509,7 +513,7 @@ class AirConditionerViewBinder :
             return
         }
         val cmd = 5.toString()
-        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd,MODE_AUTO_WIND, item.light, position)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -544,7 +548,8 @@ class AirConditionerViewBinder :
         } else {
             "1"
         }
-        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd,
+            TURN_STATUE, item.light, position)
     }
 
 
@@ -568,7 +573,7 @@ class AirConditionerViewBinder :
             } else {
                 (temperature + 1).toString()
             }
-        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd,TEMPERATURE_ADD, item.light, position)
     }
 
     private fun reduceTemperature(
@@ -592,7 +597,7 @@ class AirConditionerViewBinder :
             } else {
                 (temperature - 1).toString()
             }
-        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd,TEMPERATURE_REDUCE, item.light, position)
     }
 
 
@@ -602,6 +607,7 @@ class AirConditionerViewBinder :
         windMode: Int,
         temperature: Int,
         cmd: String,
+        type: Int,
         airConditioner: DevDto,
         position: Int
     ) {
@@ -622,9 +628,53 @@ class AirConditionerViewBinder :
                     if (result.result == 0) {
                         when (result.result) {
                             0 -> {
+                                var mode = 0
+                                if (type == MODE_AUTO) {
+                                    mode = 5
+                                }
+
+                                if (type == MODE_REFRIGERATION) {
+                                    mode = 2
+                                }
+
+                                if (type == MODE_HOT) {
+                                    mode = 3
+                                }
+
+
+                                if (type == MODE_WATER) {
+                                    mode = 4
+                                }
+                                if (type == MODE_WIND) {
+                                    mode = 6
+                                }
+                                if (type == MODE_LOW_WIND) {
+                                    mode = 7
+                                }
+                                if (type == MODE_MID_WIND) {
+                                    mode = 8
+                                }
+
+                                if (type == MODE_HIGH_WIND) {
+                                    mode = 9
+                                }
+                                if (type == MODE_AUTO_WIND) {
+                                    mode = 10
+                                }
                                 val newAirConditioner =
                                     DevDto.newBuilder(airConditioner)
-                                        .setVal("${turnStatus},${mode},${windMode},${temperature}")
+                                        .setVal(
+                                            "${if (turnStatus == 1) {
+                                                "-1"
+                                            } else {
+                                                "1"
+                                            }
+                                            },${mode},${windMode},${if (temperature == 0) {
+                                                "25"
+                                            } else {
+                                                (temperature).toString()
+                                            }}"
+                                        )
                                         .build()
                                 adapter.items.toMutableList().apply {
                                     removeAt(position)
@@ -632,6 +682,7 @@ class AirConditionerViewBinder :
                                     adapter.items = this
                                 }
                                 adapter.notifyItemChanged(position)
+
                                 fragment?.showLoadingSuccess()
                             }
                             100 -> {
@@ -651,7 +702,17 @@ class AirConditionerViewBinder :
     companion object {
         const val TURN_STATUE = 1
 
+        const val MODE_REFRIGERATION = 2
+        const val MODE_AUTO = 3
+        const val MODE_HOT = 4
+        const val MODE_WATER = 5
+        const val MODE_WIND = 6
         const val MODE_LOW_WIND = 7
+        const val MODE_MID_WIND = 8
         const val MODE_HIGH_WIND = 9
+        const val MODE_AUTO_WIND = 10
+
+        const val TEMPERATURE_ADD = 4
+        const val TEMPERATURE_REDUCE = 5
     }
 }

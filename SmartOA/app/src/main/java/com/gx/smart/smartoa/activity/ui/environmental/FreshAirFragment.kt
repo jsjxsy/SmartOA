@@ -36,7 +36,7 @@ class FreshAirFragment(private val freshAirList: List<DevDto>) : BaseFragment() 
         freshAirRecyclerView!!.addItemDecoration(divider)
         val freshAirViewBinder = FreshAirViewBinder()
         freshAirViewBinder.fragment = fragment
-        adapter.register(FreshAirViewBinder())
+        adapter.register(freshAirViewBinder)
         freshAirRecyclerView?.adapter = adapter
 
         for (freshAir in freshAirList) {

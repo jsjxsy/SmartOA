@@ -91,7 +91,7 @@ class FreshAirViewBinder : ItemViewBinder<FreshAir, FreshAirViewBinder.ViewHolde
         } else {
             "1"
         }
-        setStateAction(turnStatus, mode, cmd, item.light, position)
+        setStateAction(turnStatus, mode, cmd, TURN_STATUE, item.light, position)
     }
 
 
@@ -106,7 +106,7 @@ class FreshAirViewBinder : ItemViewBinder<FreshAir, FreshAirViewBinder.ViewHolde
             return
         }
         val cmd = 7.toString()
-        setStateAction(turnStatus, mode, cmd, item.light, position)
+        setStateAction(turnStatus, mode, cmd, MODE_LOW_WIND, item.light, position)
     }
 
     private fun highWind(turnStatus: Int, mode: Int, item: FreshAir, position: Int) {
@@ -120,7 +120,7 @@ class FreshAirViewBinder : ItemViewBinder<FreshAir, FreshAirViewBinder.ViewHolde
             return
         }
         val cmd = 9.toString()
-        setStateAction(turnStatus, mode, cmd, item.light, position)
+        setStateAction(turnStatus, mode, cmd, MODE_HIGH_WIND, item.light, position)
     }
 
 
@@ -135,7 +135,7 @@ class FreshAirViewBinder : ItemViewBinder<FreshAir, FreshAirViewBinder.ViewHolde
 
     private fun setStateAction(
         openSwitch: Int,
-        mode: Int, cmd: String, freshAir: DevDto, position: Int
+        mode: Int, cmd: String, type: Int, freshAir: DevDto, position: Int
     ) {
         fragment?.showLoadingView()
         devComTask = UnisiotApiService.getInstance().devCom(
@@ -154,10 +154,24 @@ class FreshAirViewBinder : ItemViewBinder<FreshAir, FreshAirViewBinder.ViewHolde
                     if (result.result == 0) {
                         when (result.result) {
                             0 -> {
+                                var mode = 0
+                                if (type == MODE_LOW_WIND) {
+                                    mode = 7
+                                }
+
+                                if (type == MODE_HIGH_WIND) {
+                                    mode = 9
+                                }
 
                                 fragment?.showLoadingSuccess()
                                 val newFreshAir =
-                                    DevDto.newBuilder(freshAir).setVal("$openSwitch,$mode").build()
+                                    DevDto.newBuilder(freshAir).setVal(
+                                        "${if (openSwitch == 1) {
+                                            "-1"
+                                        } else {
+                                            "1"
+                                        }},$mode"
+                                    ).build()
                                 adapter.items.toMutableList().apply {
                                     removeAt(position)
                                     add(position, FreshAir(newFreshAir))
@@ -179,4 +193,10 @@ class FreshAirViewBinder : ItemViewBinder<FreshAir, FreshAirViewBinder.ViewHolde
             })
     }
 
+    companion object {
+        const val TURN_STATUE = 1
+
+        const val MODE_LOW_WIND = 7
+        const val MODE_HIGH_WIND = 9
+    }
 }
