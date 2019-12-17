@@ -10,7 +10,6 @@ import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.AppActivityService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
-import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
 import com.gx.wisestone.work.app.grpc.activity.AppActivityApplyResponse
 import kotlinx.android.synthetic.main.fragment_mine_action_detail.*
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -67,16 +66,16 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
         timeContent.text = time
         contentContent.text = content
         submit.setOnClickListener(this)
-        findApplyInfo(activityId!!)
+        findApplyInfo(activityId)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.submit -> {
                 if (flag) {
-                    apply()
-                } else {
                     cancelApply()
+                } else {
+                    apply()
                 }
 
             }
@@ -87,9 +86,13 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
 
 
     private fun cancelApply() {
+        if (activityId == null) {
+            ToastUtils.showLong("活动为空!")
+            return
+        }
         AppActivityService.getInstance()
-            .cancelApply(object : CallBack<ActivityCommonResponse>() {
-                override fun callBack(result: ActivityCommonResponse?) {
+            .cancelApply(activityId!!, object : CallBack<AppActivityApplyResponse>() {
+                override fun callBack(result: AppActivityApplyResponse?) {
                     if (result == null) {
                         ToastUtils.showLong("取消报名超时!")
                         return
@@ -107,8 +110,13 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
 
 
     private fun apply() {
+        if (activityId == null) {
+            ToastUtils.showLong("活动为空!")
+            return
+        }
+        val mark = commentTextContent.text.toString()
         AppActivityService.getInstance()
-            .apply(object : CallBack<AppActivityApplyResponse>() {
+            .apply(activityId!!, mark, object : CallBack<AppActivityApplyResponse>() {
                 override fun callBack(result: AppActivityApplyResponse?) {
                     if (result == null) {
                         ToastUtils.showLong("报名超时!")
@@ -126,7 +134,11 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
     }
 
 
-    private fun findApplyInfo(activityId: Long) {
+    private fun findApplyInfo(activityId: Long?) {
+        if (activityId == null) {
+            ToastUtils.showLong("活动为空!")
+            return
+        }
         AppActivityService.getInstance()
             .findApplyInfo(activityId, object : CallBack<AppActivityApplyResponse>() {
                 override fun callBack(result: AppActivityApplyResponse?) {

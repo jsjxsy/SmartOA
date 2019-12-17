@@ -58,6 +58,7 @@ class LightItemOneViewBinder : ItemViewBinder<LightItemOne, LightItemOneViewBind
 
     override fun onBindViewHolder(holder: TextHolder, item: LightItemOne) {
         holder.text.text = item.light.devName
+
         when (item.light.linkState) {
             "0" -> holder.text.isPressed = false
             "1" -> holder.text.isPressed = true
@@ -70,7 +71,7 @@ class LightItemOneViewBinder : ItemViewBinder<LightItemOne, LightItemOneViewBind
                 "0" -> ToastUtils.showLong("设备离线")
                 "1" -> {
                     fragment?.showLoadingView()
-                    switchLightAction(statsValue, item.light)
+                    switchLightAction(statsValue, item, getPosition(holder))
                 }
             }
         }
@@ -105,15 +106,16 @@ class LightItemOneViewBinder : ItemViewBinder<LightItemOne, LightItemOneViewBind
 
     private fun switchLightAction(
         finalTurnStatus: Int,
-        light: DevDto
+        item: LightItemOne,
+        position: Int
     ) {
         val cmd = if (finalTurnStatus == 1) "-1" else "1"
         devComTask = UnisiotApiService.getInstance().devCom(
             AppConfig.SMART_HOME_SN,
-            java.lang.String.valueOf(light.uuid),
-            light.category,
-            light.model,
-            light.channel,
+            java.lang.String.valueOf(item.light.uuid),
+            item.light.category,
+            item.light.model,
+            item.light.channel,
             cmd,
             object : CallBack<UnisiotResp>() {
                 override fun callBack(result: UnisiotResp?) {
@@ -125,6 +127,11 @@ class LightItemOneViewBinder : ItemViewBinder<LightItemOne, LightItemOneViewBind
                         when (result.result) {
                             0 -> {
                                 fragment?.showLoadingSuccess()
+                                val newLight = DevDto.newBuilder(item.light).setVal(cmd).build()
+                                val lists = adapterItems.toMutableList()
+                                lists[position] = newLight
+                                adapterItems = lists.toList()
+                                adapter.notifyDataSetChanged()
                             }
                             100 -> {
                                 fragment?.showLoading()

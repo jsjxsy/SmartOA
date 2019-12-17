@@ -127,11 +127,13 @@ public class AppActivityService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, AppActivityApplyResponse> apply(CallBack callBack) {
+    public GrpcAsyncTask<String, Void, AppActivityApplyResponse> apply(long activityId, String mark, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, AppActivityApplyResponse>(callBack) {
             @Override
             protected AppActivityApplyResponse doRequestData(ManagedChannel channel) {
                 AppActivityApplyDto message = AppActivityApplyDto.newBuilder()
+                        .setActivityId(activityId)
+                        .setMark(mark)
                         .build();
                 AppActivityApplyResponse response = null;
                 try {
@@ -150,11 +152,12 @@ public class AppActivityService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, AppActivityApplyResponse> cancelApply(CallBack callBack) {
+    public GrpcAsyncTask<String, Void, AppActivityApplyResponse> cancelApply(long activityId, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, AppActivityApplyResponse>(callBack) {
             @Override
             protected AppActivityApplyResponse doRequestData(ManagedChannel channel) {
                 AppActivityApplyDto message = AppActivityApplyDto.newBuilder()
+                        .setActivityId(activityId)
                         .build();
                 AppActivityApplyResponse response = null;
                 try {
