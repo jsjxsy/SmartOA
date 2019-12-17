@@ -9,7 +9,18 @@
         android:id="@+id/navigation_home"
         android:name="com.gx.smart.smartoa.activity.ui.home.HomeFragment"
         android:label="@string/main_title_home"
-        tools:layout="@layout/fragment_home"></fragment>
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_navigation_home_to_mineActionActivity"
+            app:destination="@id/mineActionActivity" >
+            <argument
+                android:name="fromHome"
+                android:defaultValue="fromHome"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/openDoorFragment"
@@ -73,7 +84,8 @@
         android:id="@+id/mineActionActivity"
         android:name="com.gx.smart.smartoa.activity.ui.action.MineActionActivity"
         android:label="MineActionActivity"
-        tools:layout="@layout/fragment_mine_action" />
+        tools:layout="@layout/fragment_mine_action" >
+    </activity>
 
     <activity
         android:id="@+id/visitorActivity"

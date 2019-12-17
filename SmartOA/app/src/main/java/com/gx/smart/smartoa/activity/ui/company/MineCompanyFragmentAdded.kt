@@ -54,8 +54,8 @@ class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
         }
         companyName.text = employeeInfo.companyName
         companyDepartment.text = employeeInfo.departmentName
-        SPUtils.getInstance().put(AppConfig.EMPLOYEE_ID, employeeInfo.employeeId)
         AppConfig.employeeId = employeeInfo.employeeId
+        AppConfig.currentSysTenantNo = employeeInfo.tenantNo
         verify.text = when (employeeInfo.status) {
             1 -> {
                 verify.setTextColor(Color.YELLOW)

@@ -12,7 +12,7 @@ service AppActivityInterface {
     //添加活动
     rpc addActivity (ActivityRequest) returns (AppActivityResponse) {}
     //查询活动列表
-    rpc findAllApplyInfos(ActivityQueryRequest) returns (ActivityCommonResponse) {}
+    rpc findAllActivityInfos(ActivityQueryRequest) returns (ActivityCommonResponse) {}
     //我的申请列表
     rpc findMyApplyInfos(ActivityQueryRequest) returns (ActivityCommonResponse) {}
     // 活动报名  郑喆说活动不用审核 所以只有apply表就行
@@ -39,7 +39,7 @@ message AppActivityResponse{
 }
 
 message AppActivityDto{
-    int64 id = 1;
+    int64 activity_id = 1;
     int64 create_time = 2; //创建时间
     int64 modify_time = 3; //修改时间
     int64 start_time = 4; //活动报名时间
@@ -82,7 +82,7 @@ message AppActivityApplyResponse {
 
 message AppActivityApplyDto {
     int64 activity_id = 11; //活动id
-    string content = 12; //备注 仅apply使用
+    string mark = 12; //备注 仅apply使用
 }
 
 message ActivityApplyResponseDto {
@@ -98,6 +98,5 @@ message ActivityApplyResponseDto {
     int32 employee_age = 9; //年纪
     int32 employee_gender = 10; //性别
     int64 activity_id = 11; //活动id
-    string content = 12; //备注
+    string mark = 12; //备注
 }
-

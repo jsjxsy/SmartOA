@@ -1,12 +1,14 @@
 package com.gx.smart.smartoa.activity.ui.features
 
 import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.NonNull
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bigkoo.convenientbanner.ConvenientBanner
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator
@@ -18,12 +20,11 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.activity.WebViewActivity
+import com.gx.smart.smartoa.activity.ui.action.MineActionDetailFragment
 import com.gx.smart.smartoa.activity.ui.home.HomeActionRecommend
 import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
 import com.gx.smart.smartoa.data.network.api.AppActivityService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
-import com.gx.wisestone.core.grpc.lib.common.QueryDto
 import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
 import com.gx.wisestone.work.app.grpc.activity.AppActivityDto
 
@@ -99,7 +100,7 @@ class HomeActionViewBinder : ItemViewBinder<HomeActionRecommend, HomeActionViewB
             time.text = "${data.startTime - data.endTime}"
             number.text = data.currentNum.toString() + "人参加"
             itemView.setOnClickListener {
-                goWebView(itemView, data.content)
+                goActionDetail(it, data)
             }
         }
 
@@ -111,22 +112,25 @@ class HomeActionViewBinder : ItemViewBinder<HomeActionRecommend, HomeActionViewB
 
         }
 
-        private fun goWebView(view: View, url: String) {
-            val intent = Intent(view.context, WebViewActivity::class.java)
-            intent.putExtra(WebViewActivity.URL, url)
-            ActivityUtils.startActivity(intent)
+        private fun goActionDetail(view: View, item: AppActivityDto) {
+            val args = Bundle()
+            args.putString(MineActionDetailFragment.ARG_TITLE, item.title)
+            args.putString(
+                MineActionDetailFragment.ARG_TIME,
+                "${item.startTime - item.endTime}"
+            )
+            args.putString(MineActionDetailFragment.ARG_CONTENT, item.content)
+            args.putLong(MineActionDetailFragment.ARG_ACTIVITY_ID, item.activityId)
+            Navigation.findNavController(view)
+                .navigate(R.id.action_navigation_home_to_mineActionActivity, args)
         }
 
     }
 
 
     private fun findAllApplyInfos(actionRecommendBanner: ConvenientBanner<AppActivityDto>) {
-        val query = QueryDto.newBuilder()
-            .setPage(1)
-            .setPageSize(10)
-            .build()
         AppActivityService.getInstance()
-            .findAllApplyInfos(query, object : CallBack<ActivityCommonResponse>() {
+            .findAllActivityInfos(0, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
                     if (result == null) {
                         ToastUtils.showLong("查询活动超时!")

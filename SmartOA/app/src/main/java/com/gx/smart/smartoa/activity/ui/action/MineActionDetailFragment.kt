@@ -23,20 +23,8 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
     private var title: String? = null
     private var time: String? = null
     private var content: String? = null
-    private var comment: String? = null
-    private var activityId: Long? = null
+    private var activityId: Long? = 0
     private var flag: Boolean = false
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            title = it.getString(ARG_TITLE)
-            time = it.getString(ARG_TIME)
-            content = it.getString(ARG_CONTENT)
-            comment = it.getString(ARG_COMMENT)
-            activityId = it.getLong(ARG_ACTIVITY_ID)
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,6 +33,17 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
         return inflater.inflate(R.layout.fragment_mine_action_detail, container, false)
     }
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments
+        activity?.intent?.let {
+            title = it.getStringExtra(ARG_TITLE)
+            time = it.getStringExtra(ARG_TIME)
+            content = it.getStringExtra(ARG_CONTENT)
+            activityId = it.getLongExtra(ARG_ACTIVITY_ID, 0)
+        }
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -67,7 +66,6 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
         titleContent.text = title
         timeContent.text = time
         contentContent.text = content
-        commentText.text = comment
         submit.setOnClickListener(this)
         findApplyInfo(activityId!!)
     }
@@ -140,11 +138,14 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
                         flag = result.contentOrBuilderList.size > 0
                         submit?.let {
                             if (flag) {
-                                it.text = getString(R.string.apply_action)
-                                it.setBackgroundResource(R.color.background_style_two)
-                            } else {
                                 it.text = getString(R.string.cancel_action)
+                                commentText.text = result.contentOrBuilderList[0].mark
+                                commentText.isEnabled = false
                                 it.setBackgroundResource(R.color.background_style_eight)
+                            } else {
+                                it.text = getString(R.string.apply_action)
+                                commentText.isEnabled = true
+                                it.setBackgroundResource(R.color.background_style_two)
                             }
                         }
                     } else {
@@ -159,7 +160,6 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
         const val ARG_TITLE = "title"
         const val ARG_TIME = "time"
         const val ARG_CONTENT = "content"
-        const val ARG_COMMENT = "comment"
         const val ARG_ACTIVITY_ID = "activity_id"
     }
 }

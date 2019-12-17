@@ -23,4 +23,5 @@ public class AppConfig {
     public static final String SMART_HOME_SN = "1741hf14f2df425db6f228e21b3d8d86";
     public static final String ROOM_ID = "19";
     public static final String EMPLOYEE_ID = "employee_id";
+    public static final String SYS_TENANT_NO = "sys_tenant_no";
 }

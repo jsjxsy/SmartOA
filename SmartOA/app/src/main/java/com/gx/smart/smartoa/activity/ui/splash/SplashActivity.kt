@@ -13,12 +13,12 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.gx.smart.smartoa.IntroActivity
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.activity.ui.login.LoginActivity
 import com.gx.smart.smartoa.base.BaseActivity
 import com.gx.smart.smartoa.data.network.AppConfig
+import com.gx.smart.smartoa.data.network.api.AppEmployeeService
 import com.gx.smart.smartoa.data.network.api.AppMessagePushService
 import com.gx.smart.smartoa.data.network.api.AuthApiService
 import com.gx.smart.smartoa.data.network.api.UserCenterService
@@ -26,6 +26,7 @@ import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
 import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
+import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
 import com.gx.wisestone.work.app.grpc.push.UpdateMessagePushResponse
 
 class SplashActivity : BaseActivity() {
@@ -184,7 +185,7 @@ class SplashActivity : BaseActivity() {
                     }
                 } else {
                     ToastUtils.showLong(msg)
-                    LoginActivity()
+                    loginActivity()
                 }
             }
         }
@@ -202,25 +203,15 @@ class SplashActivity : BaseActivity() {
 
                 when (result.code) {
                     100 -> {
-                        ActivityUtils.startActivity(
-                            Intent(
-                                this@SplashActivity,
-                                MainActivity::class.java
-                            )
-                        )
-                        //用户已经绑定
+                        myCompany()
                     }
+                    //用户已经绑定
                     7003 -> {
-                        ActivityUtils.startActivity(
-                            Intent(
-                                this@SplashActivity,
-                                MainActivity::class.java
-                            )
-                        )
+                        myCompany()
                     }
                     else -> {
                         ToastUtils.showLong(result.msg)
-                        LoginActivity()
+                        loginActivity()
                     }
                 }
             }
@@ -228,7 +219,46 @@ class SplashActivity : BaseActivity() {
     }
 
 
+    private fun mainActivity() {
+        finish()
+        ActivityUtils.startActivity(
+            Intent(
+                this,
+                MainActivity::class.java
+            )
+        )
+    }
+
+    private fun myCompany() {
+        AppEmployeeService.getInstance()
+            .myCompany(
+                object : CallBack<AppMyCompanyResponse>() {
+                    override fun callBack(result: AppMyCompanyResponse?) {
+                        if (result == null) {
+                            ToastUtils.showLong("查询我的企业超时!")
+                            return
+                        }
+                        if (result?.code == 100) {
+                            val employeeList = result.employeeInfoList
+                            if (employeeList.isNotEmpty()) {
+                                val employeeInfo = employeeList[0]
+                                AppConfig.employeeId = employeeInfo.employeeId
+                                AppConfig.currentSysTenantNo = employeeInfo.tenantNo
+                            }
+                            mainActivity()
+                        } else {
+                            ToastUtils.showLong(result.msg)
+                            loginActivity()
+                        }
+                    }
+
+                })
+    }
+
+
     companion object {
         const val DELAY_TIME: Long = 1000 * 3
     }
+
+
 }

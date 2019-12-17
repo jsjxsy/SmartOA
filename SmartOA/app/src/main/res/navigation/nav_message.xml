@@ -42,4 +42,19 @@
             android:id="@+id/action_allFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
     </fragment>
+    <activity
+        android:id="@+id/mineActionActivity"
+        android:name="com.gx.smart.smartoa.activity.ui.action.MineActionActivity"
+        android:label="MineActionActivity"
+        tools:layout="@layout/fragment_mine_action" />
+    <action
+        android:id="@+id/action_global_mineActionActivity"
+        app:destination="@id/mineActionActivity">
+        <argument
+            android:name="fromMessage"
+            android:defaultValue="fromMessage"
+            app:argType="string"
+            app:nullable="false" />
+    </action>
+
 </navigation>
