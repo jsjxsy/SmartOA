@@ -22,7 +22,7 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
     private var title: String? = null
     private var time: String? = null
     private var content: String? = null
-    private var activityId: Long? = 0
+    private var activityId: Long? = null
     private var flag: Boolean = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,12 +35,20 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments
-        activity?.intent?.let {
-            title = it.getStringExtra(ARG_TITLE)
-            time = it.getStringExtra(ARG_TIME)
-            content = it.getStringExtra(ARG_CONTENT)
-            activityId = it.getLongExtra(ARG_ACTIVITY_ID, 0)
+        if (arguments != null && !arguments!!.isEmpty) {
+            arguments?.let {
+                title = it.getString(ARG_TITLE)
+                time = it.getString(ARG_TIME)
+                content = it.getString(ARG_CONTENT)
+                activityId = it.getLong(ARG_ACTIVITY_ID, 0)
+            }
+        } else {
+            activity?.intent?.let {
+                title = it.getStringExtra(ARG_TITLE)
+                time = it.getStringExtra(ARG_TIME)
+                content = it.getStringExtra(ARG_CONTENT)
+                activityId = it.getLongExtra(ARG_ACTIVITY_ID, 0)
+            }
         }
     }
 
@@ -151,8 +159,8 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
                         submit?.let {
                             if (flag) {
                                 it.text = getString(R.string.cancel_action)
-                                commentText.text = result.contentOrBuilderList[0].mark
-                                commentText.isEnabled = false
+                                commentTextContent.setText(result.contentOrBuilderList[0].mark)
+                                commentTextContent.isEnabled = false
                                 it.setBackgroundResource(R.color.background_style_eight)
                             } else {
                                 it.text = getString(R.string.apply_action)

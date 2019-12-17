@@ -131,6 +131,7 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
                         if (result?.code == 100) {
                             ToastUtils.showLong("申请成功!")
                             activity?.finish()
+                            SPUtils.getInstance().put(AppConfig.PLACE_NAME,companyName)
                         } else {
                             ToastUtils.showLong(result.msg)
                         }

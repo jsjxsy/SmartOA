@@ -88,7 +88,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                 args.putString(MineActionDetailFragment.ARG_CONTENT, item.content)
                 args.putLong(MineActionDetailFragment.ARG_ACTIVITY_ID, item.activityId)
                 if(flag){
-                    findNavController().navigate(R.id.action_newsFragment_to_detailFragment, args)
+                    findNavController().navigate(R.id.action_mineActionFragment_to_mineActionDetailFragment, args)
                 }else{
                     findNavController().navigate(R.id.action_global_mineActionActivity, args)
                 }
@@ -129,6 +129,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                     }
                     if (result?.code == 100) {
                         adapter.mList = result?.contentList
+                        adapter.notifyDataSetChanged()
                     } else {
                         ToastUtils.showLong(result?.msg)
                     }

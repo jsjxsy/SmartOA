@@ -21,12 +21,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.FileUtils
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.google.protobuf.ByteString
 import com.gx.smart.smartoa.BuildConfig
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AppRepairService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
@@ -45,14 +47,11 @@ class RepairFragment : Fragment(), View.OnClickListener {
     }
 
     private lateinit var viewModel: RepairViewModel
-    private var type: RepairType? = null
+    private var type: RepairType = RepairType(1, "设备损坏")
     private var imageString: ByteString? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
     }
 
     override fun onCreateView(
@@ -89,6 +88,8 @@ class RepairFragment : Fragment(), View.OnClickListener {
 
     private fun initContent() {
         save.setOnClickListener(this)
+        placeName.text = SPUtils.getInstance().getString(AppConfig.PLACE_NAME, "")
+        phone.setText(SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, ""))
         repair_type.setOnClickListener(this)
         addImage.setOnClickListener(this)
     }
@@ -105,12 +106,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
                 val content = contentEdit.text.toString()
                 val employeePhone = phone.text.toString()
                 val address = placeName.text.toString()
-
-                if (type == null) {
-                    ToastUtils.showLong("类型不能为空!")
-                    return
-                }
-                addRepair(content, type!!.type, address, employeePhone, imageString)
+                addRepair(content, type.type, address, employeePhone, imageString)
             }
 
             R.id.addImage -> uploadHeadImage()
