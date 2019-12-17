@@ -57,8 +57,8 @@ class LightItemOneViewBinder : ItemViewBinder<LightItemOne, LightItemOneViewBind
     }
 
     override fun onBindViewHolder(holder: TextHolder, item: LightItemOne) {
+        holder.adapterPosition
         holder.text.text = item.light.devName
-
         when (item.light.linkState) {
             "0" -> holder.text.isPressed = false
             "1" -> holder.text.isPressed = true
@@ -128,10 +128,12 @@ class LightItemOneViewBinder : ItemViewBinder<LightItemOne, LightItemOneViewBind
                             0 -> {
                                 fragment?.showLoadingSuccess()
                                 val newLight = DevDto.newBuilder(item.light).setVal(cmd).build()
-                                val lists = adapterItems.toMutableList()
-                                lists[position] = newLight
-                                adapterItems = lists.toList()
-                                adapter.notifyDataSetChanged()
+                                adapter.items.toMutableList().apply {
+                                    removeAt(position)
+                                    add(position, LightItemOne(newLight))
+                                    adapter.items = this
+                                }
+                                adapter.notifyItemChanged(position)
                             }
                             100 -> {
                                 fragment?.showLoading()

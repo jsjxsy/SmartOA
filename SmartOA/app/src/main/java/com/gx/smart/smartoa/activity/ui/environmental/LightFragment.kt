@@ -18,9 +18,8 @@ class LightFragment(private val lightList: List<DevDto>) : Fragment() {
 
     private lateinit var viewModel: LightViewModel
     private val adapter = MultiTypeAdapter()
-    private val items = ArrayList<Any>()
+    val items = ArrayList<Any>()
     var fragment: EnvironmentalControlFragment? = null
-    var mLightList: List<DevDto>? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,7 +37,8 @@ class LightFragment(private val lightList: List<DevDto>) : Fragment() {
         itemTwoViewBinder.fragment = fragment
         adapter.register(LightItemTwoViewBinder())
         lightRecyclerView.adapter = adapter
-        mLightList = lightList
+
+
         for (light in lightList) {
             when (light.category) {
                 "single_zf_switch", "single_fire_switch", "mechanical_switch", "l_color_dimmer_controller" -> {

@@ -13,7 +13,6 @@ import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ToastUtils
 import com.drakeet.multitype.ItemViewBinder
-import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.UnisiotApiService
@@ -32,10 +31,7 @@ class AirConditionerViewBinder :
 
     private var devComTask: GrpcAsyncTask<String, Void, UnisiotResp>? = null
     var fragment: EnvironmentalControlFragment? = null
-    var turnStatus = 0
-    var mode = 0
-    var windMode = 0
-    var temperature = 0
+
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
         val root =
             inflater.inflate(R.layout.item_environmental_control_air_conditioner, parent, false)
@@ -83,6 +79,10 @@ class AirConditionerViewBinder :
             holder.autoWind.visibility = View.VISIBLE
         }
 
+        var turnStatus = 0
+        var mode = 0
+        var windMode = 0
+        var temperature = 0
         val value: String = item.light.`val`
         //紫光平台返回数据不确定原因，导致编码暂时只能这么处理
         //"val":1,6,7,25,12
@@ -120,7 +120,7 @@ class AirConditionerViewBinder :
             turnStatus = value.toInt()
         }
         holder.switchLight.setOnClickListener {
-            openSwitch(turnStatus, item)
+            openSwitch(turnStatus, mode, windMode, temperature, item, holder.adapterPosition)
         }
         if (item.light.linkState != "1") {
             holder.text.isPressed = false
@@ -175,50 +175,64 @@ class AirConditionerViewBinder :
             holder.switchLight.isEnabled = true
             holder.auto.isEnabled = true
             holder.auto.setOnClickListener {
-                auto(mode, item)
+                auto(turnStatus, mode, windMode, temperature, item, holder.adapterPosition)
             }
             holder.refrigeration.isEnabled = true
             holder.refrigeration.setOnClickListener {
-                refrigeration(mode, item)
+                refrigeration(turnStatus, mode, windMode, temperature, item, holder.adapterPosition)
             }
             holder.hot.isEnabled = true
             holder.hot.setOnClickListener {
-                hot(mode, item)
+                hot(turnStatus, mode, windMode, temperature, item, holder.adapterPosition)
             }
             holder.water.isEnabled = true
             holder.water.setOnClickListener {
-                water(mode, item)
+                water(turnStatus, mode, windMode, temperature, item, holder.adapterPosition)
             }
             holder.wind.isEnabled = true
             holder.wind.setOnClickListener {
-                wind(mode, item)
+                wind(turnStatus, mode, windMode, temperature, item, holder.adapterPosition)
             }
             holder.lowWind.isEnabled = true
             holder.lowWind.setOnClickListener {
-                lowWind(mode, item)
+                lowWind(turnStatus, mode, windMode, temperature, item, holder.adapterPosition)
             }
             holder.midWind.isEnabled = true
             holder.midWind.setOnClickListener {
-                midWind(mode, item)
+                midWind(turnStatus, mode, windMode, temperature, item, holder.adapterPosition)
             }
             holder.highWind.isEnabled = true
             holder.highWind.setOnClickListener {
-                highWind(mode, item)
+                highWind(turnStatus, mode, windMode, temperature, item, holder.adapterPosition)
             }
             holder.autoWind.isEnabled = true
             holder.autoWind.setOnClickListener {
-                autoWind(mode, item)
+                autoWind(turnStatus, mode, windMode, temperature, item, holder.adapterPosition)
             }
             holder.switchLight.isChecked = turnStatus == 1
             holder.temperature.text = "$temperature"
             holder.add.isEnabled = true
             holder.add.setOnClickListener {
-                addTemperature(temperature, item)
+                addTemperature(
+                    turnStatus,
+                    mode,
+                    windMode,
+                    temperature,
+                    item,
+                    holder.adapterPosition
+                )
             }
 
             holder.dev.isEnabled = true
             holder.dev.setOnClickListener {
-                reduceTemperature(temperature, item)
+                reduceTemperature(
+                    turnStatus,
+                    mode,
+                    windMode,
+                    temperature,
+                    item,
+                    holder.adapterPosition
+                )
             }
 
             //红外空调特殊，只能限定几个温度值
@@ -336,7 +350,11 @@ class AirConditionerViewBinder :
         }
     }
 
-    private fun autoWind(mode: Int, item: AirConditioner) {
+    private fun autoWind(
+        turnStatus: Int, mode: Int,
+        windMode: Int,
+        temperature: Int, item: AirConditioner, position: Int
+    ) {
         if (turnStatus != 1) {
             ToastUtils.showLong("请先开启设备")
             return
@@ -347,10 +365,14 @@ class AirConditionerViewBinder :
             return
         }
         val cmd = 10.toString()
-        setStateAction(MODE_AUTO_WIND, cmd, item.light)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
     }
 
-    private fun highWind(mode: Int, item: AirConditioner) {
+    private fun highWind(
+        turnStatus: Int, mode: Int,
+        windMode: Int,
+        temperature: Int, item: AirConditioner, position: Int
+    ) {
         if (turnStatus != 1) {
             ToastUtils.showLong("请先开启设备")
             return
@@ -361,10 +383,14 @@ class AirConditionerViewBinder :
             return
         }
         val cmd = 9.toString()
-        setStateAction(MODE_HIGH_WIND, cmd, item.light)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
     }
 
-    private fun midWind(mode: Int, item: AirConditioner) {
+    private fun midWind(
+        turnStatus: Int, mode: Int,
+        windMode: Int,
+        temperature: Int, item: AirConditioner, position: Int
+    ) {
         if (turnStatus != 1) {
             ToastUtils.showLong("请先开启设备")
             return
@@ -375,10 +401,14 @@ class AirConditionerViewBinder :
             return
         }
         val cmd = 8.toString()
-        setStateAction(MODE_MID_WIND, cmd, item.light)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
     }
 
-    private fun lowWind(mode: Int, item: AirConditioner) {
+    private fun lowWind(
+        turnStatus: Int, mode: Int,
+        windMode: Int,
+        temperature: Int, item: AirConditioner, position: Int
+    ) {
         if (turnStatus != 1) {
             ToastUtils.showLong("请先开启设备")
             return
@@ -389,10 +419,14 @@ class AirConditionerViewBinder :
             return
         }
         val cmd = 7.toString()
-        setStateAction(MODE_LOW_WIND, cmd, item.light)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
     }
 
-    private fun wind(mode: Int, item: AirConditioner) {
+    private fun wind(
+        turnStatus: Int, mode: Int,
+        windMode: Int,
+        temperature: Int, item: AirConditioner, position: Int
+    ) {
         if (turnStatus != 1) {
             ToastUtils.showLong("请先开启设备")
             return
@@ -403,10 +437,14 @@ class AirConditionerViewBinder :
             return
         }
         val cmd = 6.toString()
-        setStateAction(MODE_WIND, cmd, item.light)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
     }
 
-    private fun water(mode: Int, item: AirConditioner) {
+    private fun water(
+        turnStatus: Int, mode: Int,
+        windMode: Int,
+        temperature: Int, item: AirConditioner, position: Int
+    ) {
         if (turnStatus != 1) {
             ToastUtils.showLong("请先开启设备")
             return
@@ -417,10 +455,14 @@ class AirConditionerViewBinder :
             return
         }
         val cmd = 4.toString()
-        setStateAction(MODE_WATER, cmd, item.light)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
     }
 
-    private fun hot(mode: Int, item: AirConditioner) {
+    private fun hot(
+        turnStatus: Int, mode: Int,
+        windMode: Int,
+        temperature: Int, item: AirConditioner, position: Int
+    ) {
         if (turnStatus != 1) {
             ToastUtils.showLong("请先开启设备")
             return
@@ -431,10 +473,14 @@ class AirConditionerViewBinder :
             return
         }
         val cmd = 3.toString()
-        setStateAction(MODE_HOT, cmd, item.light)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
     }
 
-    private fun refrigeration(mode: Int, item: AirConditioner) {
+    private fun refrigeration(
+        turnStatus: Int, mode: Int,
+        windMode: Int,
+        temperature: Int, item: AirConditioner, position: Int
+    ) {
         if (turnStatus != 1) {
             ToastUtils.showLong("请先开启设备")
             return
@@ -445,10 +491,14 @@ class AirConditionerViewBinder :
             return
         }
         val cmd = 2.toString()
-        setStateAction(MODE_REFRIGERATION, cmd, item.light)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
     }
 
-    private fun auto(mode: Int, item: AirConditioner) {
+    private fun auto(
+        turnStatus: Int, mode: Int,
+        windMode: Int,
+        temperature: Int, item: AirConditioner, position: Int
+    ) {
         if (turnStatus != 1) {
             ToastUtils.showLong("请先开启设备")
             return
@@ -459,7 +509,7 @@ class AirConditionerViewBinder :
             return
         }
         val cmd = 5.toString()
-        setStateAction(MODE_AUTO, cmd, item.light)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -479,7 +529,11 @@ class AirConditionerViewBinder :
         val add: AppCompatImageView = itemView.findViewById(R.id.add)
     }
 
-    private fun openSwitch(turnStatus: Int, item: AirConditioner) {
+    private fun openSwitch(
+        turnStatus: Int, mode: Int,
+        windMode: Int,
+        temperature: Int, item: AirConditioner, position: Int
+    ) {
         if (item.light.linkState != "1") {
             ToastUtils.showLong("设备离线")
             return
@@ -490,11 +544,15 @@ class AirConditionerViewBinder :
         } else {
             "1"
         }
-        setStateAction(TURN_STATUE, cmd, item.light)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
     }
 
 
-    private fun addTemperature(temperature: Int, item: AirConditioner) {
+    private fun addTemperature(
+        turnStatus: Int, mode: Int,
+        windMode: Int,
+        temperature: Int, item: AirConditioner, position: Int
+    ) {
         if (turnStatus != 1) {
             ToastUtils.showLong("请先开启设备")
             return
@@ -510,10 +568,14 @@ class AirConditionerViewBinder :
             } else {
                 (temperature + 1).toString()
             }
-        setStateAction(TEMPERATURE_ADD, cmd, item.light)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
     }
 
-    private fun reduceTemperature(temperature: Int, item: AirConditioner) {
+    private fun reduceTemperature(
+        turnStatus: Int, mode: Int,
+        windMode: Int,
+        temperature: Int, item: AirConditioner, position: Int
+    ) {
         if (turnStatus != 1) {
             ToastUtils.showLong("请先开启设备")
             return
@@ -530,11 +592,19 @@ class AirConditionerViewBinder :
             } else {
                 (temperature - 1).toString()
             }
-        setStateAction(TEMPERATURE_REDUCE, cmd, item.light)
+        setStateAction(turnStatus, mode, windMode, temperature, cmd, item.light, position)
     }
 
 
-    private fun setStateAction(type: Int, cmd: String, airConditioner: DevDto) {
+    private fun setStateAction(
+        turnStatus: Int,
+        mode: Int,
+        windMode: Int,
+        temperature: Int,
+        cmd: String,
+        airConditioner: DevDto,
+        position: Int
+    ) {
         fragment?.showLoadingView()
         devComTask = UnisiotApiService.getInstance().devCom(
             AppConfig.SMART_HOME_SN,
@@ -552,54 +622,16 @@ class AirConditionerViewBinder :
                     if (result.result == 0) {
                         when (result.result) {
                             0 -> {
-                                if (type == TURN_STATUE) {
-                                    turnStatus = if (turnStatus == 1) {
-                                        -1
-                                    } else {
-                                        1
-                                    }
+                                val newAirConditioner =
+                                    DevDto.newBuilder(airConditioner)
+                                        .setVal("${turnStatus},${mode},${windMode},${temperature}")
+                                        .build()
+                                adapter.items.toMutableList().apply {
+                                    removeAt(position)
+                                    add(position, AirConditioner(newAirConditioner))
+                                    adapter.items = this
                                 }
-
-                                if (type == TEMPERATURE_ADD) {
-                                    temperature += 1
-                                }
-
-                                if (type == TEMPERATURE_REDUCE) {
-                                    temperature -= 1
-                                }
-
-                                if (type == MODE_AUTO) {
-                                    mode = 5
-                                }
-
-                                if (type == MODE_REFRIGERATION) {
-                                    mode = 2
-                                }
-
-                                if (type == MODE_HOT) {
-                                    mode = 3
-                                }
-
-
-                                if (type == MODE_WATER) {
-                                    mode = 4
-                                }
-                                if (type == MODE_WIND) {
-                                    mode = 6
-                                }
-                                if (type == MODE_LOW_WIND) {
-                                    mode = 7
-                                }
-                                if (type == MODE_MID_WIND) {
-                                    mode = 8
-                                }
-
-                                if (type == MODE_HIGH_WIND) {
-                                    mode = 9
-                                }
-                                if (type == MODE_AUTO_WIND) {
-                                    mode = 10
-                                }
+                                adapter.notifyItemChanged(position)
                                 fragment?.showLoadingSuccess()
                             }
                             100 -> {
@@ -619,17 +651,7 @@ class AirConditionerViewBinder :
     companion object {
         const val TURN_STATUE = 1
 
-        const val MODE_REFRIGERATION = 2
-        const val MODE_AUTO = 3
-        const val MODE_HOT = 4
-        const val MODE_WATER = 5
-        const val MODE_WIND = 6
         const val MODE_LOW_WIND = 7
-        const val MODE_MID_WIND = 8
         const val MODE_HIGH_WIND = 9
-        const val MODE_AUTO_WIND = 10
-
-        const val TEMPERATURE_ADD = 4
-        const val TEMPERATURE_REDUCE = 5
     }
 }

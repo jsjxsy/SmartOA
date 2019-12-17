@@ -71,7 +71,7 @@ class CurtainItemViewBinder : ItemViewBinder<CurtainItem, CurtainItemViewBinder.
                 }
                 "1" -> {
                     fragment?.showLoadingView()
-                    setStateAction(1, item.light)
+                    setStateAction(1, item.light, holder.adapterPosition)
                 }
             }
         }
@@ -84,7 +84,7 @@ class CurtainItemViewBinder : ItemViewBinder<CurtainItem, CurtainItemViewBinder.
                 }
                 "1" -> {
                     fragment?.showLoadingView()
-                    setStateAction(-1, item.light)
+                    setStateAction(-1, item.light, holder.adapterPosition)
                 }
             }
         }
@@ -97,7 +97,7 @@ class CurtainItemViewBinder : ItemViewBinder<CurtainItem, CurtainItemViewBinder.
                 }
                 "1" -> {
                     fragment?.showLoadingView()
-                    setStateAction(2, item.light)
+                    setStateAction(2, item.light, holder.adapterPosition)
                 }
             }
         }
@@ -138,7 +138,7 @@ class CurtainItemViewBinder : ItemViewBinder<CurtainItem, CurtainItemViewBinder.
     }
 
 
-    private fun setStateAction(state: Int, curtain: DevDto) {
+    private fun setStateAction(state: Int, curtain: DevDto, position: Int) {
 
         val cmd = state.toString()
         devComTask = UnisiotApiService.getInstance().devCom(
@@ -158,6 +158,13 @@ class CurtainItemViewBinder : ItemViewBinder<CurtainItem, CurtainItemViewBinder.
                         when (result.result) {
                             0 -> {
                                 fragment?.showLoadingSuccess()
+                                val newCurtain = DevDto.newBuilder(curtain).setVal("$cmd,").build()
+                                adapter.items.toMutableList().apply {
+                                    removeAt(position)
+                                    add(position, CurtainItem(newCurtain))
+                                    adapter.items = this
+                                }
+                                adapter.notifyItemChanged(position)
                             }
                             100 -> {
                                 fragment?.showLoading()

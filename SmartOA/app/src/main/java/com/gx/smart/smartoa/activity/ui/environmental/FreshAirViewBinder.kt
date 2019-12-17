@@ -29,8 +29,7 @@ class FreshAirViewBinder : ItemViewBinder<FreshAir, FreshAirViewBinder.ViewHolde
 
     private var devComTask: GrpcAsyncTask<String, Void, UnisiotResp>? = null
     var fragment: EnvironmentalControlFragment? = null
-    var openSwitch = 0
-    var mode = 0
+
 
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
         val root = inflater.inflate(R.layout.item_environmental_control_fresh_air, parent, false)
@@ -39,75 +38,9 @@ class FreshAirViewBinder : ItemViewBinder<FreshAir, FreshAirViewBinder.ViewHolde
 
     override fun onBindViewHolder(holder: ViewHolder, item: FreshAir) {
         holder.text.text = item.light.devName
-        getState(item.light.`val`)
-        if (item.light.linkState != "1") {
-            holder.switchLight.isChecked = false
-            holder.text.isPressed = false
-            holder.wind.clearCheck()
-        } else {
-            holder.text.isPressed = true
-            holder.switchLight.isChecked = (openSwitch == 1)
-            holder.lowWind.isChecked = (mode == 7)
-            holder.highWind.isChecked = (mode == 9)
-        }
-        holder.switchLight.setOnClickListener {
-            openSwitch(openSwitch, item)
-        }
-        holder.lowWind.setOnClickListener {
-            lowWind(mode, item)
-        }
-
-        holder.highWind.setOnClickListener {
-            highWind(mode, item)
-        }
-    }
-
-
-    private fun openSwitch(turnStatus: Int, item: FreshAir) {
-        if (item.light.linkState != "1") {
-            ToastUtils.showLong("设备离线")
-            return
-        }
-
-        val cmd: String = if (turnStatus == 1) {
-            "-1"
-        } else {
-            "1"
-        }
-        setStateAction(AirConditionerViewBinder.TURN_STATUE, cmd, item.light)
-    }
-
-
-    private fun lowWind(mode: Int, item: FreshAir) {
-        if (openSwitch != 1) {
-            ToastUtils.showLong("请先开启设备")
-            return
-        }
-
-        if (mode == 7) {
-            ToastUtils.showLong("当前风速已是低风")
-            return
-        }
-        val cmd = 7.toString()
-        setStateAction(AirConditionerViewBinder.MODE_LOW_WIND, cmd, item.light)
-    }
-
-    private fun highWind(mode: Int, item: FreshAir) {
-        if (openSwitch != 1) {
-            ToastUtils.showLong("请先开启设备")
-            return
-        }
-
-        if (mode == 9) {
-            ToastUtils.showLong("当前风速已是强风")
-            return
-        }
-        val cmd = 9.toString()
-        setStateAction(AirConditionerViewBinder.MODE_HIGH_WIND, cmd, item.light)
-    }
-
-
-    private fun getState(value: String) {
+        var openSwitch = 0
+        var mode = 0
+        val value = item.light.`val`
         try {
             if (value.contains(",")) { //val:1,4,9,23,45,42,44,,,,,,
                 val devVal: List<String> = value.split(",")
@@ -123,7 +56,73 @@ class FreshAirViewBinder : ItemViewBinder<FreshAir, FreshAirViewBinder.ViewHolde
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
+        if (item.light.linkState != "1") {
+            holder.switchLight.isChecked = false
+            holder.text.isPressed = false
+            holder.wind.clearCheck()
+        } else {
+            holder.text.isPressed = true
+            holder.switchLight.isChecked = (openSwitch == 1)
+            holder.lowWind.isChecked = (mode == 7)
+            holder.highWind.isChecked = (mode == 9)
+        }
+        holder.switchLight.setOnClickListener {
+            openSwitch(openSwitch, mode, item, holder.adapterPosition)
+        }
+        holder.lowWind.setOnClickListener {
+            lowWind(openSwitch, mode, item, holder.adapterPosition)
+        }
+
+        holder.highWind.setOnClickListener {
+            highWind(openSwitch, mode, item, holder.adapterPosition)
+        }
     }
+
+
+    private fun openSwitch(turnStatus: Int, mode: Int, item: FreshAir, position: Int) {
+        if (item.light.linkState != "1") {
+            ToastUtils.showLong("设备离线")
+            return
+        }
+
+        val cmd: String = if (turnStatus == 1) {
+            "-1"
+        } else {
+            "1"
+        }
+        setStateAction(turnStatus, mode, cmd, item.light, position)
+    }
+
+
+    private fun lowWind(turnStatus: Int, mode: Int, item: FreshAir, position: Int) {
+        if (turnStatus != 1) {
+            ToastUtils.showLong("请先开启设备")
+            return
+        }
+
+        if (mode == 7) {
+            ToastUtils.showLong("当前风速已是低风")
+            return
+        }
+        val cmd = 7.toString()
+        setStateAction(turnStatus, mode, cmd, item.light, position)
+    }
+
+    private fun highWind(turnStatus: Int, mode: Int, item: FreshAir, position: Int) {
+        if (turnStatus != 1) {
+            ToastUtils.showLong("请先开启设备")
+            return
+        }
+
+        if (mode == 9) {
+            ToastUtils.showLong("当前风速已是强风")
+            return
+        }
+        val cmd = 9.toString()
+        setStateAction(turnStatus, mode, cmd, item.light, position)
+    }
+
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val text: TextView = itemView.findViewById(R.id.text)
@@ -134,14 +133,17 @@ class FreshAirViewBinder : ItemViewBinder<FreshAir, FreshAirViewBinder.ViewHolde
     }
 
 
-    private fun setStateAction(type: Int, cmd: String, airConditioner: DevDto) {
+    private fun setStateAction(
+        openSwitch: Int,
+        mode: Int, cmd: String, freshAir: DevDto, position: Int
+    ) {
         fragment?.showLoadingView()
         devComTask = UnisiotApiService.getInstance().devCom(
             AppConfig.SMART_HOME_SN,
-            java.lang.String.valueOf(airConditioner.uuid),
-            airConditioner.category,
-            airConditioner.model,
-            airConditioner.channel,
+            java.lang.String.valueOf(freshAir.uuid),
+            freshAir.category,
+            freshAir.model,
+            freshAir.channel,
             cmd,
             object : CallBack<UnisiotResp>() {
                 override fun callBack(result: UnisiotResp?) {
@@ -152,22 +154,16 @@ class FreshAirViewBinder : ItemViewBinder<FreshAir, FreshAirViewBinder.ViewHolde
                     if (result.result == 0) {
                         when (result.result) {
                             0 -> {
-                                if (type == TURN_STATUE) {
-                                    openSwitch = if (openSwitch == 1) {
-                                        -1
-                                    } else {
-                                        1
-                                    }
-                                }
-                                if (type == MODE_LOW_WIND) {
-                                    mode = 7
-                                }
-
-                                if (type == MODE_HIGH_WIND) {
-                                    mode = 9
-                                }
 
                                 fragment?.showLoadingSuccess()
+                                val newFreshAir =
+                                    DevDto.newBuilder(freshAir).setVal("$openSwitch,$mode").build()
+                                adapter.items.toMutableList().apply {
+                                    removeAt(position)
+                                    add(position, FreshAir(newFreshAir))
+                                    adapter.items = this
+                                }
+                                adapter.notifyItemChanged(position)
                             }
                             100 -> {
                                 fragment?.showLoading()
@@ -183,10 +179,4 @@ class FreshAirViewBinder : ItemViewBinder<FreshAir, FreshAirViewBinder.ViewHolde
             })
     }
 
-    companion object {
-        const val TURN_STATUE = 1
-
-        const val MODE_LOW_WIND = 7
-        const val MODE_HIGH_WIND = 9
-    }
 }

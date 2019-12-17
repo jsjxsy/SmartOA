@@ -43,7 +43,6 @@ class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBind
 
     private var devComTask: GrpcAsyncTask<String, Void, UnisiotResp>? = null
     var fragment: EnvironmentalControlFragment? = null
-    var statsValue = 0
 
     class TextHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val text: TextView = itemView.findViewById(R.id.text)
@@ -63,7 +62,7 @@ class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBind
 
     override fun onBindViewHolder(holder: TextHolder, item: LightItemTwo) {
         holder.text.text = item.light.devName
-        statsValue = getLightStatus(item.light.`val`)
+        val statsValue = getLightStatus(item.light.`val`)
         holder.switchLight.isChecked = (statsValue == 1)
         when (item.light.linkState) {
             "0" -> holder.text.isPressed = false
@@ -75,7 +74,7 @@ class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBind
                 "0" -> ToastUtils.showLong("设备离线")
                 "1" -> {
                     fragment?.showLoadingView()
-                    switchLightAction(statsValue, item.light)
+                    switchLightAction(statsValue, item.light, holder.adapterPosition)
                 }
             }
         }
@@ -140,6 +139,14 @@ class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBind
                                 when (result.result) {
                                     0 -> {
                                         fragment?.showLoadingSuccess()
+                                        val newLight = DevDto.newBuilder(item.light)
+                                            .setVal("$statsValue,$cmd").build()
+                                        adapter.items.toMutableList().apply {
+                                            removeAt(holder.adapterPosition)
+                                            add(holder.adapterPosition, LightItemTwo(newLight))
+                                            adapter.items = this
+                                        }
+                                        adapter.notifyItemChanged(holder.adapterPosition)
                                     }
                                     100 -> {
                                         fragment?.showLoading()
@@ -205,7 +212,8 @@ class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBind
 
     private fun switchLightAction(
         finalTurnStatus: Int,
-        light: DevDto
+        light: DevDto,
+        position: Int
     ) {
         val cmd = if (finalTurnStatus == 1) "-1" else "1"
         devComTask = UnisiotApiService.getInstance().devCom(
@@ -224,11 +232,13 @@ class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBind
                     if (result.code == 100) {
                         when (result.result) {
                             0 -> {
-                                statsValue = if (finalTurnStatus == 1) {
-                                    -1
-                                } else {
-                                    1
+                                val newLight = DevDto.newBuilder(light).setVal(cmd).build()
+                                adapter.items.toMutableList().apply {
+                                    removeAt(position)
+                                    add(position, LightItemTwo(newLight))
+                                    adapter.items = this
                                 }
+                                adapter.notifyItemChanged(position)
                                 fragment?.showLoadingSuccess()
                             }
                             100 -> {
