@@ -68,7 +68,9 @@ class MineVisitorRecordFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-
+        when (v?.id) {
+            R.id.left_nav_image_view -> activity?.onBackPressed()
+        }
     }
 
 }
