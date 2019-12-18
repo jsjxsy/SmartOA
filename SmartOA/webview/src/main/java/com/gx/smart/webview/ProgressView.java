@@ -17,7 +17,7 @@ import androidx.core.view.ViewCompat;
  **/
 //进度条
 public class ProgressView extends View {
-    int defaultColor = 0xFFFF4081;
+    int defaultColor = 0xFF245BAC;
 
     Paint progressPaint = null;
     Paint progressCircle = null;

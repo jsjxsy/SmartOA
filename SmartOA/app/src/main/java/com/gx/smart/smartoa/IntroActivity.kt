@@ -2,7 +2,9 @@ package com.gx.smart.smartoa
 
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import com.github.paolorotolo.appintro.AppIntro
@@ -15,17 +17,23 @@ class IntroActivity : AppIntro() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.statusBarColor = Color.TRANSPARENT
+        if (Build.VERSION.SDK_INT > 21) {
+            val decorView = window.decorView
+            decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            window.statusBarColor = Color.TRANSPARENT
+        }
+
 
         val sliderPage = SliderPage()
         sliderPage.title = "this is one"
-        sliderPage.description = "this is two"
+        sliderPage.description = "this is ont"
         sliderPage.imageDrawable = R.mipmap.home_banner_test
         sliderPage.bgColor = Color.WHITE
         addSlide(AppIntroFragment.newInstance(sliderPage))
 
         val sliderPage2 = SliderPage()
-        sliderPage2.title = "this is one"
+        sliderPage2.title = "this is two"
         sliderPage2.description = "this is two"
         sliderPage.bgColor = Color.WHITE
         sliderPage2.imageDrawable = R.mipmap.home_banner_test
