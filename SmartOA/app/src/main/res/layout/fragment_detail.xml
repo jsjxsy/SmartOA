@@ -33,7 +33,7 @@
             android:maxLines="1"
             android:textColor="@color/font_color_style_six"
             android:textSize="@dimen/font_size_style_two"
-            tools:text="标题" />
+            android:text="标题" />
 
         <TextView
             android:id="@+id/titleContent"
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_toRightOf="@id/titleText"
-            android:textColor="@color/font_color_style_seven"
+            android:textColor="@color/font_color_style_five"
             android:textSize="@dimen/font_size_style_one"
             tools:text="水箱清洗11111111111111111111111111111111111111111111111111111111111111111111" />
 
@@ -51,7 +51,7 @@
             android:layout_height="0.5dp"
             android:layout_below="@id/titleContent"
             android:layout_marginTop="@dimen/margin_style_four"
-            android:background="@drawable/shape_company_select_are_list_line" />
+            android:background="@color/background_style_five" />
 
         <TextView
             android:id="@+id/contentText"
@@ -65,7 +65,7 @@
             android:maxLines="1"
             android:textColor="@color/font_color_style_six"
             android:textSize="@dimen/font_size_style_two"
-            tools:text="内容" />
+            android:text="内容" />
 
         <TextView
             android:id="@+id/contentContent"
@@ -75,7 +75,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:layout_toRightOf="@id/contentText"
-            android:textColor="@color/font_color_style_seven"
+            android:textColor="@color/font_color_style_five"
             android:textSize="@dimen/font_size_style_one"
             tools:text="水箱清洗11111111111111111111111111111111111111111111111111111111111111111111" />
     </RelativeLayout>

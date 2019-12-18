@@ -5,8 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.TimeUtils
 import com.gx.smart.smartoa.R
 import com.gx.wisestone.work.app.grpc.information.AppAnnouncementDto
+import java.text.SimpleDateFormat
 
 /**
  * @author xiaosy
@@ -49,7 +51,8 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.ViewHolder>() {
         } else {
             holder.redFlag.visibility = View.VISIBLE
         }
-        holder.time.text = item.createTime.toString()
+        val format = SimpleDateFormat("yyyy-MM-dd")
+        holder.time.text = TimeUtils.millis2String(item.createTime, format)
     }
 
     fun setList(mList: List<AppAnnouncementDto>?) {

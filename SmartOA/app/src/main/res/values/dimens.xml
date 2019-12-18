@@ -8,6 +8,7 @@
     <dimen name="margin_style_six">40dp</dimen>
     <dimen name="margin_style_seven">4dp</dimen>
     <dimen name="margin_style_eight">12dp</dimen>
+    <dimen name="margin_style_night">8dp</dimen>
 
     <dimen name="radius_style_one">10dp</dimen>
     <dimen name="radius_style_two">5dp</dimen>
