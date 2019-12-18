@@ -13,6 +13,7 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.gx.smart.smartoa.IntroActivity
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.activity.ui.login.LoginActivity
@@ -81,9 +82,15 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun startEnter() {
-        val splashFragment = supportFragmentManager.findFragmentById(R.id.splashFragment)
-        (splashFragment as SplashFragment).showAd()
-//        startActivity(Intent(this , IntroActivity::class.java))
+        val first = SPUtils.getInstance().getBoolean(AppConfig.SH_FIRST_OPEN, true)
+        if (first) {
+            startActivity(Intent(this, IntroActivity::class.java))
+            SPUtils.getInstance().put(AppConfig.SH_FIRST_OPEN, false)
+            finish()
+        } else {
+            val splashFragment = supportFragmentManager.findFragmentById(R.id.splashFragment)
+            (splashFragment as SplashFragment).showAd()
+        }
     }
 
 

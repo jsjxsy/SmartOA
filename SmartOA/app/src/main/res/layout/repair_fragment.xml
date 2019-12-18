@@ -79,7 +79,6 @@
             android:gravity="center_vertical|right"
             android:layout_alignParentRight="true"
             android:hint="@string/input_contact_phone"
-            android:text="111111"
             android:textColor="@color/font_color_style_six"
             android:textSize="@dimen/font_size_style_one"
             android:background="@android:color/white"/>
@@ -162,6 +161,8 @@
             android:gravity="start"
             android:layout_alignParentRight="true"
             android:hint="@string/input_content"
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:textColor="@color/font_color_style_six"
             android:textSize="@dimen/font_size_style_one"/>
 
