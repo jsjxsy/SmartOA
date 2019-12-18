@@ -66,6 +66,8 @@ class NewsFragment : Fragment() {
                     if (result?.code == 100) {
                         val appInformationNoticeRecordDtoList =
                             result.appInformationNoticeRecordDtoOrBuilderList.toList()
+                        if(appInformationNoticeRecordDtoList.isEmpty()){
+                        }
                         adapter.setList(appInformationNoticeRecordDtoList)
                         adapter.notifyDataSetChanged()
                     } else {
