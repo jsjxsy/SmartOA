@@ -36,11 +36,14 @@
 
         <TextView
             android:id="@+id/companyNameText"
-            android:layout_width="wrap_content"
+            android:layout_width="144dp"
             android:layout_height="@dimen/list_item_height_style"
             android:layout_alignParentRight="true"
-            android:gravity="center"
-            android:text="国际中心" />
+            android:gravity="center_vertical"
+            android:ellipsize="end"
+            android:text="国际中心"
+            android:textColor="@color/font_color_style_six"
+            android:textSize="@dimen/font_size_style_one" />
     </RelativeLayout>
 
     <View
@@ -76,7 +79,9 @@
             android:background="@android:color/white"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
-            android:hint="@string/input_real_name" />
+            android:hint="@string/input_real_name"
+            android:textColor="@color/font_color_style_six"
+            android:textSize="@dimen/font_size_style_one" />
     </RelativeLayout>
 
     <View
@@ -113,7 +118,9 @@
             android:background="@android:color/white"
             android:drawablePadding="10dp"
             android:gravity="center_vertical"
-            android:hint="@string/input_phone_number" />
+            android:hint="@string/input_phone_number"
+            android:textColor="@color/font_color_style_six"
+            android:textSize="@dimen/font_size_style_one" />
     </RelativeLayout>
 
     <View
