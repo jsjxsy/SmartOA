@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         app:layout_constraintTop_toBottomOf="@id/title">
+
         <EditText
             android:id="@+id/suggestionEdit"
             android:layout_width="match_parent"
@@ -30,12 +31,8 @@
             android:background="@drawable/shape_edit_text_background"
             android:gravity="start"
             android:hint="@string/input_suggestion"
-            android:padding="@dimen/margin_style_two"
-             />
+            android:padding="@dimen/margin_style_two" />
     </LinearLayout>
-
-
-
 
     <Button
         android:id="@+id/submit"

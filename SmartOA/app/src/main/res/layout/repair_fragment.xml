@@ -38,10 +38,12 @@
 
         <TextView
             android:id="@+id/placeName"
-            android:layout_width="wrap_content"
+            android:layout_width="144dp"
             android:layout_height="@dimen/list_item_height_style"
             android:layout_alignParentRight="true"
-            android:gravity="center"
+            android:gravity="center_vertical|right"
+            android:textColor="@color/font_color_style_six"
+            android:textSize="@dimen/font_size_style_one"
             android:text="国际中心" />
     </RelativeLayout>
     <View
@@ -77,8 +79,12 @@
             android:gravity="center_vertical|right"
             android:layout_alignParentRight="true"
             android:hint="@string/input_contact_phone"
+            android:text="111111"
+            android:textColor="@color/font_color_style_six"
+            android:textSize="@dimen/font_size_style_one"
             android:background="@android:color/white"/>
     </RelativeLayout>
+
     <View
         android:id="@+id/lineThree"
         android:layout_width="match_parent"
@@ -113,6 +119,8 @@
             android:gravity="center_vertical|right"
             android:drawableRight="@drawable/ic_more_info"
             android:drawablePadding="8dp"
+            android:textColor="@color/font_color_style_six"
+            android:textSize="@dimen/font_size_style_one"
             android:text="设备损坏" />
     </RelativeLayout>
     <View
@@ -148,9 +156,14 @@
             android:id="@+id/contentEdit"
             android:layout_width="match_parent"
             android:layout_toRightOf="@id/content"
-            android:layout_height="@dimen/list_item_height_style"
+            android:layout_height="80dp"
+            android:padding="12dp"
+            android:background="@android:color/white"
+            android:gravity="start"
             android:layout_alignParentRight="true"
-            android:hint="@string/input_content" />
+            android:hint="@string/input_content"
+            android:textColor="@color/font_color_style_six"
+            android:textSize="@dimen/font_size_style_one"/>
 
         <ImageView
             android:layout_below="@id/content"
