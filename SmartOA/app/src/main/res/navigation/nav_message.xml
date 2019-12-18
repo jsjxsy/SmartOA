@@ -7,8 +7,7 @@
     <fragment
         android:id="@+id/messagesFragment"
         android:name="com.gx.smart.smartoa.activity.ui.messages.MessagesFragment"
-        android:label="messagesFragment">
-    </fragment>
+        android:label="messagesFragment" />
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.gx.smart.smartoa.activity.ui.messages.DetailFragment"
@@ -18,7 +17,7 @@
         android:id="@+id/newsFragment"
         android:name="com.gx.smart.smartoa.activity.ui.messages.NewsFragment"
         android:label="newsFragment"
-        tools:layout="@layout/news_fragment" >
+        tools:layout="@layout/news_fragment">
         <action
             android:id="@+id/action_newsFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
@@ -28,16 +27,14 @@
         android:id="@+id/noticeFragment"
         android:name="com.gx.smart.smartoa.activity.ui.messages.NoticeFragment"
         android:label="newsFragment"
-        tools:layout="@layout/news_fragment" >
-        <action
-            android:id="@+id/action_noticeFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+        tools:layout="@layout/news_fragment">
+
     </fragment>
     <fragment
         android:id="@+id/allFragment"
         android:name="com.gx.smart.smartoa.activity.ui.messages.AllFragment"
         android:label="allFragment"
-        tools:layout="@layout/all_fragment" >
+        tools:layout="@layout/all_fragment">
         <action
             android:id="@+id/action_allFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
@@ -56,5 +53,9 @@
             app:argType="string"
             app:nullable="false" />
     </action>
+
+    <action
+        android:id="@+id/action_noticeFragment_to_detailFragment"
+        app:destination="@id/detailFragment" />
 
 </navigation>

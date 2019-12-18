@@ -13,8 +13,7 @@ import com.gx.wisestone.work.app.grpc.information.AppAnnouncementDto
  * @create 2019-11-20
  * @Describe
  */
-class NoticeAdapter :
-    RecyclerView.Adapter<NoticeAdapter.ViewHolder>() {
+class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.ViewHolder>() {
     private var onItemClick: OnItemClickListener? =
         null
     private var mList: List<AppAnnouncementDto>? = null
@@ -36,7 +35,11 @@ class NoticeAdapter :
         position: Int
     ) {
         if (onItemClick != null) {
-            holder.setOnItemClick(onItemClick)
+            holder.itemView.setOnClickListener { v ->
+                if (onItemClick != null) {
+                    onItemClick!!.onItemClick(v, position)
+                }
+            }
         }
         val item = mList!![position]
         holder.title.text = item.title
@@ -65,29 +68,11 @@ class NoticeAdapter :
         fun onItemClick(view: View?, position: Int)
     }
 
-    class ViewHolder internal constructor(itemView: View) :
-        RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
-        private var onItemClick: OnItemClickListener? = null
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.title)
         val time: TextView = itemView.findViewById(R.id.time)
         val redFlag: View = itemView.findViewById(R.id.redFlag)
         val subTitle: TextView = itemView.findViewById(R.id.subTitle)
 
-        fun setOnItemClick(onItemClick: OnItemClickListener?) {
-            this.onItemClick = onItemClick
-        }
-
-        override fun onClick(v: View) {
-            itemView.setOnClickListener { v ->
-                if (onItemClick != null) {
-                    onItemClick!!.onItemClick(v, layoutPosition)
-                }
-            }
-        }
-
-        init {
-            itemView.setOnClickListener(this)
-        }
     }
 }

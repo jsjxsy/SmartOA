@@ -93,8 +93,9 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
 
     private fun initContent() {
         getDevList()
-        mPagerAdapter = PageAdapter(fragmentManager!!)
+        mPagerAdapter = PageAdapter(childFragmentManager!!)
         viewPager.adapter = mPagerAdapter
+        viewPager.offscreenPageLimit = 3
         id_environmental_control_tab.setupWithViewPager(viewPager)
     }
 

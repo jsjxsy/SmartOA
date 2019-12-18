@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
@@ -45,7 +46,7 @@ class NewsFragment : Fragment() {
                 val args = Bundle()
                 args.putString(DetailFragment.ARG_TITLE, item.title)
                 args.putString(DetailFragment.ARG_CONTENT, item.content)
-                findNavController().navigate(R.id.action_newsFragment_to_detailFragment)
+                Navigation.findNavController(view!!).navigate(R.id.action_newsFragment_to_detailFragment)
             }
 
         }
