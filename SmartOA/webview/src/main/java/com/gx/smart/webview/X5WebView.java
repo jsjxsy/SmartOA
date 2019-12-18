@@ -35,7 +35,7 @@ import com.tencent.smtt.sdk.WebViewClient;
 //自定义x5WebView
 public class X5WebView extends WebView {
     private static final String TAG = "x5webview";
-    int progressColor = 0xFFFF4081;
+    int progressColor = 0xFF245BAC;
     ProgressView mProgressView; //自定义WebView加载进度条
     TextView titleText;
     Context context;

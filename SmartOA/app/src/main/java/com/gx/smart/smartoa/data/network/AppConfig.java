@@ -26,4 +26,6 @@ public class AppConfig {
     public static final String SYS_TENANT_NO = "sys_tenant_no";
     public static final String PLACE_NAME = "place";
 
+    public static String JGPushMsg;
+    public static String JGPushContent;
 }

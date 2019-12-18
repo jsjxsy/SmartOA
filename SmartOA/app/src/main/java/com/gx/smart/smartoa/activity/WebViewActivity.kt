@@ -49,6 +49,7 @@ class WebViewActivity : BaseActivity() {
 
     private fun init() {
         mWebView = X5WebView(this, null)
+
         mViewParent = fullWebView
         mViewParent.addView(
             mWebView, FrameLayout.LayoutParams(
@@ -56,6 +57,7 @@ class WebViewActivity : BaseActivity() {
                 FrameLayout.LayoutParams.MATCH_PARENT
             )
         )
+
     }
 
     override fun onDestroy() {

@@ -2,14 +2,13 @@ package com.gx.smart.push
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import cn.jpush.android.api.*
 import cn.jpush.android.service.JPushMessageReceiver
 
 class PushMessageReceiver : JPushMessageReceiver() {
+
+    lateinit var mPushProxyCallBack: PushProxyCallBack
     override fun onMessage(context: Context?, customMessage: CustomMessage?) {
         Log.e(TAG, "[onMessage] " + customMessage!!)
         processCustomMessage(context, customMessage)
@@ -95,6 +94,8 @@ class PushMessageReceiver : JPushMessageReceiver() {
 
     //send msg to MainActivity
     private fun processCustomMessage(context: Context?, customMessage: CustomMessage?) {
+        mPushProxyCallBack.processPushMsg(context, customMessage?.message)
+        mPushProxyCallBack.processPushMsg(context, customMessage?.message, customMessage?.extra)
         //        if (MainActivity.isForeground) {
         //            String message = customMessage.message;
         //            String extras = customMessage.extra;

@@ -1,11 +1,18 @@
 package com.gx.smart.smartoa
 
+import android.app.AlertDialog
 import android.app.Application
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.os.Build
 import android.text.TextUtils
 import cn.jpush.android.api.JPushInterface
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.Utils
 import com.gx.smart.smartoa.data.network.AppConfig
+import com.gx.smart.smartoa.push.PushMessageConstants.*
 import com.gx.smart.webview.X5NetService
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
@@ -22,6 +29,8 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader
  * @Describe
  */
 class SmartOAApplication : Application() {
+
+    private lateinit var mJGPushReceiver: JGPushReceiver
 
     init {
         //设置全局的Header构建器
@@ -48,6 +57,7 @@ class SmartOAApplication : Application() {
         Utils.init(this)
         preInitX5Core()
         Logger.d("SmartOAApplication initLogger")
+        disableAPIDialog()
         initPush()
         CrashHandler.instance.init(this)
     }
@@ -77,6 +87,68 @@ class SmartOAApplication : Application() {
             AppConfig.mJiGuangToken = jPushToken
         }
         Logger.d("push", "jPushToken:$jPushToken")
+        registerJGPushBroadcast()
+    }
+
+    /**
+     * 反射 禁止弹窗
+     */
+    private fun disableAPIDialog() {
+        if (Build.VERSION.SDK_INT < 28) return
+        try {
+            val clazz = Class.forName("android.app.ActivityThread")
+            val currentActivityThread =
+                clazz.getDeclaredMethod("currentActivityThread")
+            currentActivityThread.isAccessible = true
+            val activityThread = currentActivityThread.invoke(null)
+            val mHiddenApiWarningShown =
+                clazz.getDeclaredField("mHiddenApiWarningShown")
+            mHiddenApiWarningShown.isAccessible = true
+            mHiddenApiWarningShown.setBoolean(activityThread, true)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    //自定义接受房屋变化的广播接收器
+    internal class JGPushReceiver : BroadcastReceiver() {
+        private var dialog: AlertDialog? = null
+
+        override fun onReceive(
+            context: Context,
+            intent: Intent
+        ) {
+            when (intent.action) {
+                else -> {
+                    if (dialog != null && dialog!!.isShowing) {
+                        dialog?.dismiss()
+                    }
+                    dialog =
+                        AlertDialog.Builder(ActivityUtils.getTopActivity())
+                            .setTitle(AppConfig.JGPushContent).setMessage(AppConfig.JGPushMsg)
+                            .setCancelable(false)
+                            .setPositiveButton(
+                                "确定"
+                            ) { dialog, _ ->
+                                dialog.dismiss()
+                            }.show()
+                }
+            }
+        }
+    }
+
+    private fun registerJGPushBroadcast() {
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(ACTION_JGPUSH_SMARTHOME)
+        intentFilter.addAction(ACTION_JGPUSH_SMARTVISITOR)
+        intentFilter.addAction(ACTION_JGPUSH_FAMILYCARE)
+        intentFilter.addAction(ACTION_JGPUSH_ADDFAMILYMEMBERS)
+        intentFilter.addAction(ACTION_JGPUSH_BINDINGHOUSE)
+        intentFilter.addAction(ACTION_JGPUSH_CHANGEPHONENUMBER)
+        intentFilter.addAction(ACTION_JGPUSH_HAWKEYEMONITORING)
+        intentFilter.addAction(ACTION_JGPUSH_DELETEFAMILYMEMBER)
+        mJGPushReceiver = JGPushReceiver()
+        registerReceiver(mJGPushReceiver, intentFilter)
     }
 
 

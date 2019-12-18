@@ -18,6 +18,8 @@ import com.gx.wisestone.core.grpc.lib.common.QueryDto
 import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
 import kotlinx.android.synthetic.main.fragment_mine_action.*
+import kotlinx.android.synthetic.main.fragment_mine_action.emptyLayout
+import kotlinx.android.synthetic.main.fragment_mine_action.refreshLayout
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.layout_common_title.title
 import kotlinx.android.synthetic.main.list_action_layout.recyclerView
@@ -129,6 +131,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         AppActivityService.getInstance()
             .findMyApplyInfos(query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
+                    refreshLayout.finishRefresh()
                     if (result == null) {
                         ToastUtils.showLong("查询活动超时!")
                         return
@@ -158,6 +161,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                 object : CallBack<AppMyCompanyResponse>() {
                     override fun callBack(result: AppMyCompanyResponse?) {
                         if (result == null) {
+                            refreshLayout.finishRefresh()
                             ToastUtils.showLong("查询我的企业超时!")
                             return
                         }
@@ -169,6 +173,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                                 AppConfig.currentSysTenantNo = employeeInfo.tenantNo
                                 findMyApplyInfos()
                             } else {
+                                refreshLayout.finishRefresh()
                                 ToastUtils.showLong("企业申请还没通过!")
                             }
 
@@ -185,6 +190,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         AppActivityService.getInstance()
             .findAllActivityInfos(0, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
+                    refreshLayout.finishRefresh()
                     if (result == null) {
                         ToastUtils.showLong("查询活动超时!")
                         return

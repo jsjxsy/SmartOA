@@ -63,6 +63,7 @@ class NewsFragment : Fragment() {
         AppInformationService.getInstance()
             .getInformation(object : CallBack<AppInformationResponse>() {
                 override fun callBack(result: AppInformationResponse?) {
+                    refreshLayout.finishRefresh()
                     if (result == null) {
                         ToastUtils.showLong("获取消息超时!")
                         return
