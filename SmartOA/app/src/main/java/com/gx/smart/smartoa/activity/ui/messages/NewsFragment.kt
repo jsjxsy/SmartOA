@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.AppInformationService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.information.AppInformationResponse
+import kotlinx.android.synthetic.main.item_environmental_control_air_conditioner.*
+import kotlinx.android.synthetic.main.item_environmental_control_air_conditioner.view.*
 import kotlinx.android.synthetic.main.news_fragment.*
 
 class NewsFragment : Fragment() {
@@ -46,13 +47,16 @@ class NewsFragment : Fragment() {
                 val args = Bundle()
                 args.putString(DetailFragment.ARG_TITLE, item.title)
                 args.putString(DetailFragment.ARG_CONTENT, item.content)
-                Navigation.findNavController(view!!).navigate(R.id.action_newsFragment_to_detailFragment)
+                Navigation.findNavController(activity!!, R.id.messagesFragmentEnter).navigate(R.id.action_noticeFragment_to_detailFragment, args)
             }
 
         }
         adapter.setOnItemClick(onItemClick)
         recyclerView.adapter = adapter
-        getInformation()
+        refreshLayout.setOnRefreshListener {
+            getInformation()
+        }
+       refreshLayout.autoRefresh()
     }
 
     private fun getInformation() {
@@ -67,9 +71,12 @@ class NewsFragment : Fragment() {
                         val appInformationNoticeRecordDtoList =
                             result.appInformationNoticeRecordDtoOrBuilderList.toList()
                         if(appInformationNoticeRecordDtoList.isEmpty()){
+                            emptyLayout.visibility = View.VISIBLE
+                        }else{
+                            emptyLayout.visibility = View.GONE
+                            adapter.setList(appInformationNoticeRecordDtoList)
+                            adapter.notifyDataSetChanged()
                         }
-                        adapter.setList(appInformationNoticeRecordDtoList)
-                        adapter.notifyDataSetChanged()
                     } else {
                         ToastUtils.showLong(result.msg)
                     }

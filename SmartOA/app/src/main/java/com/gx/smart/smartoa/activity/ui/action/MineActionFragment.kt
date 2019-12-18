@@ -1,7 +1,6 @@
 package com.gx.smart.smartoa.activity.ui.action
 
 
-import android.content.Intent.getIntent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,8 +17,10 @@ import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.core.grpc.lib.common.QueryDto
 import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
+import kotlinx.android.synthetic.main.fragment_mine_action.*
 import kotlinx.android.synthetic.main.layout_common_title.*
-import kotlinx.android.synthetic.main.list_action_layout.*
+import kotlinx.android.synthetic.main.layout_common_title.title
+import kotlinx.android.synthetic.main.list_action_layout.recyclerView
 
 /**
  * A simple [Fragment] subclass.
@@ -87,9 +88,12 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                 )
                 args.putString(MineActionDetailFragment.ARG_CONTENT, item.content)
                 args.putLong(MineActionDetailFragment.ARG_ACTIVITY_ID, item.activityId)
-                if(flag){
-                    findNavController().navigate(R.id.action_mineActionFragment_to_mineActionDetailFragment, args)
-                }else{
+                if (flag) {
+                    findNavController().navigate(
+                        R.id.action_mineActionFragment_to_mineActionDetailFragment,
+                        args
+                    )
+                } else {
                     findNavController().navigate(R.id.action_global_mineActionActivity, args)
                 }
 
@@ -98,11 +102,14 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         }
         adapter.onItemClick = onItemClick
         recyclerView.adapter = adapter
-        if (flag) {
-            myCompany()
-        } else {
-            findAllActivityInfos()
+        refreshLayout.setOnRefreshListener {
+            if (flag) {
+                myCompany()
+            } else {
+                findAllActivityInfos()
+            }
         }
+        refreshLayout.autoRefresh()
 
     }
 
@@ -110,7 +117,6 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()
         }
-
 
     }
 
@@ -128,8 +134,15 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                         return
                     }
                     if (result?.code == 100) {
-                        adapter.mList = result?.contentList
-                        adapter.notifyDataSetChanged()
+                        val list = result?.contentList
+                        if (list.isEmpty()) {
+                            emptyLayout.visibility = View.VISIBLE
+                        } else {
+                            emptyLayout.visibility = View.GONE
+                            adapter.mList = list
+                            adapter.notifyDataSetChanged()
+                        }
+
                     } else {
                         ToastUtils.showLong(result?.msg)
                     }
@@ -177,8 +190,14 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                         return
                     }
                     if (result?.code == 100) {
-                        adapter.mList = result.contentList
-                        adapter.notifyDataSetChanged()
+                        val list = result.contentList
+                        if (list.isEmpty()) {
+                            emptyLayout.visibility = View.VISIBLE
+                        } else {
+                            emptyLayout.visibility = View.GONE
+                            adapter.mList = list
+                            adapter.notifyDataSetChanged()
+                        }
                     } else {
                         ToastUtils.showLong(result.msg)
                     }

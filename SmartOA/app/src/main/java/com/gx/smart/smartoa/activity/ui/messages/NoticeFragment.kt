@@ -53,7 +53,10 @@ class NoticeFragment : Fragment() {
         }
         adapter.setOnItemClick(onItemClick)
         recyclerView.adapter = adapter
-        getAnnouncement()
+        refreshLayout.setOnRefreshListener {
+            getAnnouncement()
+        }
+        refreshLayout.autoRefresh()
     }
 
 
@@ -68,8 +71,13 @@ class NoticeFragment : Fragment() {
                     if (result?.code == 100) {
                         val appAnnouncementDtoList =
                             result.appAnnouncementDtoList.toList()
-                        adapter.setList(appAnnouncementDtoList)
-                        adapter.notifyDataSetChanged()
+                        if(appAnnouncementDtoList.isEmpty()) {
+                            emptyLayout.visibility = View.VISIBLE
+                        }else{
+                            emptyLayout.visibility = View.GONE
+                            adapter.setList(appAnnouncementDtoList)
+                            adapter.notifyDataSetChanged()
+                        }
                     } else {
                         ToastUtils.showLong(result.msg)
                     }
