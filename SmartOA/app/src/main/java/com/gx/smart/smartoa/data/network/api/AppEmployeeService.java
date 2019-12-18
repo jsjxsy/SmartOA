@@ -13,6 +13,7 @@ import com.gx.wisestone.work.app.grpc.employee.AppEmployeeInterfaceGrpc;
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse;
 import com.gx.wisestone.work.app.grpc.employee.CancelCompanyBindRequest;
 import com.gx.wisestone.work.app.grpc.employee.MyCompanyRequest;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -65,7 +66,7 @@ public class AppEmployeeService {
                 try {
                     response = getAppEmployeeStub(channel).cancelCompanyBind(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Logger.e("AppEmployeeService", e.getMessage());
                 }
 
                 return response;
@@ -90,7 +91,7 @@ public class AppEmployeeService {
                 try {
                     response = getAppEmployeeStub(channel).myCompany(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Logger.e("AppEmployeeService", e.getMessage());
                 }
 
                 return response;

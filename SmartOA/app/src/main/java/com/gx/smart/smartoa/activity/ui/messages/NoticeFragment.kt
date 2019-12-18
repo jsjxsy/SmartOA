@@ -52,11 +52,11 @@ class NoticeFragment : Fragment() {
         }
         adapter.setOnItemClick(onItemClick)
         recyclerView.adapter = adapter
-        getInformation()
+        getAnnouncement()
     }
 
 
-    private fun getInformation() {
+    private fun getAnnouncement() {
         AppInformationService.getInstance()
             .getAnnouncement(object : CallBack<AppAnnouncementResponse>() {
                 override fun callBack(result: AppAnnouncementResponse?) {
@@ -68,6 +68,7 @@ class NoticeFragment : Fragment() {
                         val appAnnouncementDtoList =
                             result.appAnnouncementDtoList.toList()
                         adapter.setList(appAnnouncementDtoList)
+                        adapter.notifyDataSetChanged()
                     } else {
                         ToastUtils.showLong(result.msg)
                     }

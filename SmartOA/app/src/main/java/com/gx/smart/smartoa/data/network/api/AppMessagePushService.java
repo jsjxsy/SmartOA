@@ -7,6 +7,7 @@ import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
 import com.gx.wisestone.work.app.grpc.push.AppMessagePushProviderGrpc;
 import com.gx.wisestone.work.app.grpc.push.UpdateMessagePushDto;
 import com.gx.wisestone.work.app.grpc.push.UpdateMessagePushResponse;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -61,7 +62,7 @@ public class AppMessagePushService {
                 try {
                     response = getMessagePushStub(channel).updateMessagePush(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Logger.e("AppMessagePushService", e.getMessage());
                 }
 
                 return response;

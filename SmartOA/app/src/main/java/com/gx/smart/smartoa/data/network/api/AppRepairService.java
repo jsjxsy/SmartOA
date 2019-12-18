@@ -1,7 +1,5 @@
 package com.gx.smart.smartoa.data.network.api;
 
-import android.util.Log;
-
 import com.google.protobuf.ByteString;
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
@@ -10,6 +8,7 @@ import com.gx.wisestone.work.app.grpc.repair.AppRepairInterfaceGrpc;
 import com.gx.wisestone.work.app.grpc.repair.QueryMyRepairRequest;
 import com.gx.wisestone.work.app.grpc.repair.RepairCommonResponse;
 import com.gx.wisestone.work.app.grpc.repair.RepairRequest;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -77,7 +76,7 @@ public class AppRepairService {
                 try {
                     response = getAppRepairStub(channel).addRepair(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Logger.e("AppRepairService", e.getMessage());
                 }
 
                 return response;
@@ -100,7 +99,7 @@ public class AppRepairService {
                 try {
                     response = getAppRepairStub(channel).queryMyRepair(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Logger.e("AppRepairService", e.getMessage());
                 }
 
                 return response;

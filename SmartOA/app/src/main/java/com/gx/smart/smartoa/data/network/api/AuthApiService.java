@@ -281,7 +281,7 @@ public class AuthApiService {
      * @param user_space 手机号
      * @return callBack返回值
      */
-    public static GrpcAsyncTask<String, Void, TokenKeysResp> tokenKeys(final int type, final String user_space, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, TokenKeysResp> tokenKeys(final int type, final String user_space, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, TokenKeysResp>(callBack) {
             @Override
             protected TokenKeysResp doRequestData(ManagedChannel channel) {

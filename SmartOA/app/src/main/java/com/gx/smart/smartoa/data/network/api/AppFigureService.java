@@ -8,6 +8,7 @@ import com.gx.wisestone.work.app.grpc.appfigure.AppFigureInterfaceGrpc;
 import com.gx.wisestone.work.app.grpc.appfigure.BannerFigureRequest;
 import com.gx.wisestone.work.app.grpc.appfigure.CarouselFigureRequest;
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesResponse;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -60,7 +61,7 @@ public class AppFigureService {
                 try {
                     response = getAppFigureStub(channel).bannerFigure(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Logger.e("AppFigureService", e.getMessage());
                 }
 
                 return response;
@@ -83,7 +84,7 @@ public class AppFigureService {
                 try {
                     response = getAppFigureStub(channel).carouselFigure(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Logger.e("AppFigureService", e.getMessage());
                 }
 
                 return response;

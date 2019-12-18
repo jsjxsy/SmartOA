@@ -12,6 +12,7 @@ import com.gx.wisestone.work.app.grpc.activity.AppActivityApplyDto;
 import com.gx.wisestone.work.app.grpc.activity.AppActivityApplyResponse;
 import com.gx.wisestone.work.app.grpc.activity.AppActivityInterfaceGrpc;
 import com.gx.wisestone.work.app.grpc.activity.AppActivityResponse;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -163,7 +164,7 @@ public class AppActivityService {
                 try {
                     response = getAppActivityStub(channel).cancelApply(message);
                 } catch (Exception e) {
-                    Log.e("AppActivityService", e.getMessage());
+                    Logger.e("AppActivityService", e.getMessage());
                 }
 
                 return response;
@@ -187,7 +188,7 @@ public class AppActivityService {
                 try {
                     response = getAppActivityStub(channel).findApplyInfo(message);
                 } catch (Exception e) {
-                    Log.e("AppActivityService", e.getMessage());
+                    Logger.e("AppActivityService", e.getMessage());
                 }
 
                 return response;

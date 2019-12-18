@@ -1,6 +1,5 @@
 package com.gx.smart.smartoa.data.network.api;
 
-import android.util.Log;
 
 import com.google.protobuf.ByteString;
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
@@ -13,6 +12,7 @@ import com.gx.wisestone.work.app.grpc.structure.ApplyEmployeeRequest;
 import com.gx.wisestone.work.app.grpc.structure.GetDepartmentRequest;
 import com.gx.wisestone.work.app.grpc.structure.StructureInterfaceGrpc;
 import com.gx.wisestone.work.app.grpc.structure.SysTenantListRequest;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -65,7 +65,7 @@ public class AppStructureService {
                 try {
                     response = getStructureStub(channel).getSysTenantList(message);
                 } catch (Exception e) {
-                    Log.e("AppStructureService", e.getMessage());
+                    Logger.e("AppStructureService", e.getMessage());
                 }
 
                 return response;
@@ -90,7 +90,7 @@ public class AppStructureService {
                 try {
                     response = getStructureStub(channel).getSysTenantList(message);
                 } catch (Exception e) {
-                    Log.e("AppStructureService", e.getMessage());
+                    Logger.e("AppStructureService", e.getMessage());
                 }
 
                 return response;
@@ -113,7 +113,7 @@ public class AppStructureService {
                 try {
                     response = getStructureStub(channel).getBuildingInfo(message);
                 } catch (Exception e) {
-                    Log.e("AppStructureService", e.getMessage());
+                    Logger.e("AppStructureService", e.getMessage());
                 }
 
                 return response;
@@ -141,7 +141,7 @@ public class AppStructureService {
                 try {
                     response = getStructureStub(channel).getDepartment(message);
                 } catch (Exception e) {
-                    Log.e("AppStructureService", e.getMessage());
+                    Logger.e("AppStructureService", e.getMessage());
                 }
 
                 return response;
@@ -184,7 +184,7 @@ public class AppStructureService {
                 try {
                     response = getStructureStub(channel).applyEmployee(message);
                 } catch (Exception e) {
-                    Log.e("AppStructureService", e.getMessage());
+                    Logger.e("AppStructureService", e.getMessage());
                 }
 
                 return response;
@@ -201,7 +201,7 @@ public class AppStructureService {
      *
      * @return callBack返回值
      */
-    public static GrpcAsyncTask<String, Void, CommonResponse> appChangeSwitch(String switch_type,
+    public GrpcAsyncTask<String, Void, CommonResponse> appChangeSwitch(String switch_type,
                                                                               String switch_value,
                                                                               final int structure_id, final int owner_id, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
@@ -217,7 +217,7 @@ public class AppStructureService {
                 try {
                     response = getStructureStub(channel).appChangeSwitch(message);
                 } catch (Exception e) {
-                    Log.e("AppStructureService", e.getMessage());
+                    Logger.e("AppStructureService", e.getMessage());
                 }
 
                 return response;
@@ -232,7 +232,7 @@ public class AppStructureService {
      * @param mobile 小区Id
      * @return callBack返回值
      */
-    public static GrpcAsyncTask<String, Void, CommonResponse> appAddCustomerRecord(final String mobile, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, CommonResponse> appAddCustomerRecord(final String mobile, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
             @Override
             protected CommonResponse doRequestData(ManagedChannel channel) {
@@ -243,7 +243,7 @@ public class AppStructureService {
                 try {
                     response = getStructureStub(channel).appAddCustomerRecord(message);
                 } catch (Exception e) {
-                    Log.e("AppStructureService", e.getMessage());
+                    Logger.e("AppStructureService", e.getMessage());
                 }
 
                 return response;

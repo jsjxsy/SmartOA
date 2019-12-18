@@ -64,7 +64,7 @@ public class GeneralInformationService {
                 try {
                     response = GeneralInfoRPCClientStub(channel).getWeatherInfo(message);
                 } catch (Exception e) {
-                    Log.i("weather", e.getMessage());
+                    Log.i("GeneralInformationService", e.getMessage());
                 }
 
                 return response;

@@ -8,6 +8,7 @@ import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
 import com.gx.wisestone.work.app.grpc.attendance.AppAttendanceInterfaceGrpc;
 import com.gx.wisestone.work.app.grpc.attendance.AttendanceRequest;
 import com.gx.wisestone.work.app.grpc.common.CommonResponse;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -64,7 +65,7 @@ public class AppAttendanceService {
                 try {
                     response = getAppAttendance(channel).attendance(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Logger.e("AppAttendanceService", e.getMessage());
                 }
 
                 return response;

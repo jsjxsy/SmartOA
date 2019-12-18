@@ -61,7 +61,7 @@ public class AppInformationService {
                 try {
                     response = getUserStub(channel).getInformation(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Log.i("AppInformationService", e.getMessage());
                 }
 
                 return response;
@@ -84,7 +84,7 @@ public class AppInformationService {
                 try {
                     response = getUserStub(channel).getAnnouncement(message);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Log.i("AppInformationService", e.getMessage());
                 }
 
                 return response;

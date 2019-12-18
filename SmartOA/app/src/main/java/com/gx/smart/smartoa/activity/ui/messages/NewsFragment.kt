@@ -19,7 +19,7 @@ class NewsFragment : Fragment() {
     private lateinit var adapter: NewsAdapter
 
     companion object {
-        fun newInstance() = NoticeFragment()
+        fun newInstance() = NewsFragment()
         const val NOTICE_NEWS = 1
     }
 
@@ -66,6 +66,7 @@ class NewsFragment : Fragment() {
                         val appInformationNoticeRecordDtoList =
                             result.appInformationNoticeRecordDtoOrBuilderList.toList()
                         adapter.setList(appInformationNoticeRecordDtoList)
+                        adapter.notifyDataSetChanged()
                     } else {
                         ToastUtils.showLong(result.msg)
                     }
