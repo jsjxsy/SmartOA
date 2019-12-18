@@ -9,20 +9,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ToastUtils
 import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
-import com.gx.smart.smartoa.activity.ui.features.HomeActionViewBinder
-import com.gx.smart.smartoa.activity.ui.features.HomeCompanyAdvise
-import com.gx.smart.smartoa.activity.ui.features.HomeCompanyAdviseViewBinder
-import com.gx.smart.smartoa.activity.ui.features.HomeHeadViewBinder
+import com.gx.smart.smartoa.activity.ui.features.*
 import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
 import com.gx.smart.smartoa.data.network.api.AppActivityService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.core.grpc.lib.common.QueryDto
 import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -43,11 +42,13 @@ class HomeFragment : Fragment(), View.OnClickListener {
         fun newInstance() = HomeFragment()
     }
 
+    private lateinit var homeHeadViewBinder: HomeHeadViewBinder
+    private lateinit var homeActionViewBinder: HomeActionViewBinder
     private lateinit var viewModel: HomeViewModel
     private val adapter = MultiTypeAdapter()
     private val items = ArrayList<Any>()
     private lateinit var context: FragmentActivity
-    private lateinit var homeBindView: HomeHeadViewBinder
+    private lateinit var mRefreshLayout: SmartRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,35 +78,40 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initRecyclerView() {
-        refreshLayout.setOnRefreshListener { refreshLayout.finishRefresh(2000) }
-        refreshLayout.isEnableLoadmore = false
+        mRefreshLayout = refreshLayout
 
-        val recyclerView = view?.findViewById<RecyclerView>(R.id.homeRecyclerView)
-        homeBindView = HomeHeadViewBinder()
-        adapter.register(homeBindView)
-        adapter.register(HomeActionViewBinder())
+        homeHeadViewBinder = HomeHeadViewBinder()
+        adapter.register(homeHeadViewBinder)
+
+        homeActionViewBinder = HomeActionViewBinder()
+        homeActionViewBinder.mRefreshLayout = mRefreshLayout
+        adapter.register(homeActionViewBinder)
+
+        adapter.register(DividerViewBinder())
         adapter.register(HomeCompanyAdviseViewBinder())
-        recyclerView?.adapter = adapter
+        homeRecyclerView.adapter = adapter
 
-        val item1 = HomeHead()
-        items.add(item1)
-
-
-
-        val item12 = HomeActionRecommend()
-        items.add(item12)
-
+        items.add(HomeHead())
+        items.add(Divider())
+        items.add(HomeActionRecommend())
+        items.add(Divider())
 
         val advises = arrayListOf(
             CompanyAdvise(R.mipmap.home_banner_test, "1 广信篮球队报名开始啦！", "2019-10-10 14:39"),
             CompanyAdvise(R.mipmap.home_banner_test, "2 广信篮球队报名开始啦！", "2019-10-10 14:39"),
             CompanyAdvise(R.mipmap.home_banner_test, "3 广信篮球队报名开始啦！", "2019-10-10 14:39")
         )
-        val item22 = HomeCompanyAdvise(advises)
-        items.add(item22)
-
+        items.add(HomeCompanyAdvise(advises))
+        items.add(Divider())
         adapter.items = items
         adapter.notifyDataSetChanged()
+
+
+        refreshLayout.setOnRefreshListener {
+            homeHeadViewBinder.carouselFigure()
+            homeActionViewBinder.findAllApplyInfos()
+        }
+        refreshLayout.isEnableLoadmore = false
     }
 
 

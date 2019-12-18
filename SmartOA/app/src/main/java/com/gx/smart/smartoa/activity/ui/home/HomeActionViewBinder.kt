@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.activity.ui.features
+package com.gx.smart.smartoa.activity.ui.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -27,6 +27,7 @@ import com.gx.smart.smartoa.data.network.api.AppActivityService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
 import com.gx.wisestone.work.app.grpc.activity.AppActivityDto
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
 
 /**
@@ -34,16 +35,11 @@ import com.gx.wisestone.work.app.grpc.activity.AppActivityDto
  * @create 2019-11-01
  * @Describe
  */
-class HomeActionViewBinder : ItemViewBinder<HomeActionRecommend, HomeActionViewBinder.ViewHolder>(),
-    View.OnClickListener {
+class HomeActionViewBinder :
+    ItemViewBinder<HomeActionRecommend, HomeActionViewBinder.ViewHolder>() {
 
-    override fun onClick(v: View?) {
-        when (v!!.id) {
-
-        }
-    }
-
-
+    lateinit var mRefreshLayout: SmartRefreshLayout
+    lateinit var actionRecommendBanner: ConvenientBanner<AppActivityDto>
     @NonNull
     override fun onCreateViewHolder(@NonNull inflater: LayoutInflater, @NonNull parent: ViewGroup): ViewHolder {
         val root = inflater.inflate(R.layout.item_home_action_recommend_item, parent, false)
@@ -51,12 +47,13 @@ class HomeActionViewBinder : ItemViewBinder<HomeActionRecommend, HomeActionViewB
     }
 
     override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull actionRecommendList: HomeActionRecommend) {
-        findAllApplyInfos(holder.item)
+        actionRecommendBanner = holder.item
         holder.more.setOnClickListener {
             val intent = Intent(holder.itemView.context, MessageActivity::class.java)
             intent.putExtra(MessageActivity.INTENT_KEY, MessageActivity.INTENT_MESSAGE)
             ActivityUtils.startActivity(intent)
         }
+        findAllApplyInfos()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -128,7 +125,7 @@ class HomeActionViewBinder : ItemViewBinder<HomeActionRecommend, HomeActionViewB
     }
 
 
-    private fun findAllApplyInfos(actionRecommendBanner: ConvenientBanner<AppActivityDto>) {
+    fun findAllApplyInfos() {
         AppActivityService.getInstance()
             .findAllActivityInfos(0, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
@@ -142,7 +139,7 @@ class HomeActionViewBinder : ItemViewBinder<HomeActionRecommend, HomeActionViewB
                             list = result.contentList.subList(0, 3).toList()
                         }
                         initActionRecommend(actionRecommendBanner, list)
-
+                        mRefreshLayout?.finishRefresh()
                     } else {
                         ToastUtils.showLong(result.msg)
                     }

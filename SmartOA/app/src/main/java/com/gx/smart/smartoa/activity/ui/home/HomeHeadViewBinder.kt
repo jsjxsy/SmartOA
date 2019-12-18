@@ -35,6 +35,7 @@ import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesInfoOrBuilder
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesResponse
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
 
 /**
@@ -45,6 +46,7 @@ import com.gx.wisestone.work.app.grpc.common.CommonResponse
 class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolder>(),
     View.OnClickListener {
     private lateinit var titleText: TextView
+    lateinit var convenientBanner: ConvenientBanner<ImagesInfoOrBuilder>
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.id_environmental_control_text_view ->
@@ -125,6 +127,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
     }
 
     override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull homeHead: HomeHead) {
+        convenientBanner = holder.item
         getBuildingInfo()
         initClickEvent(
             holder.id_environmental_control_text_view,
@@ -141,16 +144,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
             holder.left_nav_text_view,
             holder.right_nav_Image_view
         )
-
-        AppFigureService.getInstance().carouselFigure(object : CallBack<ImagesResponse?>() {
-            override fun callBack(result: ImagesResponse?) {
-                if (result?.code == 100) {
-                    var list = result.imagesInfoOrBuilderList.toList()
-                    initBanner(holder.item, list)
-                }
-            }
-
-        })
+        carouselFigure()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -261,7 +255,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
         ActivityUtils.startActivity(intent)
     }
 
-    private fun getBuildingInfo() {
+    fun getBuildingInfo() {
         AppStructureService.getInstance()
             .getBuildingInfo(
                 object : CallBack<CommonResponse>() {
@@ -286,5 +280,19 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
 
                 })
     }
+
+
+    fun carouselFigure() {
+        AppFigureService.getInstance().carouselFigure(object : CallBack<ImagesResponse?>() {
+            override fun callBack(result: ImagesResponse?) {
+                if (result?.code == 100) {
+                    var list = result.imagesInfoOrBuilderList.toList()
+                    initBanner(convenientBanner, list)
+                }
+            }
+
+        })
+    }
+
 
 }

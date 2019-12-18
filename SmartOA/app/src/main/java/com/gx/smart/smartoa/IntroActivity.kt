@@ -21,19 +21,17 @@ class IntroActivity : AppIntro() {
         sliderPage.title = "this is one"
         sliderPage.description = "this is two"
         sliderPage.imageDrawable = R.mipmap.home_banner_test
-        sliderPage.bgColor = Color.BLACK
+        sliderPage.bgColor = Color.WHITE
         addSlide(AppIntroFragment.newInstance(sliderPage))
 
         val sliderPage2 = SliderPage()
         sliderPage2.title = "this is one"
         sliderPage2.description = "this is two"
-        sliderPage.bgColor = Color.BLACK
+        sliderPage.bgColor = Color.WHITE
         sliderPage2.imageDrawable = R.mipmap.home_banner_test
         addSlide(AppIntroFragment.newInstance(sliderPage2))
 
         // Hide Skip/Done button.
-        showSkipButton(false)
-        isProgressButtonEnabled = false
     }
 
     override fun onSkipPressed(currentFragment: Fragment?) {
