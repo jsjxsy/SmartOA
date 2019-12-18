@@ -65,7 +65,7 @@ class NoticeAdapter :
         fun onItemClick(view: View?, position: Int)
     }
 
-    inner class ViewHolder internal constructor(itemView: View) :
+    class ViewHolder internal constructor(itemView: View) :
         RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         private var onItemClick: OnItemClickListener? = null

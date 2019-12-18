@@ -46,7 +46,7 @@ class NoticeFragment : Fragment() {
                 val args = Bundle()
                 args.putString(DetailFragment.ARG_TITLE, item.title)
                 args.putString(DetailFragment.ARG_CONTENT, item.content)
-                findNavController().navigate(R.id.action_newsFragment_to_detailFragment)
+                findNavController().navigate(R.id.action_noticeFragment_to_detailFragment)
             }
 
         }
