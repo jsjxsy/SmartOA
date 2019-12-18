@@ -12,8 +12,6 @@ import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.AppInformationService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.information.AppInformationResponse
-import kotlinx.android.synthetic.main.item_environmental_control_air_conditioner.*
-import kotlinx.android.synthetic.main.item_environmental_control_air_conditioner.view.*
 import kotlinx.android.synthetic.main.news_fragment.*
 
 class NewsFragment : Fragment() {
@@ -47,7 +45,8 @@ class NewsFragment : Fragment() {
                 val args = Bundle()
                 args.putString(DetailFragment.ARG_TITLE, item.title)
                 args.putString(DetailFragment.ARG_CONTENT, item.content)
-                Navigation.findNavController(activity!!, R.id.messagesFragmentEnter).navigate(R.id.action_noticeFragment_to_detailFragment, args)
+                Navigation.findNavController(activity!!, R.id.messagesFragmentEnter)
+                    .navigate(R.id.action_noticeFragment_to_detailFragment, args)
             }
 
         }
@@ -56,7 +55,7 @@ class NewsFragment : Fragment() {
         refreshLayout.setOnRefreshListener {
             getInformation()
         }
-       refreshLayout.autoRefresh()
+        refreshLayout.autoRefresh()
     }
 
     private fun getInformation() {
@@ -71,9 +70,9 @@ class NewsFragment : Fragment() {
                     if (result?.code == 100) {
                         val appInformationNoticeRecordDtoList =
                             result.appInformationNoticeRecordDtoOrBuilderList.toList()
-                        if(appInformationNoticeRecordDtoList.isEmpty()){
+                        if (appInformationNoticeRecordDtoList.isEmpty()) {
                             emptyLayout.visibility = View.VISIBLE
-                        }else{
+                        } else {
                             emptyLayout.visibility = View.GONE
                             adapter.setList(appInformationNoticeRecordDtoList)
                             adapter.notifyDataSetChanged()
