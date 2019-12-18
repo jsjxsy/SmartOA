@@ -16,16 +16,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <EditText
-        android:id="@+id/suggestionEdit"
+    <LinearLayout
+        android:id="@+id/suggestionLayout"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:gravity="start"
-        android:hint="@string/input_suggestion"
-        android:padding="@dimen/margin_style_two"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        app:layout_constraintTop_toBottomOf="@id/title">
+        <EditText
+            android:id="@+id/suggestionEdit"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_margin="@dimen/margin_style_two"
+            android:background="@drawable/shape_edit_text_background"
+            android:gravity="start"
+            android:hint="@string/input_suggestion"
+            android:padding="@dimen/margin_style_two"
+             />
+    </LinearLayout>
+
+
 
 
     <Button
@@ -35,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/confirm_submit"
-        app:layout_constraintTop_toBottomOf="@id/suggestionEdit" />
+        app:layout_constraintTop_toBottomOf="@id/suggestionLayout" />
 
     <com.gx.smart.smartoa.widget.LoadingView
         android:id="@+id/loadingView"
