@@ -23,10 +23,6 @@ import static com.gx.smart.smartoa.push.PushMessageConstants.ACTION_JGPUSH_REMOT
 import static com.gx.smart.smartoa.push.PushMessageConstants.ACTION_JGPUSH_SMARTHOME;
 import static com.gx.smart.smartoa.push.PushMessageConstants.ACTION_JGPUSH_SMARTVISITOR;
 
-//import com.gViewerX.util.LogUtils;
-//import com.jrj.smartHome.AppConfig;
-//import com.jrj.smartHome.LogoSplashActivity;
-//import com.jrj.smartHome.util.AppManager;
 
 /**
  * 离线推送消息管理类
@@ -52,7 +48,7 @@ public class ProcessPushMsgProxy {
                 getSystemService(Context.NOTIFICATION_SERVICE);
         Notification.Builder builder1 = new Notification.Builder(context);
         builder1.setSmallIcon(R.mipmap.ic_launcher); //设置图标
-        builder1.setContentTitle("金融街悦生活"); //设置标题
+        builder1.setContentTitle("智慧办公"); //设置标题
         builder1.setContentText(msg); //消息内容
         builder1.setWhen(System.currentTimeMillis()); //发送时间
         builder1.setDefaults(Notification.DEFAULT_ALL); //设置默认的提示音，振动方式，灯光
