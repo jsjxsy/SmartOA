@@ -44,8 +44,17 @@ class ActionAdapter :
         val item = mList!![position]
         holder.actionTitle.text = item.title
         Glide.with(holder.itemView).load(item.imageUrl).into(holder.mImage)
+
+        holder.redFlag.let {
+            if(item.hasRead){
+                it.visibility = View.GONE
+            }else{
+                it.visibility = View.VISIBLE
+            }
+        }
         holder.actionTime.text = "${item.startTime} - ${item.endTime}"
         holder.actionNumber.text = "${item.currentNum}人参加"
+
         holder.itemView.setOnClickListener {
             onItemClick?.onItemClick(it, position)
         }
@@ -57,12 +66,14 @@ class ActionAdapter :
         var actionTime: TextView
         var actionNumber: TextView
         var mImage: ImageView
+        var redFlag: View
 
         constructor(itemView: View) : super(itemView) {
             actionTitle = itemView.findViewById(R.id.actionTitle)
             mImage = itemView.findViewById(R.id.actionImageView)
             actionTime = itemView.findViewById(R.id.actionTime)
             actionNumber = itemView.findViewById(R.id.actionNumber)
+            redFlag = itemView.findViewById(R.id.redFlag)
         }
 
     }

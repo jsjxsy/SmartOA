@@ -11,8 +11,14 @@ import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.AppInformationService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
 import com.gx.wisestone.work.app.grpc.information.AppInformationResponse
+import com.gx.wisestone.work.app.grpc.information.MessageReadResponse
+import kotlinx.android.synthetic.main.fragment_mine_action.*
 import kotlinx.android.synthetic.main.news_fragment.*
+import kotlinx.android.synthetic.main.news_fragment.emptyLayout
+import kotlinx.android.synthetic.main.news_fragment.recyclerView
+import kotlinx.android.synthetic.main.news_fragment.refreshLayout
 
 class NewsFragment : Fragment() {
     private var mViewModel: NewsViewModel? = null
@@ -42,6 +48,7 @@ class NewsFragment : Fragment() {
             override fun onItemClick(view: View?, position: Int) {
                 val list = adapter.getList()
                 val item = list!![position]
+                messageRead(item.id, 1)
                 val args = Bundle()
                 args.putString(DetailFragment.ARG_TITLE, item.title)
                 args.putString(DetailFragment.ARG_CONTENT, item.content)
@@ -79,6 +86,24 @@ class NewsFragment : Fragment() {
                         }
                     } else {
                         ToastUtils.showLong(result.msg)
+                    }
+                }
+
+            })
+    }
+
+    private fun messageRead(messageId: Long, type: Int) {
+        AppInformationService.getInstance()
+            .messageRead(messageId, type, object : CallBack<MessageReadResponse>() {
+                override fun callBack(result: MessageReadResponse?) {
+                    if (result == null) {
+                        ToastUtils.showLong("查询活动超时!")
+                        return
+                    }
+                    if (result?.code == 100) {
+                        ToastUtils.showLong("成功")
+                    } else {
+                        ToastUtils.showLong(result?.msg)
                     }
                 }
 

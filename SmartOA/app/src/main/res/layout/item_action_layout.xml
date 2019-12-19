@@ -23,6 +23,16 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@mipmap/home_banner_test" />
 
+        <View
+            android:id="@+id/redFlag"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/shape_home_message_point"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/actionTitle"
             android:layout_width="match_parent"

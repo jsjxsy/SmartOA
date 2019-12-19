@@ -13,13 +13,13 @@ import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AppActivityService
 import com.gx.smart.smartoa.data.network.api.AppEmployeeService
+import com.gx.smart.smartoa.data.network.api.AppInformationService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.core.grpc.lib.common.QueryDto
 import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
+import com.gx.wisestone.work.app.grpc.information.MessageReadResponse
 import kotlinx.android.synthetic.main.fragment_mine_action.*
-import kotlinx.android.synthetic.main.fragment_mine_action.emptyLayout
-import kotlinx.android.synthetic.main.fragment_mine_action.refreshLayout
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.layout_common_title.title
 import kotlinx.android.synthetic.main.list_action_layout.recyclerView
@@ -82,6 +82,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
             override fun onItemClick(view: View, position: Int) {
                 val item = adapter.mList!![position]
+                messageRead(item.activityId, 3)
                 val args = Bundle()
                 args.putString(MineActionDetailFragment.ARG_TITLE, item.title)
                 args.putString(
@@ -146,6 +147,25 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                             adapter.notifyDataSetChanged()
                         }
 
+                    } else {
+                        ToastUtils.showLong(result?.msg)
+                    }
+                }
+
+            })
+    }
+
+
+    private fun messageRead(messageId: Long, type: Int) {
+        AppInformationService.getInstance()
+            .messageRead(messageId, type, object : CallBack<MessageReadResponse>() {
+                override fun callBack(result: MessageReadResponse?) {
+                    if (result == null) {
+                        ToastUtils.showLong("查询活动超时!")
+                        return
+                    }
+                    if (result?.code == 100) {
+                        ToastUtils.showLong("成功")
                     } else {
                         ToastUtils.showLong(result?.msg)
                     }

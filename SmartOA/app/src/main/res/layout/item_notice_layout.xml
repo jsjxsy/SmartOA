@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_style_four"
@@ -26,20 +26,17 @@
             android:maxLines="1"
             android:textColor="@color/font_color_style_six"
             android:textSize="@dimen/font_size_style_one"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="5月8日大楼停水" />
 
         <TextView
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="12dp"
             android:layout_marginRight="12dp"
             android:textColor="@color/font_color_style_seven"
             android:textSize="@dimen/font_size_style_four"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_alignParentRight="true"
             tools:text="2019-10-10"
 
             />
@@ -48,11 +45,9 @@
             android:id="@+id/redFlag"
             android:layout_width="8dp"
             android:layout_height="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="4dp"
             android:background="@drawable/shape_home_message_point"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_alignParentRight="true"/>
 
         <TextView
             android:id="@+id/subTitle"
@@ -65,8 +60,7 @@
             android:maxLines="1"
             android:textColor="@color/font_color_style_five"
             android:textSize="@dimen/font_size_style_three"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title"
+            android:layout_below="@id/title"
             tools:text="水箱清洗11111111111111111111111111111111111111111111111111111111111111111111" />
 
         <View
@@ -75,7 +69,7 @@
             android:layout_height="0.5dp"
             android:layout_marginTop="12dp"
             android:background="@color/background_style_seven"
-            app:layout_constraintTop_toBottomOf="@id/subTitle" />
+            android:layout_below="@id/subTitle"/>
 
 
         <TextView
@@ -84,13 +78,12 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:layout_marginTop="10.5dp"
-            android:layout_marginBottom="10.5dp"
             android:ellipsize="end"
             android:text="查看详情"
             android:textColor="@color/font_color_style_two"
             android:textSize="@dimen/font_size_style_three"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/line" />
+            android:layout_below="@id/line"/>
 
         <ImageView
             android:id="@+id/moreInfo"
@@ -99,9 +92,10 @@
             android:layout_marginTop="11dp"
             android:layout_marginRight="12dp"
             android:src="@drawable/ic_more_info"
-            app:layout_constraintRight_toRightOf="parent"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/line"
             app:layout_constraintTop_toBottomOf="@id/line" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>
 

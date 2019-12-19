@@ -8,6 +8,8 @@ import com.gx.wisestone.work.app.grpc.information.AnnouncementRequest;
 import com.gx.wisestone.work.app.grpc.information.AppAnnouncementResponse;
 import com.gx.wisestone.work.app.grpc.information.AppInformationGrpc;
 import com.gx.wisestone.work.app.grpc.information.AppInformationResponse;
+import com.gx.wisestone.work.app.grpc.information.MessageReadRequest;
+import com.gx.wisestone.work.app.grpc.information.MessageReadResponse;
 import com.gx.wisestone.work.app.grpc.information.PersonInformationRequest;
 
 import java.util.concurrent.TimeUnit;
@@ -92,5 +94,30 @@ public class AppInformationService {
         }.doExecute();
     }
 
+
+    /**
+     * 信息已读
+     *
+     * @return callBack返回值
+     */
+    public GrpcAsyncTask<String, Void, MessageReadResponse> messageRead(long messageId,int messageType, CallBack callBack) {
+        return new GrpcAsyncTask<String, Void, MessageReadResponse>(callBack) {
+            @Override
+            protected MessageReadResponse doRequestData(ManagedChannel channel) {
+                MessageReadRequest message = MessageReadRequest.newBuilder()
+                        .setMessageId(messageId)
+                        .setMessageType(messageType)
+                        .build();
+                MessageReadResponse response = null;
+                try {
+                    response = getUserStub(channel).messageRead(message);
+                } catch (Exception e) {
+                    Log.i("AppInformationService", e.getMessage());
+                }
+
+                return response;
+            }
+        }.doExecute();
+    }
 
 }

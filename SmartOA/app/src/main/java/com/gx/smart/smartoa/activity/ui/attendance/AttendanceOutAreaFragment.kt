@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.amap.api.location.AMapLocation
+import com.amap.api.maps2d.AMap
 import com.amap.api.maps2d.MapView
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.map.MapLocationHelper
@@ -96,6 +97,9 @@ class AttendanceOutAreaFragment : Fragment(), MapLocationHelper.LocationCallBack
         // TODO: Use the ViewModel
         mapView = map as MapView
         mapView.onCreate(savedInstanceState) // 此方法必须重写
+        mapView.map.isMyLocationEnabled = true
+        mapView.map.setMyLocationType(AMap.MAP_TYPE_NORMAL)
+
         helper = MapLocationHelper(context, this)
         helper.startMapLocation()
         initTitle()

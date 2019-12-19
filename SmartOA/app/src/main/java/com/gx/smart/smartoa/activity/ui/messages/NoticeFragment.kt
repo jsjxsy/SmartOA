@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.AppInformationService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.information.AppAnnouncementResponse
+import com.gx.wisestone.work.app.grpc.information.MessageReadResponse
 import kotlinx.android.synthetic.main.news_fragment.*
 
 class NoticeFragment : Fragment() {
@@ -44,6 +44,7 @@ class NoticeFragment : Fragment() {
             override fun onItemClick(view: View?, position: Int) {
                 val list = adapter.getList()
                 val item = list!![position]
+                messageRead(item.id, 2)
                 val args = Bundle()
                 args.putString(DetailFragment.ARG_TITLE, item.title)
                 args.putString(DetailFragment.ARG_CONTENT, item.content)
@@ -86,5 +87,25 @@ class NoticeFragment : Fragment() {
 
             })
     }
+
+
+    private fun messageRead(messageId: Long, type: Int) {
+        AppInformationService.getInstance()
+            .messageRead(messageId, type, object : CallBack<MessageReadResponse>() {
+                override fun callBack(result: MessageReadResponse?) {
+                    if (result == null) {
+                        ToastUtils.showLong("查询活动超时!")
+                        return
+                    }
+                    if (result?.code == 100) {
+                        ToastUtils.showLong("成功")
+                    } else {
+                        ToastUtils.showLong(result?.msg)
+                    }
+                }
+
+            })
+    }
+
 
 }
