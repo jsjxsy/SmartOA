@@ -1,14 +1,22 @@
-package com.gx.smart.push
+package com.gx.smart.smartoa.push
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.SystemClock
 import android.util.Log
+import androidx.core.app.NotificationCompat
 import cn.jpush.android.api.*
 import cn.jpush.android.service.JPushMessageReceiver
+import com.gx.smart.smartoa.R
+import com.orhanobut.logger.Logger
 
 class PushMessageReceiver : JPushMessageReceiver() {
 
-    lateinit var mPushProxyCallBack: PushProxyCallBack
+
     override fun onMessage(context: Context?, customMessage: CustomMessage?) {
         Log.e(TAG, "[onMessage] " + customMessage!!)
         processCustomMessage(context, customMessage)
@@ -16,19 +24,7 @@ class PushMessageReceiver : JPushMessageReceiver() {
 
     override fun onNotifyMessageOpened(context: Context?, message: NotificationMessage?) {
         Log.e(TAG, "[onNotifyMessageOpened] " + message!!)
-        try {
-            //打开自定义的Activity
-            //            Intent i = new Intent(context, TestActivity.class);
-            //            Bundle bundle = new Bundle();
-            //            bundle.putString(JPushInterface.EXTRA_NOTIFICATION_TITLE,message.notificationTitle);
-            //            bundle.putString(JPushInterface.EXTRA_ALERT,message.notificationContent);
-            //            i.putExtras(bundle);
-            //            //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            //            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
-            //            context.startActivity(i);
-        } catch (throwable: Throwable) {
 
-        }
 
     }
 
@@ -54,6 +50,35 @@ class PushMessageReceiver : JPushMessageReceiver() {
 
     override fun onNotifyMessageArrived(context: Context?, message: NotificationMessage?) {
         Log.e(TAG, "[onNotifyMessageArrived] " + message!!)
+        try {
+
+            val mNotificationManager =
+                context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val builder1 =
+                NotificationCompat.Builder(context, "default")
+            builder1.setSmallIcon(R.mipmap.ic_launcher) //设置图标
+
+            //builder1.setTicker("显示第二个通知");
+            builder1.setContentTitle(message.notificationTitle)
+            builder1.setContentText(message.notificationContent) //消息内容
+
+            builder1.setWhen(System.currentTimeMillis()) //发送时间
+            builder1.setDefaults(Notification.DEFAULT_ALL) //设置默认的提示音，振动方式，灯光
+            builder1.setAutoCancel(true) //打开程序后图标消失
+            builder1.priority = NotificationCompat.PRIORITY_MAX
+            val intent = Intent(Intent.ACTION_MAIN)
+            intent.setClass(context, context.javaClass)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            //当任务栏上该通知被点击时执行的页面跳转
+            val pIntent = PendingIntent.getActivity(
+                context, 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
+            builder1.setContentIntent(pIntent)
+            mNotificationManager.notify(0, builder1.build())
+        } catch (e: Throwable) {
+            Logger.e(TAG, e.printStackTrace())
+        }
     }
 
     override fun onNotifyMessageDismiss(context: Context?, message: NotificationMessage?) {
@@ -94,26 +119,32 @@ class PushMessageReceiver : JPushMessageReceiver() {
 
     //send msg to MainActivity
     private fun processCustomMessage(context: Context?, customMessage: CustomMessage?) {
-        mPushProxyCallBack.processPushMsg(context, customMessage?.message)
-        mPushProxyCallBack.processPushMsg(context, customMessage?.message, customMessage?.extra)
-        //        if (MainActivity.isForeground) {
-        //            String message = customMessage.message;
-        //            String extras = customMessage.extra;
-        //            Intent msgIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
-        //            msgIntent.putExtra(MainActivity.KEY_MESSAGE, message);
-        //            if (!ExampleUtil.isEmpty(extras)) {
-        //                try {
-        //                    JSONObject extraJson = new JSONObject(extras);
-        //                    if (extraJson.length() > 0) {
-        //                        msgIntent.putExtra(MainActivity.KEY_EXTRAS, extras);
-        //                    }
-        //                } catch (JSONException e) {
-        //
-        //                }
-        //
-        //            }
-        //            LocalBroadcastManager.getInstance(context).sendBroadcast(msgIntent);
-        //        }
+
+        val mNotificationManager =
+            context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val builder1 = NotificationCompat.Builder(context, NotificationChannel.DEFAULT_CHANNEL_ID)
+        builder1.setSmallIcon(R.mipmap.ic_launcher) //设置图标
+
+        builder1.setContentTitle("智慧办公") //设置标题
+
+        builder1.setContentText(customMessage?.message) //消息内容
+
+        builder1.setWhen(System.currentTimeMillis()) //发送时间
+
+        builder1.setDefaults(Notification.DEFAULT_ALL) //设置默认的提示音，振动方式，灯光
+        builder1.priority = NotificationCompat.PRIORITY_MAX
+        builder1.setAutoCancel(true) //打开程序后图标消失
+
+        val intent1 = Intent(Intent.ACTION_MAIN)
+        intent1.setClass(context, context.javaClass)
+        //当任务栏上该通知被点击时执行的页面跳转
+        val pintent = PendingIntent.getActivity(
+            context, SystemClock.uptimeMillis().toInt(), intent1,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        builder1.setContentIntent(pintent)
+        val notify = builder1.build()
+        mNotificationManager.notify(1, notify)
 
 
     }
