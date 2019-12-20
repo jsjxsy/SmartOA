@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/logoCompany"
-            android:layout_width="53dp"
-            android:layout_height="53dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
@@ -65,7 +65,7 @@
     <Button
         android:id="@+id/unbindCompany"
         style="@style/buttonStyle"
-        android:background="@color/background_style_eight"
+        android:backgroundTint="@color/background_style_eight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_style_two"

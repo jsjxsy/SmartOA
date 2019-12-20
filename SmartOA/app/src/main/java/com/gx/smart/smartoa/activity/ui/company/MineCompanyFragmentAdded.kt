@@ -58,14 +58,15 @@ class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
         AppConfig.currentSysTenantNo = employeeInfo.tenantNo
         verify.text = when (employeeInfo.status) {
             1 -> {
-                verify.setTextColor(Color.YELLOW)
+                verify.setTextColor(context?.resources!!.getColor(R.color.font_color_style_eleven))
                 "审核中"
             }
             2 -> {
-                verify.setTextColor(Color.GREEN)
+                verify.setTextColor(context?.resources!!.getColor(R.color.font_color_style_night))
                 "已认证"
             }
             else -> {
+                verify.setTextColor(context?.resources!!.getColor(R.color.font_color_style_ten))
                 verify.setTextColor(Color.RED)
                 "拒绝"
             }
