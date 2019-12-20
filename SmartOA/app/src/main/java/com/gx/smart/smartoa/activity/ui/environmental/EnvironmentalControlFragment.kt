@@ -227,7 +227,7 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                 if (null != notifyBean) {
                     Log.e("joylife", "notifyBean:" + notifyBean.getVal())
                     //更新UI设备状态
-                    //updateDevStatus(notifyBean)
+                    updateDevStatus(notifyBean)
                 }
             }
         }
@@ -290,7 +290,7 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                 break
             }
         }
-        if (newDevBean != null) {
+        if (newDevBean != null && contentList != null) {
             contentList!!.removeAt(position)
             contentList!!.add(position, newDevBean)
             updateDev(contentList!!)
