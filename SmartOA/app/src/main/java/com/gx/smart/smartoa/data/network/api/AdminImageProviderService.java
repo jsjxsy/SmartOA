@@ -75,6 +75,6 @@ public class AdminImageProviderService {
 
                     return response;
                 }
-            }.setPort(ApiConfig.ATTENDANCE_SERVICE_PORT).doExecute();
+            }.setPort(ApiConfig.UPLOAD_IMAGE_SERVER_PORT).doExecute();
         }
 }

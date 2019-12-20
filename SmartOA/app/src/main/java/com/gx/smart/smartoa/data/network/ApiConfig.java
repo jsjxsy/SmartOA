@@ -17,7 +17,8 @@ public class ApiConfig {
     public static String GENERALINFO_SERVICE_PORT = "30155";
     //考勤
     public static String ATTENDANCE_SERVICE_PORT = "31003";
-
+    //upload image
+    public static final String UPLOAD_IMAGE_SERVER_PORT="30691";
     //space
     public static final String HUISHI_USER_SPACE = "b60bcfe2";//用户池
 
