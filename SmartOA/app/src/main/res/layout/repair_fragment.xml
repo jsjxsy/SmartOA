@@ -42,7 +42,7 @@
             android:layout_height="@dimen/list_item_height_style"
             android:layout_alignParentRight="true"
             android:gravity="center_vertical|right"
-            android:textColor="@color/font_color_style_six"
+            android:textColor="@color/font_color_style_five"
             android:textSize="@dimen/font_size_style_one"
             android:text="国际中心" />
     </RelativeLayout>
@@ -79,7 +79,7 @@
             android:gravity="center_vertical|right"
             android:layout_alignParentRight="true"
             android:hint="@string/input_contact_phone"
-            android:textColor="@color/font_color_style_six"
+            android:textColor="@color/font_color_style_five"
             android:textSize="@dimen/font_size_style_one"
             android:background="@android:color/white"/>
     </RelativeLayout>
@@ -118,7 +118,7 @@
             android:gravity="center_vertical|right"
             android:drawableRight="@drawable/ic_more_info"
             android:drawablePadding="8dp"
-            android:textColor="@color/font_color_style_six"
+            android:textColor="@color/font_color_style_five"
             android:textSize="@dimen/font_size_style_one"
             android:text="设备损坏" />
     </RelativeLayout>
@@ -161,9 +161,8 @@
             android:gravity="start"
             android:layout_alignParentRight="true"
             android:hint="@string/input_content"
-            android:focusable="true"
             android:focusedByDefault="true"
-            android:textColor="@color/font_color_style_six"
+            android:textColor="@color/font_color_style_five"
             android:textSize="@dimen/font_size_style_one"/>
 
         <ImageView

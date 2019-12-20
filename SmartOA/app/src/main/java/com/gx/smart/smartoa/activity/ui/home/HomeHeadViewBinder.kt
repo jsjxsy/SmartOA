@@ -14,6 +14,7 @@ import com.bigkoo.convenientbanner.ConvenientBanner
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator
 import com.bigkoo.convenientbanner.holder.Holder
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.drakeet.multitype.ItemViewBinder
@@ -29,13 +30,13 @@ import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
 import com.gx.smart.smartoa.activity.ui.repair.RepairActivity
 import com.gx.smart.smartoa.activity.ui.visitor.VisitorActivity
 import com.gx.smart.smartoa.activity.ui.work.SharedWorkActivity
+import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AppFigureService
 import com.gx.smart.smartoa.data.network.api.AppStructureService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesInfoOrBuilder
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesResponse
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
-import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
 
 /**
@@ -255,7 +256,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
         ActivityUtils.startActivity(intent)
     }
 
-    fun getBuildingInfo() {
+    private fun getBuildingInfo() {
         AppStructureService.getInstance()
             .getBuildingInfo(
                 object : CallBack<CommonResponse>() {
@@ -270,7 +271,9 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
 
                             titleText?.let {
                                 it.visibility = View.VISIBLE
-                                it.text = companyList[0].name
+                                val name = companyList[0].name
+                                it.text = name
+                                SPUtils.getInstance().put(AppConfig.PLACE_NAME, name)
                             }
                         } else {
                             ToastUtils.showLong(result.msg)

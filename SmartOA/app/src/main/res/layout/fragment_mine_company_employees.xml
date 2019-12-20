@@ -42,7 +42,7 @@
             android:gravity="center_vertical"
             android:ellipsize="end"
             android:text="国际中心"
-            android:textColor="@color/font_color_style_six"
+            android:textColor="@color/font_color_style_five"
             android:textSize="@dimen/font_size_style_one" />
     </RelativeLayout>
 
@@ -80,7 +80,7 @@
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:hint="@string/input_real_name"
-            android:textColor="@color/font_color_style_six"
+            android:textColor="@color/font_color_style_five"
             android:textSize="@dimen/font_size_style_one" />
     </RelativeLayout>
 
@@ -119,7 +119,7 @@
             android:drawablePadding="10dp"
             android:gravity="center_vertical"
             android:hint="@string/input_phone_number"
-            android:textColor="@color/font_color_style_six"
+            android:textColor="@color/font_color_style_five"
             android:textSize="@dimen/font_size_style_one" />
     </RelativeLayout>
 

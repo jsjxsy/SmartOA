@@ -62,14 +62,14 @@ class MineUserInfoModifyNickNameFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initContent() {
-
-
+        modifyName.setText(nickName)
         if(nickName.isNullOrEmpty()){
             delete.visibility = View.GONE
         }else{
             delete.visibility = View.VISIBLE
+            modifyName.setSelection(nickName.lastIndex)
         }
-        modifyName.setText(nickName)
+
         delete.setOnClickListener {
             modifyName.editableText.clear()
         }

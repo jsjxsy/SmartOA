@@ -89,7 +89,9 @@ class RepairFragment : Fragment(), View.OnClickListener {
     private fun initContent() {
         save.setOnClickListener(this)
         placeName.text = SPUtils.getInstance().getString(AppConfig.PLACE_NAME, "")
-        phone.setText(SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, ""))
+        val phoneValue = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")
+        phone.setText(phoneValue)
+        phone.setSelection(phoneValue.lastIndex)
         repair_type.setOnClickListener(this)
         addImage.setOnClickListener(this)
     }
