@@ -53,6 +53,7 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
     private val adapter = MultiTypeAdapter()
     private val items = ArrayList<Any>()
     private lateinit var mLoadingView: LoadingView
+    private var contentList: MutableList<DevDto>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -182,70 +183,8 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                             }
 
                             if (result?.code == 100 && result?.result == 0) {
-                                val contentList = result.contentList
-                                //显示对应设备列表
-                                val lightList: List<DevDto> = ZGUtil.getDevList(
-                                    ZGManager.DEV_TYPE_LIGHT, contentList
-                                )
-                                val titles =
-                                    resources.getStringArray(R.array.environmental_control_items)
-                                mPagerAdapter.clearPage()
-                                if (lightList.isNotEmpty()) {
-                                    mPagerAdapter.addPage(
-                                        PageAdapter.PageFragmentContent(
-                                            titles[0],
-                                            LightFragment.LIGHT_TYPE,
-                                            lightList,
-                                            this@EnvironmentalControlFragment
-                                        )
-                                    )
-                                }
-                                val curtainList: List<DevDto> = ZGUtil.getDevList(
-                                    ZGManager.DEV_TYPE_CURTAIN, contentList
-                                )
-
-                                if (curtainList.isNotEmpty()) {
-                                    mPagerAdapter.addPage(
-                                        PageAdapter.PageFragmentContent(
-                                            titles[1],
-                                            CurtainFragment.CURTAIN_TYPE,
-                                            curtainList,
-                                            this@EnvironmentalControlFragment
-                                        )
-                                    )
-                                }
-
-                                val airConditionerList: List<DevDto> = ZGUtil.getDevList(
-                                    ZGManager.DEV_TYPE_AIR_CONDITIONER, contentList
-                                )
-
-                                if (airConditionerList.isNotEmpty()) {
-                                    mPagerAdapter.addPage(
-                                        PageAdapter.PageFragmentContent(
-                                            titles[2],
-                                            AirConditionerFragment.AIR_CONDITIONER_TYPE,
-                                            airConditionerList,
-                                            this@EnvironmentalControlFragment
-                                        )
-                                    )
-                                }
-
-                                val freshAirList: List<DevDto> = ZGUtil.getDevList(
-                                    ZGManager.DEV_TYPE_NEW_WIND, contentList
-                                )
-
-                                if (freshAirList.isNotEmpty()) {
-                                    mPagerAdapter.addPage(
-                                        PageAdapter.PageFragmentContent(
-                                            titles[3],
-                                            FreshAirFragment.FRESH_AIR_TYPE,
-                                            freshAirList,
-                                            this@EnvironmentalControlFragment
-                                        )
-                                    )
-                                }
-                                mPagerAdapter.notifyDataSetChanged()
-                                viewPager.offscreenPageLimit = 3
+                                contentList = result.contentList
+                                updateDev(contentList!!)
                             } else {
                                 ToastUtils.showLong(result?.msg)
                                 showLoadingFail()
@@ -321,28 +260,109 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
         )
     }
 
-    private fun updateDevAdapter(
-        //adapter: BaseQuickAdapter<DevBean, BaseViewHolder>,
+    private fun updateDevStatus(
         notifyBean: WsNotifyBean
     ) {
-        var idx = 0
-//        for (devBean in adapter.getData()) {
-//            if (notifyBean.uuid.compareToIgnoreCase("" + devBean.getUuid()) === 0
-//                && notifyBean.category.compareToIgnoreCase(devBean.getCategory()) === 0
-//                && notifyBean.model.compareToIgnoreCase(devBean.getModel()) === 0
-//            ) {
-//                val value = "" + notifyBean.getVal()
-//                //去掉后面多余的逗号
-//                if (0 != value.compareTo(devBean.getVal(), ignoreCase = true)) {
-//                    devBean.setVal(value)
-//                    adapter.notifyItemChanged(idx)
-//                }
-//                //不需要批量更新，应当break
-//                break
-//            }
-//            idx++
-//        }
+        if (contentList == null) {
+            return
+        }
+
+        var position = 0
+        var newDevBean: DevDto? = null
+        for (index in contentList!!.indices) {
+            val devBean = contentList!![index]
+            if ((notifyBean.uuid.compareTo(devBean.uuid, ignoreCase = true) == 0)
+                && notifyBean.category.compareTo(devBean.category, ignoreCase = true) == 0
+                && notifyBean.model.compareTo(devBean.model, ignoreCase = true) == 0
+            ) {
+                //去掉后面多余的逗号
+                val value = notifyBean.getVal().toString()
+                if (0 != value.compareTo(devBean.getVal(), ignoreCase = true)) {
+                    position = index
+                    newDevBean = DevDto
+                        .newBuilder(devBean)
+                        .setVal(value)
+                        .build()
+
+
+                }
+                //不需要批量更新，应当break
+                break
+            }
+        }
+        if (newDevBean != null) {
+            contentList!!.removeAt(position)
+            contentList!!.add(position, newDevBean)
+            updateDev(contentList!!)
+        }
+
     }
 
+
+    private fun updateDev(contentList: List<DevDto>) {
+        //显示对应设备列表
+        val lightList: List<DevDto> = ZGUtil.getDevList(
+            ZGManager.DEV_TYPE_LIGHT, contentList
+        )
+        val titles =
+            resources.getStringArray(R.array.environmental_control_items)
+        mPagerAdapter.clearPage()
+        if (lightList.isNotEmpty()) {
+            mPagerAdapter.addPage(
+                PageAdapter.PageFragmentContent(
+                    titles[0],
+                    LightFragment.LIGHT_TYPE,
+                    lightList,
+                    this@EnvironmentalControlFragment
+                )
+            )
+        }
+        val curtainList: List<DevDto> = ZGUtil.getDevList(
+            ZGManager.DEV_TYPE_CURTAIN, contentList
+        )
+
+        if (curtainList.isNotEmpty()) {
+            mPagerAdapter.addPage(
+                PageAdapter.PageFragmentContent(
+                    titles[1],
+                    CurtainFragment.CURTAIN_TYPE,
+                    curtainList,
+                    this@EnvironmentalControlFragment
+                )
+            )
+        }
+
+        val airConditionerList: List<DevDto> = ZGUtil.getDevList(
+            ZGManager.DEV_TYPE_AIR_CONDITIONER, contentList
+        )
+
+        if (airConditionerList.isNotEmpty()) {
+            mPagerAdapter.addPage(
+                PageAdapter.PageFragmentContent(
+                    titles[2],
+                    AirConditionerFragment.AIR_CONDITIONER_TYPE,
+                    airConditionerList,
+                    this@EnvironmentalControlFragment
+                )
+            )
+        }
+
+        val freshAirList: List<DevDto> = ZGUtil.getDevList(
+            ZGManager.DEV_TYPE_NEW_WIND, contentList
+        )
+
+        if (freshAirList.isNotEmpty()) {
+            mPagerAdapter.addPage(
+                PageAdapter.PageFragmentContent(
+                    titles[3],
+                    FreshAirFragment.FRESH_AIR_TYPE,
+                    freshAirList,
+                    this@EnvironmentalControlFragment
+                )
+            )
+        }
+        mPagerAdapter.notifyDataSetChanged()
+        viewPager.offscreenPageLimit = 3
+    }
 
 }
