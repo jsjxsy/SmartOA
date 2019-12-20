@@ -1,5 +1,6 @@
 package com.gx.smart.smartoa.data.network.api;
 
+import com.gx.smart.smartoa.data.network.ApiConfig;
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
 import com.gx.wisestone.work.grpc.ds.attendanceapp.AttendanceAppProviderGrpc;
@@ -66,7 +67,7 @@ public class AttendanceAppProviderService {  //25秒，网络请求超时
 
                 return response;
             }
-        }.doExecute();
+        }.setPort(ApiConfig.ATTENDANCE_SERVICE_PORT).doExecute();
     }
 
 
@@ -90,6 +91,6 @@ public class AttendanceAppProviderService {  //25秒，网络请求超时
 
                 return response;
             }
-        }.doExecute();
+        }.setPort(ApiConfig.ATTENDANCE_SERVICE_PORT).doExecute();
     }
 }

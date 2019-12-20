@@ -1,5 +1,6 @@
 package com.gx.smart.smartoa.data.network.api;
 
+import com.gx.smart.smartoa.data.network.ApiConfig;
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
 import com.gx.wisestone.work.grpc.ds.accessrecord.AccessRecordProviderGrpc;
@@ -70,6 +71,6 @@ public class AccessRecordProviderService {
 
                 return response;
             }
-        }.doExecute();
+        }.setPort(ApiConfig.ATTENDANCE_SERVICE_PORT).doExecute();
     }
 }

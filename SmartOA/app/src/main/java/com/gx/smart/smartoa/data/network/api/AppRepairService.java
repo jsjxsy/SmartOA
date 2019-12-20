@@ -10,6 +10,7 @@ import com.gx.wisestone.work.app.grpc.repair.RepairCommonResponse;
 import com.gx.wisestone.work.app.grpc.repair.RepairRequest;
 import com.orhanobut.logger.Logger;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.grpc.ManagedChannel;
@@ -60,7 +61,7 @@ public class AppRepairService {
                                                                  int type,
                                                                  String address,
                                                                  String employee_phone,
-                                                                 ByteString data,
+                                                                 List<String> images,
                                                                  CallBack callBack) {
         return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
             @Override
@@ -70,7 +71,7 @@ public class AppRepairService {
                         .setType(type)
                         .setAddress(address)
                         .setEmployeePhone(employee_phone)
-                        .setImageBytes(data)
+                        .addAllImageUrl(images)
                         .build();
                 CommonResponse response = null;
                 try {

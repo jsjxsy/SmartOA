@@ -6,11 +6,13 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.media.Image
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,17 +22,18 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import com.blankj.utilcode.util.FileUtils
-import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.ScreenUtils
-import com.blankj.utilcode.util.ToastUtils
+import com.alibaba.fastjson.JSON
+import com.blankj.utilcode.util.*
 import com.bumptech.glide.Glide
 import com.google.protobuf.ByteString
 import com.gx.smart.smartoa.BuildConfig
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.AppConfig
+import com.gx.smart.smartoa.data.network.api.AdminImageProviderService
 import com.gx.smart.smartoa.data.network.api.AppRepairService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.smart.smartoa.data.network.api.lib.model.UploadImage
+import com.gx.wisestone.upload.grpc.images.AdminImagesResponse
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -48,7 +51,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
 
     private lateinit var viewModel: RepairViewModel
     private var type: RepairType = RepairType(1, "设备损坏")
-    private var imageString: ByteString? = null
+    private var images: MutableList<String> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,7 +111,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
                 val content = contentEdit.text.toString()
                 val employeePhone = phone.text.toString()
                 val address = placeName.text.toString()
-                addRepair(content, type.type, address, employeePhone, imageString)
+                addRepair(content, type.type, address, employeePhone, images)
             }
 
             R.id.addImage -> uploadHeadImage()
@@ -123,7 +126,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
         type: Int,
         address: String,
         employee_phone: String,
-        image_bytes: ByteString?
+        images: List<String>
     ) {
         AppRepairService.getInstance()
             .addRepair(
@@ -131,7 +134,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
                 type,
                 address,
                 employee_phone,
-                image_bytes,
+                images,
                 object : CallBack<CommonResponse>() {
                     override fun callBack(result: CommonResponse?) {
                         if (result == null) {
@@ -139,6 +142,33 @@ class RepairFragment : Fragment(), View.OnClickListener {
                             return
                         }
                         if (result?.code == 100) {
+                        } else {
+                            ToastUtils.showLong(result.msg)
+                        }
+                    }
+
+                })
+    }
+
+
+    private fun uploadByByte(
+        fileName: String,
+        image_bytes: ByteString
+    ) {
+        AdminImageProviderService.getInstance()
+            .uploadByByte(
+                AppConfig.REPAIR_PREFIX,
+                fileName,
+                image_bytes,
+                object : CallBack<AdminImagesResponse>() {
+                    override fun callBack(result: AdminImagesResponse?) {
+                        if (result == null) {
+                            ToastUtils.showLong("上传图片超时!")
+                            return
+                        }
+                        if (result?.code == 100) {
+                            val uploadImage = JSON.parseObject(result.jsonstr, UploadImage::class.java)
+                            images.add(uploadImage.path)
                         } else {
                             ToastUtils.showLong(result.msg)
                         }
@@ -227,17 +257,12 @@ class RepairFragment : Fragment(), View.OnClickListener {
 
         when (requestCode) {
             REQUEST_CAPTURE -> if (resultCode == Activity.RESULT_OK) {
-                cropPhoto(Uri.fromFile(tempFile))
+                uploadImage(Uri.fromFile(tempFile))
             }
             REQUEST_PICK -> if (resultCode == Activity.RESULT_OK) {
                 val uri = data?.data
-                cropPhoto(uri)
+                uploadImage(uri!!)
             }
-            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) {
-                val result: CropImage.ActivityResult = CropImage.getActivityResult(data)
-                uploadImage(result.uri)
-            }
-
             REQUEST_TYPE -> if (resultCode == Activity.RESULT_OK) {
                 type = data?.getSerializableExtra(ARG_TYPE) as RepairType
                 repair_type.text = type?.content
@@ -245,36 +270,16 @@ class RepairFragment : Fragment(), View.OnClickListener {
         }
     }
 
-
-    /**
-     * 对指定图片进行裁剪。
-     * @param uri
-     * 图片的uri地址。
-     */
-    private fun cropPhoto(uri: Uri?) {
-        if (uri == null) {
-            return
-        }
-        val reqWidth = ScreenUtils.getScreenWidth()
-        var reqHeight = reqWidth
-        CropImage.activity(uri)
-            .setAspectRatio(reqWidth, reqHeight)
-            .setActivityTitle("裁剪")
-            .setRequestedSize(reqWidth, reqHeight)
-            .setCropMenuCropButtonIcon(R.mipmap.ic_crop)
-            .start(activity!!)
-
-    }
-
     private fun uploadImage(uri: Uri) {
         val cropImagePath: String? = getRealFilePathFromUri(activity!!, uri)
         //此处后面可以将bitMap转为二进制上传后台网络
-        val bitmap =
-            BitmapFactory.decodeFile(cropImagePath)
-        val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val byteArray = baos.toByteArray()
-        imageString = ByteString.copyFrom(byteArray)
+        val bitmap= BitmapFactory.decodeFile(cropImagePath)
+        val maxSize:Long = 1024*1024*8L
+        val newBitMap = ImageUtils.compressByQuality(bitmap, maxSize)
+        val byteArray = ImageUtils.bitmap2Bytes(newBitMap,Bitmap.CompressFormat.JPEG)
+        val imageString = ByteString.copyFrom(byteArray)
+        var fileName= System.currentTimeMillis().toString()+FileUtils.getFileExtension(cropImagePath)
+        uploadByByte(fileName, imageString)
         Glide.with(this).load(cropImagePath).into(addImage)
     }
 
@@ -314,6 +319,9 @@ class RepairFragment : Fragment(), View.OnClickListener {
         }
         return data
     }
+
+
+
 
 
 }

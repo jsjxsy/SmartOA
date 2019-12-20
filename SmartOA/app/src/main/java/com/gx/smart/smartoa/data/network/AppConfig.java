@@ -28,4 +28,7 @@ public class AppConfig {
 
     public static String JGPushMsg;
     public static String JGPushContent;
+
+
+    public static final String REPAIR_PREFIX = "repair";
 }

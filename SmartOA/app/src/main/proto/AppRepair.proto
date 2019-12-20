@@ -50,7 +50,7 @@ message RepairRequest{
     int32 type = 8;  //1.设备顺坏2.办公绿化3.公共卫生
     string address = 10;  //地址
     string employee_phone = 11;  //联系方式
-    bytes image_bytes =14;//图片数据
+    repeated string image_url =14;//图片数据
 }
 
 message QueryMyRepairRequest {

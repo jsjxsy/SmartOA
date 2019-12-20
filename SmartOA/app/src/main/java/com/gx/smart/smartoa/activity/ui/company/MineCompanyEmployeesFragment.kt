@@ -21,8 +21,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.FileUtils
+import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.google.protobuf.ByteString
@@ -33,10 +33,8 @@ import com.gx.smart.smartoa.data.network.api.AppStructureService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.smart.smartoa.utils.DataCheckUtil
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
-import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.fragment_mine_company_employees.*
 import kotlinx.android.synthetic.main.layout_common_title.*
-import java.io.ByteArrayOutputStream
 import java.io.File
 
 /**
@@ -133,7 +131,7 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
                         if (result?.code == 100) {
                             ToastUtils.showLong("申请成功!")
                             activity?.finish()
-                            SPUtils.getInstance().put(AppConfig.PLACE_NAME,companyName)
+                            SPUtils.getInstance().put(AppConfig.PLACE_NAME, companyName)
                         } else {
                             ToastUtils.showLong(result.msg)
                         }
@@ -222,38 +220,13 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
 
         when (requestCode) {
             REQUEST_CAPTURE -> if (resultCode == Activity.RESULT_OK) {
-                cropPhoto(Uri.fromFile(tempFile))
+                uploadImage(Uri.fromFile(tempFile))
             }
             REQUEST_PICK -> if (resultCode == Activity.RESULT_OK) {
                 val uri = data?.data
-                cropPhoto(uri)
-            }
-            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) {
-                val result: CropImage.ActivityResult = CropImage.getActivityResult(data)
-                uploadImage(result.uri)
+                uploadImage(uri!!)
             }
         }
-    }
-
-
-    /**
-     * 对指定图片进行裁剪。
-     * @param uri
-     * 图片的uri地址。
-     */
-    private fun cropPhoto(uri: Uri?) {
-        if (uri == null) {
-            return
-        }
-        val reqWidth = ScreenUtils.getScreenWidth()
-        var reqHeight = reqWidth
-        CropImage.activity(uri)
-            .setAspectRatio(reqWidth, reqHeight)
-            .setActivityTitle("裁剪")
-            .setRequestedSize(reqWidth, reqHeight)
-            .setCropMenuCropButtonIcon(R.mipmap.ic_crop)
-            .start(activity!!)
-
     }
 
 
@@ -262,9 +235,9 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
         //此处后面可以将bitMap转为二进制上传后台网络
         val bitmap =
             BitmapFactory.decodeFile(cropImagePath)
-        val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val byteArray = baos.toByteArray()
+        val maxSize: Long = 1024 * 1024 * 8L
+        val newBitMap = ImageUtils.compressByQuality(bitmap, maxSize)
+        val byteArray = ImageUtils.bitmap2Bytes(newBitMap, Bitmap.CompressFormat.JPEG)
         imageString = ByteString.copyFrom(byteArray)
         Glide.with(this).load(cropImagePath)
             .into(addImage)
