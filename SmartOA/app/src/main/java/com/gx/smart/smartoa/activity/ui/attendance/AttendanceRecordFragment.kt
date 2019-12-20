@@ -6,7 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.blankj.utilcode.util.TimeUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.data.network.api.AttendanceAppProviderService
+import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.wisestone.work.grpc.ds.attendanceapp.getEmployeeDayRecordResp
 import kotlinx.android.synthetic.main.attendance_record_fragment.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
@@ -54,12 +59,39 @@ class AttendanceRecordFragment : Fragment(), View.OnClickListener {
     private fun initContent() {
         adapter = AttendanceRecordAdapter()
         recyclerView.adapter = adapter
-        adapter.mList = arrayListOf(
-            AttendanceRecord("",""),
-            AttendanceRecord("",""),
-            AttendanceRecord("",""),
-            AttendanceRecord("","")
-        )
+        getEmployeeDayRecord()
+    }
+
+
+    private fun getEmployeeDayRecord() {
+        AttendanceAppProviderService.getInstance()
+            .getEmployeeRecordList(object : CallBack<getEmployeeDayRecordResp>() {
+                override fun callBack(result: getEmployeeDayRecordResp?) {
+                    if (result == null) {
+                        ToastUtils.showLong("外勤打卡超时!")
+                        return
+                    }
+                    if (result?.code == 100) {
+                        if (result.contentOrBuilderList.isEmpty()) {
+
+                        } else {
+                            val list = arrayListOf<AttendanceRecord>()
+                            for (employeeRecord in result.contentOrBuilderList!!) {
+                                val workOnTime = TimeUtils.millis2String(employeeRecord.workTime)
+                                val workOffTime =
+                                    TimeUtils.millis2String(employeeRecord.closingTime)
+                                val date = TimeUtils.millis2String(employeeRecord.workTime)
+                                list.add(AttendanceRecord(date, workOnTime, workOffTime))
+                            }
+                            adapter.mList = list
+                        }
+
+                    } else {
+                        ToastUtils.showLong(result.msg)
+                    }
+                }
+
+            })
     }
 
 }

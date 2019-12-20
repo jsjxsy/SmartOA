@@ -43,12 +43,16 @@ class ActionAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mList!![position]
         holder.actionTitle.text = item.title
-        Glide.with(holder.itemView).load(item.imageUrl).into(holder.mImage)
+        Glide.with(holder.itemView)
+            .load(item.imageUrl)
+            .error(R.drawable.ic_default_image)
+            .placeholder(R.drawable.ic_default_image)
+            .into(holder.mImage)
 
         holder.redFlag.let {
-            if(item.hasRead){
+            if (item.hasRead) {
                 it.visibility = View.GONE
-            }else{
+            } else {
                 it.visibility = View.VISIBLE
             }
         }

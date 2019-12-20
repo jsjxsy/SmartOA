@@ -5,4 +5,4 @@ package com.gx.smart.smartoa.activity.ui.attendance
  * @create 2019-11-08
  * @Describe
  */
-data class AttendanceRecord(var imageUrl: String?, var content: String?)
+data class AttendanceRecord(var date: String, var workOn: String, var workOff: String)

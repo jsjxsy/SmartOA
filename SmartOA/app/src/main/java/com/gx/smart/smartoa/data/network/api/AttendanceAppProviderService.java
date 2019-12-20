@@ -39,7 +39,7 @@ public class AttendanceAppProviderService {  //25秒，网络请求超时
      * @param channel
      * @return
      */
-    public AttendanceAppProviderGrpc.AttendanceAppProviderBlockingStub getAppAttendance(ManagedChannel channel) {
+    private AttendanceAppProviderGrpc.AttendanceAppProviderBlockingStub getAppAttendance(ManagedChannel channel) {
         return AttendanceAppProviderGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(TIMEOUT_NETWORK, TimeUnit.SECONDS);
 
@@ -51,8 +51,7 @@ public class AttendanceAppProviderService {  //25秒，网络请求超时
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, getEmployeeDayRecordResp> getEmployeeDayRecord(String latitude, String longitude,
-                                                                                      String address, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, getEmployeeDayRecordResp> getEmployeeDayRecord(CallBack callBack) {
         return new GrpcAsyncTask<String, Void, getEmployeeDayRecordResp>(callBack) {
             @Override
             protected getEmployeeDayRecordResp doRequestData(ManagedChannel channel) {
@@ -76,8 +75,7 @@ public class AttendanceAppProviderService {  //25秒，网络请求超时
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, getEmployeeDayRecordResp> getEmployeeRecordList(String latitude, String longitude,
-                                                                                       String address, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, getEmployeeDayRecordResp> getEmployeeRecordList(CallBack callBack) {
         return new GrpcAsyncTask<String, Void, getEmployeeDayRecordResp>(callBack) {
             @Override
             protected getEmployeeDayRecordResp doRequestData(ManagedChannel channel) {

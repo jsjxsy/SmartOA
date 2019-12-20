@@ -91,7 +91,10 @@ class HomeActionViewBinder :
         private lateinit var time: TextView
         private lateinit var number: TextView
         override fun updateUI(data: AppActivityDto) {
-            Glide.with(itemView).load(data.imageUrl).transform(CenterCrop(), RoundedCorners(10))
+            Glide.with(itemView).load(data.imageUrl)
+                .error(R.drawable.ic_default_image)
+                .placeholder(R.drawable.ic_default_image)
+                .transform(CenterCrop(), RoundedCorners(10))
                 .into(imageView)
             title.text = data.title
             time.text = "${data.startTime - data.endTime}"

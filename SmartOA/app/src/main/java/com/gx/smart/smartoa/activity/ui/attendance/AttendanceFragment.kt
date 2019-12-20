@@ -11,8 +11,14 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.blankj.utilcode.util.TimeUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.data.network.api.AttendanceAppProviderService
+import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.wisestone.work.grpc.ds.attendanceapp.getEmployeeDayRecordResp
 import kotlinx.android.synthetic.main.attendance_fragment.*
+import kotlinx.android.synthetic.main.attendance_fragment.dateText
 import kotlinx.android.synthetic.main.layout_common_title.*
 import java.util.*
 
@@ -72,6 +78,7 @@ class AttendanceFragment : Fragment(), View.OnClickListener {
 
         dateText.text = "${year}年${month}月${day}日 星期" + getWeak(calendar)
         time.text = "${hour}:${minute}:${second}"
+        getEmployeeDayRecord()
     }
 
     companion object {
@@ -147,6 +154,30 @@ class AttendanceFragment : Fragment(), View.OnClickListener {
             else -> "$number"
         }
     }
+
+
+
+    private fun getEmployeeDayRecord() {
+        AttendanceAppProviderService.getInstance()
+            .getEmployeeDayRecord(object : CallBack<getEmployeeDayRecordResp>() {
+                override fun callBack(result: getEmployeeDayRecordResp?) {
+                    if (result == null) {
+                        ToastUtils.showLong("外勤打卡超时!")
+                        return
+                    }
+                    if (result?.code == 100) {
+                        val workOnTime = TimeUtils.millis2String(result.contentOrBuilderList[0].workTime)
+                        work_on_time.text = workOnTime
+                        val workOffTime = TimeUtils.millis2String(result.contentOrBuilderList[0].closingTime)
+                        work_off_time.text = workOffTime
+                    } else {
+                        ToastUtils.showLong(result.msg)
+                    }
+                }
+
+            })
+    }
+
 
 
 }

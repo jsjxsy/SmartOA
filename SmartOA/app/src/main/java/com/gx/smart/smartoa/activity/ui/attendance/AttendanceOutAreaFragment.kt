@@ -16,9 +16,11 @@ import com.amap.api.maps2d.MapView
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.map.MapLocationHelper
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.data.network.api.AccessRecordProviderService
 import com.gx.smart.smartoa.data.network.api.AppAttendanceService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
+import com.gx.wisestone.work.grpc.ds.accessrecord.AccessRecordReportedResp
 import kotlinx.android.synthetic.main.attendance_out_area_fragment.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import java.util.*
@@ -123,7 +125,8 @@ class AttendanceOutAreaFragment : Fragment(), MapLocationHelper.LocationCallBack
             if (address == null) {
                 ToastUtils.showLong("没有获取到位置信息")
             } else {
-                attendance(address!!, latitude, longitude)
+                //attendance(address!!, latitude, longitude)
+                accessRecordReported(address!!, latitude, longitude)
             }
         }
     }
@@ -164,6 +167,30 @@ class AttendanceOutAreaFragment : Fragment(), MapLocationHelper.LocationCallBack
 
             })
     }
+
+
+    private fun accessRecordReported(
+        latitude: String, longitude: String,
+        address: String
+    ) {
+        AccessRecordProviderService.getInstance()
+            .accessRecordReported(latitude, longitude, address, object : CallBack<AccessRecordReportedResp>() {
+                override fun callBack(result: AccessRecordReportedResp?) {
+                    if (result == null) {
+                        ToastUtils.showLong("外勤打卡超时!")
+                        return
+                    }
+                    if (result?.code == 100) {
+                        status.visibility = View.VISIBLE
+                        status.text = "成功"
+                    } else {
+                        ToastUtils.showLong(result.msg)
+                    }
+                }
+
+            })
+    }
+
 
     override fun onCallLocationSuc(location: AMapLocation?) {
         addressText.text = location?.address
