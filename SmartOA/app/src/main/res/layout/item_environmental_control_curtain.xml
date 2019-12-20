@@ -23,9 +23,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_style_four"
         android:layout_marginTop="@dimen/margin_style_seven"
-        android:layout_marginRight="@dimen/margin_style_four"
         android:layout_marginBottom="@dimen/margin_style_seven"
         android:background="@drawable/shape_list_item_background_color"
         android:gravity="center"

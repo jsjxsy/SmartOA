@@ -1,0 +1,114 @@
+syntax = "proto3";
+
+package com.gx.wisestone.core.grpc;
+
+option java_multiple_files = true;
+option java_package = "com.gx.wisestone.upload.grpc.images";
+option java_outer_classname = "AdminImageProviderProto";
+option objc_class_prefix = "WS";
+
+//
+service AdminImageProvider {
+
+    //上传图片
+    rpc uploadByByte(UploadByByteRequest) returns (AdminImagesResponse) {}
+
+    //删除图片
+    rpc deleteBykey(DeleteRequest) returns (AdminImagesResponse) {}
+
+    //根据key下载
+    rpc downLoadByKey(DownloadByKeyRequest) returns (DownloadResponse) {}
+
+    //根据路径下载
+    rpc downLoadByPath(DownloadByPathRequest) returns (DownloadResponse) {}
+
+    //获取图片信息
+    rpc getImageInfo(ImageInfoRequest) returns (ImageInfoResponse) {}
+
+    //获取域名地址
+    rpc getDomain(GetDomainRequest) returns (AdminImagesResponse) {}
+}
+
+// 请求体
+message UploadByByteRequest {
+    //前缀
+    string prefix = 1;
+    //文件名
+    string file_name = 2;
+    //文件数据
+    bytes image_bytes =3;
+}
+
+// 请求体
+message DeleteRequest {
+    //key
+    string key = 1;
+}
+
+message ImageInfoRequest {
+    //全路径
+    string image_url = 1;
+}
+
+//获取域名
+message GetDomainRequest {
+
+}
+
+//
+message AdminImagesResponse {
+    //返回码
+    int32 code = 1;
+    //返回消息
+    string msg = 2;
+    //结果列表
+    map<string,string> data = 3;
+    string jsonstr = 4;
+}
+
+
+//图片信息
+message ImageInfoResponse {
+    //返回码
+    int32 code = 1;
+    //返回消息
+    string msg = 2;
+    //结果列表
+    ImageInfo imageInfo = 3;
+}
+
+//图片信息
+message ImageInfo {
+    //md5
+    string hash = 1;
+    //文件大小
+    int64 size = 2;
+    //扩展类别
+    string mime_type = 3;
+    //key
+    string key = 4;
+    //存放时间
+    int64 put_time = 5;
+
+}
+
+// 下载
+message DownloadByKeyRequest {
+    //key
+    string key = 1;
+}
+// 下载
+message DownloadByPathRequest {
+    //path 带域名
+    string path = 1;
+}
+
+//下载返回
+message DownloadResponse {
+    //返回码
+    int32 code = 1;
+    //返回消息
+    string msg = 2;
+    //结果列表s
+    bytes file_bytes = 4;
+}
