@@ -12,6 +12,9 @@ import com.gx.smart.smartoa.data.network.api.AppActivityService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.activity.AppActivityApplyResponse
 import kotlinx.android.synthetic.main.fragment_mine_action_detail.*
+import kotlinx.android.synthetic.main.fragment_mine_action_detail.loadingView
+import kotlinx.android.synthetic.main.fragment_mine_action_detail.submit
+import kotlinx.android.synthetic.main.fragment_suggestion.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 /**
@@ -98,9 +101,11 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
             ToastUtils.showLong("活动为空!")
             return
         }
+        loadingView.visibility = View.VISIBLE
         AppActivityService.getInstance()
             .cancelApply(activityId!!, object : CallBack<AppActivityApplyResponse>() {
                 override fun callBack(result: AppActivityApplyResponse?) {
+                    loadingView.visibility = View.GONE
                     if (result == null) {
                         ToastUtils.showLong("取消报名超时!")
                         return
@@ -122,10 +127,12 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
             ToastUtils.showLong("活动为空!")
             return
         }
+        loadingView.visibility = View.VISIBLE
         val mark = commentTextContent.text.toString()
         AppActivityService.getInstance()
             .apply(activityId!!, mark, object : CallBack<AppActivityApplyResponse>() {
                 override fun callBack(result: AppActivityApplyResponse?) {
+                    loadingView.visibility = View.GONE
                     if (result == null) {
                         ToastUtils.showLong("报名超时!")
                         return

@@ -6,14 +6,11 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.media.Image
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Base64
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +20,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.alibaba.fastjson.JSON
-import com.blankj.utilcode.util.*
+import com.blankj.utilcode.util.FileUtils
+import com.blankj.utilcode.util.ImageUtils
+import com.blankj.utilcode.util.SPUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.google.protobuf.ByteString
 import com.gx.smart.smartoa.BuildConfig
@@ -35,10 +35,8 @@ import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.smart.smartoa.data.network.api.lib.model.UploadImage
 import com.gx.wisestone.upload.grpc.images.AdminImagesResponse
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
-import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.repair_fragment.*
-import java.io.ByteArrayOutputStream
 import java.io.File
 
 class RepairFragment : Fragment(), View.OnClickListener {
@@ -96,7 +94,10 @@ class RepairFragment : Fragment(), View.OnClickListener {
         phone.setText(phoneValue)
         phone.setSelection(phoneValue.length)
         repair_type.setOnClickListener(this)
-        addImage.setOnClickListener(this)
+        addImage1Layout.setOnClickListener(this)
+        addImage2Layout.setOnClickListener(this)
+        addImage3Layout.setOnClickListener(this)
+
     }
 
     override fun onClick(v: View?) {
@@ -114,7 +115,9 @@ class RepairFragment : Fragment(), View.OnClickListener {
                 addRepair(content, type.type, address, employeePhone, images)
             }
 
-            R.id.addImage -> uploadHeadImage()
+            R.id.addImage1Layout,
+            R.id.addImage2Layout,
+            R.id.addImage3Layout -> uploadHeadImage()
         }
 
 
@@ -128,6 +131,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
         employee_phone: String,
         images: List<String>
     ) {
+        loadingView.visibility = View.VISIBLE
         AppRepairService.getInstance()
             .addRepair(
                 content,
@@ -137,11 +141,14 @@ class RepairFragment : Fragment(), View.OnClickListener {
                 images,
                 object : CallBack<CommonResponse>() {
                     override fun callBack(result: CommonResponse?) {
+                        loadingView.visibility = View.GONE
                         if (result == null) {
                             ToastUtils.showLong("添加超时!")
                             return
                         }
                         if (result?.code == 100) {
+                            ToastUtils.showLong("报修成功!")
+                            activity?.finish()
                         } else {
                             ToastUtils.showLong(result.msg)
                         }
@@ -167,8 +174,10 @@ class RepairFragment : Fragment(), View.OnClickListener {
                             return
                         }
                         if (result?.code == 100) {
-                            val uploadImage = JSON.parseObject(result.jsonstr, UploadImage::class.java)
+                            val uploadImage =
+                                JSON.parseObject(result.jsonstr, UploadImage::class.java)
                             images.add(uploadImage.path)
+
                         } else {
                             ToastUtils.showLong(result.msg)
                         }
@@ -206,7 +215,6 @@ class RepairFragment : Fragment(), View.OnClickListener {
      * 跳转到相册
      */
     private fun gotoPhoto() {
-        Log.d("evan", "*****************打开图库********************")
         //跳转到调用系统图库
         val intent = Intent(
             Intent.ACTION_PICK,
@@ -222,7 +230,6 @@ class RepairFragment : Fragment(), View.OnClickListener {
      * 跳转到照相机
      */
     private fun gotoCamera() {
-        Log.d("evan", "*****************打开相机********************")
         //创建拍照存储的图片文件
         val path = Environment.getExternalStorageDirectory()
             .path + "/image/"
@@ -270,17 +277,33 @@ class RepairFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    var position = 1
     private fun uploadImage(uri: Uri) {
         val cropImagePath: String? = getRealFilePathFromUri(activity!!, uri)
         //此处后面可以将bitMap转为二进制上传后台网络
-        val bitmap= BitmapFactory.decodeFile(cropImagePath)
-        val maxSize:Long = 1024*1024*8L
+        val bitmap = BitmapFactory.decodeFile(cropImagePath)
+        val maxSize: Long = 1000 * 1000L
         val newBitMap = ImageUtils.compressByQuality(bitmap, maxSize)
-        val byteArray = ImageUtils.bitmap2Bytes(newBitMap,Bitmap.CompressFormat.JPEG)
+        val byteArray = ImageUtils.bitmap2Bytes(newBitMap, Bitmap.CompressFormat.JPEG)
         val imageString = ByteString.copyFrom(byteArray)
-        var fileName= System.currentTimeMillis().toString()+FileUtils.getFileExtension(cropImagePath)
+        var fileName =
+            System.currentTimeMillis().toString() + FileUtils.getFileExtension(cropImagePath)
         uploadByByte(fileName, imageString)
-        Glide.with(this).load(cropImagePath).into(addImage)
+
+        when (position) {
+            1 -> {
+                Glide.with(this).load(cropImagePath).into(addImage1)
+                addImage2Layout.visibility = View.VISIBLE
+            }
+            2 -> {
+                Glide.with(this).load(cropImagePath).into(addImage2)
+                addImage3Layout.visibility = View.VISIBLE
+            }
+            3 -> {
+                Glide.with(this).load(cropImagePath).into(addImage3)
+            }
+        }
+        position++
     }
 
 
@@ -319,9 +342,6 @@ class RepairFragment : Fragment(), View.OnClickListener {
         }
         return data
     }
-
-
-
 
 
 }

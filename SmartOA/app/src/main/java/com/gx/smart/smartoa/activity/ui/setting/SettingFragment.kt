@@ -19,8 +19,10 @@ import com.gx.smart.smartoa.data.network.api.UserCenterService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
+import kotlinx.android.synthetic.main.fragment_mine_action_detail.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.setting_fragment.*
+import kotlinx.android.synthetic.main.setting_fragment.loadingView
 import top.limuyang2.customldialog.IOSMsgDialog
 
 class SettingFragment : Fragment(), View.OnClickListener {
@@ -116,8 +118,10 @@ class SettingFragment : Fragment(), View.OnClickListener {
 
     //验证登录手机号回调
     private fun appLogout() {
+        loadingView.visibility = View.VISIBLE
         appLogoutCallBack = object : CallBack<CommonResponse>() {
             override fun callBack(result: CommonResponse?) {
+                loadingView.visibility = View.GONE
                 if (result == null) {
                     ToastUtils.showLong("退出登录失败")
                     return

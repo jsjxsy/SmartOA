@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.TimeUtils
 import com.gx.smart.smartoa.R
 import com.gx.wisestone.work.app.grpc.repair.RepairInfoOrBuilder
 
@@ -46,14 +47,31 @@ class RepairRecordAdapter :
         holder.mContent.text = item.content
         holder.state.text = when (item.status) {
             //1.未处理2.处理中3.已完成
-            1 -> "未处理"
-            2 -> "处理中"
-            3 -> "已完成"
-            else -> "未知"
+            1 -> {
+                holder.state.setTextColor(holder.itemView.resources.getColor(R.color.font_color_style_ten))
+                "未处理"
+            }
+            2 -> {
+                holder.state.setTextColor(holder.itemView.resources.getColor(R.color.font_color_style_eleven))
+                "处理中"
+            }
+            3 -> {
+                holder.state.setTextColor(holder.itemView.resources.getColor(R.color.font_color_style_night))
+                "已完成"
+            }
+            else -> {
+                holder.state.setTextColor(holder.itemView.resources.getColor(R.color.font_color_style_five))
+                "未知"
+            }
 
         }
         holder.employeeName.text = item.employeeName
-        holder.time.text = "${item.handleTime}"
+
+        holder.time.text = if (item.handleTime == 0L) {
+            "-"
+        } else {
+            TimeUtils.millis2String(item.handleTime)
+        }
         holder.onItemClick = onItemClick
     }
 

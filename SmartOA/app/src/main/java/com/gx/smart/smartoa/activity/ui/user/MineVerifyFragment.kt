@@ -17,7 +17,9 @@ import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
 import com.gx.smart.smartoa.utils.DataCheckUtil.CheckIdCard
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
+import kotlinx.android.synthetic.main.fragment_mine_action_detail.*
 import kotlinx.android.synthetic.main.fragment_mine_verify.*
+import kotlinx.android.synthetic.main.fragment_mine_verify.loadingView
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 /**
@@ -99,6 +101,7 @@ class MineVerifyFragment : Fragment(), View.OnClickListener {
         } else if (idCard.length != 18 || !CheckIdCard(idCard)) {
             ToastUtils.showLong("无效的身份证")
         } else {
+            loadingView.visibility = View.VISIBLE
             changeUserIdCard(name)
             if (GrpcAsyncTask.isFinish(verifiedTask)) {
                 verifiedTask =
@@ -129,6 +132,7 @@ class MineVerifyFragment : Fragment(), View.OnClickListener {
     private fun changeUserIdCard(name: String) {
         verifiedCallBack = object : CallBack<CommonResponse>() {
             override fun callBack(result: CommonResponse?) {
+                loadingView.visibility = View.GONE
                 if (result == null) {
                     ToastUtils.showLong("修改身份证号超时")
                     return

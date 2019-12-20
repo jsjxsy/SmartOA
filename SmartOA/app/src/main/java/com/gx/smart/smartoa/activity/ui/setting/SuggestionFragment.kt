@@ -64,8 +64,10 @@ class SuggestionFragment : Fragment(), View.OnClickListener {
         if(TextUtils.isEmpty(content)){
             ToastUtils.showLong("提交的建议不能为空!")
         }else{
+            loadingView.visibility = View.VISIBLE
             UserCenterService.getInstance().addOpinion(content, object: CallBack<CommonResponse>() {
                 override fun callBack(result: CommonResponse?) {
+                    loadingView.visibility = View.GONE
                     if(result == null) {
                         ToastUtils.showLong("提交建议超时")
                         return

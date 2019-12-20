@@ -16,7 +16,9 @@ import com.gx.smart.smartoa.data.network.api.AppEmployeeService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import com.gx.wisestone.work.app.grpc.employee.EmployeeInfo
+import kotlinx.android.synthetic.main.fragment_mine_action_detail.*
 import kotlinx.android.synthetic.main.fragment_mine_company_added.*
+import kotlinx.android.synthetic.main.fragment_mine_company_added.loadingView
 
 /**
  * A simple [Fragment] subclass.
@@ -75,10 +77,12 @@ class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
     }
 
     private fun cancelCompanyBind() {
+        loadingView.visibility = View.VISIBLE
         AppEmployeeService.getInstance()
             .cancelCompanyBind(
                 object : CallBack<CommonResponse>() {
                     override fun callBack(result: CommonResponse?) {
+                        loadingView.visibility = View.GONE
                         if (result == null) {
                             ToastUtils.showLong("解绑公司超时!")
                             return

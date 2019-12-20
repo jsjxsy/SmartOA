@@ -7,9 +7,6 @@ import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
 import com.gx.wisestone.upload.grpc.images.AdminImageProviderGrpc;
 import com.gx.wisestone.upload.grpc.images.AdminImagesResponse;
 import com.gx.wisestone.upload.grpc.images.UploadByByteRequest;
-import com.gx.wisestone.work.grpc.ds.accessrecord.AccessRecordProviderGrpc;
-import com.gx.wisestone.work.grpc.ds.accessrecord.AccessRecordReportedDto;
-import com.gx.wisestone.work.grpc.ds.accessrecord.AccessRecordReportedResp;
 import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
@@ -22,59 +19,59 @@ import io.grpc.ManagedChannel;
  * @Describe
  **/
 public class AdminImageProviderService {
-        //25秒，网络请求超时
-        public static final int TIMEOUT_NETWORK = 25;
+    //25秒，网络请求超时
+    public static final int TIMEOUT_NETWORK = 25;
 
-        private static AdminImageProviderService UserCenterClient;
+    private static AdminImageProviderService UserCenterClient;
 
-        private AdminImageProviderService() {
+    private AdminImageProviderService() {
 
+    }
+
+    public static AdminImageProviderService getInstance() {
+        if (UserCenterClient == null) {
+            UserCenterClient = new AdminImageProviderService();
         }
+        return UserCenterClient;
+    }
 
-        public static AdminImageProviderService getInstance() {
-            if (UserCenterClient == null) {
-                UserCenterClient = new AdminImageProviderService();
-            }
-            return UserCenterClient;
-        }
+    /**
+     * 获取UserCenterstub  设置超时时间  8秒
+     *
+     * @param channel
+     * @return
+     */
+    public AdminImageProviderGrpc.AdminImageProviderBlockingStub getAdminImage(ManagedChannel channel) {
+        return AdminImageProviderGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(TIMEOUT_NETWORK, TimeUnit.SECONDS);
 
-        /**
-         * 获取UserCenterstub  设置超时时间  8秒
-         *
-         * @param channel
-         * @return
-         */
-        public AdminImageProviderGrpc.AdminImageProviderBlockingStub getAdminImage(ManagedChannel channel) {
-            return AdminImageProviderGrpc.newBlockingStub(channel)
-                    .withDeadlineAfter(TIMEOUT_NETWORK, TimeUnit.SECONDS);
-
-        }
+    }
 
 
-        /**
-         * 广告图 所有app一样
-         *
-         * @return callBack返回值
-         */
-        public GrpcAsyncTask<String, Void, AdminImagesResponse> uploadByByte(String prefix, String fileName,
-                                                                             ByteString image, CallBack callBack) {
-            return new GrpcAsyncTask<String, Void, AdminImagesResponse>(callBack) {
-                @Override
-                protected AdminImagesResponse doRequestData(ManagedChannel channel) {
-                    UploadByByteRequest message = UploadByByteRequest.newBuilder()
-                            .setPrefix(prefix)
-                            .setFileName(fileName)
-                            .setImageBytes(image)
-                            .build();
-                    AdminImagesResponse response = null;
-                    try {
-                        response = getAdminImage(channel).uploadByByte(message);
-                    } catch (Exception e) {
-                        Logger.e("AppAttendanceService", e.getMessage());
-                    }
-
-                    return response;
+    /**
+     * 广告图 所有app一样
+     *
+     * @return callBack返回值
+     */
+    public GrpcAsyncTask<String, Void, AdminImagesResponse> uploadByByte(String prefix, String fileName,
+                                                                         ByteString image, CallBack callBack) {
+        return new GrpcAsyncTask<String, Void, AdminImagesResponse>(callBack) {
+            @Override
+            protected AdminImagesResponse doRequestData(ManagedChannel channel) {
+                UploadByByteRequest message = UploadByByteRequest.newBuilder()
+                        .setPrefix(prefix)
+                        .setFileName(fileName)
+                        .setImageBytes(image)
+                        .build();
+                AdminImagesResponse response = null;
+                try {
+                    response = getAdminImage(channel).uploadByByte(message);
+                } catch (Exception e) {
+                    Logger.e(e,"uploadByByte");
                 }
-            }.setPort(ApiConfig.UPLOAD_IMAGE_SERVER_PORT).doExecute();
-        }
+
+                return response;
+            }
+        }.setPort(ApiConfig.UPLOAD_IMAGE_SERVER_PORT).doExecute();
+    }
 }

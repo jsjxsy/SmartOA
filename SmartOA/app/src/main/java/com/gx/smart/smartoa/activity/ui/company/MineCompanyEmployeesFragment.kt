@@ -33,7 +33,9 @@ import com.gx.smart.smartoa.data.network.api.AppStructureService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.smart.smartoa.utils.DataCheckUtil
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
+import kotlinx.android.synthetic.main.fragment_mine_action_detail.*
 import kotlinx.android.synthetic.main.fragment_mine_company_employees.*
+import kotlinx.android.synthetic.main.fragment_mine_company_employees.loadingView
 import kotlinx.android.synthetic.main.layout_common_title.*
 import java.io.File
 
@@ -120,10 +122,12 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
         image: ByteString?,
         companyId: Long
     ) {
+        loadingView.visibility = View.VISIBLE
         AppStructureService.getInstance()
             .applyEmployee(name, mobile, image, companyId,
                 object : CallBack<CommonResponse>() {
                     override fun callBack(result: CommonResponse?) {
+                        loadingView.visibility = View.GONE
                         if (result == null) {
                             ToastUtils.showLong("申请加入公司超时!")
                             return
@@ -235,7 +239,7 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
         //此处后面可以将bitMap转为二进制上传后台网络
         val bitmap =
             BitmapFactory.decodeFile(cropImagePath)
-        val maxSize: Long = 1024 * 1024 * 8L
+        val maxSize: Long = 1000 * 1000L
         val newBitMap = ImageUtils.compressByQuality(bitmap, maxSize)
         val byteArray = ImageUtils.bitmap2Bytes(newBitMap, Bitmap.CompressFormat.JPEG)
         imageString = ByteString.copyFrom(byteArray)
