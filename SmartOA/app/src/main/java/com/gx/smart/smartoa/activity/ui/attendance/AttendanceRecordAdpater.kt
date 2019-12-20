@@ -32,10 +32,9 @@ class AttendanceRecordAdapter :
     //填充视图
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mList!![position]
-        holder.timeWorkOn.text = item.content
-        holder.timeWorkOff.text = item.content
-        holder.date.text = item.content
-        holder.timeWorkOn.text = item.content
+        holder.timeWorkOn.text = item.workOn
+        holder.timeWorkOff.text = item.workOff
+        holder.date.text = item.date
     }
 
     class ViewHolder : RecyclerView.ViewHolder {

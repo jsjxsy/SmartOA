@@ -18,7 +18,6 @@ import com.gx.smart.smartoa.data.network.api.AttendanceAppProviderService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.grpc.ds.attendanceapp.getEmployeeDayRecordResp
 import kotlinx.android.synthetic.main.attendance_fragment.*
-import kotlinx.android.synthetic.main.attendance_fragment.dateText
 import kotlinx.android.synthetic.main.layout_common_title.*
 import java.util.*
 
@@ -156,7 +155,6 @@ class AttendanceFragment : Fragment(), View.OnClickListener {
     }
 
 
-
     private fun getEmployeeDayRecord() {
         AttendanceAppProviderService.getInstance()
             .getEmployeeDayRecord(object : CallBack<getEmployeeDayRecordResp>() {
@@ -165,19 +163,26 @@ class AttendanceFragment : Fragment(), View.OnClickListener {
                         ToastUtils.showLong("外勤打卡超时!")
                         return
                     }
-                    if (result?.code == 100) {
-                        val workOnTime = TimeUtils.millis2String(result.contentOrBuilderList[0].workTime)
-                        work_on_time.text = workOnTime
-                        val workOffTime = TimeUtils.millis2String(result.contentOrBuilderList[0].closingTime)
-                        work_off_time.text = workOffTime
+                    if (result!!.code == 100) {
+
+                        val day = result.contentOrBuilderList
+                        if (day == null) {
+                            work_on_time.text = "--:--:--"
+                            work_off_time.text = "--:--:--"
+                        } else {
+                            val workOnTime = TimeUtils.millis2String(day[0].workTime)
+                            work_on_time.text = workOnTime
+                            val workOffTime = TimeUtils.millis2String(day[0].closingTime)
+                            work_off_time.text = workOffTime
+                        }
+
                     } else {
-                        ToastUtils.showLong(result.msg)
+                        ToastUtils.showLong(result!!.msg)
                     }
                 }
 
             })
     }
-
 
 
 }

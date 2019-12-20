@@ -59,11 +59,11 @@ class AttendanceRecordFragment : Fragment(), View.OnClickListener {
     private fun initContent() {
         adapter = AttendanceRecordAdapter()
         recyclerView.adapter = adapter
-        getEmployeeDayRecord()
+        getEmployeeRecordList()
     }
 
 
-    private fun getEmployeeDayRecord() {
+    private fun getEmployeeRecordList() {
         AttendanceAppProviderService.getInstance()
             .getEmployeeRecordList(object : CallBack<getEmployeeDayRecordResp>() {
                 override fun callBack(result: getEmployeeDayRecordResp?) {
