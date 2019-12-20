@@ -28,7 +28,7 @@
         android:textSize="@dimen/font_size_style_two"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="不处理" />
+        tools:text="不处理" />
 
     <TextView
         android:id="@+id/employeeNameText"
@@ -65,7 +65,7 @@
         android:textSize="@dimen/font_size_style_two"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/employeeNameText"
-        tools:text="处理时间:" />
+        android:text="处理时间:" />
 
     <TextView
         android:id="@+id/time"
