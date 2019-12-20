@@ -72,30 +72,23 @@ class AttendanceRecordFragment : Fragment(), View.OnClickListener {
                         return
                     }
                     if (result?.code == 100) {
-                        if (result.contentOrBuilderList.isEmpty()) {
-
+                        val contentList = result.contentOrBuilderList
+                        if (contentList.isEmpty()) {
+                            emptyLayout.visibility = View.VISIBLE
                         } else {
-
-                            val contentList = result.contentOrBuilderList
-                            if (contentList.isEmpty()) {
-                                emptyLayout.visibility = View.VISIBLE
-                            } else {
-                                emptyLayout.visibility = View.GONE
-                                val list = arrayListOf<AttendanceRecord>()
-                                for (employeeRecord in contentList!!) {
-                                    val workOnTime =
-                                        TimeUtils.millis2String(employeeRecord.workTime)
-                                    val workOffTime =
-                                        TimeUtils.millis2String(employeeRecord.closingTime)
-                                    val date = TimeUtils.millis2String(employeeRecord.workTime)
-                                    list.add(AttendanceRecord(date, workOnTime, workOffTime))
-                                }
-                                adapter.mList = list
-                                adapter.notifyDataSetChanged()
+                            emptyLayout.visibility = View.GONE
+                            val list = arrayListOf<AttendanceRecord>()
+                            for (employeeRecord in contentList!!) {
+                                val workOnTime =
+                                    TimeUtils.millis2String(employeeRecord.workTime)
+                                val workOffTime =
+                                    TimeUtils.millis2String(employeeRecord.closingTime)
+                                val date = TimeUtils.millis2String(employeeRecord.workTime)
+                                list.add(AttendanceRecord(date, workOnTime, workOffTime))
                             }
-
+                            adapter.mList = list
+                            adapter.notifyDataSetChanged()
                         }
-
                     } else {
                         ToastUtils.showLong(result.msg)
                     }
