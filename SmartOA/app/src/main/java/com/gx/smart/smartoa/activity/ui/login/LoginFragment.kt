@@ -4,8 +4,10 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.text.Editable
 import android.text.InputType
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
@@ -40,6 +42,8 @@ import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_login.delete
+import kotlinx.android.synthetic.main.fragment_login.loadingView
 
 
 class LoginFragment : Fragment(), OnClickListener {
@@ -142,6 +146,28 @@ class LoginFragment : Fragment(), OnClickListener {
         val userName = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")
         id_input_phone_edit_text.setText(userName)
         id_input_phone_edit_text.setSelection(userName.length)
+
+        delete.setOnClickListener {
+            id_input_phone_edit_text.editableText.clear()
+        }
+        id_input_phone_edit_text.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val length = s?.length ?: 0
+                if (length > 0) {
+                    delete.visibility = View.VISIBLE
+                } else {
+                    delete.visibility = View.GONE
+                }
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
     }
 
     private fun loginType() {

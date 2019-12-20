@@ -87,9 +87,6 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
 
     private fun initContent() {
         getUserInfo()
-        nameLayout.setOnClickListener {
-            findNavController().navigate(R.id.action_mineUserInfoFragment_to_mineUserInfoModifyNameFragment)
-        }
 
         nickNameLayout.setOnClickListener {
             val bundle = Bundle()
@@ -180,9 +177,7 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                             .apply(RequestOptions.bitmapTransform(CircleCrop()))
                             .into(headImage)
                     }
-                    if (userInfo.name.isNotBlank()) {
-                        name.text = userInfo.name
-                    }
+
                     if (userInfo.nickName.isNotBlank()) {
                         nick = userInfo.nickName
                         nickName.text = userInfo.nickName
@@ -203,8 +198,15 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                     }
                     verify = userInfo.verified
                     when (userInfo.verified) {
-                        1 -> identificationVerify.text = "已认证"
-                        2 -> identificationVerify.text = "未认证"
+                        1 -> identificationVerify.let{
+                            it.text = "已认证"
+                            it.setTextColor(resources.getColor(R.color.font_color_style_night))
+                        }
+
+                        2 -> identificationVerify.let{
+                            it.text = "未认证"
+                            it.setTextColor(resources.getColor(R.color.font_color_style_five))
+                        }
                     }
                 }
             }

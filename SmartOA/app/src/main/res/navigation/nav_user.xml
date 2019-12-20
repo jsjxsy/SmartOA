@@ -11,9 +11,6 @@
         android:label="fragment_mine_user_info"
         tools:layout="@layout/fragment_mine_user_info">
         <action
-            android:id="@+id/action_mineUserInfoFragment_to_mineUserInfoModifyNameFragment"
-            app:destination="@id/mineUserInfoModifyNameFragment" />
-        <action
             android:id="@+id/action_mineUserInfoFragment_to_mineUserInfoModifyNickNameFragment"
             app:destination="@id/mineUserInfoModifyNickNameFragment" />
         <action
@@ -32,11 +29,6 @@
         android:label="fragment_mine_verify"
         tools:layout="@layout/fragment_mine_verify" />
 
-    <fragment
-        android:id="@+id/mineUserInfoModifyNameFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.user.MineUserInfoModifyNameFragment"
-        android:label="fragment_mine_user_info_modify_name"
-        tools:layout="@layout/fragment_mine_user_info_modify_name" />
     <fragment
         android:id="@+id/mineUserInfoModifyNickNameFragment"
         android:name="com.gx.smart.smartoa.activity.ui.user.MineUserInfoModifyNickNameFragment"

@@ -2,7 +2,9 @@ package com.gx.smart.smartoa.activity.ui.user
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +28,8 @@ import com.gx.wisestone.uaa.grpc.lib.auth.UserModifyResp
 import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import kotlinx.android.synthetic.main.fragment_mine_user_info_modify_phone.*
+import kotlinx.android.synthetic.main.fragment_mine_user_info_modify_phone.delete
+import kotlinx.android.synthetic.main.fragment_mine_user_info_modify_phone.loadingView
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -90,6 +94,27 @@ class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
         phoneNumber.text = phone?.replace("(\\d{3})\\d{4}(\\d{4})".toRegex(), "$1****$2")
         initVerifyCode()
         save.setOnClickListener(this)
+        delete.setOnClickListener {
+            newPhone.editableText.clear()
+        }
+        newPhone.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val length = s?.length ?: 0
+                if (length > 0) {
+                    delete.visibility = View.VISIBLE
+                } else {
+                    delete.visibility = View.GONE
+                }
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
     }
 
     private fun initVerifyCode() {

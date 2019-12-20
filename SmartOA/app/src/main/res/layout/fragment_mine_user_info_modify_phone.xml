@@ -80,6 +80,14 @@
             android:layout_marginLeft="100dp"
             android:background="@android:color/white"
             android:hint="@string/input_new_phone" />
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_clear" />
     </RelativeLayout>
 
     <View

@@ -42,8 +42,9 @@
         <ImageView
             android:id="@+id/delete"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:src="@drawable/ic_clear" />
 
@@ -53,7 +54,10 @@
             android:layout_height="@dimen/list_item_height_style"
             android:layout_toLeftOf="@id/delete"
             android:layout_toRightOf="@id/phone"
-            android:hint="@string/input_name" />
+            android:textColor="@color/font_color_style_six"
+            android:textSize="@dimen/font_size_style_one"
+            android:hint="@string/input_name"
+            android:background="@android:color/white"/>
 
     </RelativeLayout>
 
