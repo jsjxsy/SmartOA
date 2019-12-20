@@ -5,9 +5,9 @@
     android:id="@+id/title"
     android:layout_width="match_parent"
     android:layout_height="@dimen/title_height_style"
+    android:background="@android:color/white"
     android:paddingLeft="@dimen/margin_style_three"
     android:paddingRight="@dimen/margin_style_three"
-    android:background="@android:color/white"
     tools:background="@android:color/white"
     tools:context=".activity.MainActivity">
 
@@ -22,7 +22,7 @@
         android:ellipsize="end"
         android:gravity="center"
         android:textColor="@android:color/white"
-        android:textSize="15sp"
+        android:textSize="@dimen/font_size_style_one"
         android:visibility="gone"
         tools:text="悦盛国际"
         tools:visibility="gone" />
@@ -30,11 +30,11 @@
     <ImageView
         android:id="@+id/left_nav_image_view"
         android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
         android:paddingTop="12dp"
         android:paddingRight="12dp"
         android:paddingBottom="12dp"
-        android:layout_height="match_parent"
-        android:contentDescription="@null"
         android:visibility="gone"
         app:srcCompat="@drawable/ic_back"
         tools:visibility="visible" />
@@ -60,7 +60,6 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:ellipsize="end"
-
         android:gravity="center"
         android:textSize="@dimen/font_size_style_one"
         android:visibility="gone"
@@ -76,12 +75,8 @@
         android:gravity="center"
         android:padding="4dp"
         android:src="@drawable/ic_message_ic"
-
-        android:textSize="16sp"
-        android:visibility="visible"
-        tools:visibility="visible"
-
-        android:background="@color/background_style_four"/>
+        android:visibility="gone"
+        tools:visibility="visible" />
 
     <View
         android:id="@+id/id_message_red_point"
