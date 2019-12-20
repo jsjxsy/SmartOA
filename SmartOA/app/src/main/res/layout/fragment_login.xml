@@ -35,31 +35,33 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintLeft_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="57.5dp"
                 android:gravity="center_horizontal">
+
                 <EditText
                     android:id="@+id/id_input_phone_edit_text"
                     style="@style/editTextStyle"
                     android:layout_width="match_parent"
                     android:drawableLeft="@drawable/ic_login_phone_icon"
                     android:hint="@string/login_input_phone"
-                    android:textColor="@color/font_color_style_six"
                     android:imeOptions="actionNext"
-                    android:inputType="phone" />
+                    android:inputType="phone"
+                    android:textColor="@color/font_color_style_six"
+                    android:textSize="@dimen/font_size_style_one" />
 
                 <ImageView
                     android:id="@+id/delete"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="30dp"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="30dp"
                     android:src="@drawable/ic_clear" />
             </RelativeLayout>
-
 
 
             <RelativeLayout
@@ -76,8 +78,9 @@
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"
                     android:maxLength="12"
+                    android:text="@={userModel.password}"
                     android:textColor="@color/font_color_style_six"
-                    android:text="@={userModel.password}" />
+                    android:textSize="@dimen/font_size_style_one" />
 
                 <ImageView
                     android:id="@+id/passwordState"
@@ -154,7 +157,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

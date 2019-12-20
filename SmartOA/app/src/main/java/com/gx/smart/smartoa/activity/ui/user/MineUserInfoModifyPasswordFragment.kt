@@ -204,7 +204,7 @@ class MineUserInfoModifyPasswordFragment : Fragment(), View.OnClickListener {
 
 
     private fun passwordState(editText: EditText,imageView: ImageView) {
-        editText.setSelection(editText.text.lastIndex)
+
         when (editText.inputType) {
             InputType.TYPE_TEXT_VARIATION_PASSWORD -> {
                 imageView.setImageResource(R.drawable.ic_login_password_state_visible)
@@ -224,6 +224,7 @@ class MineUserInfoModifyPasswordFragment : Fragment(), View.OnClickListener {
                     PasswordTransformationMethod.getInstance()
             }
         }
+        editText.setSelection(editText.text.length)
 
     }
 

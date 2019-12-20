@@ -75,15 +75,25 @@ class AttendanceRecordFragment : Fragment(), View.OnClickListener {
                         if (result.contentOrBuilderList.isEmpty()) {
 
                         } else {
-                            val list = arrayListOf<AttendanceRecord>()
-                            for (employeeRecord in result.contentOrBuilderList!!) {
-                                val workOnTime = TimeUtils.millis2String(employeeRecord.workTime)
-                                val workOffTime =
-                                    TimeUtils.millis2String(employeeRecord.closingTime)
-                                val date = TimeUtils.millis2String(employeeRecord.workTime)
-                                list.add(AttendanceRecord(date, workOnTime, workOffTime))
+
+                            val contentList = result.contentOrBuilderList
+                            if (contentList.isEmpty()) {
+                                emptyLayout.visibility = View.VISIBLE
+                            } else {
+                                emptyLayout.visibility = View.GONE
+                                val list = arrayListOf<AttendanceRecord>()
+                                for (employeeRecord in contentList!!) {
+                                    val workOnTime =
+                                        TimeUtils.millis2String(employeeRecord.workTime)
+                                    val workOffTime =
+                                        TimeUtils.millis2String(employeeRecord.closingTime)
+                                    val date = TimeUtils.millis2String(employeeRecord.workTime)
+                                    list.add(AttendanceRecord(date, workOnTime, workOffTime))
+                                }
+                                adapter.mList = list
+                                adapter.notifyDataSetChanged()
                             }
-                            adapter.mList = list
+
                         }
 
                     } else {

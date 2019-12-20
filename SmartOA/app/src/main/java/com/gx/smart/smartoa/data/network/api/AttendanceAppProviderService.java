@@ -62,7 +62,7 @@ public class AttendanceAppProviderService {  //25秒，网络请求超时
                 try {
                     response = getAppAttendance(channel).getEmployeeDayRecord(message);
                 } catch (Exception e) {
-                    Logger.e("AppAttendanceService", e.getMessage());
+                    Logger.e("AttendanceAppProviderService", e.getMessage());
                 }
 
                 return response;
@@ -86,7 +86,7 @@ public class AttendanceAppProviderService {  //25秒，网络请求超时
                 try {
                     response = getAppAttendance(channel).getEmployeeRecordList(message);
                 } catch (Exception e) {
-                    Logger.e("AppAttendanceService", e.getMessage());
+                    Logger.e("AttendanceAppProviderService", e.getMessage());
                 }
 
                 return response;

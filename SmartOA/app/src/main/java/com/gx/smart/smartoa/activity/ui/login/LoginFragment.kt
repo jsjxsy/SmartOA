@@ -202,8 +202,6 @@ class LoginFragment : Fragment(), OnClickListener {
     }
 
     private fun passwordState() {
-        val index = id_input_password_edit_text.text.length
-        id_input_password_edit_text.setSelection(index)
         when (id_input_password_edit_text.inputType) {
             InputType.TYPE_TEXT_VARIATION_PASSWORD -> {
                 passwordState.setImageResource(R.drawable.ic_login_password_state_visible)
@@ -223,6 +221,8 @@ class LoginFragment : Fragment(), OnClickListener {
                     PasswordTransformationMethod.getInstance()
             }
         }
+        val index = id_input_password_edit_text.text.length
+        id_input_password_edit_text.setSelection(index)
 
     }
 

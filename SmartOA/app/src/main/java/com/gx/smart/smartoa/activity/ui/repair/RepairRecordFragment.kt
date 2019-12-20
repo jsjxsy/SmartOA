@@ -65,7 +65,13 @@ class RepairRecordFragment : Fragment(), View.OnClickListener {
                         }
                         if (result?.code == 100) {
                             val list = result.repairInfoOrBuilderList.toList()
-                            adapter.mList = list
+                            if (list.isEmpty()) {
+                                emptyLayout.visibility = View.VISIBLE
+                            } else {
+                                emptyLayout.visibility = View.GONE
+                                adapter.mList = list
+                                adapter.notifyDataSetChanged()
+                            }
                         } else {
                             ToastUtils.showLong(result.msg)
                         }

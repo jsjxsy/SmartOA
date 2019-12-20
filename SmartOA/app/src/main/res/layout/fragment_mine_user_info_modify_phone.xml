@@ -79,6 +79,8 @@
             android:layout_height="@dimen/list_item_height_style"
             android:layout_marginLeft="100dp"
             android:background="@android:color/white"
+            android:textColor="@color/font_color_style_five"
+            android:textSize="@dimen/font_size_style_one"
             android:focusedByDefault="true"
             android:hint="@string/input_new_phone" />
         <ImageView
@@ -132,6 +134,8 @@
             android:layout_height="@dimen/list_item_height_style"
             android:layout_marginLeft="100dp"
             android:layout_toLeftOf="@id/getVerifyCodeText"
+            android:textColor="@color/font_color_style_five"
+            android:textSize="@dimen/font_size_style_one"
             android:background="@android:color/white"
             android:hint="@string/input_verify_code" />
 

@@ -67,7 +67,7 @@ class MineUserInfoModifyNickNameFragment : Fragment(), View.OnClickListener {
             delete.visibility = View.GONE
         }else{
             delete.visibility = View.VISIBLE
-            modifyName.setSelection(nickName.lastIndex)
+            modifyName.setSelection(nickName.length)
         }
 
         delete.setOnClickListener {

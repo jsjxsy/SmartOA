@@ -108,7 +108,7 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
         submitApply.setOnClickListener(this)
         val phoneValue = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")
         phone.setText(phoneValue)
-        phone.setSelection(phoneValue.lastIndex)
+        phone.setSelection(phoneValue.length)
         employeeNameEdit.setText(SPUtils.getInstance().getString(AppConfig.SH_USER_REAL_NAME, ""))
         addImage.setOnClickListener(this)
     }

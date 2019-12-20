@@ -47,4 +47,8 @@
         tools:itemCount="10"
         tools:listitem="@layout/item_attendance_record_layout" />
 
+    <include
+        android:id="@+id/emptyLayout"
+        layout="@layout/common_no_data_layout"
+        android:visibility="gone" />
 </androidx.constraintlayout.widget.ConstraintLayout>
