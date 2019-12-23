@@ -1,6 +1,7 @@
 package com.gx.smart.smartoa.data.network.api;
 
 import com.gx.smart.smartoa.data.network.ApiConfig;
+import com.gx.smart.smartoa.data.network.AppConfig;
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
 import com.gx.wisestone.work.grpc.ds.accessrecord.AccessRecordProviderGrpc;
@@ -58,15 +59,17 @@ public class AccessRecordProviderService {
             @Override
             protected AccessRecordReportedResp doRequestData(ManagedChannel channel) {
                 AccessRecordReportedDto message = AccessRecordReportedDto.newBuilder()
+                        .setEmployeeId(AppConfig.employeeId)
                         .setLat(latitude)
                         .setLng(longitude)
                         .setAddress(address)
+                        .setType(4)
                         .build();
                 AccessRecordReportedResp response = null;
                 try {
                     response = getAppAttendance(channel).accessRecordReported(message);
                 } catch (Exception e) {
-                    Logger.e("AppAttendanceService", e.getMessage());
+                    Logger.e(e,"accessRecordReported");
                 }
 
                 return response;

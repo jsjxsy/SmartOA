@@ -166,13 +166,13 @@ class AttendanceFragment : Fragment(), View.OnClickListener {
                     if (result!!.code == 100) {
 
                         val day = result.contentOrBuilderList
-                        if (day == null) {
+                        if (day == null || day.isEmpty()) {
                             work_on_time.text = "--:--:--"
                             work_off_time.text = "--:--:--"
                         } else {
-                            val workOnTime = TimeUtils.millis2String(day[0].workTime)
+                            val workOnTime = TimeUtils.millis2String(day[0].workTime, "HH:mm:ss")
                             work_on_time.text = workOnTime
-                            val workOffTime = TimeUtils.millis2String(day[0].closingTime)
+                            val workOffTime = TimeUtils.millis2String(day[0].closingTime,"HH:mm:ss")
                             work_off_time.text = workOffTime
                         }
 

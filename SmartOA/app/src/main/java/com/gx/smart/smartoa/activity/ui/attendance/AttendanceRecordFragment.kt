@@ -14,6 +14,9 @@ import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.grpc.ds.attendanceapp.getEmployeeDayRecordResp
 import kotlinx.android.synthetic.main.attendance_record_fragment.*
 import kotlinx.android.synthetic.main.layout_common_title.*
+import org.angmarch.views.OnSpinnerItemSelectedListener
+import java.util.*
+
 
 class AttendanceRecordFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
@@ -59,13 +62,26 @@ class AttendanceRecordFragment : Fragment(), View.OnClickListener {
     private fun initContent() {
         adapter = AttendanceRecordAdapter()
         recyclerView.adapter = adapter
-        getEmployeeRecordList()
+        val monthArray = resources.getStringArray(R.array.month_items)
+        val calendar = Calendar.getInstance(TimeZone.getDefault())
+        val monthIndex = calendar.get(Calendar.MONTH)
+        getEmployeeRecordList(calendar.timeInMillis)
+        val subMonth = monthArray.slice(monthIndex..monthArray.lastIndex)
+        monthSpinner.attachDataSource(subMonth)
+        monthSpinner.selectedIndex = 0
+        monthSpinner.onSpinnerItemSelectedListener =
+            OnSpinnerItemSelectedListener { _, _, position, _ ->
+                val month = monthIndex + position
+                calendar.set(calendar.get(Calendar.YEAR), month, 1)
+                val timestamp = TimeUtils.date2Millis(calendar.time)
+                getEmployeeRecordList(timestamp)
+            }
     }
 
 
-    private fun getEmployeeRecordList() {
+    private fun getEmployeeRecordList(month: Long) {
         AttendanceAppProviderService.getInstance()
-            .getEmployeeRecordList(object : CallBack<getEmployeeDayRecordResp>() {
+            .getEmployeeRecordList(month, object : CallBack<getEmployeeDayRecordResp>() {
                 override fun callBack(result: getEmployeeDayRecordResp?) {
                     if (result == null) {
                         ToastUtils.showLong("外勤打卡超时!")
@@ -75,20 +91,22 @@ class AttendanceRecordFragment : Fragment(), View.OnClickListener {
                         val contentList = result.contentOrBuilderList
                         if (contentList.isEmpty()) {
                             emptyLayout.visibility = View.VISIBLE
+                            val list = arrayListOf<AttendanceRecord>()
+                            adapter.mList = list
                         } else {
                             emptyLayout.visibility = View.GONE
                             val list = arrayListOf<AttendanceRecord>()
                             for (employeeRecord in contentList!!) {
                                 val workOnTime =
-                                    TimeUtils.millis2String(employeeRecord.workTime)
+                                    TimeUtils.millis2String(employeeRecord.workTime, "HH:mm:ss")
                                 val workOffTime =
-                                    TimeUtils.millis2String(employeeRecord.closingTime)
-                                val date = TimeUtils.millis2String(employeeRecord.workTime)
+                                    TimeUtils.millis2String(employeeRecord.closingTime, "HH:mm:ss")
+                                val date = TimeUtils.millis2String(employeeRecord.workTime, "dd")
                                 list.add(AttendanceRecord(date, workOnTime, workOffTime))
                             }
                             adapter.mList = list
-                            adapter.notifyDataSetChanged()
                         }
+                        adapter.notifyDataSetChanged()
                     } else {
                         ToastUtils.showLong(result.msg)
                     }

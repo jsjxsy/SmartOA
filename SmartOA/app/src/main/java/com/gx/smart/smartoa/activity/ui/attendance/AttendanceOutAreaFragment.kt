@@ -125,8 +125,7 @@ class AttendanceOutAreaFragment : Fragment(), MapLocationHelper.LocationCallBack
             if (address == null) {
                 ToastUtils.showLong("没有获取到位置信息")
             } else {
-                //attendance(address!!, latitude, longitude)
-                accessRecordReported(address!!, latitude, longitude)
+                accessRecordReported(latitude, longitude, address!!)
             }
         }
     }
@@ -150,9 +149,11 @@ class AttendanceOutAreaFragment : Fragment(), MapLocationHelper.LocationCallBack
         latitude: String, longitude: String,
         address: String
     ) {
+        loadingView.visibility = View.VISIBLE
         AppAttendanceService.getInstance()
             .attendance(latitude, longitude, address, object : CallBack<CommonResponse>() {
                 override fun callBack(result: CommonResponse?) {
+                    loadingView.visibility = View.GONE
                     if (result == null) {
                         ToastUtils.showLong("外勤打卡超时!")
                         return
@@ -173,22 +174,28 @@ class AttendanceOutAreaFragment : Fragment(), MapLocationHelper.LocationCallBack
         latitude: String, longitude: String,
         address: String
     ) {
+        loadingView.visibility = View.VISIBLE
         AccessRecordProviderService.getInstance()
-            .accessRecordReported(latitude, longitude, address, object : CallBack<AccessRecordReportedResp>() {
-                override fun callBack(result: AccessRecordReportedResp?) {
-                    if (result == null) {
-                        ToastUtils.showLong("外勤打卡超时!")
-                        return
+            .accessRecordReported(
+                latitude,
+                longitude,
+                address,
+                object : CallBack<AccessRecordReportedResp>() {
+                    override fun callBack(result: AccessRecordReportedResp?) {
+                        loadingView.visibility = View.GONE
+                        if (result == null) {
+                            ToastUtils.showLong("外勤打卡超时!")
+                            return
+                        }
+                        if (result?.code == 100) {
+                            status.visibility = View.VISIBLE
+                            status.text = "成功"
+                        } else {
+                            ToastUtils.showLong(result.msg)
+                        }
                     }
-                    if (result?.code == 100) {
-                        status.visibility = View.VISIBLE
-                        status.text = "成功"
-                    } else {
-                        ToastUtils.showLong(result.msg)
-                    }
-                }
 
-            })
+                })
     }
 
 

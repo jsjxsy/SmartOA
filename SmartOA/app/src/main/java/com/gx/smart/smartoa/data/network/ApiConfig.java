@@ -16,7 +16,7 @@ public class ApiConfig {
     //天气
     public static String GENERALINFO_SERVICE_PORT = "30155";
     //考勤
-    public static String ATTENDANCE_SERVICE_PORT = "31003";
+    public static String ATTENDANCE_SERVICE_PORT = "32003";
     //upload image
     public static final String UPLOAD_IMAGE_SERVER_PORT="30691";
     //space

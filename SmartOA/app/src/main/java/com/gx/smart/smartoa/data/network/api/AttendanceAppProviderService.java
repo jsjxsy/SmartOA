@@ -1,6 +1,7 @@
 package com.gx.smart.smartoa.data.network.api;
 
 import com.gx.smart.smartoa.data.network.ApiConfig;
+import com.gx.smart.smartoa.data.network.AppConfig;
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
 import com.gx.wisestone.work.grpc.ds.attendanceapp.AttendanceAppProviderGrpc;
@@ -57,6 +58,7 @@ public class AttendanceAppProviderService {  //25秒，网络请求超时
             @Override
             protected getEmployeeDayRecordResp doRequestData(ManagedChannel channel) {
                 getEmployeeRecordDto message = getEmployeeRecordDto.newBuilder()
+                        .setEmployeeId(AppConfig.employeeId)
                         .build();
                 getEmployeeDayRecordResp response = null;
                 try {
@@ -76,11 +78,15 @@ public class AttendanceAppProviderService {  //25秒，网络请求超时
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, getEmployeeDayRecordResp> getEmployeeRecordList(CallBack callBack) {
+    public GrpcAsyncTask<String, Void, getEmployeeDayRecordResp> getEmployeeRecordList(long date, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, getEmployeeDayRecordResp>(callBack) {
             @Override
             protected getEmployeeDayRecordResp doRequestData(ManagedChannel channel) {
                 getEmployeeRecordListQueryReq message = getEmployeeRecordListQueryReq.newBuilder()
+                        .setDto(getEmployeeRecordDto.newBuilder()
+                                .setEmployeeId(AppConfig.employeeId)
+                                .setWorkTime(date)
+                                .build())
                         .build();
                 getEmployeeDayRecordResp response = null;
                 try {
