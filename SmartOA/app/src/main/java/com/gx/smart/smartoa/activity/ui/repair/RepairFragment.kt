@@ -7,6 +7,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -51,9 +52,6 @@ class RepairFragment : Fragment(), View.OnClickListener {
     private var type: RepairType = RepairType(1, "设备损坏")
     private var images: MutableList<String> = arrayListOf()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -177,10 +175,32 @@ class RepairFragment : Fragment(), View.OnClickListener {
                             val uploadImage =
                                 JSON.parseObject(result.jsonstr, UploadImage::class.java)
                             images.add(uploadImage.path)
-
+                            when (position) {
+                                1 -> {
+                                    state1.text = "上传完成"
+                                }
+                                2 -> {
+                                    state2.text = "上传完成"
+                                }
+                                3 -> {
+                                    state3.text = "上传完成"
+                                }
+                            }
                         } else {
                             ToastUtils.showLong(result.msg)
+                            when (position) {
+                                1 -> {
+                                    state1.text = "上传失败"
+                                }
+                                2 -> {
+                                    state2.text = "上传失败"
+                                }
+                                3 -> {
+                                    state3.text = "上传失败"
+                                }
+                            }
                         }
+                        position++
                     }
 
                 })
@@ -258,17 +278,20 @@ class RepairFragment : Fragment(), View.OnClickListener {
         )
     }
 
-
+    @Suppress("INACCESSIBLE_TYPE")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         when (requestCode) {
             REQUEST_CAPTURE -> if (resultCode == Activity.RESULT_OK) {
-                uploadImage(Uri.fromFile(tempFile))
+                val uri = Uri.fromFile(tempFile)
+                displayImage(uri)
+                UploadImageAsyncTask<Uri, Process, Unit>().execute(uri)
             }
             REQUEST_PICK -> if (resultCode == Activity.RESULT_OK) {
                 val uri = data?.data
-                uploadImage(uri!!)
+                displayImage(uri)
+                UploadImageAsyncTask<Uri, Process, Unit>().execute(uri)
             }
             REQUEST_TYPE -> if (resultCode == Activity.RESULT_OK) {
                 type = data?.getSerializableExtra(ARG_TYPE) as RepairType
@@ -277,8 +300,25 @@ class RepairFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    var position = 1
-    private fun uploadImage(uri: Uri) {
+    private fun displayImage(uri: Uri?) {
+        val cropImagePath: String? = getRealFilePathFromUri(activity!!, uri)
+        when (position) {
+            1 -> {
+                Glide.with(this@RepairFragment).load(cropImagePath).into(addImage1)
+                addImage2Layout.visibility = View.VISIBLE
+            }
+            2 -> {
+                Glide.with(this@RepairFragment).load(cropImagePath).into(addImage2)
+                addImage3Layout.visibility = View.VISIBLE
+            }
+            3 -> {
+                Glide.with(this@RepairFragment).load(cropImagePath).into(addImage3)
+            }
+        }
+    }
+
+
+    fun uploadImage(uri: Uri) {
         val cropImagePath: String? = getRealFilePathFromUri(activity!!, uri)
         //此处后面可以将bitMap转为二进制上传后台网络
         val bitmap = BitmapFactory.decodeFile(cropImagePath)
@@ -289,21 +329,15 @@ class RepairFragment : Fragment(), View.OnClickListener {
         var fileName =
             System.currentTimeMillis().toString() + FileUtils.getFileExtension(cropImagePath)
         uploadByByte(fileName, imageString)
+    }
 
-        when (position) {
-            1 -> {
-                Glide.with(this).load(cropImagePath).into(addImage1)
-                addImage2Layout.visibility = View.VISIBLE
-            }
-            2 -> {
-                Glide.with(this).load(cropImagePath).into(addImage2)
-                addImage3Layout.visibility = View.VISIBLE
-            }
-            3 -> {
-                Glide.with(this).load(cropImagePath).into(addImage3)
-            }
+    var position = 1
+
+    inner class UploadImageAsyncTask<Uri, Progress, Unit> :
+        AsyncTask<android.net.Uri, Progress, kotlin.Unit>() {
+        override fun doInBackground(vararg params: android.net.Uri) {
+            return uploadImage(params[0])
         }
-        position++
     }
 
 

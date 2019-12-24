@@ -189,7 +189,8 @@
                     android:layout_centerInParent="true"
                     android:text="上传中..."
                     android:textColor="@color/font_color_style_six"
-                    android:textSize="@dimen/font_size_style_one" />
+                    android:textSize="@dimen/font_size_style_one"
+                    android:visibility="gone"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -220,7 +221,8 @@
                     android:layout_centerInParent="true"
                     android:text="上传中..."
                     android:textColor="@color/font_color_style_six"
-                    android:textSize="@dimen/font_size_style_one" />
+                    android:textSize="@dimen/font_size_style_one"
+                    android:visibility="gone"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -250,7 +252,8 @@
                     android:layout_centerInParent="true"
                     android:text="上传中..."
                     android:textColor="@color/font_color_style_six"
-                    android:textSize="@dimen/font_size_style_one" />
+                    android:textSize="@dimen/font_size_style_one"
+                    android:visibility="gone"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
