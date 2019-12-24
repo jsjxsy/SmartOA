@@ -21,7 +21,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.action.MineActionDetailFragment
-import com.gx.smart.smartoa.activity.ui.home.HomeActionRecommend
 import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
 import com.gx.smart.smartoa.data.network.api.AppActivityService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
@@ -92,10 +91,11 @@ class HomeActionViewBinder :
         private lateinit var number: TextView
         override fun updateUI(data: AppActivityDto) {
             Glide.with(itemView).load(data.imageUrl)
-                .error(R.drawable.ic_default_image)
-                .placeholder(R.drawable.ic_default_image)
+                .error(R.mipmap.default_image)
+                .placeholder(R.mipmap.default_image)
                 .transform(CenterCrop(), RoundedCorners(10))
                 .into(imageView)
+
             title.text = data.title
             time.text = "${data.startTime - data.endTime}"
             number.text = data.currentNum.toString() + "人参加"

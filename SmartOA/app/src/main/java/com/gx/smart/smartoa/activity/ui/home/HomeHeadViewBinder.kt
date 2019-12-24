@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.NonNull
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.fastjson.JSON
 import com.bigkoo.convenientbanner.ConvenientBanner
@@ -22,6 +23,7 @@ import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.WebViewActivity
 import com.gx.smart.smartoa.activity.ui.air.AirQualityActivity
 import com.gx.smart.smartoa.activity.ui.attendance.AttendanceActivity
+import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
 import com.gx.smart.smartoa.activity.ui.company.model.Company
 import com.gx.smart.smartoa.activity.ui.environmental.EnvironmentalActivity
 import com.gx.smart.smartoa.activity.ui.home.HomeHead
@@ -37,6 +39,7 @@ import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesInfoOrBuilder
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesResponse
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
+import top.limuyang2.customldialog.IOSMsgDialog
 
 
 /**
@@ -48,15 +51,10 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
     View.OnClickListener {
     private lateinit var titleText: TextView
     lateinit var convenientBanner: ConvenientBanner<ImagesInfoOrBuilder>
+    lateinit var fragmentManager: FragmentManager
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.id_environmental_control_text_view ->
-                ActivityUtils.startActivity(
-                    Intent(
-                        ActivityUtils.getTopActivity(),
-                        EnvironmentalActivity::class.java
-                    )
-                )
+            R.id.id_environmental_control_text_view -> joinCompanyContinue(1)
             R.id.right_nav_Image_view ->
                 ActivityUtils.startActivity(
                     Intent(
@@ -71,13 +69,8 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
                         AllFeatureActivity::class.java
                     )
                 )
-            R.id.id_attendance_text_view ->
-                ActivityUtils.startActivity(
-                    Intent(
-                        ActivityUtils.getTopActivity(),
-                        AttendanceActivity::class.java
-                    )
-                )
+            R.id.id_attendance_text_view -> joinCompanyContinue(2)
+
             R.id.id_visitor_text_view ->
                 ActivityUtils.startActivity(
                     Intent(
@@ -92,12 +85,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
                 )
             )
 
-            R.id.id_repair_text_view -> ActivityUtils.startActivity(
-                Intent(
-                    ActivityUtils.getTopActivity(),
-                    RepairActivity::class.java
-                )
-            )
+            R.id.id_repair_text_view -> joinCompanyContinue(3)
             R.id.id_air_quality_text_view -> ActivityUtils.startActivity(
                 Intent(
                     ActivityUtils.getTopActivity(),
@@ -118,6 +106,52 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
             )
 
         }
+    }
+
+
+    private fun joinCompanyContinue(type: Int) {
+        if (AppConfig.employeeId == null ||
+            AppConfig.employeeId == 0L
+        ) {
+            IOSMsgDialog.init(fragmentManager!!)
+                .setTitle("加入企业")
+                .setMessage("您还未入驻任何企业，请先进行企业身份认证")
+                .setPositiveButton("马上认证", View.OnClickListener {
+                    ActivityUtils.startActivity(
+                        Intent(
+                            ActivityUtils.getTopActivity(),
+                            MineCompanyActivity::class.java
+                        )
+                    )
+                }).show()
+            return
+        }
+
+        when (type) {
+            1 -> ActivityUtils.startActivity(
+                Intent(
+                    ActivityUtils.getTopActivity(),
+                    EnvironmentalActivity::class.java
+                )
+            )
+
+            2 -> ActivityUtils.startActivity(
+                Intent(
+                    ActivityUtils.getTopActivity(),
+                    AttendanceActivity::class.java
+                )
+            )
+
+            3 -> ActivityUtils.startActivity(
+                Intent(
+                    ActivityUtils.getTopActivity(),
+                    RepairActivity::class.java
+                )
+            )
+
+        }
+
+
     }
 
 

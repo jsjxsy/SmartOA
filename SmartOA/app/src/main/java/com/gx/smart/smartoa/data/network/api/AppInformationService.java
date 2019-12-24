@@ -11,6 +11,7 @@ import com.gx.wisestone.work.app.grpc.information.AppInformationResponse;
 import com.gx.wisestone.work.app.grpc.information.MessageReadRequest;
 import com.gx.wisestone.work.app.grpc.information.MessageReadResponse;
 import com.gx.wisestone.work.app.grpc.information.PersonInformationRequest;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -86,7 +87,7 @@ public class AppInformationService {
                 try {
                     response = getUserStub(channel).getAnnouncement(message);
                 } catch (Exception e) {
-                    Log.i("AppInformationService", e.getMessage());
+                    Logger.e(e,"getAnnouncement");
                 }
 
                 return response;

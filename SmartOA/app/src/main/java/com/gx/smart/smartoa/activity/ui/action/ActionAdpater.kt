@@ -45,8 +45,8 @@ class ActionAdapter :
         holder.actionTitle.text = item.title
         Glide.with(holder.itemView)
             .load(item.imageUrl)
-            .error(R.drawable.ic_default_image)
-            .placeholder(R.drawable.ic_default_image)
+            .error(R.mipmap.default_image)
+            .placeholder(R.mipmap.default_image)
             .into(holder.mImage)
 
         holder.redFlag.let {
