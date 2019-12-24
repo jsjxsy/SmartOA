@@ -118,6 +118,11 @@ class SplashActivity : BaseActivity() {
 
 
     fun updateMessagePushAndLogin() {
+        loginAuto()
+    }
+
+
+    private fun updateMessagePush() {
         //上传极光ID
         if (null != AppConfig.mJiGuangToken) {
             AppMessagePushService.getInstance().updateMessagePush(
@@ -128,7 +133,6 @@ class SplashActivity : BaseActivity() {
                     }
                 })
         }
-        loginAuto()
     }
 
 
@@ -184,6 +188,7 @@ class SplashActivity : BaseActivity() {
                     } else {
                         SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, userName)
                     }
+                    updateMessagePush()
                     bindAppCallBack()
                     if (GrpcAsyncTask.isFinish(bindTask)) {
                         bindTask =

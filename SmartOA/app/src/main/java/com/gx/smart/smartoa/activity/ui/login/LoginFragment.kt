@@ -10,6 +10,7 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
@@ -30,6 +31,7 @@ import com.gx.smart.smartoa.activity.ui.splash.SplashActivity.Companion.DELAY_TI
 import com.gx.smart.smartoa.data.model.User
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AppEmployeeService
+import com.gx.smart.smartoa.data.network.api.AppMessagePushService
 import com.gx.smart.smartoa.data.network.api.AuthApiService
 import com.gx.smart.smartoa.data.network.api.UserCenterService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
@@ -41,6 +43,7 @@ import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp
 import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
+import com.gx.wisestone.work.app.grpc.push.UpdateMessagePushResponse
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login.delete
 import kotlinx.android.synthetic.main.fragment_login.loadingView
@@ -382,6 +385,7 @@ class LoginFragment : Fragment(), OnClickListener {
                     } else {
                         SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, phone)
                     }
+                    updateMessagePush()
                     bindAppCallBack()
                     if (GrpcAsyncTask.isFinish(bindTask)) {
                         bindTask =
@@ -458,6 +462,20 @@ class LoginFragment : Fragment(), OnClickListener {
         ActivityUtils.startActivity(
             Intent(activity, MainActivity::class.java)
         )
+    }
+
+
+    private fun updateMessagePush() {
+        //上传极光ID
+        if (null != AppConfig.mJiGuangToken) {
+            AppMessagePushService.getInstance().updateMessagePush(
+                AppConfig.mJiGuangToken,
+                object : CallBack<UpdateMessagePushResponse?>() {
+                    override fun callBack(result: UpdateMessagePushResponse?) {
+                        Log.i("jtpush", result.toString())
+                    }
+                })
+        }
     }
 
 
