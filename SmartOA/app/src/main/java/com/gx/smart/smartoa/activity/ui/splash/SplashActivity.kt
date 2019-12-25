@@ -256,6 +256,8 @@ class SplashActivity : BaseActivity() {
                                 val employeeInfo = employeeList[0]
                                 AppConfig.employeeId = employeeInfo.employeeId
                                 AppConfig.currentSysTenantNo = employeeInfo.tenantNo
+                                AppConfig.SMART_HOME_SN = employeeInfo.appDepartmentInfo.smartHomeSn
+                                AppConfig.ROOM_ID = employeeInfo.appDepartmentInfo.smartHomeId
                             }
                             mainActivity()
                         } else {

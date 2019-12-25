@@ -11,6 +11,7 @@ import com.gx.wisestone.work.app.grpc.appuser.AppLogoutRequest;
 import com.gx.wisestone.work.app.grpc.appuser.AppUserCenterInterfaceGrpc;
 import com.gx.wisestone.work.app.grpc.appuser.BindAppUserRequest;
 import com.gx.wisestone.work.app.grpc.appuser.GetAppUserInfoRequest;
+import com.gx.wisestone.work.app.grpc.appuser.HasNotReadMessageRequest;
 import com.gx.wisestone.work.app.grpc.appuser.UpdateAppUserRequest;
 import com.gx.wisestone.work.app.grpc.appuser.VerifiedRequest;
 import com.gx.wisestone.work.app.grpc.common.CommonResponse;
@@ -311,5 +312,33 @@ public class UserCenterService {
         }.doExecute();
     }
 
+
+    /**
+     *
+     */
+
+
+    /**
+     * 退出登录
+     *
+     * @return callBack返回值
+     */
+    public GrpcAsyncTask<String, Void, CommonResponse>  hasNotReadMessage(CallBack callBack) {
+        return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
+            @Override
+            protected CommonResponse doRequestData(ManagedChannel channel) {
+                HasNotReadMessageRequest message = HasNotReadMessageRequest.newBuilder()
+                        .build();
+                CommonResponse response = null;
+                try {
+                    response = getUserStub(channel).hasNotReadMessage(message);
+                } catch (Exception e) {
+                    Log.i("UserCenterService", e.getMessage());
+                }
+
+                return response;
+            }
+        }.doExecute();
+    }
 
 }

@@ -105,7 +105,7 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
      * 获取场景列表
      */
     private fun getZGSceneList() {
-        sceneListTask = UnisiotApiService.getInstance().areaSceneList(AppConfig.ROOM_ID,
+        sceneListTask = UnisiotApiService.getInstance().areaSceneList(AppConfig.ROOM_ID.toString(),
             AppConfig.SMART_HOME_SN, object : CallBack<AreaSceneListResp>() {
                 override fun callBack(result: AreaSceneListResp?) {
                     if (result == null) {
@@ -171,7 +171,7 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
         if (GrpcAsyncTask.isFinish(devListTask)) {
             devListTask = UnisiotApiService.getInstance()
                 .areaDeviceList(
-                    AppConfig.ROOM_ID,
+                    AppConfig.ROOM_ID.toString(),
                     AppConfig.SMART_HOME_SN,
                     object : CallBack<AreaDeviceListResp>() {
                         override fun callBack(result: AreaDeviceListResp?) {

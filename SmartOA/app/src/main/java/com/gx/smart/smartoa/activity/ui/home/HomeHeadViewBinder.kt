@@ -35,6 +35,7 @@ import com.gx.smart.smartoa.activity.ui.work.SharedWorkActivity
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AppFigureService
 import com.gx.smart.smartoa.data.network.api.AppStructureService
+import com.gx.smart.smartoa.data.network.api.UserCenterService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesInfoOrBuilder
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesResponse
@@ -52,6 +53,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
     private lateinit var titleText: TextView
     lateinit var convenientBanner: ConvenientBanner<ImagesInfoOrBuilder>
     lateinit var fragmentManager: FragmentManager
+    lateinit var redPotView: View
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.id_environmental_control_text_view -> joinCompanyContinue(1)
@@ -180,6 +182,8 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
             holder.right_nav_Image_view
         )
         carouselFigure()
+        redPotView = holder.id_message_red_point
+        hasNotReadMessage()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -205,6 +209,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
             itemView.findViewById(R.id.left_nav_text_view)
         val right_nav_Image_view: ImageView =
             itemView.findViewById(R.id.right_nav_Image_view)
+        val id_message_red_point: View = itemView.findViewById(R.id.id_message_red_point)
 
 
     }
@@ -325,6 +330,24 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
                 if (result?.code == 100) {
                     var list = result.imagesInfoOrBuilderList.toList()
                     initBanner(convenientBanner, list)
+                }
+            }
+
+        })
+    }
+
+
+    fun hasNotReadMessage() {
+        UserCenterService.getInstance().hasNotReadMessage(object : CallBack<CommonResponse>() {
+            override fun callBack(result: CommonResponse?) {
+                if (result?.code == 100) {
+                    val flag = result.dataMap["hasNotReadMessage"]
+                    if (flag == "true") {
+                        redPotView.visibility = View.VISIBLE
+                    } else {
+                        redPotView.visibility = View.GONE
+                    }
+
                 }
             }
 

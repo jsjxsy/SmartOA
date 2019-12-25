@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AppEmployeeService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.smart.smartoa.widget.LoadingView
@@ -97,6 +98,10 @@ class MineCompanyFragment : Fragment(), View.OnClickListener {
     }
 
     private fun toMineCompanyFragmentAdded(employeeInfo: EmployeeInfo) {
+        AppConfig.employeeId = employeeInfo.employeeId
+        AppConfig.currentSysTenantNo = employeeInfo.tenantNo
+        AppConfig.SMART_HOME_SN = employeeInfo.appDepartmentInfo.smartHomeSn
+        AppConfig.ROOM_ID = employeeInfo.appDepartmentInfo.smartHomeId
         val fm: FragmentManager = childFragmentManager
         val transaction: FragmentTransaction = fm.beginTransaction()
         val fragment = MineCompanyFragmentAdded()

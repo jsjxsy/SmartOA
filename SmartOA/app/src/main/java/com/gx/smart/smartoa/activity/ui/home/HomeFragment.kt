@@ -108,6 +108,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
 
         refreshLayout.setOnRefreshListener {
+            homeHeadViewBinder.hasNotReadMessage()
             homeHeadViewBinder.carouselFigure()
             homeActionViewBinder.findAllApplyInfos()
         }

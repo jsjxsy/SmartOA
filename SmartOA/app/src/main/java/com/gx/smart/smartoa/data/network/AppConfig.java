@@ -26,8 +26,8 @@ public class AppConfig {
     public static String JGPushMsg;
     public static String JGPushContent;
 
-    public static final String SMART_HOME_SN = "1741hf14f2df425db6f228e21b3d8d86";
-    public static final String ROOM_ID = "19";
+    public static String SMART_HOME_SN = "1741hf14f2df425db6f228e21b3d8d86";
+    public static long ROOM_ID = 19;
 
     public static final String REPAIR_PREFIX = "repair";
 }
