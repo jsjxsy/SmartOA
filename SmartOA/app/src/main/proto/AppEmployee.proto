@@ -35,7 +35,7 @@ message AppMyCompanyResponse {
 
 message EmployeeInfo {
     int64 employee_id = 4;
-    int64 department_id = 5;
+    int64 department_id = 5;//判断department_id为空说明没有绑定部门，不能控制家居
     int64 company_structure_id = 6;
     string company_name = 7;
     string department_name = 8;
@@ -43,4 +43,16 @@ message EmployeeInfo {
     int64 create_time = 12;//申请时间
     string image_url = 16; //工牌
     int32 tenant_no = 17; //小区编号
+    AppDepartmentInfo appDepartmentInfo = 18;
+}
+
+message AppDepartmentInfo {
+    int64 structure_id = 2;
+    string smart_home_sn = 3;  //智能家居sn
+    int64 smart_home_id = 4;
+    int32 home_arming = 5;  //布防1撤防2
+    string image_key = 6;
+    string image_url = 7;
+    int64 create_time = 8;  //创建时间
+    int64 modify_time = 9;  //修改时间
 }

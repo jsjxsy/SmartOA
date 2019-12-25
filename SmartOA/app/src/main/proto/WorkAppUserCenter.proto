@@ -21,12 +21,17 @@ service AppUserCenterInterface {
     rpc appLogout (AppLogoutRequest) returns (CommonResponse) {}
     //意见反馈
     rpc addOpinion (AddOpinionRequest) returns (CommonResponse) {}
-
+    //意见反馈
+    rpc hasNotReadMessage (HasNotReadMessageRequest) returns (CommonResponse) {}
 }
 
 
 //绑定校验
 message BindAppUserValidationRequest {
+
+}
+
+message HasNotReadMessageRequest {
 
 }
 
