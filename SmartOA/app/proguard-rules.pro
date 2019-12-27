@@ -45,7 +45,7 @@
 -dontpreverify                   # 混淆时是否做预校验
 -verbose                         # 混淆时是否记录日志
 -keepattributes *Annotation*     # 保持注解
-#-ignorewarning                   # 忽略警告
+#-ignore warning                   # 忽略警告
 -dontoptimize                    # 优化不优化输入的类文件
 
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*  # 混淆时所采用的算法
@@ -66,3 +66,18 @@
 -printusage unused.txt           #打印未被使用的代码
 -printmapping mapping.txt        #混淆前后的映射
 
+
+# 定位
+-keep class com.amap.api.location.**{*;}
+-keep class com.loc.**{*;}
+-keep class com.amap.api.fence.**{*;}
+-keep class com.autonavi.aps.amapapi.model.**{*;}
+
+
+# 2D地图
+-keep class com.amap.api.maps2d.**{*;}
+-keep class com.amap.api.mapcore2d.**{*;}
+
+# 导航
+-keep class com.amap.api.navi.**{*;}
+-keep class com.autonavi.**{*;}
