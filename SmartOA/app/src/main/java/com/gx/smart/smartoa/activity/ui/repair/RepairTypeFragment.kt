@@ -77,7 +77,6 @@ class RepairTypeFragment : Fragment(), View.OnClickListener {
 
         recyclerView.adapter = adapter
         //添加Android自带的分割线
-        //添加Android自带的分割线
         recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
     }
 }

@@ -21,13 +21,21 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_item_height_style"
-        android:background="@android:color/white" />
+        android:background="@android:color/white"
+        android:visibility="gone" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/noService"
+        layout="@layout/common_no_pen_service_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>

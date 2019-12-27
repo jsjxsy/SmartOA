@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.blankj.utilcode.util.TimeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
@@ -13,7 +14,9 @@ import com.gx.smart.smartoa.data.network.api.AttendanceAppProviderService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.grpc.ds.attendanceapp.getEmployeeDayRecordResp
 import kotlinx.android.synthetic.main.attendance_record_fragment.*
+import kotlinx.android.synthetic.main.attendance_record_fragment.recyclerView
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.repair_type_fragment.*
 import org.angmarch.views.OnSpinnerItemSelectedListener
 import java.util.*
 
@@ -62,6 +65,8 @@ class AttendanceRecordFragment : Fragment(), View.OnClickListener {
     private fun initContent() {
         adapter = AttendanceRecordAdapter()
         recyclerView.adapter = adapter
+        //添加Android自带的分割线
+        recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         val monthArray = resources.getStringArray(R.array.month_items)
         val calendar = Calendar.getInstance(TimeZone.getDefault())
         val monthIndex = calendar.get(Calendar.MONTH)

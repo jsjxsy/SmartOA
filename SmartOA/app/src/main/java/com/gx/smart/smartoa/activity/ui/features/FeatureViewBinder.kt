@@ -30,9 +30,15 @@ class FeatureViewBinder : ItemViewBinder<Feature, FeatureViewBinder.ViewHolder>(
         val drawableTop = ContextCompat.getDrawable(context, feature.resId)
         holder.item.setCompoundDrawablesWithIntrinsicBounds(null, drawableTop, null, null)
         holder.item.text = feature.name
+        holder.item.setOnClickListener {
+
+        }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val item: TextView = itemView.findViewById(R.id.item)
     }
+
+
+
 }

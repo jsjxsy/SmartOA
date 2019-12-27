@@ -354,5 +354,6 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
         })
     }
 
-
 }
+
+

@@ -16,4 +16,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <include android:id="@+id/noService"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/common_no_pen_service_layout"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

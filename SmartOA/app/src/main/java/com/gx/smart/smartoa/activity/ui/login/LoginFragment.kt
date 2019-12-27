@@ -18,6 +18,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ActivityUtils
@@ -28,7 +29,6 @@ import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.activity.ui.login.password.ForgetPasswordFragment
 import com.gx.smart.smartoa.activity.ui.splash.SplashActivity.Companion.DELAY_TIME
-import com.gx.smart.smartoa.data.model.User
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AppEmployeeService
 import com.gx.smart.smartoa.data.network.api.AppMessagePushService
@@ -45,8 +45,6 @@ import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
 import com.gx.wisestone.work.app.grpc.push.UpdateMessagePushResponse
 import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.fragment_login.delete
-import kotlinx.android.synthetic.main.fragment_login.loadingView
 
 
 class LoginFragment : Fragment(), OnClickListener {
@@ -81,7 +79,7 @@ class LoginFragment : Fragment(), OnClickListener {
         fun newInstance() = LoginFragment()
     }
 
-    private lateinit var viewModel: LoginViewModel
+    private val viewModel by lazy { ViewModelProviders.of(this).get(LoginViewModel::class.java) }
     private var loginFlag = LoginTypeEnum.PHONE
     private var mTime: TimeCount? = null
     private lateinit var verifyCodeText: TextView
@@ -100,8 +98,6 @@ class LoginFragment : Fragment(), OnClickListener {
     enum class LoginTypeEnum {
         PHONE, VERIFY_CODE
     }
-
-    var user = User("", "")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,13 +119,12 @@ class LoginFragment : Fragment(), OnClickListener {
             container,
             false
         )
-        loginFragmentBinding.userModel = user
+        loginFragmentBinding.userModel = viewModel
         return loginFragmentBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
         initContent()
         initTimer()
     }
@@ -147,8 +142,10 @@ class LoginFragment : Fragment(), OnClickListener {
         id_input_password_edit_text.transformationMethod =
             PasswordTransformationMethod.getInstance()
         val userName = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")
-        id_input_phone_edit_text.setText(userName)
-        id_input_phone_edit_text.setSelection(userName.length)
+        viewModel.setPhone()
+        observe()
+//        id_input_phone_edit_text.setText(userName)
+//        id_input_phone_edit_text.setSelection(userName.length)
 
         delete.setOnClickListener {
             id_input_phone_edit_text.editableText.clear()
@@ -161,7 +158,7 @@ class LoginFragment : Fragment(), OnClickListener {
                 } else {
                     delete.visibility = View.GONE
                 }
-
+                id_input_phone_edit_text.setSelection(length)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -170,6 +167,13 @@ class LoginFragment : Fragment(), OnClickListener {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
 
+        })
+    }
+
+    private fun observe() {
+        viewModel.phone.observe(this, Observer {
+//            val index = viewModel.phone.value?.length ?: 0
+//            id_input_phone_edit_text.setSelection(index)
         })
     }
 
@@ -237,10 +241,10 @@ class LoginFragment : Fragment(), OnClickListener {
             ToastUtils.showLong("网络连接不可用")
             return
         }
-        mPhone = id_input_phone_edit_text.text.toString()
+        mPhone = viewModel.phone.value!!.trim()
         when (loginFlag) {
             LoginTypeEnum.VERIFY_CODE -> {
-                val identityCode: String = id_input_password_edit_text.text.toString().trim()
+                val identityCode: String = viewModel.password.value!!.trim()
                 if (TextUtils.isEmpty(mPhone)) {
                     ToastUtils.showLong("手机号不能为空")
                 } else if (mPhone!!.length != 11 || !DataCheckUtil.isMobile(mPhone)) {
@@ -257,7 +261,7 @@ class LoginFragment : Fragment(), OnClickListener {
                 }
             }
             LoginTypeEnum.PHONE -> {
-                val password: String = id_input_password_edit_text.text.toString().trim()
+                val password: String = viewModel.password.value!!.trim()
                 if (TextUtils.isEmpty(mPhone)) {
                     ToastUtils.showLong("帐号名不能为空")
                 } else if (mPhone!!.length < 10) {

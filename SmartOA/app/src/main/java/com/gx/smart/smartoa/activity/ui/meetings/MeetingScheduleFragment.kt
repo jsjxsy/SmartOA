@@ -43,7 +43,7 @@ class MeetingScheduleFragment : Fragment(),View.OnClickListener {
             it.visibility = View.VISIBLE
         }
         right_nav_text_view?.let {
-            it.visibility = View.VISIBLE
+//            it.visibility = View.VISIBLE
             it.setOnClickListener(this)
             it.text = getString(R.string.mine_schedule)
         }
