@@ -31,7 +31,9 @@ class FeatureViewBinder : ItemViewBinder<Feature, FeatureViewBinder.ViewHolder>(
         holder.item.setCompoundDrawablesWithIntrinsicBounds(null, drawableTop, null, null)
         holder.item.text = feature.name
         holder.item.setOnClickListener {
-
+            when( holder.item.text) {
+                "" -> {}
+            }
         }
     }
 

@@ -98,7 +98,7 @@ class NoticeFragment : Fragment() {
                         return
                     }
                     if (result?.code == 100) {
-                        ToastUtils.showLong("成功")
+                        //ToastUtils.showLong("成功")
                     } else {
                         ToastUtils.showLong(result?.msg)
                     }
