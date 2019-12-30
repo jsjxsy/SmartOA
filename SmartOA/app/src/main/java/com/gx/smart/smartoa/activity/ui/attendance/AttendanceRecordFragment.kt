@@ -71,13 +71,12 @@ class AttendanceRecordFragment : Fragment(), View.OnClickListener {
         val calendar = Calendar.getInstance(TimeZone.getDefault())
         val monthIndex = calendar.get(Calendar.MONTH)
         getEmployeeRecordList(calendar.timeInMillis)
-        val subMonth = monthArray.slice(monthIndex..monthArray.lastIndex)
+        val subMonth = monthArray.slice(0..monthIndex)
         monthSpinner.attachDataSource(subMonth)
         monthSpinner.selectedIndex = 0
         monthSpinner.onSpinnerItemSelectedListener =
             OnSpinnerItemSelectedListener { _, _, position, _ ->
-                val month = monthIndex + position
-                calendar.set(calendar.get(Calendar.YEAR), month, 1)
+                calendar.set(calendar.get(Calendar.YEAR), position, 1)
                 val timestamp = TimeUtils.date2Millis(calendar.time)
                 getEmployeeRecordList(timestamp)
             }
