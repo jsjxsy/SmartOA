@@ -32,10 +32,8 @@
         android:visibility="gone" />
 
     <include
-        android:id="@+id/noService"
-        layout="@layout/common_no_pen_service_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
+        android:id="@+id/emptyLayout"
+        layout="@layout/common_no_data_layout"
+        android:visibility="visible" />
 
 </LinearLayout>

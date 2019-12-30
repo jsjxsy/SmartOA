@@ -22,5 +22,11 @@
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="10"
-        tools:listitem="@layout/item_meeting_schedule_layout" />
+        tools:listitem="@layout/item_meeting_schedule_layout"
+        android:visibility="gone"/>
+
+    <include
+        android:id="@+id/emptyLayout"
+        layout="@layout/common_no_data_layout"
+        android:visibility="visible" />
 </androidx.appcompat.widget.LinearLayoutCompat>

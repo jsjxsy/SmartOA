@@ -55,6 +55,7 @@
             android:layout_height="@dimen/list_item_height_style"
             android:layout_marginLeft="100dp"
             android:gravity="center_vertical"
+            android:background="@android:color/white"
             android:textColor="@color/font_color_style_five"
             android:textSize="@dimen/font_size_style_one"
             android:hint="@string/input_real_name" />
@@ -100,6 +101,7 @@
             android:layout_marginLeft="100dp"
             android:textColor="@color/font_color_style_five"
             android:textSize="@dimen/font_size_style_one"
+            android:background="@android:color/white"
             android:hint="@string/input_identification_number"
             android:visibility="visible" />
     </RelativeLayout>
