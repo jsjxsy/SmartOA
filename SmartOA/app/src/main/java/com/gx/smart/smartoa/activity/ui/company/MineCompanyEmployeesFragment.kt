@@ -8,6 +8,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -33,10 +34,11 @@ import com.gx.smart.smartoa.data.network.api.AppStructureService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.smart.smartoa.utils.DataCheckUtil
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
-import kotlinx.android.synthetic.main.fragment_mine_action_detail.*
 import kotlinx.android.synthetic.main.fragment_mine_company_employees.*
 import kotlinx.android.synthetic.main.fragment_mine_company_employees.loadingView
+import kotlinx.android.synthetic.main.fragment_mine_company_employees.phone
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.repair_fragment.*
 import java.io.File
 
 /**
@@ -224,11 +226,15 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
 
         when (requestCode) {
             REQUEST_CAPTURE -> if (resultCode == Activity.RESULT_OK) {
-                uploadImage(Uri.fromFile(tempFile))
+
+                val uri = Uri.fromFile(tempFile)
+                displayImage(uri)
+                UploadImageAsyncTask<Uri, Process, Unit>().execute(uri)
             }
             REQUEST_PICK -> if (resultCode == Activity.RESULT_OK) {
                 val uri = data?.data
-                uploadImage(uri!!)
+                displayImage(uri)
+                UploadImageAsyncTask<Uri, Process, Unit>().execute(uri)
             }
         }
     }
@@ -239,12 +245,29 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
         //此处后面可以将bitMap转为二进制上传后台网络
         val bitmap =
             BitmapFactory.decodeFile(cropImagePath)
-        val maxSize: Long = 1000 * 1000L
+        val maxSize: Long = 500 * 500L
         val newBitMap = ImageUtils.compressByQuality(bitmap, maxSize)
         val byteArray = ImageUtils.bitmap2Bytes(newBitMap, Bitmap.CompressFormat.JPEG)
         imageString = ByteString.copyFrom(byteArray)
         Glide.with(this).load(cropImagePath)
             .into(addImage)
+    }
+
+    private fun displayImage(uri: Uri?) {
+        val cropImagePath: String? = getRealFilePathFromUri(activity!!, uri)
+        Glide.with(this).load(cropImagePath).into(addImage)
+    }
+
+
+    inner class UploadImageAsyncTask<Uri, Progress, Unit> :
+        AsyncTask<android.net.Uri, Progress, kotlin.Unit>() {
+        override fun onPreExecute() {
+            super.onPreExecute()
+        }
+
+        override fun doInBackground(vararg params: android.net.Uri) {
+            return uploadImage(params[0])
+        }
     }
 
 

@@ -1,6 +1,7 @@
 package com.gx.smart.smartoa.activity.ui.action
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.WebViewActivity
+import com.gx.smart.smartoa.data.network.ApiConfig
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AppActivityService
 import com.gx.smart.smartoa.data.network.api.AppEmployeeService
@@ -23,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_mine_action.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.layout_common_title.title
 import kotlinx.android.synthetic.main.list_action_layout.recyclerView
+import kotlinx.android.synthetic.main.register_fragment.*
 
 /**
  * A simple [Fragment] subclass.
@@ -77,6 +82,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initContent() {
+        registerAgreement.setOnClickListener(this)
         adapter = ActionAdapter()
         val onItemClick = object : ActionAdapter.OnItemClickListener {
 
@@ -119,8 +125,16 @@ class MineActionFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()
+            R.id.registerAgreement -> goWebView(ApiConfig.WEB_AGREEMENT_URL)
         }
 
+    }
+
+
+    private fun goWebView(url: String) {
+        val intent = Intent(ActivityUtils.getTopActivity(), WebViewActivity::class.java)
+        intent.putExtra(WebViewActivity.URL, url)
+        ActivityUtils.startActivity(intent)
     }
 
 
@@ -148,6 +162,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                         }
 
                     } else {
+                        emptyLayout.visibility = View.VISIBLE
                         ToastUtils.showLong(result?.msg)
                     }
                 }
@@ -197,9 +212,11 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                             } else {
                                 refreshLayout.finishRefresh()
                                 ToastUtils.showLong("企业申请还没通过!")
+                                emptyLayout.visibility = View.VISIBLE
                             }
 
                         } else {
+                            emptyLayout.visibility = View.VISIBLE
                             ToastUtils.showLong(result.msg)
                         }
                     }
@@ -227,11 +244,24 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                             adapter.notifyDataSetChanged()
                         }
                     } else {
+                        emptyLayout.visibility = View.VISIBLE
                         ToastUtils.showLong(result.msg)
                     }
                 }
 
             })
+    }
+
+
+    fun readAllMessage() {
+        val list = adapter.mList
+        if (list == null || list.isEmpty()) {
+            return
+        }
+        for( item in list) {
+            messageRead(item.activityId, 1)
+        }
+
     }
 
 

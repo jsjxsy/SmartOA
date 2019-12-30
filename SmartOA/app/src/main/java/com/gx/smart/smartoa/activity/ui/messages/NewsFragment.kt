@@ -109,4 +109,17 @@ class NewsFragment : Fragment() {
 
             })
     }
+
+
+
+    fun readAllMessage() {
+        val list = adapter.getList()
+        if (list == null || list.isEmpty()) {
+            return
+        }
+        for( item in list) {
+            messageRead(item.id, 1)
+        }
+
+    }
 }

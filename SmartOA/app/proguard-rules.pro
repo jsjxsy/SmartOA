@@ -67,17 +67,23 @@
 -printmapping mapping.txt        #混淆前后的映射
 
 
-# 定位
+#定位
 -keep class com.amap.api.location.**{*;}
--keep class com.loc.**{*;}
 -keep class com.amap.api.fence.**{*;}
+-keep class com.loc.**{*;}
 -keep class com.autonavi.aps.amapapi.model.**{*;}
+-keep class com.aps.**{*;}
 
+#搜索
+-keep   class com.amap.api.services.**{*;}
 
-# 2D地图
+#2D地图
 -keep class com.amap.api.maps2d.**{*;}
 -keep class com.amap.api.mapcore2d.**{*;}
 
-# 导航
+#导航
 -keep class com.amap.api.navi.**{*;}
 -keep class com.autonavi.**{*;}
+
+#Service
+-keep   class com.amap.api.services.**{*;}

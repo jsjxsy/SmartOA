@@ -73,7 +73,7 @@ class AttendanceRecordFragment : Fragment(), View.OnClickListener {
         getEmployeeRecordList(calendar.timeInMillis)
         val subMonth = monthArray.slice(0..monthIndex)
         monthSpinner.attachDataSource(subMonth)
-        monthSpinner.selectedIndex = 0
+        monthSpinner.selectedIndex = monthIndex
         monthSpinner.onSpinnerItemSelectedListener =
             OnSpinnerItemSelectedListener { _, _, position, _ ->
                 calendar.set(calendar.get(Calendar.YEAR), position, 1)

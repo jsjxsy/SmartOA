@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.viewpager.widget.ViewPager
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.ui.action.MineActionFragment
 import com.gx.smart.smartoa.data.network.api.AppInformationService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.information.MessageReadResponse
@@ -57,7 +59,7 @@ class MessagesFragment : Fragment(), View.OnClickListener {
 
         val titles = resources.getStringArray(R.array.message_items)
         mPagerAdapter = PageAdapter(childFragmentManager!!)
-        for (i in 0 until titles.size) {
+        for (i in titles.indices) {
             mPagerAdapter.addPage(PageAdapter.PageFragmentContent(titles[i], i + 1))
         }
         viewPager.adapter = mPagerAdapter
@@ -74,26 +76,41 @@ class MessagesFragment : Fragment(), View.OnClickListener {
             viewPager.currentItem = 1
         }
 
-    }
+        viewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(state: Int) {
 
+            }
 
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
 
-    private fun messageRead(messageId: Long, type: Int) {
-        AppInformationService.getInstance()
-            .messageRead(messageId, type, object : CallBack<MessageReadResponse>() {
-                override fun callBack(result: MessageReadResponse?) {
-                    if (result == null) {
-                        ToastUtils.showLong("查询活动超时!")
-                        return
-                    }
-                    if (result?.code == 100) {
-                        //ToastUtils.showLong("成功")
-                    } else {
-                        ToastUtils.showLong(result?.msg)
+            }
+
+            override fun onPageSelected(position: Int) {
+                var fragment = mPagerAdapter.getItem(position)
+                right_nav_text_view.setOnClickListener {
+                    when(fragment) {
+                        is NewsFragment -> {
+                            fragment.readAllMessage()
+                        }
+                        is MineActionFragment -> {
+                            fragment.readAllMessage()
+                        }
+                        is NoticeFragment -> {
+                            fragment.readAllMessage()
+                        }
                     }
                 }
 
-            })
+            }
+
+        })
+
     }
+
+
 
 }

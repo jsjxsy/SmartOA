@@ -81,6 +81,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         mRefreshLayout = refreshLayout
 
         homeHeadViewBinder = HomeHeadViewBinder()
+        homeHeadViewBinder.fragmentManager = fragmentManager!!
         adapter.register(homeHeadViewBinder)
 
         homeActionViewBinder = HomeActionViewBinder()
