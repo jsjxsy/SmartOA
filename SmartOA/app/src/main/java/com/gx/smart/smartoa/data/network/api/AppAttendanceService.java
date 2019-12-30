@@ -61,11 +61,13 @@ public class AppAttendanceService {
                         .setLongitude(longitude)
                         .setAddress(address)
                         .build();
+                Logger.d(message);
                 CommonResponse response = null;
                 try {
                     response = getAppAttendance(channel).attendance(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Logger.e("AppAttendanceService", e.getMessage());
+                    Logger.e( e, "attendance");
                 }
 
                 return response;

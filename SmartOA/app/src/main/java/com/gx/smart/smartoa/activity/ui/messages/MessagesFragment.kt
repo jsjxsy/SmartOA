@@ -6,7 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.data.network.api.AppInformationService
+import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.wisestone.work.app.grpc.information.MessageReadResponse
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.messages_fragment.*
 
@@ -71,4 +75,25 @@ class MessagesFragment : Fragment(), View.OnClickListener {
         }
 
     }
+
+
+
+    private fun messageRead(messageId: Long, type: Int) {
+        AppInformationService.getInstance()
+            .messageRead(messageId, type, object : CallBack<MessageReadResponse>() {
+                override fun callBack(result: MessageReadResponse?) {
+                    if (result == null) {
+                        ToastUtils.showLong("查询活动超时!")
+                        return
+                    }
+                    if (result?.code == 100) {
+                        //ToastUtils.showLong("成功")
+                    } else {
+                        ToastUtils.showLong(result?.msg)
+                    }
+                }
+
+            })
+    }
+
 }

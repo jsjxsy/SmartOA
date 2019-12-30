@@ -60,9 +60,11 @@ public class AttendanceAppProviderService {  //25秒，网络请求超时
                 getEmployeeRecordDto message = getEmployeeRecordDto.newBuilder()
                         .setEmployeeId(AppConfig.employeeId)
                         .build();
+                Logger.d(message);
                 getEmployeeDayRecordResp response = null;
                 try {
                     response = getAppAttendance(channel).getEmployeeDayRecord(message);
+                    Logger.d(response);
                 } catch (Exception e) {
                     Logger.e(e, "getEmployeeDayRecord");
                 }
@@ -88,9 +90,11 @@ public class AttendanceAppProviderService {  //25秒，网络请求超时
                                 .setWorkTime(date)
                                 .build())
                         .build();
+                Logger.d(message);
                 getEmployeeDayRecordResp response = null;
                 try {
                     response = getAppAttendance(channel).getEmployeeRecordList(message);
+                    Logger.d(response);
                 } catch (Exception e) {
                     Logger.e(e, "getEmployeeRecordList");
                 }

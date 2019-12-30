@@ -91,8 +91,8 @@ class HomeActionViewBinder :
         private lateinit var number: TextView
         override fun updateUI(data: AppActivityDto) {
             Glide.with(itemView).load(data.imageUrl)
-                .error(R.mipmap.default_image)
-                .placeholder(R.mipmap.default_image)
+                .error(R.mipmap.default_image_small)
+                .placeholder(R.mipmap.default_image_small)
                 .transform(CenterCrop(), RoundedCorners(10))
                 .into(imageView)
 

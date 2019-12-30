@@ -1,7 +1,6 @@
 package com.gx.smart.smartoa.data.network.api;
 
 
-import android.util.Log;
 
 import com.gx.smart.smartoa.data.network.ApiConfig;
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
@@ -9,6 +8,7 @@ import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
 import com.gx.wisestone.core.grpc.lib.generalinformation.GeneralInformationServiceGrpc;
 import com.gx.wisestone.core.grpc.lib.generalinformation.WeatherInformationResponse;
 import com.gx.wisestone.core.grpc.lib.generalinformation.WeatherRequest;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -64,7 +64,7 @@ public class GeneralInformationService {
                 try {
                     response = GeneralInfoRPCClientStub(channel).getWeatherInfo(message);
                 } catch (Exception e) {
-                    Log.i("GeneralInformationService", e.getMessage());
+                    Logger.e(e,"getWeatherInfo");
                 }
 
                 return response;

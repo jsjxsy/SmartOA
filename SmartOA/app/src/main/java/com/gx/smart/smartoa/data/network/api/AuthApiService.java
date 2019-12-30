@@ -19,6 +19,7 @@ import com.gx.wisestone.uaa.grpc.lib.auth.UserModifyReq;
 import com.gx.wisestone.uaa.grpc.lib.auth.UserModifyResp;
 import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeReq;
 import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -80,7 +81,7 @@ public class AuthApiService {
                 try {
                     response = getAuthStub(channel).regist(message);
                 } catch (Exception e) {
-                    Log.i("AuthApiService", e.getMessage());
+                    Logger.e(e, "regist");
                 }
 
                 return response;

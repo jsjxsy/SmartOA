@@ -57,9 +57,11 @@ public class AppFigureService {
             protected ImagesResponse doRequestData(ManagedChannel channel) {
                 BannerFigureRequest message = BannerFigureRequest.newBuilder()
                         .build();
+                Logger.d(message);
                 ImagesResponse response = null;
                 try {
                     response = getAppFigureStub(channel).bannerFigure(message);
+                    Logger.d(response);
                 } catch (Exception e) {
                     Logger.e("AppFigureService", e.getMessage());
                 }
@@ -80,9 +82,11 @@ public class AppFigureService {
             protected ImagesResponse doRequestData(ManagedChannel channel) {
                 CarouselFigureRequest message = CarouselFigureRequest.newBuilder()
                         .build();
+                Logger.d(message);
                 ImagesResponse response = null;
                 try {
                     response = getAppFigureStub(channel).carouselFigure(message);
+                    Logger.d(response);
                 } catch (Exception e) {
                     Logger.e("AppFigureService", e.getMessage());
                 }

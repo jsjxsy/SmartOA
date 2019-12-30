@@ -1,7 +1,5 @@
 package com.gx.smart.smartoa.data.network.api;
 
-import android.util.Log;
-
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
 import com.gx.wisestone.work.app.grpc.information.AnnouncementRequest;
@@ -60,11 +58,13 @@ public class AppInformationService {
             protected AppInformationResponse doRequestData(ManagedChannel channel) {
                 PersonInformationRequest message = PersonInformationRequest.newBuilder()
                         .build();
+                Logger.d(message);
                 AppInformationResponse response = null;
                 try {
                     response = getUserStub(channel).getInformation(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Log.i("AppInformationService", e.getMessage());
+                    Logger.e(e, "getInformation");
                 }
 
                 return response;
@@ -83,11 +83,13 @@ public class AppInformationService {
             protected AppAnnouncementResponse doRequestData(ManagedChannel channel) {
                 AnnouncementRequest message = AnnouncementRequest.newBuilder()
                         .build();
+                Logger.d(message);
                 AppAnnouncementResponse response = null;
                 try {
                     response = getUserStub(channel).getAnnouncement(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Logger.e(e,"getAnnouncement");
+                    Logger.e(e, "getAnnouncement");
                 }
 
                 return response;
@@ -101,7 +103,7 @@ public class AppInformationService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, MessageReadResponse> messageRead(long messageId,int messageType, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, MessageReadResponse> messageRead(long messageId, int messageType, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, MessageReadResponse>(callBack) {
             @Override
             protected MessageReadResponse doRequestData(ManagedChannel channel) {
@@ -109,11 +111,13 @@ public class AppInformationService {
                         .setMessageId(messageId)
                         .setMessageType(messageType)
                         .build();
+                Logger.d(message);
                 MessageReadResponse response = null;
                 try {
                     response = getUserStub(channel).messageRead(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Log.i("AppInformationService", e.getMessage());
+                    Logger.e(e, "messageRead");
                 }
 
                 return response;

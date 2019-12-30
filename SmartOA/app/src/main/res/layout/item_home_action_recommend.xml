@@ -16,11 +16,12 @@
             android:id="@+id/actionImageView"
             android:layout_width="match_parent"
             android:layout_height="90dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@mipmap/home_banner_test" />
+            android:background="@color/background_style_four"
+            tools:src="@mipmap/default_image_small" />
 
         <TextView
             android:id="@+id/actionTitle"

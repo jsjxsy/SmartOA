@@ -7,6 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.gx.smart.smartoa.R
 import com.gx.wisestone.work.app.grpc.activity.AppActivityDto
 
@@ -45,8 +47,9 @@ class ActionAdapter :
         holder.actionTitle.text = item.title
         Glide.with(holder.itemView)
             .load(item.imageUrl)
-            .error(R.mipmap.default_image)
-            .placeholder(R.mipmap.default_image)
+            .error(R.mipmap.default_image_small)
+            .placeholder(R.mipmap.default_image_small)
+            .transform(CenterCrop(), RoundedCorners(10))
             .into(holder.mImage)
 
         holder.redFlag.let {

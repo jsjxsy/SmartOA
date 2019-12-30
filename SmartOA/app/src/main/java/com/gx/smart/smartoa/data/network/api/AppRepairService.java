@@ -73,11 +73,13 @@ public class AppRepairService {
                         .setEmployeePhone(employee_phone)
                         .addAllImageUrl(images)
                         .build();
+                Logger.d(message);
                 CommonResponse response = null;
                 try {
                     response = getAppRepairStub(channel).addRepair(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Logger.e("AppRepairService", e.getMessage());
+                    Logger.e(e, "addRepair");
                 }
 
                 return response;
@@ -96,11 +98,13 @@ public class AppRepairService {
             protected RepairCommonResponse doRequestData(ManagedChannel channel) {
                 QueryMyRepairRequest message = QueryMyRepairRequest.newBuilder()
                         .build();
+                Logger.d(message);
                 RepairCommonResponse response = null;
                 try {
                     response = getAppRepairStub(channel).queryMyRepair(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Logger.e("AppRepairService", e.getMessage());
+                    Logger.e(e, "queryMyRepair");
                 }
 
                 return response;

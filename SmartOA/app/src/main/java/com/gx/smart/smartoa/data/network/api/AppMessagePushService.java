@@ -58,11 +58,13 @@ public class AppMessagePushService {
                 UpdateMessagePushDto message = UpdateMessagePushDto.newBuilder()
                         .setJgAppId(jg_app_id)
                         .build();
+                Logger.d(message);
                 UpdateMessagePushResponse response = null;
                 try {
                     response = getMessagePushStub(channel).updateMessagePush(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Logger.e("AppMessagePushService", e.getMessage());
+                    Logger.e(e, "updateMessagePush");
                 }
 
                 return response;

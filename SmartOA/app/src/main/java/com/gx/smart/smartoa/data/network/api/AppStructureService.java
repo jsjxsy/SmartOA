@@ -61,9 +61,11 @@ public class AppStructureService {
             protected CommonResponse doRequestData(ManagedChannel channel) {
                 SysTenantListRequest message = SysTenantListRequest.newBuilder()
                         .build();
+                Logger.d(message);
                 CommonResponse response = null;
                 try {
                     response = getStructureStub(channel).getSysTenantList(message);
+                    Logger.d(response);
                 } catch (Exception e) {
                     Logger.e("AppStructureService", e.getMessage());
                 }
@@ -86,11 +88,13 @@ public class AppStructureService {
                 SysTenantListRequest message = SysTenantListRequest.newBuilder()
                         .setName(name)
                         .build();
+                Logger.d(message);
                 CommonResponse response = null;
                 try {
                     response = getStructureStub(channel).getSysTenantList(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Logger.e("AppStructureService", e.getMessage());
+                    Logger.e(e, "getSysTenantList");
                 }
 
                 return response;

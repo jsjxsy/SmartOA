@@ -9,6 +9,7 @@ import com.gx.wisestone.work.app.grpc.systenant.AppCompanyResponse;
 import com.gx.wisestone.work.app.grpc.systenant.AppGetBuildingInfoRequest;
 import com.gx.wisestone.work.app.grpc.systenant.AppSysTenantGrpc;
 import com.gx.wisestone.work.app.grpc.systenant.SysTenantListRequest;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -57,11 +58,13 @@ public class AppSysTenantService {
             protected AppBuildingResponse doRequestData(ManagedChannel channel) {
                 SysTenantListRequest message = SysTenantListRequest.newBuilder()
                         .build();
+                Logger.d(message);
                 AppBuildingResponse response = null;
                 try {
                     response = getAppSysTenantStub(channel).getSysTenantList(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Log.i("UserCenter_gRpc", e.getMessage());
+                    Logger.e("UserCenter_gRpc", e.getMessage());
                 }
 
                 return response;
@@ -82,9 +85,11 @@ public class AppSysTenantService {
                 AppGetBuildingInfoRequest message = AppGetBuildingInfoRequest.newBuilder()
                         .setSysTenantNo(sysTenantNo)
                         .build();
+                Logger.d(message);
                 AppCompanyResponse response = null;
                 try {
                     response = getAppSysTenantStub(channel).getBuildingInfo(message);
+                    Logger.d(message);
                 } catch (Exception e) {
                     Log.i("UserCenter_gRpc", e.getMessage());
                 }

@@ -65,9 +65,11 @@ public class AccessRecordProviderService {
                         .setAddress(address)
                         .setType(4)
                         .build();
+                Logger.d(message);
                 AccessRecordReportedResp response = null;
                 try {
                     response = getAppAttendance(channel).accessRecordReported(message);
+                    Logger.d(response);
                 } catch (Exception e) {
                     Logger.e(e,"accessRecordReported");
                 }

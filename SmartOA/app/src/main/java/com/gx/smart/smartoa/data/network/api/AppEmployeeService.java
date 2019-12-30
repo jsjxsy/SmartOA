@@ -62,11 +62,13 @@ public class AppEmployeeService {
             protected CommonResponse doRequestData(ManagedChannel channel) {
                 CancelCompanyBindRequest message = CancelCompanyBindRequest.newBuilder()
                         .build();
+                Logger.d(message);
                 CommonResponse response = null;
                 try {
                     response = getAppEmployeeStub(channel).cancelCompanyBind(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Logger.e("AppEmployeeService", e.getMessage());
+                    Logger.e(e, "cancelCompanyBind");
                 }
 
                 return response;
@@ -87,11 +89,13 @@ public class AppEmployeeService {
             protected AppMyCompanyResponse doRequestData(ManagedChannel channel) {
                 MyCompanyRequest message = MyCompanyRequest.newBuilder()
                         .build();
+                Logger.d(message);
                 AppMyCompanyResponse response = null;
                 try {
                     response = getAppEmployeeStub(channel).myCompany(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Logger.e("AppEmployeeService", e.getMessage());
+                    Logger.e( e, "myCompany");
                 }
 
                 return response;

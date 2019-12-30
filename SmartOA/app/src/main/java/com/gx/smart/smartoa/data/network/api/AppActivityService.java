@@ -61,11 +61,13 @@ public class AppActivityService {
             protected AppActivityResponse doRequestData(ManagedChannel channel) {
                 ActivityRequest message = ActivityRequest.newBuilder()
                         .build();
+                Logger.d(message);
                 AppActivityResponse response = null;
                 try {
                     response = getAppActivityStub(channel).addActivity(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Log.e("AppActivityService", e.getMessage());
+                    Logger.e(e, "addActivity");
                 }
 
                 return response;
@@ -85,11 +87,13 @@ public class AppActivityService {
                 ActivityQueryRequest message = ActivityQueryRequest.newBuilder()
                         .setQuery(QueryDto.newBuilder().setPage(page).setPageSize(10))
                         .build();
+                Logger.d(message);
                 ActivityCommonResponse response = null;
                 try {
                     response = getAppActivityStub(channel).findAllActivityInfos(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Log.e("AppActivityService", e.getMessage());
+                    Logger.e(e, "findAllActivityInfos");
                 }
 
                 return response;

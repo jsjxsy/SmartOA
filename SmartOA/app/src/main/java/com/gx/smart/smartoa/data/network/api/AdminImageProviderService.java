@@ -63,9 +63,11 @@ public class AdminImageProviderService {
                         .setFileName(fileName)
                         .setImageBytes(image)
                         .build();
+                Logger.d(message);
                 AdminImagesResponse response = null;
                 try {
                     response = getAdminImage(channel).uploadByByte(message);
+                    Logger.d(response);
                 } catch (Exception e) {
                     Logger.e(e,"uploadByByte");
                 }
