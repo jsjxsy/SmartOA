@@ -17,7 +17,7 @@ class PageAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(
 
     private val mPageFragment = ArrayList<PageFragmentContent>()
     private val newsFragment: Fragment = NewsFragment.newInstance()
-    private val mineActionFragment: Fragment = NewsFragment.newInstance()
+    private val mineActionFragment: Fragment = MineActionFragment.newInstance()
     private val noticeFragment: Fragment = NoticeFragment.newInstance()
     override fun getItem(position: Int): Fragment {
         val pageFragmentContent = mPageFragment[position]

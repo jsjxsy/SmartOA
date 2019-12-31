@@ -108,21 +108,49 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         adapter.onItemClick = onItemClick
         recyclerView.adapter = adapter
         refreshLayout.setOnRefreshListener {
+            currentPage = 0
+            adapter.mList.toMutableList().apply {
+                clear()
+                adapter.mList = this
+            }
+            val query = QueryDto.newBuilder()
+                .setPage(currentPage)
+                .setPageSize(10)
+                .build()
             if (flag) {
-                myCompany()
+                myCompany(query)
             } else {
-                findAllActivityInfos()
+                findAllActivityInfos(query)
             }
         }
         refreshLayout.setOnLoadmoreListener {
+            val query = QueryDto.newBuilder()
+                .setPage(currentPage)
+                .setPageSize(10)
+                .build()
             if (flag) {
-                findMyApplyInfos()
+                findMyApplyInfos(query)
             } else {
-                findAllActivityInfos()
+
+                findAllActivityInfos(query)
             }
         }
         refreshLayout.autoRefresh()
 
+    }
+
+    var activityFlag: Boolean = false
+    override fun onStart() {
+        super.onStart()
+        if (activityFlag) {
+            refreshLayout.autoRefresh()
+            activityFlag = false
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        activityFlag = true
     }
 
     override fun onClick(v: View?) {
@@ -133,11 +161,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
     }
 
 
-    private fun findMyApplyInfos() {
-        val query = QueryDto.newBuilder()
-            .setPage(currentPage)
-            .setPageSize(10)
-            .build()
+    private fun findMyApplyInfos(query: QueryDto) {
         AppActivityService.getInstance()
             .findMyApplyInfos(query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
@@ -153,7 +177,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                     }
                     if (result?.code == 100) {
                         val list = result?.contentList
-                        if (list.isEmpty()) {
+                        if (list.isEmpty() && currentPage == 0) {
                             emptyLayout.visibility = View.VISIBLE
                         } else {
                             emptyLayout.visibility = View.GONE
@@ -197,7 +221,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
     }
 
 
-    private fun myCompany() {
+    private fun myCompany(query: QueryDto) {
         AppEmployeeService.getInstance()
             .myCompany(
                 object : CallBack<AppMyCompanyResponse>() {
@@ -215,7 +239,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                                 AppConfig.currentSysTenantNo = employeeInfo.tenantNo
                                 AppConfig.SMART_HOME_SN = employeeInfo.appDepartmentInfo.smartHomeSn
                                 AppConfig.ROOM_ID = employeeInfo.appDepartmentInfo.smartHomeId
-                                findMyApplyInfos()
+                                findMyApplyInfos(query)
                             } else {
                                 refreshLayout.finishRefresh()
                                 ToastUtils.showLong("企业申请还没通过!")
@@ -232,11 +256,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
     }
 
 
-    private fun findAllActivityInfos() {
-        val query = QueryDto.newBuilder()
-            .setPage(currentPage)
-            .setPageSize(10)
-            .build()
+    private fun findAllActivityInfos(query: QueryDto) {
         AppActivityService.getInstance()
             .findAllActivityInfos(query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
@@ -251,7 +271,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                     }
                     if (result?.code == 100) {
                         val list = result.contentList
-                        if (list.isEmpty()) {
+                        if (list.isEmpty() && currentPage == 0) {
                             emptyLayout.visibility = View.VISIBLE
                         } else {
                             emptyLayout.visibility = View.GONE

@@ -7,8 +7,8 @@ package com.gx.smart.smartoa.data.network;
  **/
 public class AppConfig {
     public static int currentSysTenantNo = 2;
-    public static String loginToken;
     public static String userId;
+    public static String loginToken;
     public static String refreshToken;
     public static String mJiGuangToken;
     public static long employeeId;

@@ -1,5 +1,7 @@
 package com.gx.smart.smartoa.data.network.api.interceptor;
 
+import com.orhanobut.logger.Logger;
+
 import io.grpc.ClientCall;
 import io.grpc.ForwardingClientCall;
 import io.grpc.Metadata;
@@ -29,6 +31,7 @@ public class WsClientCall<ReqT, RespT> extends ForwardingClientCall.SimpleForwar
             }
 
         }
+        Logger.d("head request: " + headers.toString());
         super.start(new WsClientCallListener(responseListener), headers);
     }
 

@@ -6,6 +6,7 @@ import android.os.Build;
 import com.gx.smart.smartoa.data.network.ApiConfig;
 import com.gx.smart.smartoa.data.network.api.interceptor.WsClientInterceptor;
 import com.gx.smart.smartoa.data.network.api.interceptor.WsProvider;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 

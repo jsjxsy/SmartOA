@@ -12,6 +12,8 @@ class MessageActivity : BaseActivity() {
         setContentView(R.layout.activity_message)
     }
 
+
+
     companion object {
         const val INTENT_MESSAGE = "toAction"
         const val INTENT_KEY = "type"

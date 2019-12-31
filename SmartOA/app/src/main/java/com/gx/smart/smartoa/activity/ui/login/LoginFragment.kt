@@ -380,6 +380,7 @@ class LoginFragment : Fragment(), OnClickListener {
                 }
                 val msg = result.dataMap["errMsg"]
                 if (result.code == 100) {
+
                     AppConfig.loginToken = result.token
                     AppConfig.refreshToken = result.refreshToken
                     //保存当前用户
