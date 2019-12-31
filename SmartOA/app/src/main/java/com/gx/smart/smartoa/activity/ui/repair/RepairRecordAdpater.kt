@@ -12,7 +12,7 @@ import com.gx.wisestone.work.app.grpc.repair.RepairInfoOrBuilder
 class RepairRecordAdapter :
     RecyclerView.Adapter<RepairRecordAdapter.ViewHolder>() {
 
-    var mList: List<RepairInfoOrBuilder>? = null
+    var mList: List<RepairInfoOrBuilder> = arrayListOf()
 
     interface OnItemClickListener {
         fun onItemClick(view: View, position: Int)
@@ -23,7 +23,21 @@ class RepairRecordAdapter :
 
     //返回item个数
     override fun getItemCount(): Int {
-        return mList?.size ?: 0
+        return mList.size
+    }
+
+    fun addList(list: List<RepairInfoOrBuilder>){
+        mList.toMutableList().apply {
+            addAll(list)
+            mList = this
+        }
+    }
+
+    fun clear() {
+        mList.toMutableList().apply {
+            clear()
+            mList = this
+        }
     }
 
 

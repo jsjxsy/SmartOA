@@ -10,12 +10,14 @@ import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.AppRepairService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.wisestone.core.grpc.lib.common.QueryDto
 import com.gx.wisestone.work.app.grpc.repair.RepairCommonResponse
 import kotlinx.android.synthetic.main.fragment_repair_record_list.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 class RepairRecordFragment : Fragment(), View.OnClickListener {
 
+    private var currentPage: Int = 0
     private lateinit var adapter: RepairRecordAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +49,25 @@ class RepairRecordFragment : Fragment(), View.OnClickListener {
         recyclerView.addItemDecoration(divider)
         adapter = RepairRecordAdapter()
         recyclerView.adapter = adapter
-        queryMyRepair()
+        refreshLayout.setOnRefreshListener {
+            currentPage = 0
+            adapter.clear()
+            val query = QueryDto
+                .newBuilder()
+                .setPageSize(10)
+                .setPage(currentPage)
+                .build()
+            queryMyRepair(query)
+        }
+        refreshLayout.setOnLoadmoreListener {
+            val query = QueryDto
+                .newBuilder()
+                .setPageSize(10)
+                .setPage(currentPage)
+                .build()
+            queryMyRepair(query)
+        }
+        refreshLayout.autoRefresh()
     }
 
     override fun onClick(v: View?) {
@@ -57,23 +77,32 @@ class RepairRecordFragment : Fragment(), View.OnClickListener {
     }
 
 
-    private fun queryMyRepair() {
+    private fun queryMyRepair(query: QueryDto) {
         AppRepairService.getInstance()
             .queryMyRepair(
-                object : CallBack<RepairCommonResponse>() {
+                query, object : CallBack<RepairCommonResponse>() {
                     override fun callBack(result: RepairCommonResponse?) {
+                        if (currentPage == 0) {
+                            refreshLayout.finishRefresh()
+                        } else {
+                            refreshLayout.finishLoadmore()
+                        }
                         if (result == null) {
                             ToastUtils.showLong("查询超时!")
                             return
                         }
                         if (result?.code == 100) {
                             val list = result.repairInfoOrBuilderList.toList()
-                            if (list.isEmpty()) {
+                            if (list.isEmpty() && currentPage == 0) {
                                 emptyLayout.visibility = View.VISIBLE
                             } else {
                                 emptyLayout.visibility = View.GONE
-                                adapter.mList = list
-                                adapter.notifyDataSetChanged()
+                                if (list.isNotEmpty()) {
+                                    currentPage++
+                                    adapter.addList(list)
+                                    adapter.notifyDataSetChanged()
+                                }
+
                             }
                         } else {
                             ToastUtils.showLong(result.msg)

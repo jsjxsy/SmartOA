@@ -3,6 +3,7 @@ package com.gx.smart.smartoa.data.network.api;
 import com.google.protobuf.ByteString;
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
+import com.gx.wisestone.core.grpc.lib.common.QueryDto;
 import com.gx.wisestone.work.app.grpc.common.CommonResponse;
 import com.gx.wisestone.work.app.grpc.repair.AppRepairInterfaceGrpc;
 import com.gx.wisestone.work.app.grpc.repair.QueryMyRepairRequest;
@@ -92,11 +93,12 @@ public class AppRepairService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, RepairCommonResponse> queryMyRepair(CallBack callBack) {
+    public GrpcAsyncTask<String, Void, RepairCommonResponse> queryMyRepair(QueryDto query, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, RepairCommonResponse>(callBack) {
             @Override
             protected RepairCommonResponse doRequestData(ManagedChannel channel) {
                 QueryMyRepairRequest message = QueryMyRepairRequest.newBuilder()
+                        .setQuery(query)
                         .build();
                 Logger.d(message);
                 RepairCommonResponse response = null;
