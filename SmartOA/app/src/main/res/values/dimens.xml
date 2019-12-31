@@ -40,4 +40,5 @@
     <dimen name="text_margin">16dp</dimen>
 
     <dimen name="padding_style_one">10dp</dimen>
+    <dimen name="padding_style_two">21dp</dimen>
 </resources>
