@@ -21,10 +21,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.alibaba.fastjson.JSON
-import com.blankj.utilcode.util.FileUtils
-import com.blankj.utilcode.util.ImageUtils
-import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.*
 import com.bumptech.glide.Glide
 import com.google.protobuf.ByteString
 import com.gx.smart.smartoa.BuildConfig
@@ -46,12 +43,12 @@ class RepairFragment : Fragment(), View.OnClickListener {
         fun newInstance() = RepairFragment()
         const val ARG_TYPE = "type"
         const val REQUEST_TYPE = 200
+        const val REQUEST_UPLOAD_IMAGE_ENABLE = 10
     }
 
     private lateinit var viewModel: RepairViewModel
     private var type: RepairType = RepairType(1, "设备损坏")
     private var images: MutableList<String> = arrayListOf()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,7 +61,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(RepairViewModel::class.java)
         initTitle()
-        initContent();
+        initContent()
     }
 
     private fun initTitle() {
@@ -86,6 +83,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initContent() {
+        save.setTag(R.id.save, true)
         save.setOnClickListener(this)
         placeName.text = SPUtils.getInstance().getString(AppConfig.PLACE_NAME, "")
         val phoneValue = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")
@@ -107,10 +105,16 @@ class RepairFragment : Fragment(), View.OnClickListener {
                 startActivityForResult(intent, REQUEST_TYPE)
             }
             R.id.save -> {
-                val content = contentEdit.text.toString()
-                val employeePhone = phone.text.toString()
-                val address = placeName.text.toString()
-                addRepair(content, type.type, address, employeePhone, images)
+                val enable = save.getTag(R.id.save) as Boolean
+                if (enable) {
+                    val content = contentEdit.text.toString()
+                    val employeePhone = phone.text.toString()
+                    val address = placeName.text.toString()
+                    addRepair(content, type.type, address, employeePhone, images)
+                } else {
+                    ToastUtils.showLong("正在上传文件!")
+                }
+
             }
 
             R.id.addImage1Layout,
@@ -168,42 +172,63 @@ class RepairFragment : Fragment(), View.OnClickListener {
                 object : CallBack<AdminImagesResponse>() {
                     override fun callBack(result: AdminImagesResponse?) {
                         if (result == null) {
-                            ToastUtils.showLong("上传图片超时!")
+                            uploadImageFail("上传图片超时!")
+                            if (requestUploadImageCount == position) {
+                                if (ActivityUtils.isActivityAlive(activity)) {
+                                    save.setTag(R.id.save, true)
+                                }
+                            }
+                            position++
                             return
                         }
                         if (result?.code == 100) {
                             val uploadImage =
                                 JSON.parseObject(result.jsonstr, UploadImage::class.java)
                             images.add(uploadImage.path)
-                            when (position) {
-                                1 -> {
-                                    state1.text = "上传完成"
-                                }
-                                2 -> {
-                                    state2.text = "上传完成"
-                                }
-                                3 -> {
-                                    state3.text = "上传完成"
+                            if (ActivityUtils.isActivityAlive(activity)) {
+                                when (position) {
+                                    1 -> {
+                                        state1.text = "上传完成"
+                                    }
+                                    2 -> {
+                                        state2.text = "上传完成"
+                                    }
+                                    3 -> {
+                                        state3.text = "上传完成"
+                                    }
                                 }
                             }
+
                         } else {
-                            ToastUtils.showLong(result.msg)
-                            when (position) {
-                                1 -> {
-                                    state1.text = "上传失败"
-                                }
-                                2 -> {
-                                    state2.text = "上传失败"
-                                }
-                                3 -> {
-                                    state3.text = "上传失败"
-                                }
+                            uploadImageFail(result.msg)
+                        }
+                        if (requestUploadImageCount == position) {
+                            if (ActivityUtils.isActivityAlive(activity)) {
+                                save.setTag(R.id.save, true)
                             }
                         }
                         position++
                     }
 
                 })
+    }
+
+
+    private fun uploadImageFail(msg: String) {
+        ToastUtils.showLong(msg)
+        if (ActivityUtils.isActivityAlive(activity)) {
+            when (position) {
+                1 -> {
+                    state1.text = "上传失败"
+                }
+                2 -> {
+                    state2.text = "上传失败"
+                }
+                3 -> {
+                    state3.text = "上传失败"
+                }
+            }
+        }
     }
 
 
@@ -278,17 +303,22 @@ class RepairFragment : Fragment(), View.OnClickListener {
         )
     }
 
+    var requestUploadImageCount = 0
     @Suppress("INACCESSIBLE_TYPE")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         when (requestCode) {
             REQUEST_CAPTURE -> if (resultCode == Activity.RESULT_OK) {
+                requestUploadImageCount++
+                save.setTag(R.id.save, false)
                 val uri = Uri.fromFile(tempFile)
                 displayImage(uri)
                 UploadImageAsyncTask<Uri, Process, Unit>().execute(uri)
             }
             REQUEST_PICK -> if (resultCode == Activity.RESULT_OK) {
+                requestUploadImageCount++
+                save.setTag(R.id.save, false)
                 val uri = data?.data
                 displayImage(uri)
                 UploadImageAsyncTask<Uri, Process, Unit>().execute(uri)
