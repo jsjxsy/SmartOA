@@ -1,7 +1,6 @@
 package com.gx.smart.smartoa.activity.ui.action
 
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.activity.WebViewActivity
-import com.gx.smart.smartoa.data.network.ApiConfig
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AppActivityService
 import com.gx.smart.smartoa.data.network.api.AppEmployeeService
@@ -27,7 +23,6 @@ import kotlinx.android.synthetic.main.fragment_mine_action.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.layout_common_title.title
 import kotlinx.android.synthetic.main.list_action_layout.recyclerView
-import kotlinx.android.synthetic.main.register_fragment.*
 
 /**
  * A simple [Fragment] subclass.
@@ -43,7 +38,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
 
     private lateinit var viewModel: ActionViewModel
-
+    private var currentPage = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         flag = activity?.intent?.hasExtra("fromMine") ?: false
@@ -82,13 +77,14 @@ class MineActionFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initContent() {
-        registerAgreement.setOnClickListener(this)
         adapter = ActionAdapter()
         val onItemClick = object : ActionAdapter.OnItemClickListener {
 
             override fun onItemClick(view: View, position: Int) {
                 val item = adapter.mList!![position]
-                messageRead(item.activityId, 3)
+                if (!item.hasRead) {
+                    messageRead(item.activityId, 3)
+                }
                 val args = Bundle()
                 args.putString(MineActionDetailFragment.ARG_TITLE, item.title)
                 args.putString(
@@ -118,6 +114,13 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                 findAllActivityInfos()
             }
         }
+        refreshLayout.setOnLoadmoreListener {
+            if (flag) {
+                findMyApplyInfos()
+            } else {
+                findAllActivityInfos()
+            }
+        }
         refreshLayout.autoRefresh()
 
     }
@@ -125,28 +128,25 @@ class MineActionFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()
-            R.id.registerAgreement -> goWebView(ApiConfig.WEB_AGREEMENT_URL)
         }
 
     }
 
 
-    private fun goWebView(url: String) {
-        val intent = Intent(ActivityUtils.getTopActivity(), WebViewActivity::class.java)
-        intent.putExtra(WebViewActivity.URL, url)
-        ActivityUtils.startActivity(intent)
-    }
-
-
     private fun findMyApplyInfos() {
         val query = QueryDto.newBuilder()
-            .setPage(0)
+            .setPage(currentPage)
             .setPageSize(10)
             .build()
         AppActivityService.getInstance()
             .findMyApplyInfos(query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
-                    refreshLayout.finishRefresh()
+                    if (currentPage == 0) {
+                        refreshLayout.finishRefresh()
+                    } else {
+                        refreshLayout.finishLoadmore()
+                    }
+
                     if (result == null) {
                         ToastUtils.showLong("查询活动超时!")
                         return
@@ -157,8 +157,15 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                             emptyLayout.visibility = View.VISIBLE
                         } else {
                             emptyLayout.visibility = View.GONE
-                            adapter.mList = list
-                            adapter.notifyDataSetChanged()
+                            if (list.isNotEmpty()) {
+                                currentPage++
+                                adapter.mList.toMutableList().apply {
+                                    addAll(list)
+                                    adapter.mList = this
+                                }
+                                adapter.notifyDataSetChanged()
+                            }
+
                         }
 
                     } else {
@@ -226,10 +233,18 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
 
     private fun findAllActivityInfos() {
+        val query = QueryDto.newBuilder()
+            .setPage(currentPage)
+            .setPageSize(10)
+            .build()
         AppActivityService.getInstance()
-            .findAllActivityInfos(0, object : CallBack<ActivityCommonResponse>() {
+            .findAllActivityInfos(query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
-                    refreshLayout.finishRefresh()
+                    if (currentPage == 0) {
+                        refreshLayout.finishRefresh()
+                    } else {
+                        refreshLayout.finishLoadmore()
+                    }
                     if (result == null) {
                         ToastUtils.showLong("查询活动超时!")
                         return
@@ -240,8 +255,14 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                             emptyLayout.visibility = View.VISIBLE
                         } else {
                             emptyLayout.visibility = View.GONE
-                            adapter.mList = list
-                            adapter.notifyDataSetChanged()
+                            if (list.isNotEmpty()) {
+                                currentPage++
+                                adapter.mList.toMutableList().apply {
+                                    addAll(list)
+                                    adapter.mList = this
+                                }
+                                adapter.notifyDataSetChanged()
+                            }
                         }
                     } else {
                         emptyLayout.visibility = View.VISIBLE
@@ -258,10 +279,13 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         if (list == null || list.isEmpty()) {
             return
         }
-        for( item in list) {
-            messageRead(item.activityId, 1)
-        }
+        for (item in list) {
+            if (!item.hasRead) {
+                messageRead(item.activityId, 1)
+            }
 
+        }
+        refreshLayout.autoRefresh(1000 * 2)
     }
 
 

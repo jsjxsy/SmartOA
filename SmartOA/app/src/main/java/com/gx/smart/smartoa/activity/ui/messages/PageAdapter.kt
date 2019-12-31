@@ -16,18 +16,21 @@ class PageAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(
 ) {
 
     private val mPageFragment = ArrayList<PageFragmentContent>()
-
+    private val newsFragment: Fragment = NewsFragment.newInstance()
+    private val mineActionFragment: Fragment = NewsFragment.newInstance()
+    private val noticeFragment: Fragment = NoticeFragment.newInstance()
     override fun getItem(position: Int): Fragment {
         val pageFragmentContent = mPageFragment[position]
+
         when (pageFragmentContent.type) {
             NewsFragment.NOTICE_NEWS -> {
-                return NewsFragment.newInstance()
+                return newsFragment
             }
             MineActionFragment.ACTION_TYPE -> {
-                return MineActionFragment.newInstance()
+                return mineActionFragment
             }
             NoticeFragment.NOTICE_TYPE -> {
-                return NoticeFragment.newInstance()
+                return noticeFragment
             }
 
         }

@@ -11,6 +11,7 @@ import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.AppInformationService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.wisestone.core.grpc.lib.common.QueryDto
 import com.gx.wisestone.work.app.grpc.information.AppAnnouncementResponse
 import com.gx.wisestone.work.app.grpc.information.MessageReadResponse
 import kotlinx.android.synthetic.main.news_fragment.*
@@ -24,7 +25,7 @@ class NoticeFragment : Fragment() {
 
     private lateinit var adapter: NoticeAdapter
     private lateinit var viewModel: NoticeViewModel
-
+    private var currentPage = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,28 +45,51 @@ class NoticeFragment : Fragment() {
             override fun onItemClick(view: View?, position: Int) {
                 val list = adapter.getList()
                 val item = list!![position]
-                messageRead(item.id, 2)
+                if (!item.hasRead) {
+                    messageRead(item.id, 2)
+                }
                 val args = Bundle()
                 args.putString(DetailFragment.ARG_TITLE, item.title)
                 args.putString(DetailFragment.ARG_CONTENT, item.content)
-                Navigation.findNavController(activity!!, R.id.messagesFragmentEnter).navigate(R.id.action_noticeFragment_to_detailFragment, args)
+                Navigation.findNavController(activity!!, R.id.messagesFragmentEnter)
+                    .navigate(R.id.action_noticeFragment_to_detailFragment, args)
             }
 
         }
         adapter.setOnItemClick(onItemClick)
         recyclerView.adapter = adapter
         refreshLayout.setOnRefreshListener {
-            getAnnouncement()
+            adapter.clear()
+            currentPage = 0
+            val query = QueryDto
+                .newBuilder()
+                .setPageSize(10)
+                .setPage(currentPage)
+                .build()
+            getAnnouncement(query)
+        }
+        refreshLayout.setOnLoadmoreListener {
+            val query = QueryDto
+                .newBuilder()
+                .setPageSize(10)
+                .setPage(currentPage)
+                .build()
+            getAnnouncement(query)
         }
         refreshLayout.autoRefresh()
     }
 
 
-    private fun getAnnouncement() {
+    private fun getAnnouncement(query: QueryDto) {
         AppInformationService.getInstance()
-            .getAnnouncement(object : CallBack<AppAnnouncementResponse>() {
+            .getAnnouncement(query, object : CallBack<AppAnnouncementResponse>() {
                 override fun callBack(result: AppAnnouncementResponse?) {
-                    refreshLayout.finishRefresh()
+                    if (currentPage == 0) {
+                        refreshLayout.finishRefresh()
+                    } else {
+                        refreshLayout.finishLoadmore()
+                    }
+
                     if (result == null) {
                         ToastUtils.showLong("获取消息超时!")
                         return
@@ -73,12 +97,15 @@ class NoticeFragment : Fragment() {
                     if (result?.code == 100) {
                         val appAnnouncementDtoList =
                             result.appAnnouncementDtoList.toList()
-                        if(appAnnouncementDtoList.isEmpty()) {
+                        if (appAnnouncementDtoList.isEmpty() && currentPage == 0) {
                             emptyLayout.visibility = View.VISIBLE
-                        }else{
+                        } else {
                             emptyLayout.visibility = View.GONE
-                            adapter.setList(appAnnouncementDtoList)
-                            adapter.notifyDataSetChanged()
+                            if (appAnnouncementDtoList.isNotEmpty()) {
+                                currentPage ++
+                                adapter.addList(appAnnouncementDtoList)
+                                adapter.notifyDataSetChanged()
+                            }
                         }
                     } else {
                         ToastUtils.showLong(result.msg)
@@ -113,9 +140,13 @@ class NoticeFragment : Fragment() {
         if (list == null || list.isEmpty()) {
             return
         }
-        for( item in list) {
-            messageRead(item.id, 2)
+        for (item in list) {
+            if (!item.hasRead) {
+                messageRead(item.id, 2)
+            }
         }
+
+        refreshLayout.autoRefresh(1000 * 2)
 
     }
 

@@ -24,6 +24,7 @@ import com.gx.smart.smartoa.activity.ui.action.MineActionDetailFragment
 import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
 import com.gx.smart.smartoa.data.network.api.AppActivityService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.wisestone.core.grpc.lib.common.QueryDto
 import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
 import com.gx.wisestone.work.app.grpc.activity.AppActivityDto
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -129,8 +130,12 @@ class HomeActionViewBinder :
 
 
     fun findAllApplyInfos() {
+        val query = QueryDto.newBuilder()
+            .setPage(0)
+            .setPageSize(3)
+            .build()
         AppActivityService.getInstance()
-            .findAllActivityInfos(0, object : CallBack<ActivityCommonResponse>() {
+            .findAllActivityInfos(query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
                     if (result == null) {
                         ToastUtils.showLong("查询活动超时!")
@@ -138,9 +143,6 @@ class HomeActionViewBinder :
                     }
                     if (result?.code == 100) {
                         var list = result.contentList.toList()
-                        if (result.contentList.size > 3) {
-                            list = result.contentList.subList(0, 3).toList()
-                        }
                         initActionRecommend(actionRecommendBanner, list)
                         mRefreshLayout?.finishRefresh()
                     } else {

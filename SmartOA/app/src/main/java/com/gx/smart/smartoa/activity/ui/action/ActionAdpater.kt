@@ -15,7 +15,7 @@ import com.gx.wisestone.work.app.grpc.activity.AppActivityDto
 class ActionAdapter :
     RecyclerView.Adapter<ActionAdapter.ViewHolder>() {
 
-    var mList: List<AppActivityDto>? = null
+    var mList: List<AppActivityDto> = arrayListOf()
 
     interface OnItemClickListener {
         fun onItemClick(view: View, position: Int)
@@ -26,7 +26,7 @@ class ActionAdapter :
 
     //返回item个数
     override fun getItemCount(): Int {
-        return mList?.size ?: 0
+        return mList.size
     }
 
 

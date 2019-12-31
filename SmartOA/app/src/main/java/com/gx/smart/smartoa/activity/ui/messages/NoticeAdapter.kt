@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat
 class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.ViewHolder>() {
     private var onItemClick: OnItemClickListener? =
         null
-    private var mList: List<AppAnnouncementDto>? = null
+    private var mList: List<AppAnnouncementDto> = arrayListOf()
     fun setOnItemClick(onItemClick: OnItemClickListener?) {
         this.onItemClick = onItemClick
     }
@@ -55,16 +55,26 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.ViewHolder>() {
         holder.time.text = TimeUtils.millis2String(item.createTime, format)
     }
 
-    fun setList(mList: List<AppAnnouncementDto>?) {
-        this.mList = mList
+    fun addList(list: List<AppAnnouncementDto>) {
+        mList.toMutableList().apply {
+            addAll(list)
+            mList = this
+        }
     }
 
-    fun getList(): List<AppAnnouncementDto>? {
+    fun clear() {
+        mList.toMutableList().apply {
+            clear()
+            mList = this
+        }
+    }
+
+    fun getList(): List<AppAnnouncementDto> {
         return this.mList
     }
 
     override fun getItemCount(): Int {
-        return if (mList != null) mList!!.size else 0
+        return mList.size
     }
 
     interface OnItemClickListener {

@@ -80,12 +80,12 @@ public class AppActivityService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, ActivityCommonResponse> findAllActivityInfos(int page, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, ActivityCommonResponse> findAllActivityInfos(QueryDto query, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, ActivityCommonResponse>(callBack) {
             @Override
             protected ActivityCommonResponse doRequestData(ManagedChannel channel) {
                 ActivityQueryRequest message = ActivityQueryRequest.newBuilder()
-                        .setQuery(QueryDto.newBuilder().setPage(page).setPageSize(10))
+                        .setQuery(query)
                         .build();
                 Logger.d(message);
                 ActivityCommonResponse response = null;

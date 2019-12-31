@@ -2,6 +2,7 @@ package com.gx.smart.smartoa.data.network.api;
 
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
+import com.gx.wisestone.core.grpc.lib.common.QueryDto;
 import com.gx.wisestone.work.app.grpc.information.AnnouncementRequest;
 import com.gx.wisestone.work.app.grpc.information.AppAnnouncementResponse;
 import com.gx.wisestone.work.app.grpc.information.AppInformationGrpc;
@@ -52,11 +53,12 @@ public class AppInformationService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, AppInformationResponse> getInformation(CallBack callBack) {
+    public GrpcAsyncTask<String, Void, AppInformationResponse> getInformation(QueryDto query, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, AppInformationResponse>(callBack) {
             @Override
             protected AppInformationResponse doRequestData(ManagedChannel channel) {
                 PersonInformationRequest message = PersonInformationRequest.newBuilder()
+                        .setQuery(query)
                         .build();
                 Logger.d(message);
                 AppInformationResponse response = null;
@@ -77,11 +79,12 @@ public class AppInformationService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, AppAnnouncementResponse> getAnnouncement(CallBack callBack) {
+    public GrpcAsyncTask<String, Void, AppAnnouncementResponse> getAnnouncement(QueryDto query, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, AppAnnouncementResponse>(callBack) {
             @Override
             protected AppAnnouncementResponse doRequestData(ManagedChannel channel) {
                 AnnouncementRequest message = AnnouncementRequest.newBuilder()
+                        .setQuery(query)
                         .build();
                 Logger.d(message);
                 AppAnnouncementResponse response = null;

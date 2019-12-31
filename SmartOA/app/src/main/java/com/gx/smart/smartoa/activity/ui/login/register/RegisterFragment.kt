@@ -17,8 +17,10 @@ import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
+import com.gx.smart.smartoa.activity.WebViewActivity
 import com.gx.smart.smartoa.activity.ui.login.LoginActivity
 import com.gx.smart.smartoa.activity.ui.splash.SplashActivity.Companion.DELAY_TIME
+import com.gx.smart.smartoa.data.network.ApiConfig
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AuthApiService
 import com.gx.smart.smartoa.data.network.api.UserCenterService
@@ -82,6 +84,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
         initData()
         register.setOnClickListener(this)
         getVerifyCodeText.setOnClickListener(this)
+        registerAgreement.setOnClickListener(this)
     }
 
     private fun initTitle() {
@@ -91,6 +94,13 @@ class RegisterFragment : Fragment(), View.OnClickListener {
             it.text = getString(R.string.register_account)
         }
         left_nav_image_view.setOnClickListener(this)
+    }
+
+
+    private fun goWebView(url: String) {
+        val intent = Intent(ActivityUtils.getTopActivity(), WebViewActivity::class.java)
+        intent.putExtra(WebViewActivity.URL, url)
+        ActivityUtils.startActivity(intent)
     }
 
     override fun onClick(v: View?) {
@@ -159,6 +169,8 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                     }
                 }
             }
+
+            R.id.registerAgreement -> goWebView(ApiConfig.WEB_AGREEMENT_URL)
         }
     }
 

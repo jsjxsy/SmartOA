@@ -16,7 +16,7 @@ import com.gx.wisestone.work.app.grpc.information.AppInformationNoticeRecordDtoO
 class NewsAdapter :
     RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
     private var onItemClick: OnItemClickListener? = null
-    private var mList: List<AppInformationNoticeRecordDtoOrBuilder>? = null
+    private var mList: List<AppInformationNoticeRecordDtoOrBuilder> = arrayListOf()
     fun setOnItemClick(onItemClick: OnItemClickListener?) {
         this.onItemClick = onItemClick
     }
@@ -53,8 +53,18 @@ class NewsAdapter :
 
     }
 
-    fun setList(mList: List<AppInformationNoticeRecordDtoOrBuilder>?) {
-        this.mList = mList
+    fun addList(list: List<AppInformationNoticeRecordDtoOrBuilder>) {
+        this.mList.toMutableList().apply {
+            addAll(list)
+            mList = this
+        }
+    }
+
+    fun clear() {
+        this.mList.toMutableList().apply {
+            clear()
+            mList = this
+        }
     }
 
     fun getList(): List<AppInformationNoticeRecordDtoOrBuilder>? {
@@ -62,7 +72,7 @@ class NewsAdapter :
     }
 
     override fun getItemCount(): Int {
-        return if (mList != null) mList!!.size else 0
+        return mList.size
     }
 
     interface OnItemClickListener {
