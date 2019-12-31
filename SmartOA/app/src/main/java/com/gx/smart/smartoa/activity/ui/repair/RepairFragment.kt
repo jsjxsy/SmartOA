@@ -352,7 +352,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
         val cropImagePath: String? = getRealFilePathFromUri(activity!!, uri)
         //此处后面可以将bitMap转为二进制上传后台网络
         val bitmap = BitmapFactory.decodeFile(cropImagePath)
-        val maxSize: Long = 1000 * 1000L
+        val maxSize: Long = 500 * 500L
         val newBitMap = ImageUtils.compressByQuality(bitmap, maxSize)
         val byteArray = ImageUtils.bitmap2Bytes(newBitMap, Bitmap.CompressFormat.JPEG)
         val imageString = ByteString.copyFrom(byteArray)
