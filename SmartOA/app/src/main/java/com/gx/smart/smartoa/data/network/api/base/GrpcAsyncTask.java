@@ -6,7 +6,6 @@ import android.os.Build;
 import com.gx.smart.smartoa.data.network.ApiConfig;
 import com.gx.smart.smartoa.data.network.api.interceptor.WsClientInterceptor;
 import com.gx.smart.smartoa.data.network.api.interceptor.WsProvider;
-import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -47,7 +46,6 @@ public abstract class GrpcAsyncTask<Params, Progress, Data> extends AsyncTask<Pa
     @Override
     protected void onPreExecute() {
         //做一些前提工作
-        mChannel = getChannel();
     }
 
     /**
@@ -61,6 +59,7 @@ public abstract class GrpcAsyncTask<Params, Progress, Data> extends AsyncTask<Pa
     @Override
     protected Data doInBackground(Params... params) {
         try {
+            mChannel = getChannel();
             return doRequestData(mChannel);
         } catch (Exception e) {
             e.printStackTrace();
