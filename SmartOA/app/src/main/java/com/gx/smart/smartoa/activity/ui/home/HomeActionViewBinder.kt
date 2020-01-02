@@ -22,6 +22,7 @@ import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.action.MineActionDetailFragment
 import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
+import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AppActivityService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.core.grpc.lib.common.QueryDto
@@ -130,6 +131,10 @@ class HomeActionViewBinder :
 
 
     fun findAllApplyInfos() {
+        if (AppConfig.employeeId == 0L) {
+            mRefreshLayout?.finishRefresh()
+            return
+        }
         val query = QueryDto.newBuilder()
             .setPage(0)
             .setPageSize(3)

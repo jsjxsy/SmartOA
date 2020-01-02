@@ -163,6 +163,11 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
 
     private fun findMyApplyInfos(query: QueryDto) {
+        if (AppConfig.employeeId == 0L) {
+            emptyLayout.visibility = View.VISIBLE
+            return
+        }
+
         AppActivityService.getInstance()
             .findMyApplyInfos(query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
@@ -209,6 +214,10 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
 
     private fun messageRead(messageId: Long, type: Int) {
+        if (AppConfig.employeeId == 0L) {
+            return
+        }
+
         AppInformationService.getInstance()
             .messageRead(messageId, type, object : CallBack<MessageReadResponse>() {
                 override fun callBack(result: MessageReadResponse?) {
@@ -263,6 +272,11 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
 
     private fun findAllActivityInfos(query: QueryDto) {
+        if (AppConfig.employeeId == 0L) {
+            emptyLayout.visibility = View.VISIBLE
+            return
+        }
+
         AppActivityService.getInstance()
             .findAllActivityInfos(query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
@@ -305,6 +319,10 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
 
     fun readAllMessage() {
+        if (AppConfig.employeeId == 0L) {
+            return
+        }
+
         refreshLayout.autoRefresh()
         readAllFlag = true
         val list = adapter.mList

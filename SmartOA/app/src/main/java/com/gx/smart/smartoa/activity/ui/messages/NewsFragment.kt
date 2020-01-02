@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AppInformationService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.core.grpc.lib.common.QueryDto
@@ -81,6 +82,10 @@ class NewsFragment : Fragment() {
     }
 
     private fun getInformation(query: QueryDto) {
+        if (AppConfig.employeeId == 0L) {
+            emptyLayout.visibility = View.VISIBLE
+            return
+        }
         AppInformationService.getInstance()
             .getInformation(query, object : CallBack<AppInformationResponse>() {
                 override fun callBack(result: AppInformationResponse?) {
@@ -123,6 +128,9 @@ class NewsFragment : Fragment() {
     }
 
     private fun messageRead(messageId: Long, type: Int) {
+        if (AppConfig.employeeId == 0L) {
+            return
+        }
         AppInformationService.getInstance()
             .messageRead(messageId, type, object : CallBack<MessageReadResponse>() {
                 override fun callBack(result: MessageReadResponse?) {
@@ -142,6 +150,9 @@ class NewsFragment : Fragment() {
 
 
     fun readAllMessage() {
+        if (AppConfig.employeeId == 0L) {
+            return
+        }
 
         refreshLayout.autoRefresh()
         val list = adapter.getList()

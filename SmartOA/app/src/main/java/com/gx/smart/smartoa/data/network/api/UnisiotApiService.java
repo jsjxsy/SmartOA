@@ -1,7 +1,5 @@
 package com.gx.smart.smartoa.data.network.api;
 
-import android.util.Log;
-
 import com.gx.smart.smartoa.data.network.ApiConfig;
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
@@ -46,6 +44,7 @@ import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.TokenGetReq;
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.TokenGetResp;
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.UnisiotApiGrpc;
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.UnisiotResp;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -102,7 +101,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).tokenGet(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -130,7 +129,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).optionLogList(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -156,7 +155,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).devList(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, "devList");
                 }
                 return response;
             }
@@ -188,7 +187,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).devEdit(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -218,7 +217,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).devDel(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -254,7 +253,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).devCom(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -281,7 +280,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).airBoxDataGet(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -308,7 +307,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).sceneList(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -337,7 +336,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).sceneGet(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -370,7 +369,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).sceneAdd(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -407,7 +406,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).sceneEdit(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -436,7 +435,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).sceneDel(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -465,7 +464,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).sceneCom(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -495,7 +494,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).sceneEditName(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -526,7 +525,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).sceneEditIcon(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -557,7 +556,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).sceneAddDevList(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -588,7 +587,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).sceneEditDevList(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -619,7 +618,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).sceneDelDevList(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -646,7 +645,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).hostSysProtection(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -672,7 +671,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).hostSysDisarm(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -700,7 +699,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).scenePannelGet(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -734,7 +733,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).scenePannelBind(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -767,7 +766,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).scenePannelUnbind(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
@@ -790,12 +789,13 @@ public class UnisiotApiService {
                         .setAreaId(areaId)
                         .setHostSn(host_sn)
                         .build();
-
+                Logger.d(message);
                 AreaDeviceListResp response = null;
                 try {
                     response = getZiGuangStub(channel).areaDeviceList(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e( e, "areaDeviceList");
                 }
 
                 return response;
@@ -823,7 +823,7 @@ public class UnisiotApiService {
                 try {
                     response = getZiGuangStub(channel).areaSceneList(message);
                 } catch (Exception e) {
-                    Log.i("UnisiotApiService", e.getMessage());
+                    Logger.e(e, e.getMessage());
                 }
 
                 return response;
