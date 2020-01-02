@@ -14,7 +14,7 @@ import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.core.grpc.lib.common.QueryDto
 import com.gx.wisestone.work.app.grpc.information.AppAnnouncementResponse
 import com.gx.wisestone.work.app.grpc.information.MessageReadResponse
-import kotlinx.android.synthetic.main.news_fragment.*
+import kotlinx.android.synthetic.main.notice_fragment.*
 
 class NoticeFragment : Fragment() {
 
