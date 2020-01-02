@@ -76,7 +76,11 @@ class SmartOAApplication : Application() {
     private fun preInitX5Core() {
         //预加载x5内核
         val intent = Intent(this, X5NetService::class.java)
-        startService(intent)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent)
+        } else {
+            startService(intent)
+        }
     }
 
     private fun initPush() {

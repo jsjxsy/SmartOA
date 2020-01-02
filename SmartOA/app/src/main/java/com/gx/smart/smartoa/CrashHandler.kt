@@ -46,8 +46,8 @@ class CrashHandler private constructor() : Thread.UncaughtExceptionHandler {
     ) { // 提示信息
         if (!handleException(ex) && mDefaultHandler != null) { // 如果用户没有处理则让系统默认的异常处理器来处
             mDefaultHandler!!.uncaughtException(thread, ex)
-            appExit()
         }
+        appExit()
     }
 
     /**
@@ -115,7 +115,7 @@ class CrashHandler private constructor() : Thread.UncaughtExceptionHandler {
     /**
      * 退出应用程序
      */
-    fun appExit() {
+    private fun appExit() {
         try {
             // 杀死该应用进程
             Process.killProcess(Process.myPid())

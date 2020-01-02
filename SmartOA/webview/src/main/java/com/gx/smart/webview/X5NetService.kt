@@ -1,8 +1,12 @@
 package com.gx.smart.webview
 
 import android.app.IntentService
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Intent
+import android.os.Build
 import android.util.Log
+import androidx.core.app.NotificationCompat
 
 import com.tencent.smtt.sdk.QbSdk
 
@@ -30,6 +34,18 @@ class X5NetService : IntentService {
 
     constructor() : super(TAG) {}
     constructor(name: String) : super(TAG) {}
+
+    override fun onCreate() {
+        super.onCreate()
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+            val nm = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            //数字是随便写的“40”，
+            nm.createNotificationChannel(NotificationChannel("40", "App WebView Service", NotificationManager.IMPORTANCE_DEFAULT))
+            val builder = NotificationCompat.Builder(this, "40")
+            //其中的2，是也随便写的，正式项目也是随便写
+            startForeground(2 ,builder.build())
+        }
+    }
 
     public override fun onHandleIntent(intent: Intent?) {
         Log.e("--->", "onHandleIntent")
