@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ui.user.UserActivity">
+    tools:context=".activity.ui.user.UserActivity"
+    android:background="@android:color/white">
 
     <include
         android:id="@+id/title"
@@ -15,5 +16,67 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/logo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="60dp"
+        android:src="@mipmap/ic_launcher"
+        />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        tools:text="当前版本 v1.0.0"
+        android:textColor="@color/font_color_style_six"
+        android:textSize="@dimen/font_size_style_seven"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        tools:text="当前版本 v1.0.0"
+        android:textColor="@color/font_color_style_six"
+        android:textSize="@dimen/font_size_style_seven"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="20dp"
+        android:text="@string/right"
+        android:textColor="@color/font_color_style_six"
+        android:textSize="@dimen/font_size_style_seven"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/agreement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/right"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="20dp"
+        tools:text="@string/register_agreement"
+        android:textColor="@color/font_color_style_two"
+        android:textSize="@dimen/font_size_style_seven"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

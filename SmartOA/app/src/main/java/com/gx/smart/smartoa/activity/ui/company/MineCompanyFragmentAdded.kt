@@ -16,9 +16,7 @@ import com.gx.smart.smartoa.data.network.api.AppEmployeeService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import com.gx.wisestone.work.app.grpc.employee.EmployeeInfo
-import kotlinx.android.synthetic.main.fragment_mine_action_detail.*
 import kotlinx.android.synthetic.main.fragment_mine_company_added.*
-import kotlinx.android.synthetic.main.fragment_mine_company_added.loadingView
 
 /**
  * A simple [Fragment] subclass.
@@ -89,6 +87,9 @@ class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
                         }
                         if (result?.code == 100) {
                             ToastUtils.showLong("解绑公司成功!")
+                            SPUtils.getInstance().put(AppConfig.PLACE_NAME, "")
+                            AppConfig.employeeId = 0
+                            AppConfig.currentSysTenantNo = 0
                             activity?.onBackPressed()
                         } else {
                             ToastUtils.showLong(result.msg)
