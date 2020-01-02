@@ -249,8 +249,6 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
         val newBitMap = ImageUtils.compressByQuality(bitmap, maxSize)
         val byteArray = ImageUtils.bitmap2Bytes(newBitMap, Bitmap.CompressFormat.JPEG)
         imageString = ByteString.copyFrom(byteArray)
-        Glide.with(this).load(cropImagePath)
-            .into(addImage)
     }
 
     private fun displayImage(uri: Uri?) {
@@ -261,9 +259,6 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
 
     inner class UploadImageAsyncTask<Uri, Progress, Unit> :
         AsyncTask<android.net.Uri, Progress, kotlin.Unit>() {
-        override fun onPreExecute() {
-            super.onPreExecute()
-        }
 
         override fun doInBackground(vararg params: android.net.Uri) {
             return uploadImage(params[0])
