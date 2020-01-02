@@ -104,9 +104,9 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
                             val sysTenantsList =
                                 JSON.parseArray(result.jsonstr, SysTenantList::class.java)
 
-                            if(sysTenantsList.isNotEmpty()) {
+                            if (sysTenantsList.isNotEmpty()) {
                                 for (sysTenants in sysTenantsList) {
-                                    val item1 = CompanyAreaCity(sysTenants.title)
+                                    val item1 = CompanyAreaCity(sysTenants.title ?: "")
                                     items.add(item1)
                                     for (sysTenant in sysTenants.sysTenants) {
                                         val item11 =
@@ -142,7 +142,7 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
 
                             if (sysTenantsList.isNullOrEmpty()) {
                                 for (sysTenants in sysTenantsList) {
-                                    val item1 = CompanyAreaCity(sysTenants.title)
+                                    val item1 = CompanyAreaCity(sysTenants.title ?: "")
                                     items.add(item1)
                                     for (sysTenant in sysTenants.sysTenants) {
                                         val item11 =
