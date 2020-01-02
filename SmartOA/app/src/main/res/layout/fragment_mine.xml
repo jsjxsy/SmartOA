@@ -13,7 +13,7 @@
         android:layout_height="140dp"
         android:contentDescription="@null"
         android:scaleType="centerCrop"
-        android:src="@mipmap/mine_head_test"
+        android:src="@mipmap/mine_head_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -26,20 +26,24 @@ class IntroActivity : AppIntro() {
 
 
         val sliderPage = SliderPage()
-        sliderPage.title = "this is one"
-        sliderPage.description = "this is ont"
-        sliderPage.imageDrawable = R.mipmap.home_banner_test
+        sliderPage.imageDrawable = R.mipmap.guide1
         sliderPage.bgColor = Color.WHITE
         addSlide(AppIntroFragment.newInstance(sliderPage))
 
         val sliderPage2 = SliderPage()
-        sliderPage2.title = "this is two"
-        sliderPage2.description = "this is two"
-        sliderPage.bgColor = Color.WHITE
-        sliderPage2.imageDrawable = R.mipmap.home_banner_test
+        sliderPage2.bgColor = Color.WHITE
+        sliderPage2.imageDrawable = R.mipmap.guide2
         addSlide(AppIntroFragment.newInstance(sliderPage2))
 
+        val sliderPage3 = SliderPage()
+        sliderPage3.bgColor = Color.WHITE
+        sliderPage3.imageDrawable = R.mipmap.guide3
+        addSlide(AppIntroFragment.newInstance(sliderPage3))
+
         // Hide Skip/Done button.
+        setColorSkipButton(resources.getColor(R.color.font_color_style_six))
+        setColorDoneText(resources.getColor(R.color.font_color_style_six))
+        setIndicatorColor(resources.getColor(R.color.font_color_style_six), resources.getColor(R.color.font_color_style_five))
     }
 
     override fun onSkipPressed(currentFragment: Fragment?) {

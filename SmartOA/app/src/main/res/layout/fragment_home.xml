@@ -9,13 +9,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/homeRecyclerView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="LinearLayoutManager"
-            tools:itemCount="1"
-            tools:listitem="@layout/item_home_head_item" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                layout="@layout/layout_common_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/title_height_style"
+                android:layout_marginTop="21dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/homeRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="LinearLayoutManager"
+                tools:itemCount="1"
+                tools:listitem="@layout/item_home_head_item" />
+        </LinearLayout>
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 

@@ -14,7 +14,6 @@ import com.bigkoo.convenientbanner.ConvenientBanner
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator
 import com.bigkoo.convenientbanner.holder.Holder
 import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.SPUtils
 import com.bumptech.glide.Glide
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
@@ -25,17 +24,14 @@ import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
 import com.gx.smart.smartoa.activity.ui.environmental.EnvironmentalActivity
 import com.gx.smart.smartoa.activity.ui.features.AllFeatureActivity
 import com.gx.smart.smartoa.activity.ui.meetings.MeetingScheduleActivity
-import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
 import com.gx.smart.smartoa.activity.ui.repair.RepairActivity
 import com.gx.smart.smartoa.activity.ui.visitor.VisitorActivity
 import com.gx.smart.smartoa.activity.ui.work.SharedWorkActivity
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AppFigureService
-import com.gx.smart.smartoa.data.network.api.UserCenterService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesInfoOrBuilder
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesResponse
-import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import top.limuyang2.customldialog.IOSMsgDialog
 
 
@@ -52,13 +48,6 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.id_environmental_control_text_view -> joinCompanyContinue(1)
-            R.id.right_nav_Image_view ->
-                ActivityUtils.startActivity(
-                    Intent(
-                        ActivityUtils.getTopActivity(),
-                        MessageActivity::class.java
-                    )
-                )
             R.id.id_more_text_view ->
                 ActivityUtils.startActivity(
                     Intent(
@@ -170,14 +159,14 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
             holder.idShareWorkTextView,
             holder.idMeetingScheduleTextView
         )
-        initTitleView(
-            holder.title,
-            holder.left_nav_text_view,
-            holder.right_nav_Image_view
-        )
+//        initTitleView(
+//            holder.title,
+//            holder.left_nav_text_view,
+//            holder.right_nav_Image_view
+//        )
         carouselFigure()
-        redPotView = holder.id_message_red_point
-        hasNotReadMessage()
+//        redPotView = holder.id_message_red_point
+//        hasNotReadMessage()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -197,33 +186,33 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
         val idMeetingScheduleTextView: TextView =
             itemView.findViewById(R.id.id_meeting_schedule_text_view)
 
-        val title: ViewGroup =
-            itemView.findViewById(R.id.title)
-        val left_nav_text_view: TextView =
-            itemView.findViewById(R.id.left_nav_text_view)
-        val right_nav_Image_view: ImageView =
-            itemView.findViewById(R.id.right_nav_Image_view)
-        val id_message_red_point: View = itemView.findViewById(R.id.id_message_red_point)
+//        val title: ViewGroup =
+//            itemView.findViewById(R.id.title)
+//        val left_nav_text_view: TextView =
+//            itemView.findViewById(R.id.left_nav_text_view)
+//        val right_nav_Image_view: ImageView =
+//            itemView.findViewById(R.id.right_nav_Image_view)
+//        val id_message_red_point: View = itemView.findViewById(R.id.id_message_red_point)
 
 
     }
 
-    private fun initTitleView(
-        title: ViewGroup,
-        left_nav_text_view: TextView,
-        right_nav_Image_view: ImageView
-    ) {
-        title.setBackgroundColor(Color.TRANSPARENT)
-        left_nav_text_view?.let {
-            it.visibility = View.VISIBLE
-            it.text = SPUtils.getInstance().getString(AppConfig.PLACE_NAME, "")
-
-        }
-        right_nav_Image_view?.let {
-            it.visibility = View.VISIBLE
-            it.setOnClickListener(this)
-        }
-    }
+//    private fun initTitleView(
+//        title: ViewGroup,
+//        left_nav_text_view: TextView,
+//        right_nav_Image_view: ImageView
+//    ) {
+//        title.setBackgroundColor(Color.TRANSPARENT)
+//        left_nav_text_view?.let {
+//            it.visibility = View.VISIBLE
+//            it.text = SPUtils.getInstance().getString(AppConfig.PLACE_NAME, "")
+//
+//        }
+//        right_nav_Image_view?.let {
+//            it.visibility = View.VISIBLE
+//            it.setOnClickListener(this)
+//        }
+//    }
 
     private fun initClickEvent(
         id_environmental_control_text_view: TextView,
@@ -309,22 +298,6 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
     }
 
 
-    fun hasNotReadMessage() {
-        UserCenterService.getInstance().hasNotReadMessage(object : CallBack<CommonResponse>() {
-            override fun callBack(result: CommonResponse?) {
-                if (result?.code == 100) {
-                    val flag = result.dataMap["hasNotReadMessage"]
-                    if (flag == "true") {
-                        redPotView.visibility = View.VISIBLE
-                    } else {
-                        redPotView.visibility = View.GONE
-                    }
-
-                }
-            }
-
-        })
-    }
 
 }
 

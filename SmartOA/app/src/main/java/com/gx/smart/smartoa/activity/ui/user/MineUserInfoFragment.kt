@@ -173,7 +173,10 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                 if (result?.code == 100) {
                     val userInfo = result.appUserInfoDto
                     if (userInfo.imageUrl.isNotBlank()) {
-                        Glide.with(activity!!).load(userInfo.imageUrl)
+                        Glide.with(activity!!)
+                            .load(userInfo.imageUrl)
+                            .error(R.drawable.ic_head)
+                            .placeholder(R.drawable.ic_head)
                             .apply(RequestOptions.bitmapTransform(CircleCrop()))
                             .into(headImage)
                     }

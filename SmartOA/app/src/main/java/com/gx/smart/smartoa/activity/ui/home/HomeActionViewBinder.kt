@@ -137,6 +137,7 @@ class HomeActionViewBinder :
         AppActivityService.getInstance()
             .findAllActivityInfos(query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
+                    mRefreshLayout?.finishRefresh()
                     if (result == null) {
                         ToastUtils.showLong("查询活动超时!")
                         return
@@ -144,7 +145,6 @@ class HomeActionViewBinder :
                     if (result?.code == 100) {
                         var list = result.contentList.toList()
                         initActionRecommend(actionRecommendBanner, list)
-                        mRefreshLayout?.finishRefresh()
                     } else {
                         ToastUtils.showLong(result.msg)
                     }

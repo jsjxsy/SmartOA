@@ -9,31 +9,35 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
-import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.SPUtils
 import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
-import com.gx.smart.smartoa.activity.ui.features.*
+import com.gx.smart.smartoa.activity.ui.features.Divider
+import com.gx.smart.smartoa.activity.ui.features.DividerViewBinder
+import com.gx.smart.smartoa.activity.ui.features.HomeCompanyAdvise
+import com.gx.smart.smartoa.activity.ui.features.HomeCompanyAdviseViewBinder
 import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
-import com.gx.smart.smartoa.data.network.api.AppActivityService
+import com.gx.smart.smartoa.data.network.AppConfig
+import com.gx.smart.smartoa.data.network.api.UserCenterService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
-import com.gx.wisestone.core.grpc.lib.common.QueryDto
-import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
+import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.layout_common_title.*
 
 
 class HomeFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.right_nav_Image_view -> startActivity(
-                Intent(
-                    activity,
-                    MessageActivity::class.java
+            R.id.right_nav_Image_view ->
+                ActivityUtils.startActivity(
+                    Intent(
+                        ActivityUtils.getTopActivity(),
+                        MessageActivity::class.java
+                    )
                 )
-            )
         }
 
     }
@@ -42,6 +46,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         fun newInstance() = HomeFragment()
     }
 
+    private lateinit var redPotView: View
     private lateinit var homeHeadViewBinder: HomeHeadViewBinder
     private lateinit var homeActionViewBinder: HomeActionViewBinder
     private lateinit var viewModel: HomeViewModel
@@ -72,8 +77,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        // TODO: Use the ViewModel
         context = requireActivity()
+        initTitleView()
         initRecyclerView()
     }
 
@@ -109,13 +114,45 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
 
         refreshLayout.setOnRefreshListener {
-            homeHeadViewBinder.hasNotReadMessage()
+            hasNotReadMessage()
             homeHeadViewBinder.carouselFigure()
             homeActionViewBinder.findAllApplyInfos()
         }
         refreshLayout.isEnableLoadmore = false
     }
 
+
+    private fun initTitleView() {
+        title.setBackgroundColor(Color.TRANSPARENT)
+        left_nav_text_view?.let {
+            it.visibility = View.VISIBLE
+            it.text = SPUtils.getInstance().getString(AppConfig.PLACE_NAME, "")
+
+        }
+        right_nav_Image_view?.let {
+            it.visibility = View.VISIBLE
+            it.setOnClickListener(this)
+        }
+        redPotView = id_message_red_point
+        hasNotReadMessage()
+    }
+
+    private fun hasNotReadMessage() {
+        UserCenterService.getInstance().hasNotReadMessage(object : CallBack<CommonResponse>() {
+            override fun callBack(result: CommonResponse?) {
+                if (result?.code == 100) {
+                    val flag = result.dataMap["hasNotReadMessage"]
+                    if (flag == "true") {
+                        redPotView.visibility = View.VISIBLE
+                    } else {
+                        redPotView.visibility = View.GONE
+                    }
+
+                }
+            }
+
+        })
+    }
 
 
 }
