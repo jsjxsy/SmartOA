@@ -23,6 +23,8 @@ class NoticeFragment : Fragment() {
         const val NOTICE_TYPE = 3
     }
 
+    private var readAllFlag: Boolean = false
+
     private lateinit var adapter: NoticeAdapter
     private lateinit var viewModel: NoticeViewModel
     private var currentPage = 0
@@ -85,7 +87,13 @@ class NoticeFragment : Fragment() {
             .getAnnouncement(query, object : CallBack<AppAnnouncementResponse>() {
                 override fun callBack(result: AppAnnouncementResponse?) {
                     if (currentPage == 0) {
-                        refreshLayout.finishRefresh()
+                        if (readAllFlag) {
+                            refreshLayout.finishRefresh(1000 * 2)
+                            readAllFlag = false
+                        } else {
+                            refreshLayout.finishRefresh()
+                        }
+
                     } else {
                         refreshLayout.finishLoadmore()
                     }
@@ -102,7 +110,7 @@ class NoticeFragment : Fragment() {
                         } else {
                             emptyLayout.visibility = View.GONE
                             if (appAnnouncementDtoList.isNotEmpty()) {
-                                currentPage ++
+                                currentPage++
                                 adapter.addList(appAnnouncementDtoList)
                                 adapter.notifyDataSetChanged()
                             }
@@ -136,6 +144,8 @@ class NoticeFragment : Fragment() {
 
 
     fun readAllMessage() {
+        refreshLayout.autoRefresh()
+        readAllFlag = true
         val list = adapter.getList()
         if (list == null || list.isEmpty()) {
             return
@@ -146,7 +156,6 @@ class NoticeFragment : Fragment() {
             }
         }
 
-        refreshLayout.autoRefresh(1000 * 2)
 
     }
 

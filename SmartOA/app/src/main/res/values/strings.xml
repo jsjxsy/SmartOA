@@ -47,7 +47,7 @@
     <string-array name="message_items">
         <item>公告</item>
         <item>活动</item>
-        <item>会议</item>
+        <item>物业</item>
     </string-array>
 
     <string-array name="month_items">

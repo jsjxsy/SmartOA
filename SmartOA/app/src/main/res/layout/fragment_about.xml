@@ -63,7 +63,7 @@
         android:layout_marginBottom="20dp"
         android:text="@string/right"
         android:textColor="@color/font_color_style_six"
-        android:textSize="@dimen/font_size_style_seven"
+        android:textSize="@dimen/font_size_style_two"
         />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -74,9 +74,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="20dp"
-        tools:text="@string/register_agreement"
+        android:text="@string/register_agreement"
         android:textColor="@color/font_color_style_two"
-        android:textSize="@dimen/font_size_style_seven"
+        android:textSize="@dimen/font_size_style_two"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

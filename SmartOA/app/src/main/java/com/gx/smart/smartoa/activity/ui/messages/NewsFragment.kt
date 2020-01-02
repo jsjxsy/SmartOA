@@ -20,6 +20,7 @@ class NewsFragment : Fragment() {
     private var mViewModel: NewsViewModel? = null
     private lateinit var adapter: NewsAdapter
     private var currentPage = 0
+    private var readAllFlag: Boolean = false
 
     companion object {
         fun newInstance() = NewsFragment()
@@ -83,9 +84,15 @@ class NewsFragment : Fragment() {
         AppInformationService.getInstance()
             .getInformation(query, object : CallBack<AppInformationResponse>() {
                 override fun callBack(result: AppInformationResponse?) {
-                    if(currentPage == 0) {
-                        refreshLayout.finishRefresh()
-                    }else{
+                    if (currentPage == 0) {
+                        if (readAllFlag) {
+                            refreshLayout.finishRefresh(1000 * 2)
+                            readAllFlag = false
+                        } else {
+                            refreshLayout.finishRefresh()
+                        }
+
+                    } else {
                         refreshLayout.finishLoadmore()
                     }
 
@@ -100,8 +107,8 @@ class NewsFragment : Fragment() {
                             emptyLayout.visibility = View.VISIBLE
                         } else {
                             emptyLayout.visibility = View.GONE
-                            if(appInformationNoticeRecordDtoList.isNotEmpty()) {
-                                currentPage ++
+                            if (appInformationNoticeRecordDtoList.isNotEmpty()) {
+                                currentPage++
                                 adapter.addList(appInformationNoticeRecordDtoList)
                                 adapter.notifyDataSetChanged()
                             }
@@ -135,6 +142,8 @@ class NewsFragment : Fragment() {
 
 
     fun readAllMessage() {
+
+        refreshLayout.autoRefresh()
         val list = adapter.getList()
         if (list == null || list.isEmpty()) {
             return
@@ -144,7 +153,5 @@ class NewsFragment : Fragment() {
                 messageRead(item.id, 1)
             }
         }
-
-        refreshLayout.autoRefresh(1000 * 2)
     }
 }

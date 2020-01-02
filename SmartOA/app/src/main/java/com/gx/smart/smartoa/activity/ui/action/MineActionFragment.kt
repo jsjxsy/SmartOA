@@ -37,6 +37,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
     }
 
 
+    private var readAllFlag: Boolean = false
     private lateinit var viewModel: ActionViewModel
     private var currentPage = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -166,7 +167,12 @@ class MineActionFragment : Fragment(), View.OnClickListener {
             .findMyApplyInfos(query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
                     if (currentPage == 0) {
-                        refreshLayout.finishRefresh()
+                        if (readAllFlag) {
+                            refreshLayout.finishRefresh(1000 * 2)
+                            readAllFlag = false
+                        } else {
+                            refreshLayout.finishRefresh()
+                        }
                     } else {
                         refreshLayout.finishLoadmore()
                     }
@@ -261,7 +267,11 @@ class MineActionFragment : Fragment(), View.OnClickListener {
             .findAllActivityInfos(query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
                     if (currentPage == 0) {
-                        refreshLayout.finishRefresh()
+                        if (readAllFlag) {
+                            refreshLayout.finishRefresh(1000 * 2)
+                        } else {
+                            refreshLayout.finishRefresh()
+                        }
                     } else {
                         refreshLayout.finishLoadmore()
                     }
@@ -295,6 +305,8 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
 
     fun readAllMessage() {
+        refreshLayout.autoRefresh()
+        readAllFlag = true
         val list = adapter.mList
         if (list == null || list.isEmpty()) {
             return
@@ -305,7 +317,6 @@ class MineActionFragment : Fragment(), View.OnClickListener {
             }
 
         }
-        refreshLayout.autoRefresh(1000 * 2)
     }
 
 
