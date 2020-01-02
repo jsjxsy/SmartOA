@@ -9,16 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <include
-                layout="@layout/layout_common_title"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/title_height_style"
-                android:layout_marginTop="21dp" />
+            android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/homeRecyclerView"
@@ -27,7 +20,13 @@
                 app:layoutManager="LinearLayoutManager"
                 tools:itemCount="1"
                 tools:listitem="@layout/item_home_head_item" />
-        </LinearLayout>
+
+            <include
+                layout="@layout/layout_common_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/title_height_style"
+                android:layout_marginTop="21dp" />
+        </RelativeLayout>
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 

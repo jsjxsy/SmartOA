@@ -1,7 +1,6 @@
 package com.gx.smart.smartoa.activity.ui.home
 
 import android.content.Intent
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -159,14 +158,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
             holder.idShareWorkTextView,
             holder.idMeetingScheduleTextView
         )
-//        initTitleView(
-//            holder.title,
-//            holder.left_nav_text_view,
-//            holder.right_nav_Image_view
-//        )
         carouselFigure()
-//        redPotView = holder.id_message_red_point
-//        hasNotReadMessage()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -186,33 +178,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
         val idMeetingScheduleTextView: TextView =
             itemView.findViewById(R.id.id_meeting_schedule_text_view)
 
-//        val title: ViewGroup =
-//            itemView.findViewById(R.id.title)
-//        val left_nav_text_view: TextView =
-//            itemView.findViewById(R.id.left_nav_text_view)
-//        val right_nav_Image_view: ImageView =
-//            itemView.findViewById(R.id.right_nav_Image_view)
-//        val id_message_red_point: View = itemView.findViewById(R.id.id_message_red_point)
-
-
     }
-
-//    private fun initTitleView(
-//        title: ViewGroup,
-//        left_nav_text_view: TextView,
-//        right_nav_Image_view: ImageView
-//    ) {
-//        title.setBackgroundColor(Color.TRANSPARENT)
-//        left_nav_text_view?.let {
-//            it.visibility = View.VISIBLE
-//            it.text = SPUtils.getInstance().getString(AppConfig.PLACE_NAME, "")
-//
-//        }
-//        right_nav_Image_view?.let {
-//            it.visibility = View.VISIBLE
-//            it.setOnClickListener(this)
-//        }
-//    }
 
     private fun initClickEvent(
         id_environmental_control_text_view: TextView,
