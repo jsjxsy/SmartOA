@@ -164,6 +164,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
     private fun findMyApplyInfos(query: QueryDto) {
         if (AppConfig.employeeId == 0L) {
+            refreshLayout.finishRefresh()
             emptyLayout.visibility = View.VISIBLE
             return
         }
@@ -273,6 +274,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
     private fun findAllActivityInfos(query: QueryDto) {
         if (AppConfig.employeeId == 0L) {
+            refreshLayout.finishRefresh()
             emptyLayout.visibility = View.VISIBLE
             return
         }

@@ -15,7 +15,11 @@ import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.core.grpc.lib.common.QueryDto
 import com.gx.wisestone.work.app.grpc.information.AppInformationResponse
 import com.gx.wisestone.work.app.grpc.information.MessageReadResponse
+import kotlinx.android.synthetic.main.fragment_mine_action.*
 import kotlinx.android.synthetic.main.news_fragment.*
+import kotlinx.android.synthetic.main.news_fragment.emptyLayout
+import kotlinx.android.synthetic.main.news_fragment.recyclerView
+import kotlinx.android.synthetic.main.news_fragment.refreshLayout
 
 class NewsFragment : Fragment() {
     private var mViewModel: NewsViewModel? = null
@@ -83,6 +87,7 @@ class NewsFragment : Fragment() {
 
     private fun getInformation(query: QueryDto) {
         if (AppConfig.employeeId == 0L) {
+            refreshLayout.finishRefresh()
             emptyLayout.visibility = View.VISIBLE
             return
         }
