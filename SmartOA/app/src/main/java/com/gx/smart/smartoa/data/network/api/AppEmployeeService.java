@@ -11,6 +11,7 @@ import com.gx.wisestone.work.app.grpc.appfigure.ImagesResponse;
 import com.gx.wisestone.work.app.grpc.common.CommonResponse;
 import com.gx.wisestone.work.app.grpc.employee.AppEmployeeInterfaceGrpc;
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse;
+import com.gx.wisestone.work.app.grpc.employee.CancelCompanyApplyRequest;
 import com.gx.wisestone.work.app.grpc.employee.CancelCompanyBindRequest;
 import com.gx.wisestone.work.app.grpc.employee.MyCompanyRequest;
 import com.orhanobut.logger.Logger;
@@ -96,6 +97,33 @@ public class AppEmployeeService {
                     Logger.d(response);
                 } catch (Exception e) {
                     Logger.e( e, "myCompany");
+                }
+
+                return response;
+            }
+        }.doExecute();
+    }
+
+
+
+    /**
+     * 撤销企业申请
+     *
+     * @return callBack返回值
+     */
+    public GrpcAsyncTask<String, Void, CommonResponse> cancelCompanyApply(CallBack callBack) {
+        return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
+            @Override
+            protected CommonResponse doRequestData(ManagedChannel channel) {
+                CancelCompanyApplyRequest message = CancelCompanyApplyRequest.newBuilder()
+                        .build();
+                Logger.d(message);
+                CommonResponse response = null;
+                try {
+                    response = getAppEmployeeStub(channel).cancelCompanyApply(message);
+                    Logger.d(response);
+                } catch (Exception e) {
+                    Logger.e( e, "cancelCompanyApply");
                 }
 
                 return response;

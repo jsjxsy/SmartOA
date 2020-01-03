@@ -13,7 +13,7 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.gx.smart.smartoa.IntroActivity
+import com.gx.smart.smartoa.activity.ui.guide.IntroActivity
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.activity.ui.login.LoginActivity

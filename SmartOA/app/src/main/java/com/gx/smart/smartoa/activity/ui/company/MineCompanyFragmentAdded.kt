@@ -22,10 +22,16 @@ import kotlinx.android.synthetic.main.fragment_mine_company_added.*
  * A simple [Fragment] subclass.
  */
 class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
+     var statue:Int = 0
     lateinit var employeeInfo: EmployeeInfo
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.unbindCompany -> cancelCompanyBind()
+            R.id.unbindCompany -> {
+                when(statue){
+                    1 -> cancelCompanyBind()
+                    2 -> cancelCompanyApply()
+                }
+            }
             R.id.left_nav_image_view -> activity?.onBackPressed()
         }
 
@@ -58,10 +64,12 @@ class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
         AppConfig.currentSysTenantNo = employeeInfo.tenantNo
         verify.text = when (employeeInfo.status) {
             1 -> {
+                statue = 1
                 verify.setTextColor(context?.resources!!.getColor(R.color.font_color_style_eleven))
                 "审核中"
             }
             2 -> {
+                statue = 2
                 verify.setTextColor(context?.resources!!.getColor(R.color.font_color_style_night))
                 "已认证"
             }
@@ -78,6 +86,32 @@ class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
         loadingView.visibility = View.VISIBLE
         AppEmployeeService.getInstance()
             .cancelCompanyBind(
+                object : CallBack<CommonResponse>() {
+                    override fun callBack(result: CommonResponse?) {
+                        loadingView.visibility = View.GONE
+                        if (result == null) {
+                            ToastUtils.showLong("解绑公司超时!")
+                            return
+                        }
+                        if (result?.code == 100) {
+                            ToastUtils.showLong("解绑公司成功!")
+                            SPUtils.getInstance().put(AppConfig.PLACE_NAME, "")
+                            AppConfig.employeeId = 0
+                            AppConfig.currentSysTenantNo = 0
+                            activity?.onBackPressed()
+                        } else {
+                            ToastUtils.showLong(result.msg)
+                        }
+                    }
+
+                })
+    }
+
+
+    private fun cancelCompanyApply() {
+        loadingView.visibility = View.VISIBLE
+        AppEmployeeService.getInstance()
+            .cancelCompanyApply(
                 object : CallBack<CommonResponse>() {
                     override fun callBack(result: CommonResponse?) {
                         loadingView.visibility = View.GONE

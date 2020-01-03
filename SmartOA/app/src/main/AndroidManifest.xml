@@ -54,7 +54,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".IntroActivity"
+            android:name=".activity.ui.guide.IntroActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
