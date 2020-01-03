@@ -79,7 +79,10 @@ class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
                 "拒绝"
             }
         }
-        Glide.with(this).load(employeeInfo.imageUrl).into(logoCompany)
+        Glide.with(this).load(employeeInfo.imageUrl)
+            .placeholder(R.mipmap.default_image_small)
+            .error(R.mipmap.default_image_small)
+            .into(logoCompany)
     }
 
     private fun cancelCompanyBind() {
