@@ -1,7 +1,5 @@
 package com.gx.smart.smartoa.data.network.api;
 
-import android.util.Log;
-
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
 import com.gx.wisestone.work.app.grpc.appfigure.AppFigureInterfaceGrpc;
@@ -63,7 +61,7 @@ public class AppFigureService {
                     response = getAppFigureStub(channel).bannerFigure(message);
                     Logger.d(response);
                 } catch (Exception e) {
-                    Logger.e("AppFigureService", e.getMessage());
+                    Logger.e(e,"bannerFigure");
                 }
 
                 return response;
@@ -88,7 +86,7 @@ public class AppFigureService {
                     response = getAppFigureStub(channel).carouselFigure(message);
                     Logger.d(response);
                 } catch (Exception e) {
-                    Logger.e("AppFigureService", e.getMessage());
+                    Logger.e(e,"carouselFigure");
                 }
 
                 return response;

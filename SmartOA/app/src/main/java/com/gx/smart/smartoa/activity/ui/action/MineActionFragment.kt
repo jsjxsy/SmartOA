@@ -163,6 +163,9 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
 
     private fun findMyApplyInfos(query: QueryDto) {
+        if (isDetached) {
+            return
+        }
         if (AppConfig.employeeId == 0L) {
             refreshLayout.finishRefresh()
             emptyLayout.visibility = View.VISIBLE
@@ -172,6 +175,9 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         AppActivityService.getInstance()
             .findMyApplyInfos(query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
+                    if (isDetached) {
+                        return
+                    }
                     if (currentPage == 0) {
                         if (readAllFlag) {
                             refreshLayout.finishRefresh(1000 * 2)
@@ -242,6 +248,9 @@ class MineActionFragment : Fragment(), View.OnClickListener {
             .myCompany(
                 object : CallBack<AppMyCompanyResponse>() {
                     override fun callBack(result: AppMyCompanyResponse?) {
+                        if (isDetached) {
+                            return
+                        }
                         if (result == null) {
                             refreshLayout.finishRefresh()
                             ToastUtils.showLong("查询我的企业超时!")
@@ -273,6 +282,9 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
 
     private fun findAllActivityInfos(query: QueryDto) {
+        if (isDetached) {
+            return
+        }
         if (AppConfig.employeeId == 0L) {
             refreshLayout.finishRefresh()
             emptyLayout.visibility = View.VISIBLE
@@ -282,6 +294,9 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         AppActivityService.getInstance()
             .findAllActivityInfos(query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
+                    if (isDetached) {
+                        return
+                    }
                     if (currentPage == 0) {
                         if (readAllFlag) {
                             refreshLayout.finishRefresh(1000 * 2)

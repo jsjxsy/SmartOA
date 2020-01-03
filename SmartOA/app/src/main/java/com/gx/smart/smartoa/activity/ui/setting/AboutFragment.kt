@@ -3,13 +3,12 @@ package com.gx.smart.smartoa.activity.ui.setting
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.AppUtils
-
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.WebViewActivity
 import com.gx.smart.smartoa.data.network.ApiConfig

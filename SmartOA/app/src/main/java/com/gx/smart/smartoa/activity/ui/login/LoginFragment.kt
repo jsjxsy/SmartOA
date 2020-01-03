@@ -452,7 +452,7 @@ class LoginFragment : Fragment(), OnClickListener {
                                 AppConfig.currentSysTenantNo = employeeInfo.tenantNo
                                 AppConfig.SMART_HOME_SN = employeeInfo.appDepartmentInfo.smartHomeSn
                                 AppConfig.ROOM_ID = employeeInfo.appDepartmentInfo.smartHomeId
-                                SPUtils.getInstance().put(AppConfig.PLACE_NAME, employeeInfo.companyName)
+                                SPUtils.getInstance().put(AppConfig.PLACE_NAME, employeeInfo.buildingName)
                                 SPUtils.getInstance().put(AppConfig.COMPANY_APPLY_STATUS, employeeInfo.status)
                             }
                             mainActivity()

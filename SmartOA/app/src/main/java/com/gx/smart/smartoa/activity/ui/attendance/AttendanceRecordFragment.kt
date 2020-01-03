@@ -14,9 +14,7 @@ import com.gx.smart.smartoa.data.network.api.AttendanceAppProviderService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.grpc.ds.attendanceapp.getEmployeeDayRecordResp
 import kotlinx.android.synthetic.main.attendance_record_fragment.*
-import kotlinx.android.synthetic.main.attendance_record_fragment.recyclerView
 import kotlinx.android.synthetic.main.layout_common_title.*
-import kotlinx.android.synthetic.main.repair_type_fragment.*
 import org.angmarch.views.OnSpinnerItemSelectedListener
 import java.util.*
 

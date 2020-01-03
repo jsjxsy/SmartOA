@@ -1,18 +1,13 @@
 package com.gx.smart.smartoa.activity.ui.messages
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
-
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.activity.ui.environmental.AirConditioner
-import com.gx.smart.smartoa.activity.ui.environmental.AirConditionerViewBinder
 import com.gx.smart.smartoa.base.BaseFragment
-import kotlinx.android.synthetic.main.air_conditioner_fragment.*
 import kotlinx.android.synthetic.main.all_fragment.*
 
 class AllFragment : BaseFragment() {

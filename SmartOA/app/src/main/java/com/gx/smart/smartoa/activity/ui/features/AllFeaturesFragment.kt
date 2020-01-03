@@ -60,7 +60,9 @@ class AllFeaturesFragment : BaseFragment(), View.OnClickListener {
 
     private fun initData() {
         adapter.register(CategoryViewBinder())
-        adapter.register(FeatureViewBinder())
+        val featureViewBinder = FeatureViewBinder()
+        featureViewBinder.fragmentManager = fragmentManager!!
+        adapter.register(featureViewBinder)
         adapter.register(DividerViewBinder())
 
         val layoutManager = GridLayoutManager(activity, SPAN_COUNT)
@@ -129,7 +131,6 @@ class AllFeaturesFragment : BaseFragment(), View.OnClickListener {
         items.add(item16)
         items.add(item17)
         adapter.items = items
-
         adapter.notifyDataSetChanged()
     }
 

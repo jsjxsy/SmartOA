@@ -7,12 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
-import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.action.MineActionFragment
-import com.gx.smart.smartoa.data.network.api.AppInformationService
-import com.gx.smart.smartoa.data.network.api.base.CallBack
-import com.gx.wisestone.work.app.grpc.information.MessageReadResponse
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.messages_fragment.*
 

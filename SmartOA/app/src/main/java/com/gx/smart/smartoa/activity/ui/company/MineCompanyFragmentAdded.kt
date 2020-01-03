@@ -111,7 +111,7 @@ class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
     private fun cancelCompanyApply() {
         loadingView.visibility = View.VISIBLE
         AppEmployeeService.getInstance()
-            .cancelCompanyApply(employeeInfo.employeeId,
+            .cancelCompanyApply(employeeInfo.applyId,
                 object : CallBack<CommonResponse>() {
                     override fun callBack(result: CommonResponse?) {
                         loadingView.visibility = View.GONE

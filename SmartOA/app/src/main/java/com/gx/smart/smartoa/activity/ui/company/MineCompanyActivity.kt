@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.activity.ui.user.MineUserInfoFragment
 import com.gx.smart.smartoa.base.BaseActivity
 
 class MineCompanyActivity : BaseActivity() {

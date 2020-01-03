@@ -35,10 +35,7 @@ import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.smart.smartoa.utils.DataCheckUtil
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import kotlinx.android.synthetic.main.fragment_mine_company_employees.*
-import kotlinx.android.synthetic.main.fragment_mine_company_employees.loadingView
-import kotlinx.android.synthetic.main.fragment_mine_company_employees.phone
 import kotlinx.android.synthetic.main.layout_common_title.*
-import kotlinx.android.synthetic.main.repair_fragment.*
 import java.io.File
 
 /**
@@ -48,6 +45,7 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
 
     private var companyId: Int = 0
     private lateinit var companyName: String
+    private lateinit var placeName: String
     private var employeeName: String? = null
     private var phoneNumber: String? = null
     private var imageString: ByteString? = null
@@ -76,6 +74,7 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
         arguments?.let {
             companyId = it.getInt(ARG_COMPANY_ID)
             companyName = it.getString(ARG_COMPANY_NAME)
+            placeName = it.getString(ARG_BUILDING_NAME)
         }
     }
 
@@ -137,7 +136,7 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
                         if (result?.code == 100) {
                             ToastUtils.showLong("申请成功!")
                             activity?.finish()
-                            SPUtils.getInstance().put(AppConfig.PLACE_NAME, companyName)
+                            SPUtils.getInstance().put(AppConfig.PLACE_NAME, placeName)
                         } else {
                             ToastUtils.showLong(result.msg)
                         }
@@ -306,6 +305,7 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
     companion object {
         const val ARG_COMPANY_ID = "company_id"
         const val ARG_COMPANY_NAME = "company_name"
+        const val ARG_BUILDING_NAME = "building_name"
     }
 
 }

@@ -45,6 +45,8 @@ message EmployeeInfo {
     string company_name = 7;
     string department_name = 8;
     int32 status = 9; //1=申请；2=通过；3=拒绝
+    int64 apply_id = 10;//申请id，未同意的情况下使用
+    string building_name = 11;//办公楼名字
     int64 create_time = 12;//申请时间
     string image_url = 16; //工牌
     int32 tenant_no = 17; //小区编号

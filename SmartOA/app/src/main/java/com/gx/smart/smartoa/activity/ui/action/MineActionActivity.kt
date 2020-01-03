@@ -5,7 +5,6 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_meeting_schedule.*
 import kotlinx.android.synthetic.main.activity_mine_action.*
 
 class MineActionActivity : BaseActivity() {

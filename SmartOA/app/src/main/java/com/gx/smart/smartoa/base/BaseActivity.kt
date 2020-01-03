@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import com.gx.smart.smartoa.R
 import kotlinx.android.synthetic.main.layout_common_title.*

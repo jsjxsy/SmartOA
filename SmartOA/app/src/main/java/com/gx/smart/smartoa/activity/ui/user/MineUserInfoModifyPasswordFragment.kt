@@ -3,7 +3,6 @@ package com.gx.smart.smartoa.activity.ui.user
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.text.InputType
 import android.text.TextUtils
 import android.text.method.HideReturnsTransformationMethod
@@ -13,10 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.login.LoginActivity
@@ -27,10 +24,7 @@ import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
 import com.gx.smart.smartoa.data.network.api.lib.utils.AuthUtils
 import com.gx.smart.smartoa.widget.LoadingView
 import com.gx.wisestone.uaa.grpc.lib.auth.UserModifyResp
-import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp
-import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_mine_user_info_modify_password.*
-import kotlinx.android.synthetic.main.fragment_mine_user_info_modify_password.loadingView
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 class MineUserInfoModifyPasswordFragment : Fragment(), View.OnClickListener {

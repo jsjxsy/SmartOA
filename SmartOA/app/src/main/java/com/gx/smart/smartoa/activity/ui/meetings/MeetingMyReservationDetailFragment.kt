@@ -2,12 +2,11 @@ package com.gx.smart.smartoa.activity.ui.meetings
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-
 import com.gx.smart.smartoa.R
 import kotlinx.android.synthetic.main.layout_common_title.*
 

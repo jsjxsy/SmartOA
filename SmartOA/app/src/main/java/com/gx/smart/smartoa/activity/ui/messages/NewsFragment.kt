@@ -15,11 +15,7 @@ import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.core.grpc.lib.common.QueryDto
 import com.gx.wisestone.work.app.grpc.information.AppInformationResponse
 import com.gx.wisestone.work.app.grpc.information.MessageReadResponse
-import kotlinx.android.synthetic.main.fragment_mine_action.*
 import kotlinx.android.synthetic.main.news_fragment.*
-import kotlinx.android.synthetic.main.news_fragment.emptyLayout
-import kotlinx.android.synthetic.main.news_fragment.recyclerView
-import kotlinx.android.synthetic.main.news_fragment.refreshLayout
 
 class NewsFragment : Fragment() {
     private var mViewModel: NewsViewModel? = null
@@ -94,6 +90,10 @@ class NewsFragment : Fragment() {
         AppInformationService.getInstance()
             .getInformation(query, object : CallBack<AppInformationResponse>() {
                 override fun callBack(result: AppInformationResponse?) {
+                    if(isDetached){
+                        return
+                    }
+
                     if (currentPage == 0) {
                         if (readAllFlag) {
                             refreshLayout.finishRefresh(1000 * 2)

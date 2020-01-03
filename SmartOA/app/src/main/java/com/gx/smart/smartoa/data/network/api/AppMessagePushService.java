@@ -1,7 +1,5 @@
 package com.gx.smart.smartoa.data.network.api;
 
-import android.util.Log;
-
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
 import com.gx.wisestone.work.app.grpc.push.AppMessagePushProviderGrpc;

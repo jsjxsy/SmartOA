@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.gx.smart.smartoa.R
 import kotlinx.android.synthetic.main.fragment_mine_company_add.*
-import kotlinx.android.synthetic.main.layout_common_title.*
 
 /**
  * A simple [Fragment] subclass.

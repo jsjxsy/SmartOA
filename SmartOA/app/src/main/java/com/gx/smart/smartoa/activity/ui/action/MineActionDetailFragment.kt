@@ -12,9 +12,6 @@ import com.gx.smart.smartoa.data.network.api.AppActivityService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.activity.AppActivityApplyResponse
 import kotlinx.android.synthetic.main.fragment_mine_action_detail.*
-import kotlinx.android.synthetic.main.fragment_mine_action_detail.loadingView
-import kotlinx.android.synthetic.main.fragment_mine_action_detail.submit
-import kotlinx.android.synthetic.main.fragment_suggestion.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 /**

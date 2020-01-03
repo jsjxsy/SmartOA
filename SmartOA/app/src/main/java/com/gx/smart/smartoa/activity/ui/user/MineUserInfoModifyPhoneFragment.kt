@@ -28,8 +28,6 @@ import com.gx.wisestone.uaa.grpc.lib.auth.UserModifyResp
 import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import kotlinx.android.synthetic.main.fragment_mine_user_info_modify_phone.*
-import kotlinx.android.synthetic.main.fragment_mine_user_info_modify_phone.delete
-import kotlinx.android.synthetic.main.fragment_mine_user_info_modify_phone.loadingView
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

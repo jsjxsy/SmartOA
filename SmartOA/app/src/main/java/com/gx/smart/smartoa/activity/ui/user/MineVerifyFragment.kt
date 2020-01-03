@@ -17,9 +17,7 @@ import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
 import com.gx.smart.smartoa.utils.DataCheckUtil.CheckIdCard
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
-import kotlinx.android.synthetic.main.fragment_mine_action_detail.*
 import kotlinx.android.synthetic.main.fragment_mine_verify.*
-import kotlinx.android.synthetic.main.fragment_mine_verify.loadingView
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 /**

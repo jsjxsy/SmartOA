@@ -1,6 +1,5 @@
 package com.gx.smart.smartoa.data.network.api;
 
-import com.google.protobuf.ByteString;
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
 import com.gx.wisestone.core.grpc.lib.common.QueryDto;

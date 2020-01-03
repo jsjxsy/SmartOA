@@ -1,13 +1,7 @@
 package com.gx.smart.smartoa.data.network.api;
 
-import android.util.Log;
-
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
-import com.gx.wisestone.work.app.grpc.appfigure.AppFigureInterfaceGrpc;
-import com.gx.wisestone.work.app.grpc.appfigure.BannerFigureRequest;
-import com.gx.wisestone.work.app.grpc.appfigure.CarouselFigureRequest;
-import com.gx.wisestone.work.app.grpc.appfigure.ImagesResponse;
 import com.gx.wisestone.work.app.grpc.common.CommonResponse;
 import com.gx.wisestone.work.app.grpc.employee.AppEmployeeInterfaceGrpc;
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse;
