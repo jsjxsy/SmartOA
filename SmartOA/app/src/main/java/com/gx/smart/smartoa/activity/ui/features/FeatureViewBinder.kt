@@ -17,6 +17,7 @@ import com.gx.smart.smartoa.activity.ui.air.AirQualityActivity
 import com.gx.smart.smartoa.activity.ui.attendance.AttendanceActivity
 import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
 import com.gx.smart.smartoa.activity.ui.environmental.EnvironmentalActivity
+import com.gx.smart.smartoa.activity.ui.meetings.MeetingScheduleActivity
 import com.gx.smart.smartoa.activity.ui.repair.RepairActivity
 import com.gx.smart.smartoa.activity.ui.visitor.VisitorActivity
 import com.gx.smart.smartoa.activity.ui.work.SharedWorkActivity
@@ -50,15 +51,15 @@ class FeatureViewBinder : ItemViewBinder<Feature, FeatureViewBinder.ViewHolder>(
                     joinCompanyContinue(1)
                 }
                 holder.itemView.resources.getString(R.string.meeting_schedule) -> {
-                    joinCompanyContinue(2)
-                }
-                holder.itemView.resources.getString(R.string.attendance) -> {
                     ActivityUtils.startActivity(
                         Intent(
                             ActivityUtils.getTopActivity(),
-                            VisitorActivity::class.java
+                            MeetingScheduleActivity::class.java
                         )
                     )
+                }
+                holder.itemView.resources.getString(R.string.attendance) -> {
+                    joinCompanyContinue(2)
                 }
                 holder.itemView.resources.getString(R.string.repair) -> {
                     joinCompanyContinue(3)
