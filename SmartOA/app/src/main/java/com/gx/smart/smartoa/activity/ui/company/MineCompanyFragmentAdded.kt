@@ -28,8 +28,8 @@ class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
         when (v?.id) {
             R.id.unbindCompany -> {
                 when(statue){
-                    1 -> cancelCompanyBind()
-                    2 -> cancelCompanyApply()
+                    1 ->  cancelCompanyApply()
+                    2 -> cancelCompanyBind()
                 }
             }
             R.id.left_nav_image_view -> activity?.onBackPressed()
