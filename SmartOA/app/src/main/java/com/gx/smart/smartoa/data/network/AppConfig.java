@@ -22,6 +22,7 @@ public class AppConfig {
     public static final String SH_PASSWORD = "password";
 
     public static final String PLACE_NAME = "place";
+    public static final String COMPANY_APPLY_STATUS = "status";
 
     public static String JGPushMsg;
     public static String JGPushContent;

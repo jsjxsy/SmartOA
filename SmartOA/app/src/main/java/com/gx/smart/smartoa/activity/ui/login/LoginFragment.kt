@@ -417,7 +417,7 @@ class LoginFragment : Fragment(), OnClickListener {
                 }
 
                 when {
-                    result.getCode() === 100 -> {
+                    result.code === 100 -> {
                         myCompany()
                         //用户已经绑定
                     }
@@ -453,6 +453,7 @@ class LoginFragment : Fragment(), OnClickListener {
                                 AppConfig.SMART_HOME_SN = employeeInfo.appDepartmentInfo.smartHomeSn
                                 AppConfig.ROOM_ID = employeeInfo.appDepartmentInfo.smartHomeId
                                 SPUtils.getInstance().put(AppConfig.PLACE_NAME, employeeInfo.companyName)
+                                SPUtils.getInstance().put(AppConfig.COMPANY_APPLY_STATUS, employeeInfo.status)
                             }
                             mainActivity()
                         } else {

@@ -13,6 +13,7 @@ import com.bigkoo.convenientbanner.ConvenientBanner
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator
 import com.bigkoo.convenientbanner.holder.Holder
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.SPUtils
 import com.bumptech.glide.Glide
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
@@ -98,17 +99,25 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
         if (AppConfig.employeeId == null ||
             AppConfig.employeeId == 0L
         ) {
-            IOSMsgDialog.init(fragmentManager!!)
-                .setTitle("加入企业")
-                .setMessage("您还未入驻任何企业，请先进行企业身份认证")
-                .setPositiveButton("马上认证", View.OnClickListener {
-                    ActivityUtils.startActivity(
-                        Intent(
-                            ActivityUtils.getTopActivity(),
-                            MineCompanyActivity::class.java
+            when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0)) {
+                1 -> IOSMsgDialog.init(fragmentManager!!)
+                    .setTitle("加入企业")
+                    .setMessage("您申请的企业在审核中，请耐心等待")
+                    .setPositiveButton("确定").show()
+
+                2 -> IOSMsgDialog.init(fragmentManager!!)
+                    .setTitle("加入企业")
+                    .setMessage("您还未入驻任何企业，请先进行企业身份认证")
+                    .setPositiveButton("马上认证", View.OnClickListener {
+                        ActivityUtils.startActivity(
+                            Intent(
+                                ActivityUtils.getTopActivity(),
+                                MineCompanyActivity::class.java
+                            )
                         )
-                    )
-                }).show()
+                    }).show()
+            }
+
             return
         }
 
@@ -262,7 +271,6 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
 
         })
     }
-
 
 
 }

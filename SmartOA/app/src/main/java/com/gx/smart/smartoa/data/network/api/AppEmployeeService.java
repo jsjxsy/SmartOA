@@ -111,11 +111,12 @@ public class AppEmployeeService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, CommonResponse> cancelCompanyApply(CallBack callBack) {
+    public GrpcAsyncTask<String, Void, CommonResponse> cancelCompanyApply(long applyId, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
             @Override
             protected CommonResponse doRequestData(ManagedChannel channel) {
                 CancelCompanyApplyRequest message = CancelCompanyApplyRequest.newBuilder()
+                        .setApplyId(applyId)
                         .build();
                 Logger.d(message);
                 CommonResponse response = null;

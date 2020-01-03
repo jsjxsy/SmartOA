@@ -20,9 +20,11 @@ import com.gx.smart.smartoa.activity.ui.features.HomeCompanyAdvise
 import com.gx.smart.smartoa.activity.ui.features.HomeCompanyAdviseViewBinder
 import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
 import com.gx.smart.smartoa.data.network.AppConfig
+import com.gx.smart.smartoa.data.network.api.AppEmployeeService
 import com.gx.smart.smartoa.data.network.api.UserCenterService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
+import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -117,6 +119,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             hasNotReadMessage()
             homeHeadViewBinder.carouselFigure()
             homeActionViewBinder.findAllApplyInfos()
+            myCompany()
         }
         refreshLayout.isEnableLoadmore = false
     }
@@ -154,5 +157,29 @@ class HomeFragment : Fragment(), View.OnClickListener {
         })
     }
 
+
+    private fun myCompany() {
+        AppEmployeeService.getInstance()
+            .myCompany(
+                object : CallBack<AppMyCompanyResponse>() {
+                    override fun callBack(result: AppMyCompanyResponse?) {
+                        if (result?.code == 100) {
+                            val employeeList = result.employeeInfoList
+                            if (employeeList.isNotEmpty()) {
+                                val employeeInfo = employeeList[0]
+                                AppConfig.employeeId = employeeInfo.employeeId
+                                AppConfig.currentSysTenantNo = employeeInfo.tenantNo
+                                AppConfig.SMART_HOME_SN = employeeInfo.appDepartmentInfo.smartHomeSn
+                                AppConfig.ROOM_ID = employeeInfo.appDepartmentInfo.smartHomeId
+                                SPUtils.getInstance()
+                                    .put(AppConfig.PLACE_NAME, employeeInfo.companyName)
+                                SPUtils.getInstance()
+                                    .put(AppConfig.COMPANY_APPLY_STATUS, employeeInfo.status)
+                            }
+                        }
+                    }
+
+                })
+    }
 
 }

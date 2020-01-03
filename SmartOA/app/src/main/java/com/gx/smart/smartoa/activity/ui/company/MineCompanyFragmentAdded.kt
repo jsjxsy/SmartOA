@@ -22,13 +22,13 @@ import kotlinx.android.synthetic.main.fragment_mine_company_added.*
  * A simple [Fragment] subclass.
  */
 class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
-     var statue:Int = 0
+    var statue: Int = 0
     lateinit var employeeInfo: EmployeeInfo
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.unbindCompany -> {
-                when(statue){
-                    1 ->  cancelCompanyApply()
+                when (statue) {
+                    1 -> cancelCompanyApply()
                     2 -> cancelCompanyBind()
                 }
             }
@@ -111,7 +111,7 @@ class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
     private fun cancelCompanyApply() {
         loadingView.visibility = View.VISIBLE
         AppEmployeeService.getInstance()
-            .cancelCompanyApply(
+            .cancelCompanyApply(employeeInfo.employeeId,
                 object : CallBack<CommonResponse>() {
                     override fun callBack(result: CommonResponse?) {
                         loadingView.visibility = View.GONE
