@@ -114,7 +114,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         adapter.items = items
         adapter.notifyDataSetChanged()
 
-
+        myCompany()
         refreshLayout.setOnRefreshListener {
             hasNotReadMessage()
             homeHeadViewBinder.carouselFigure()
