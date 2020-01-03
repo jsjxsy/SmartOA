@@ -232,13 +232,13 @@ class SplashActivity : BaseActivity() {
 
 
     private fun mainActivity() {
-        finish()
         ActivityUtils.startActivity(
             Intent(
                 this,
                 MainActivity::class.java
             )
         )
+        finish()
     }
 
     private fun myCompany() {
