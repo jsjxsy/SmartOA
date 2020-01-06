@@ -108,6 +108,10 @@ class RepairFragment : Fragment(), View.OnClickListener {
                 val enable = save.getTag(R.id.save) as Boolean
                 if (enable) {
                     val content = contentEdit.text.toString()
+                    if(content.isNullOrBlank()) {
+                        ToastUtils.showLong("报修内容不能为空！")
+                        return
+                    }
                     val employeePhone = phone.text.toString()
                     val address = placeName.text.toString()
                     addRepair(content, type.type, address, employeePhone, images)

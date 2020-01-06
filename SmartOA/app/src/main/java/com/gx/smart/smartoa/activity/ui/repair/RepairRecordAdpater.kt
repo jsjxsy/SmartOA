@@ -79,7 +79,8 @@ class RepairRecordAdapter :
             }
 
         }
-        holder.employeeName.text = item.employeeName
+
+        //holder.employeeName.text = item.employeeName
 
         holder.time.text = if (item.handleTime == 0L) {
             "-"

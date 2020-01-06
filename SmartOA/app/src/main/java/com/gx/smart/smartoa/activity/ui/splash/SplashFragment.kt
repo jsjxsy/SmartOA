@@ -80,6 +80,10 @@ class SplashFragment : Fragment() {
                                     mTime?.cancel()
                                     goWebView(list[index].forwardUrl)
                                 }
+                                jumpButton.setOnClickListener {
+                                    mTime?.cancel()
+                                    login()
+                                }
                                 return false
                             }
 
@@ -97,7 +101,7 @@ class SplashFragment : Fragment() {
 
 
     private fun goWebView(url: String) {
-        activity?.finish()
+        login()
         val intent = Intent(activity, WebViewActivity::class.java)
         intent.putExtra(WebViewActivity.URL, url)
         ActivityUtils.startActivity(intent)
