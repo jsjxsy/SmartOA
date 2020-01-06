@@ -82,7 +82,10 @@
             android:textColor="@color/font_color_style_five"
             android:textSize="@dimen/font_size_style_one"
             android:focusedByDefault="true"
-            android:hint="@string/input_new_phone" />
+            android:hint="@string/input_new_phone"
+            android:maxLength="11"
+            android:inputType="phone"
+            android:digits="@string/phone_input"/>
         <ImageView
             android:id="@+id/delete"
             android:layout_width="24dp"

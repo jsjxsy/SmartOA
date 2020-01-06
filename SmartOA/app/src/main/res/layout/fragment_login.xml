@@ -53,6 +53,7 @@
                     android:textColor="@color/font_color_style_six"
                     android:textSize="@dimen/font_size_style_one"
                     android:maxLength="11"
+                    android:digits="@string/phone_input"
                     android:text="@={userModel.phone}"/>
 
                 <ImageView
@@ -82,7 +83,8 @@
                     android:maxLength="18"
                     android:text="@={userModel.password}"
                     android:textColor="@color/font_color_style_six"
-                    android:textSize="@dimen/font_size_style_one" />
+                    android:textSize="@dimen/font_size_style_one"
+                    android:digits="@string/password_input"/>
 
                 <ImageView
                     android:id="@+id/passwordState"

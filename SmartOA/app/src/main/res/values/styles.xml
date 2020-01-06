@@ -65,6 +65,16 @@
         <item name="android:background">@android:color/white</item>
     </style>
 
+    <style name="passwordEditTextStyle">
+        <item name="android:background">@android:color/white</item>
+        <item name="android:textColor">@color/font_color_style_six</item>
+        <item name="android:textSize">@dimen/font_size_style_one</item>
+        <item name="android:maxLength">16</item>
+        <item name="android:inputType">textPassword</item>
+        <item name="android:digits">@string/password_input</item>
+    </style>
+
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
