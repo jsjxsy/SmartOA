@@ -13,6 +13,7 @@ import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.activity.AppActivityApplyResponse
 import kotlinx.android.synthetic.main.fragment_mine_action_detail.*
 import kotlinx.android.synthetic.main.layout_common_title.*
+import top.limuyang2.customldialog.IOSMsgDialog
 
 /**
  * A simple [Fragment] subclass.
@@ -81,7 +82,7 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
         when (v?.id) {
             R.id.submit -> {
                 if (flag) {
-                    cancelApply()
+                    tipCancelAction()
                 } else {
                     apply()
                 }
@@ -90,6 +91,17 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
             R.id.left_nav_image_view -> activity?.onBackPressed()
 
         }
+    }
+
+    private fun tipCancelAction() {
+        IOSMsgDialog.init(fragmentManager!!)
+            .setTitle("取消报名活动")
+            .setMessage("您确定取消报名活动吗?")
+            .setNegativeButton("取消")
+            .setPositiveButton("确定", View.OnClickListener {
+                cancelApply()
+            }).show()
+
     }
 
 
