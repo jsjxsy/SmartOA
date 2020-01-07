@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
@@ -166,7 +167,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
 
     private fun findMyApplyInfos(query: QueryDto) {
-        if (isDetached) {
+        if (ActivityUtils.isActivityAlive(activity)) {
             return
         }
 
@@ -179,7 +180,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         AppActivityService.getInstance()
             .findMyApplyInfos(query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
-                    if (isDetached) {
+                    if (ActivityUtils.isActivityAlive(activity)) {
                         return
                     }
                     if (currentPage == 0) {
@@ -252,7 +253,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
             .myCompany(
                 object : CallBack<AppMyCompanyResponse>() {
                     override fun callBack(result: AppMyCompanyResponse?) {
-                        if (isDetached) {
+                        if (ActivityUtils.isActivityAlive(activity)) {
                             return
                         }
                         if (result == null) {
@@ -269,9 +270,15 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                                 SPUtils.getInstance()
                                     .put(AppConfig.SYS_TENANT_NO, employeeInfo.tenantNo)
                                 SPUtils.getInstance()
-                                    .put(AppConfig.SMART_HOME_SN, employeeInfo.appDepartmentInfo.smartHomeSn)
+                                    .put(
+                                        AppConfig.SMART_HOME_SN,
+                                        employeeInfo.appDepartmentInfo.smartHomeSn
+                                    )
                                 SPUtils.getInstance()
-                                    .put(AppConfig.ROOM_ID, employeeInfo.appDepartmentInfo.smartHomeId)
+                                    .put(
+                                        AppConfig.ROOM_ID,
+                                        employeeInfo.appDepartmentInfo.smartHomeId
+                                    )
                                 SPUtils.getInstance()
                                     .put(AppConfig.PLACE_NAME, employeeInfo.buildingName)
                                 SPUtils.getInstance()
@@ -296,7 +303,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
 
     private fun findAllActivityInfos(query: QueryDto) {
-        if (isDetached) {
+        if (ActivityUtils.isActivityAlive(activity)) {
             return
         }
         if (employeeId == 0L) {
@@ -308,7 +315,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         AppActivityService.getInstance()
             .findAllActivityInfos(query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
-                    if (isDetached) {
+                    if (!ActivityUtils.isActivityAlive(activity)) {
                         return
                     }
                     if (currentPage == 0) {

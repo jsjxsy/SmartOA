@@ -10,6 +10,7 @@ import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.blankj.utilcode.util.ActivityUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
@@ -99,7 +100,7 @@ class MineFragment : Fragment() {
             override fun callBack(result: AppInfoResponse?) {
                 if (result?.code == 100) {
                     val userInfo = result.appUserInfoDto
-                    if (userInfo.imageUrl.isNotBlank() && !isDetached) {
+                    if (userInfo.imageUrl.isNotBlank() && ActivityUtils.isActivityAlive(activity)) {
                         Glide.with(activity!!)
                             .load(userInfo.imageUrl)
                             .error(R.drawable.ic_head)

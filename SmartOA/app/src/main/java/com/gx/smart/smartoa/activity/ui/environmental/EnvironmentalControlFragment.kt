@@ -118,6 +118,9 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                     if (result.code == 100) {
                         val contentList = result.contentList
                         items.clear()
+                        if(contentList.isEmpty()){
+                            NoDataLayout.visibility = View.VISIBLE
+                        }
                         for (content in contentList) {
                             val headTextItem = LightHeadItem(
                                 content.sceneName,
@@ -125,7 +128,6 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                             )
                             items.add(headTextItem)
                         }
-                        adapter.items = items
                         val onItemClickListener =
                             object : LightHeadItemViewBinder.OnItemClickListener {
                                 override fun onClick(view: View, position: Int) {
@@ -134,8 +136,12 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                                 }
                             }
                         headItemView.onItemClickListener = onItemClickListener
+                        adapter.items = items
                         adapter.notifyDataSetChanged()
                     } else if (result.code == 104) {
+                        NoDataLayout.visibility = View.VISIBLE
+                        tip.text = "网关离线了"
+                    }else{
                         NoDataLayout.visibility = View.VISIBLE
                         tip.text = "网关离线了"
                     }

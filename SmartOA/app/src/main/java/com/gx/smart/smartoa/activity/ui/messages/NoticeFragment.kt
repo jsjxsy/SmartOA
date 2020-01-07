@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
@@ -96,7 +97,7 @@ class NoticeFragment : Fragment() {
         AppInformationService.getInstance()
             .getAnnouncement(query, object : CallBack<AppAnnouncementResponse>() {
                 override fun callBack(result: AppAnnouncementResponse?) {
-                    if (isDetached) {
+                    if(ActivityUtils.isActivityAlive(activity)) {
                         return
                     }
                     if (currentPage == 0) {
