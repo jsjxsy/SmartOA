@@ -100,7 +100,7 @@ class FeatureViewBinder : ItemViewBinder<Feature, FeatureViewBinder.ViewHolder>(
     private fun joinCompanyContinue(type: Int) {
         val employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
         if (employeeId == 0L) {
-            when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0)) {
+            when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 2)) {
                 1 -> IOSMsgDialog.init(fragmentManager!!)
                     .setTitle("加入企业")
                     .setMessage("您申请的企业在审核中，请耐心等待")
