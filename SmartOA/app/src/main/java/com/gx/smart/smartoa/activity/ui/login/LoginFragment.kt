@@ -142,12 +142,7 @@ class LoginFragment : Fragment(), OnClickListener {
         id_input_password_edit_text.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
         id_input_password_edit_text.transformationMethod =
             PasswordTransformationMethod.getInstance()
-        val userName = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")
         viewModel.setPhone()
-        observe()
-//        id_input_phone_edit_text.setText(userName)
-//        id_input_phone_edit_text.setSelection(userName.length)
-
         delete.setOnClickListener {
             id_input_phone_edit_text.editableText.clear()
         }
@@ -168,13 +163,6 @@ class LoginFragment : Fragment(), OnClickListener {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
 
-        })
-    }
-
-    private fun observe() {
-        viewModel.phone.observe(this, Observer {
-            //            val index = viewModel.phone.value?.length ?: 0
-//            id_input_phone_edit_text.setSelection(index)
         })
     }
 
@@ -440,7 +428,7 @@ class LoginFragment : Fragment(), OnClickListener {
             .myCompany(
                 object : CallBack<AppMyCompanyResponse>() {
                     override fun callBack(result: AppMyCompanyResponse?) {
-                        mLoadingView?.visibility = View.GONE
+                        mLoadingView.visibility = View.GONE
                         if (result == null) {
                             ToastUtils.showLong("查询我的企业超时!")
                             return
