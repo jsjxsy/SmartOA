@@ -1,14 +1,12 @@
 package com.gx.smart.smartoa.activity.ui.company
 
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
@@ -39,16 +37,22 @@ class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
 
 
     private fun tipCancelAction() {
-        IOSMsgDialog.init(fragmentManager!!)
-            .setTitle("解绑公司")
-            .setMessage("您确定撤销企业申请?")
-            .setNegativeButton("取消")
-            .setPositiveButton("确定", View.OnClickListener {
-                when (statue) {
-                    1 -> cancelCompanyApply()
-                    2 -> cancelCompanyBind()
-                }
-            }).show()
+        when (statue) {
+            1 -> IOSMsgDialog.init(fragmentManager!!)
+                .setTitle("解绑公司")
+                .setMessage("您确定撤销企业申请?")
+                .setNegativeButton("取消")
+                .setPositiveButton("确定", View.OnClickListener {
+                    cancelCompanyApply()
+                }).show()
+            2 -> IOSMsgDialog.init(fragmentManager!!)
+                .setTitle("解绑公司")
+                .setMessage("您确定解绑企业?")
+                .setNegativeButton("取消")
+                .setPositiveButton("确定", View.OnClickListener {
+                    cancelCompanyBind()
+                }).show()
+        }
 
     }
 

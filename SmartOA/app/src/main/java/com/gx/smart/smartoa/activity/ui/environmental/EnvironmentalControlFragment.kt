@@ -55,7 +55,8 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
     private val items = ArrayList<Any>()
     private lateinit var mLoadingView: LoadingView
     private var contentList: MutableList<DevDto>? = null
-
+    private var roomId: Long = 0L
+    private lateinit var smartSN: String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,6 +67,8 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(EnvironmentalControlViewModel::class.java)
+        roomId = SPUtils.getInstance().getLong(AppConfig.ROOM_ID, 0L)
+        smartSN = SPUtils.getInstance().getString(AppConfig.SMART_HOME_SN, "")
         startWebSocketClient()
         initTitle()
         initHead()
@@ -106,8 +109,8 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
      * 获取场景列表
      */
     private fun getZGSceneList() {
-        sceneListTask = UnisiotApiService.getInstance().areaSceneList(AppConfig.ROOM_ID.toString(),
-            AppConfig.SMART_HOME_SN, object : CallBack<AreaSceneListResp>() {
+        sceneListTask = UnisiotApiService.getInstance().areaSceneList(roomId.toString(),
+            smartSN, object : CallBack<AreaSceneListResp>() {
                 override fun callBack(result: AreaSceneListResp?) {
                     if (result == null) {
                         return
@@ -172,8 +175,8 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
         if (GrpcAsyncTask.isFinish(devListTask)) {
             devListTask = UnisiotApiService.getInstance()
                 .areaDeviceList(
-                    AppConfig.ROOM_ID.toString(),
-                    AppConfig.SMART_HOME_SN,
+                    roomId.toString(),
+                    smartSN,
                     object : CallBack<AreaDeviceListResp>() {
                         override fun callBack(result: AreaDeviceListResp?) {
                             refreshLayout.finishRefresh()
@@ -246,8 +249,8 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
     }
 
     private fun startWebSocketClient() {
-        var userId =  SPUtils.getInstance().getString(AppConfig.USER_ID)
-        var token =  SPUtils.getInstance().getString(AppConfig.LOGIN_TOKEN)
+        var userId = SPUtils.getInstance().getString(AppConfig.USER_ID)
+        var token = SPUtils.getInstance().getString(AppConfig.LOGIN_TOKEN)
         val wsClient: WebSocketNotifyClient = WebSocketNotifyClient.getInstance()
         wsClient.handler = mNotifyHandler
         val wsInent = Intent(this.context, WebSocketClientService::class.java)
