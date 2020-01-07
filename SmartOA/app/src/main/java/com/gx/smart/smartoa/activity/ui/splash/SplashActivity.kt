@@ -215,12 +215,12 @@ class SplashActivity : BaseActivity() {
 
                 when (result.code) {
                     100 -> {
-                        SPUtils.getInstance().put(AppConfig.USER_ID,result.appUserInfoDto.userId)
+                        SPUtils.getInstance().put(AppConfig.USER_ID, result.appUserInfoDto.userId)
                         myCompany()
                     }
                     //用户已经绑定
                     7003 -> {
-                        SPUtils.getInstance().put(AppConfig.USER_ID,result.appUserInfoDto.userId)
+                        SPUtils.getInstance().put(AppConfig.USER_ID, result.appUserInfoDto.userId)
                         myCompany()
                     }
                     else -> {
@@ -234,13 +234,17 @@ class SplashActivity : BaseActivity() {
 
 
     private fun mainActivity() {
-        ActivityUtils.startActivity(
-            Intent(
-                this,
-                MainActivity::class.java
-            )
-        )
         finish()
+        val intent = Intent(
+            this,
+            MainActivity::class.java
+        )
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+
+        ActivityUtils.startActivity(
+            intent
+        )
+
     }
 
 
@@ -275,9 +279,15 @@ class SplashActivity : BaseActivity() {
                                 SPUtils.getInstance()
                                     .put(AppConfig.SYS_TENANT_NO, employeeInfo.tenantNo)
                                 SPUtils.getInstance()
-                                    .put(AppConfig.SMART_HOME_SN, employeeInfo.appDepartmentInfo.smartHomeSn)
+                                    .put(
+                                        AppConfig.SMART_HOME_SN,
+                                        employeeInfo.appDepartmentInfo.smartHomeSn
+                                    )
                                 SPUtils.getInstance()
-                                    .put(AppConfig.ROOM_ID, employeeInfo.appDepartmentInfo.smartHomeId)
+                                    .put(
+                                        AppConfig.ROOM_ID,
+                                        employeeInfo.appDepartmentInfo.smartHomeId
+                                    )
                                 SPUtils.getInstance()
                                     .put(AppConfig.PLACE_NAME, employeeInfo.buildingName)
                                 SPUtils.getInstance()
@@ -288,9 +298,9 @@ class SplashActivity : BaseActivity() {
                             } else {
                                 val tenantNo = SPUtils.getInstance()
                                     .getInt(AppConfig.SYS_TENANT_NO, 0)
-                                if(tenantNo == 0) {
+                                if (tenantNo == 0) {
                                     mineCompanyActivity()
-                                }else{
+                                } else {
                                     mainActivity()
                                 }
 

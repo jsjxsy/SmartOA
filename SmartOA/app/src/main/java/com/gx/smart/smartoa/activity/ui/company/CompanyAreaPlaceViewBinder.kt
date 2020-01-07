@@ -70,11 +70,13 @@ class CompanyAreaPlaceViewBinder :
 
     private fun mainActivity(activity: Activity) {
         activity.finish()
+        val intent = Intent(
+            activity,
+            MainActivity::class.java
+        )
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         ActivityUtils.startActivity(
-            Intent(
-                activity,
-                MainActivity::class.java
-            )
+            intent
         )
 
     }

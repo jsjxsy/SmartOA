@@ -145,7 +145,9 @@
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Base.Theme.AppCompat" /> <!-- WebSocket推送服务 -->
+            android:launchMode="singleTop"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <!-- WebSocket推送服务 -->
         <service
             android:name=".activity.ui.environmental.websocket.WebSocketClientService"
             android:enabled="true"
