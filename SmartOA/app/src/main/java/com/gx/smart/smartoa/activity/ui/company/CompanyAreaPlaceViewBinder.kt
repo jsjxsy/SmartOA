@@ -39,14 +39,15 @@ class CompanyAreaPlaceViewBinder :
             val activity = ActivityUtils.getActivityByView(holder.itemView)
             val intent = activity.intent
             when {
-                intent.hasExtra(MineCompanyActivity.FROM_SPLASH) -> {
+                intent.hasExtra(MineCompanyActivity.FROM_SPLASH) ||
+                        intent.hasExtra(MineCompanyActivity.FROM_LOGIN) -> {
                     SPUtils.getInstance().put(AppConfig.PLACE_NAME, item.place.name)
                     mainActivity(activity)
                 }
                 intent.hasExtra(MineCompanyActivity.FROM_HOME) -> {
                     SPUtils.getInstance().put(AppConfig.PLACE_NAME, item.place.name)
-                    activity.finish()
                     activity.setResult(Activity.RESULT_OK)
+                    activity.finish()
                 }
                 else -> {
                     val args = Bundle()

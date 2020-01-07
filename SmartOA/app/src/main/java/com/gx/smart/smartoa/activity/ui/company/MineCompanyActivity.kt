@@ -18,7 +18,8 @@ class MineCompanyActivity : BaseActivity() {
         val inflater = navHostFragment.navController.navInflater
         val graph = inflater.inflate(R.navigation.nav_mine_company)
         if (intent.hasExtra(FROM_SPLASH) ||
-            intent.hasExtra(FROM_HOME)
+            intent.hasExtra(FROM_HOME) ||
+            intent.hasExtra(FROM_LOGIN)
         ) {
             graph.startDestination = R.id.mineCompanySelectAreaFragment
         } else {
@@ -44,6 +45,7 @@ class MineCompanyActivity : BaseActivity() {
     companion object {
         const val FROM_SPLASH = "fromSplash"
         const val FROM_HOME = "fromHome"
+        const val FROM_LOGIN = "fromLogin"
     }
 
 }

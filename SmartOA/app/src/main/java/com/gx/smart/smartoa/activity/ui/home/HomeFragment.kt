@@ -218,6 +218,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 left_nav_text_view?.let {
                     it.text = SPUtils.getInstance().getString(AppConfig.PLACE_NAME, "")
                 }
+                refreshLayout.autoRefresh()
             }
         }
     }

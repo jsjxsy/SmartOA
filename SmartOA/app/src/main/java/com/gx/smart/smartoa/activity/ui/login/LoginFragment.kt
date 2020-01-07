@@ -515,7 +515,7 @@ class LoginFragment : Fragment(), OnClickListener {
             context,
             MineCompanyActivity::class.java
         )
-        intent.putExtra(MineCompanyActivity.FROM_SPLASH, MineCompanyActivity.FROM_SPLASH)
+        intent.putExtra(MineCompanyActivity.FROM_LOGIN, MineCompanyActivity.FROM_LOGIN)
         ActivityUtils.startActivity(
             intent
         )
