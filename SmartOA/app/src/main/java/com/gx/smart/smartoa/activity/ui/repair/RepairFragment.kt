@@ -85,10 +85,10 @@ class RepairFragment : Fragment(), View.OnClickListener {
     private fun initContent() {
         save.setTag(R.id.save, true)
         save.setOnClickListener(this)
-        placeName.text = SPUtils.getInstance().getString(AppConfig.PLACE_NAME, "")
+        companyName.setText(SPUtils.getInstance().getString(AppConfig.COMPANY_NAME, ""))
         val phoneValue = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")
         phone.setText(phoneValue)
-        phone.setSelection(phoneValue.length)
+        contentEdit.setSelection(0)
         repair_type.setOnClickListener(this)
         addImage1Layout.setOnClickListener(this)
         addImage2Layout.setOnClickListener(this)
@@ -107,13 +107,22 @@ class RepairFragment : Fragment(), View.OnClickListener {
             R.id.save -> {
                 val enable = save.getTag(R.id.save) as Boolean
                 if (enable) {
+                    val employeePhone = phone.text.toString()
+                    if(employeePhone.isNullOrBlank()) {
+                        ToastUtils.showLong("报修人手机不能为空！")
+                        return
+                    }
+
+                    val address = companyName.text.toString()
+                    if(address.isNullOrBlank()) {
+                        ToastUtils.showLong("报修地址不能为空！")
+                        return
+                    }
                     val content = contentEdit.text.toString()
                     if(content.isNullOrBlank()) {
                         ToastUtils.showLong("报修内容不能为空！")
                         return
                     }
-                    val employeePhone = phone.text.toString()
-                    val address = placeName.text.toString()
                     addRepair(content, type.type, address, employeePhone, images)
                 } else {
                     ToastUtils.showLong("正在上传文件!")

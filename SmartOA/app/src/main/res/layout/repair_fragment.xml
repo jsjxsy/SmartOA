@@ -35,8 +35,8 @@
             android:textColor="@color/font_color_style_six"
             android:textSize="@dimen/font_size_style_one" />
 
-        <TextView
-            android:id="@+id/placeName"
+        <EditText
+            android:id="@+id/companyName"
             android:layout_width="144dp"
             android:layout_height="@dimen/list_item_height_style"
             android:layout_alignParentRight="true"
