@@ -101,6 +101,8 @@
             android:layout_marginLeft="100dp"
             android:textColor="@color/font_color_style_five"
             android:textSize="@dimen/font_size_style_one"
+            android:maxLength="18"
+            android:digits="@string/password_input"
             android:background="@android:color/white"
             android:hint="@string/input_identification_number"
             android:visibility="visible" />

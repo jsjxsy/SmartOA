@@ -117,7 +117,7 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                                 if (GrpcAsyncTask.isFinish(task)) {
                                     task =
                                         UserCenterService.getInstance()
-                                            .changeUserGender(1, callBack);
+                                            .changeUserGender(2, callBack);
                                 }
                                 dialog.dismiss()
                             }
@@ -201,12 +201,12 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                     }
                     verify = userInfo.verified
                     when (userInfo.verified) {
-                        1 -> identificationVerify.let{
+                        1 -> identificationVerify.let {
                             it.text = "已认证"
                             it.setTextColor(resources.getColor(R.color.font_color_style_night))
                         }
 
-                        2 -> identificationVerify.let{
+                        2 -> identificationVerify.let {
                             it.text = "未认证"
                             it.setTextColor(resources.getColor(R.color.font_color_style_five))
                         }
@@ -411,12 +411,11 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                 if (result.code === 100) {
                     if (result.msg == "成功") {
                         ToastUtils.showLong("保存成功")
-                        sex.text = sex.text.apply {
+                        sex.text =
                             if (gender == "1")
                                 "男"
                             else
                                 "女"
-                        }
                     } else {
                         ToastUtils.showLong("保存失败")
                     }

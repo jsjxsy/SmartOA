@@ -183,10 +183,11 @@ public class AppStructureService {
                             .setCompanyStructureId(companyId)
                             .build();
                 }
-
+                Logger.d(message);
                 CommonResponse response = null;
                 try {
                     response = getStructureStub(channel).applyEmployee(message);
+                    Logger.d(response);
                 } catch (Exception e) {
                     Logger.e("AppStructureService", e.getMessage());
                 }

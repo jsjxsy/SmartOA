@@ -43,7 +43,7 @@ import java.io.File
  */
 class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
 
-    private var companyId: Int = 0
+    private var companyId: Long = 0
     private lateinit var companyName: String
     private lateinit var placeName: String
     private var employeeName: String? = null
@@ -72,7 +72,7 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            companyId = it.getInt(ARG_COMPANY_ID)
+            companyId = it.getLong(ARG_COMPANY_ID)
             companyName = it.getString(ARG_COMPANY_NAME)
             placeName = it.getString(ARG_BUILDING_NAME)
         }

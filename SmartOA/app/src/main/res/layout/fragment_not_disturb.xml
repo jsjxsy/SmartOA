@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:checked="true"
+            android:checked="false"
             android:switchMinWidth="20dp"
             android:thumb="@drawable/selector_switch_thumb"
             android:track="@drawable/selector_switch_track" />
