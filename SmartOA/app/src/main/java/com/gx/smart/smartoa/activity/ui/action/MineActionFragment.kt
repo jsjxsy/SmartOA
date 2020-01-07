@@ -167,7 +167,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
 
     private fun findMyApplyInfos(query: QueryDto) {
-        if (ActivityUtils.isActivityAlive(activity)) {
+        if (!ActivityUtils.isActivityAlive(activity)) {
             return
         }
 
@@ -180,7 +180,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         AppActivityService.getInstance()
             .findMyApplyInfos(query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
-                    if (ActivityUtils.isActivityAlive(activity)) {
+                    if (!ActivityUtils.isActivityAlive(activity)) {
                         return
                     }
                     if (currentPage == 0) {
@@ -253,7 +253,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
             .myCompany(
                 object : CallBack<AppMyCompanyResponse>() {
                     override fun callBack(result: AppMyCompanyResponse?) {
-                        if (ActivityUtils.isActivityAlive(activity)) {
+                        if (!ActivityUtils.isActivityAlive(activity)) {
                             return
                         }
                         if (result == null) {
@@ -303,7 +303,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
 
     private fun findAllActivityInfos(query: QueryDto) {
-        if (ActivityUtils.isActivityAlive(activity)) {
+        if (!ActivityUtils.isActivityAlive(activity)) {
             return
         }
         if (employeeId == 0L) {

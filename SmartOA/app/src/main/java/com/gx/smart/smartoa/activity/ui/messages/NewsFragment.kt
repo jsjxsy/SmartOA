@@ -93,7 +93,7 @@ class NewsFragment : Fragment() {
         AppInformationService.getInstance()
             .getInformation(query, object : CallBack<AppInformationResponse>() {
                 override fun callBack(result: AppInformationResponse?) {
-                    if(ActivityUtils.isActivityAlive(activity)) {
+                    if(!ActivityUtils.isActivityAlive(activity)) {
                         return
                     }
 

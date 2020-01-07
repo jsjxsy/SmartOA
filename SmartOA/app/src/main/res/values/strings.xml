@@ -169,7 +169,7 @@
     <string name="employee_information">身份信息</string>
     <string name="apply_action">我要报名</string>
     <string name="cancel_action">取消报名</string>
-    <string name="right">\@版权所有 航天科工广信技术股份有限公司</string>
+    <string name="right">\@版权所有 航天科工广信技术有限公司</string>
     <string name="just_experience">立即体验</string>
 
     <string name="password_input">0123456789zxcvbnmasdfghjklqwertyuiopZXCVBNMASDFGHJKLQWERTYUIOP</string>
@@ -177,4 +177,5 @@
     <string name="account_manage">账号管理</string>
     <string name="account_unregister">账号注销</string>
     <string name="confirm_cancel">确认取消</string>
+    <string name="input_address">请输入地址</string>
 </resources>
