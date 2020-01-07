@@ -1,5 +1,6 @@
 package com.gx.smart.smartoa.activity.ui.home
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -14,6 +15,7 @@ import com.blankj.utilcode.util.SPUtils
 import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
+import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
 import com.gx.smart.smartoa.activity.ui.features.Divider
 import com.gx.smart.smartoa.activity.ui.features.DividerViewBinder
 import com.gx.smart.smartoa.activity.ui.features.HomeCompanyAdvise
@@ -31,8 +33,12 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 
 
 class HomeFragment : Fragment(), View.OnClickListener {
+
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.left_nav_text_view -> {
+                mineCompanyActivity()
+            }
             R.id.right_nav_Image_view ->
                 ActivityUtils.startActivity(
                     Intent(
@@ -46,6 +52,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
     companion object {
         fun newInstance() = HomeFragment()
+        const val PLACE_REQUEST = 11
     }
 
     private lateinit var redPotView: View
@@ -130,6 +137,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         left_nav_text_view?.let {
             it.visibility = View.VISIBLE
             it.text = SPUtils.getInstance().getString(AppConfig.PLACE_NAME, "")
+            it.setOnClickListener(this)
 
         }
         right_nav_Image_view?.let {
@@ -167,12 +175,24 @@ class HomeFragment : Fragment(), View.OnClickListener {
                             val employeeList = result.employeeInfoList
                             if (employeeList.isNotEmpty()) {
                                 val employeeInfo = employeeList[0]
-                                AppConfig.employeeId = employeeInfo.employeeId
-                                AppConfig.currentSysTenantNo = employeeInfo.tenantNo
-                                AppConfig.SMART_HOME_SN = employeeInfo.appDepartmentInfo.smartHomeSn
-                                AppConfig.ROOM_ID = employeeInfo.appDepartmentInfo.smartHomeId
+                                SPUtils.getInstance()
+                                    .put(AppConfig.EMPLOYEE_ID, employeeInfo.employeeId)
+                                SPUtils.getInstance()
+                                    .put(AppConfig.SYS_TENANT_NO, employeeInfo.tenantNo)
+                                SPUtils.getInstance()
+                                    .put(
+                                        AppConfig.SMART_HOME_SN,
+                                        employeeInfo.appDepartmentInfo.smartHomeSn
+                                    )
+                                SPUtils.getInstance()
+                                    .put(
+                                        AppConfig.ROOM_ID,
+                                        employeeInfo.appDepartmentInfo.smartHomeId
+                                    )
                                 SPUtils.getInstance()
                                     .put(AppConfig.PLACE_NAME, employeeInfo.buildingName)
+                                SPUtils.getInstance()
+                                    .put(AppConfig.COMPANY_NAME, employeeInfo.companyName)
                                 SPUtils.getInstance()
                                     .put(AppConfig.COMPANY_APPLY_STATUS, employeeInfo.status)
                             }
@@ -181,5 +201,26 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
                 })
     }
+
+    private fun mineCompanyActivity() {
+        val intent = Intent(
+            context,
+            MineCompanyActivity::class.java
+        )
+        intent.putExtra(MineCompanyActivity.FROM_HOME, MineCompanyActivity.FROM_HOME)
+        ActivityUtils.startActivityForResult(activity!!, intent, PLACE_REQUEST)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            PLACE_REQUEST -> if (resultCode == Activity.RESULT_OK) {
+                left_nav_text_view?.let {
+                    it.text = SPUtils.getInstance().getString(AppConfig.PLACE_NAME, "")
+                }
+            }
+        }
+    }
+
 
 }

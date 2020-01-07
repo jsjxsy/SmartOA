@@ -27,6 +27,7 @@ import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
+import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
 import com.gx.smart.smartoa.activity.ui.login.password.ForgetPasswordFragment
 import com.gx.smart.smartoa.activity.ui.splash.SplashActivity.Companion.DELAY_TIME
 import com.gx.smart.smartoa.data.network.AppConfig
@@ -172,7 +173,7 @@ class LoginFragment : Fragment(), OnClickListener {
 
     private fun observe() {
         viewModel.phone.observe(this, Observer {
-//            val index = viewModel.phone.value?.length ?: 0
+            //            val index = viewModel.phone.value?.length ?: 0
 //            id_input_phone_edit_text.setSelection(index)
         })
     }
@@ -380,9 +381,7 @@ class LoginFragment : Fragment(), OnClickListener {
                 }
                 val msg = result.dataMap["errMsg"]
                 if (result.code == 100) {
-
-                    AppConfig.loginToken = result.token
-                    AppConfig.refreshToken = result.refreshToken
+                    SPUtils.getInstance().put(AppConfig.LOGIN_TOKEN, result.token)
                     //保存当前用户
                     if (isPassWord) { //保存当前用户
                         SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, phone)
@@ -418,10 +417,12 @@ class LoginFragment : Fragment(), OnClickListener {
 
                 when {
                     result.code === 100 -> {
+                        SPUtils.getInstance().put(AppConfig.USER_ID, result.appUserInfoDto.userId)
                         myCompany()
                         //用户已经绑定
                     }
                     result.code == 7003 -> {
+                        SPUtils.getInstance().put(AppConfig.USER_ID, result.appUserInfoDto.userId)
                         myCompany()
                     }
                     else -> {
@@ -448,14 +449,36 @@ class LoginFragment : Fragment(), OnClickListener {
                             val employeeList = result.employeeInfoList
                             if (employeeList.isNotEmpty()) {
                                 val employeeInfo = employeeList[0]
-                                AppConfig.employeeId = employeeInfo.employeeId
-                                AppConfig.currentSysTenantNo = employeeInfo.tenantNo
-                                AppConfig.SMART_HOME_SN = employeeInfo.appDepartmentInfo.smartHomeSn
-                                AppConfig.ROOM_ID = employeeInfo.appDepartmentInfo.smartHomeId
-                                SPUtils.getInstance().put(AppConfig.PLACE_NAME, employeeInfo.buildingName)
-                                SPUtils.getInstance().put(AppConfig.COMPANY_APPLY_STATUS, employeeInfo.status)
+                                SPUtils.getInstance()
+                                    .put(AppConfig.EMPLOYEE_ID, employeeInfo.employeeId)
+                                SPUtils.getInstance()
+                                    .put(AppConfig.SYS_TENANT_NO, employeeInfo.tenantNo)
+                                SPUtils.getInstance()
+                                    .put(
+                                        AppConfig.SMART_HOME_SN,
+                                        employeeInfo.appDepartmentInfo.smartHomeSn
+                                    )
+                                SPUtils.getInstance()
+                                    .put(
+                                        AppConfig.ROOM_ID,
+                                        employeeInfo.appDepartmentInfo.smartHomeId
+                                    )
+                                SPUtils.getInstance()
+                                    .put(AppConfig.PLACE_NAME, employeeInfo.buildingName)
+                                SPUtils.getInstance()
+                                    .put(AppConfig.COMPANY_NAME, employeeInfo.companyName)
+                                SPUtils.getInstance()
+                                    .put(AppConfig.COMPANY_APPLY_STATUS, employeeInfo.status)
+                                mainActivity()
+                            } else {
+                                val tenantNo = SPUtils.getInstance()
+                                    .getInt(AppConfig.SYS_TENANT_NO, 0)
+                                if (tenantNo == 0) {
+                                    mineCompanyActivity()
+                                } else {
+                                    mainActivity()
+                                }
                             }
-                            mainActivity()
                         } else {
                             ToastUtils.showLong(result.msg)
                             mLoadingView.visibility = View.GONE
@@ -485,6 +508,17 @@ class LoginFragment : Fragment(), OnClickListener {
                     }
                 })
         }
+    }
+
+    private fun mineCompanyActivity() {
+        val intent = Intent(
+            context,
+            MineCompanyActivity::class.java
+        )
+        intent.putExtra(MineCompanyActivity.FROM_SPLASH, MineCompanyActivity.FROM_SPLASH)
+        ActivityUtils.startActivity(
+            intent
+        )
     }
 
 

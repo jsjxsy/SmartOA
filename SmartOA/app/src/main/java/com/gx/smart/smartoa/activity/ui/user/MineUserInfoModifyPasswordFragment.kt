@@ -14,6 +14,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.login.LoginActivity
@@ -121,7 +122,7 @@ class MineUserInfoModifyPasswordFragment : Fragment(), View.OnClickListener {
             mLoadingView.visibility = View.GONE
         } else {
             appModifyPassword()
-            val token = AppConfig.loginToken
+            val token = SPUtils.getInstance().getString(AppConfig.LOGIN_TOKEN)
             val holder = AuthUtils.parseJwtHolder(token)
             val userId = holder.subject
             if (GrpcAsyncTask.isFinish(userModifyPassWordTask)) {

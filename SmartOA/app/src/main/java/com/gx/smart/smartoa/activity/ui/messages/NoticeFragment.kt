@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.AppConfig
@@ -29,6 +30,7 @@ class NoticeFragment : Fragment() {
     private lateinit var adapter: NoticeAdapter
     private lateinit var viewModel: NoticeViewModel
     private var currentPage = 0
+    private var employeeId: Long = 0L
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,6 +41,7 @@ class NoticeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(NoticeViewModel::class.java)
+        employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
         initContent()
     }
 
@@ -84,7 +87,7 @@ class NoticeFragment : Fragment() {
 
 
     private fun getAnnouncement(query: QueryDto) {
-        if (AppConfig.employeeId == 0L) {
+        if (employeeId == 0L) {
             refreshLayout.finishRefresh()
             emptyLayout.visibility = View.VISIBLE
             return
@@ -93,7 +96,7 @@ class NoticeFragment : Fragment() {
         AppInformationService.getInstance()
             .getAnnouncement(query, object : CallBack<AppAnnouncementResponse>() {
                 override fun callBack(result: AppAnnouncementResponse?) {
-                    if(isDetached){
+                    if (isDetached) {
                         return
                     }
                     if (currentPage == 0) {
@@ -135,7 +138,7 @@ class NoticeFragment : Fragment() {
 
 
     private fun messageRead(messageId: Long, type: Int) {
-        if (AppConfig.employeeId == 0L) {
+        if (employeeId == 0L) {
             return
         }
         AppInformationService.getInstance()
@@ -157,7 +160,7 @@ class NoticeFragment : Fragment() {
 
 
     fun readAllMessage() {
-        if (AppConfig.employeeId == 0L) {
+        if (employeeId == 0L) {
             return
         }
         refreshLayout.autoRefresh()

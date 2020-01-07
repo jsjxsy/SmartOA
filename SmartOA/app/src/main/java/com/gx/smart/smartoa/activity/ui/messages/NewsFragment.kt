@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.AppConfig
@@ -82,7 +83,8 @@ class NewsFragment : Fragment() {
     }
 
     private fun getInformation(query: QueryDto) {
-        if (AppConfig.employeeId == 0L) {
+        val employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
+        if (employeeId == 0L) {
             refreshLayout.finishRefresh()
             emptyLayout.visibility = View.VISIBLE
             return
@@ -133,7 +135,8 @@ class NewsFragment : Fragment() {
     }
 
     private fun messageRead(messageId: Long, type: Int) {
-        if (AppConfig.employeeId == 0L) {
+        val employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
+        if (employeeId == 0L) {
             return
         }
         AppInformationService.getInstance()
@@ -155,7 +158,8 @@ class NewsFragment : Fragment() {
 
 
     fun readAllMessage() {
-        if (AppConfig.employeeId == 0L) {
+        val employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
+        if (employeeId == 0L) {
             return
         }
 

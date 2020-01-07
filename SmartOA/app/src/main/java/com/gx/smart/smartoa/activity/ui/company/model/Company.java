@@ -22,7 +22,7 @@ public class Company implements Serializable {
      */
 
     private long createTime;
-    private int id;
+    private long id;
     private int level;
     private long modifyTime;
     private String name;
@@ -39,11 +39,11 @@ public class Company implements Serializable {
         this.createTime = createTime;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

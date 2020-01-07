@@ -75,7 +75,7 @@ class MineCompanyFragment : Fragment(), View.OnClickListener {
                             ToastUtils.showLong("查询我的企业超时!")
                             return
                         }
-                        if (result?.code == 100) {
+                        if (result.code == 100) {
                             val employeeList = result.employeeInfoList
                             if (employeeList.isEmpty()) {
                                 toMineCompanyFragmentAdd()
@@ -98,10 +98,6 @@ class MineCompanyFragment : Fragment(), View.OnClickListener {
     }
 
     private fun toMineCompanyFragmentAdded(employeeInfo: EmployeeInfo) {
-        AppConfig.employeeId = employeeInfo.employeeId
-        AppConfig.currentSysTenantNo = employeeInfo.tenantNo
-        AppConfig.SMART_HOME_SN = employeeInfo.appDepartmentInfo.smartHomeSn
-        AppConfig.ROOM_ID = employeeInfo.appDepartmentInfo.smartHomeId
         val fm: FragmentManager = childFragmentManager
         val transaction: FragmentTransaction = fm.beginTransaction()
         val fragment = MineCompanyFragmentAdded()

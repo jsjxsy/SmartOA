@@ -98,9 +98,8 @@ class FeatureViewBinder : ItemViewBinder<Feature, FeatureViewBinder.ViewHolder>(
 
 
     private fun joinCompanyContinue(type: Int) {
-        if (AppConfig.employeeId == null ||
-            AppConfig.employeeId == 0L
-        ) {
+        val employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
+        if (employeeId == 0L) {
             when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0)) {
                 1 -> IOSMsgDialog.init(fragmentManager!!)
                     .setTitle("加入企业")

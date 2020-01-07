@@ -1,5 +1,6 @@
 package com.gx.smart.smartoa.data.network.api;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.gx.smart.smartoa.data.network.ApiConfig;
 import com.gx.smart.smartoa.data.network.AppConfig;
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
@@ -59,7 +60,7 @@ public class AccessRecordProviderService {
             @Override
             protected AccessRecordReportedResp doRequestData(ManagedChannel channel) {
                 AccessRecordReportedDto message = AccessRecordReportedDto.newBuilder()
-                        .setEmployeeId(AppConfig.employeeId)
+                        .setEmployeeId(SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID,0L))
                         .setLat(latitude)
                         .setLng(longitude)
                         .setAddress(address)

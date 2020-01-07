@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.login.LoginActivity
@@ -229,8 +230,7 @@ class ForgetPasswordFragment : Fragment(), View.OnClickListener {
                 }
                 val msg = result.dataMap["errMsg"]
                 if (result.code == 100) {
-                    AppConfig.loginToken = result.token
-                    AppConfig.refreshToken = result.refreshToken
+                    SPUtils.getInstance().put(AppConfig.LOGIN_TOKEN, result.token)
                     modifyPassword()
                 } else {
                     mLoadingView.visibility = View.GONE
@@ -243,7 +243,7 @@ class ForgetPasswordFragment : Fragment(), View.OnClickListener {
 
     private fun modifyPassword() {
         appModifyPassword()
-        val token = AppConfig.loginToken
+        val token =  SPUtils.getInstance().getString(AppConfig.LOGIN_TOKEN)
         val holder = AuthUtils.parseJwtHolder(token)
         val userId = holder.subject
         if (GrpcAsyncTask.isFinish(userModifyPassWordTask)) {

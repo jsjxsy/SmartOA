@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.smartoa.R
@@ -94,7 +95,7 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
 
     private fun initContent() {
         getDevList()
-        mPagerAdapter = PageAdapter(childFragmentManager!!)
+        mPagerAdapter = PageAdapter(childFragmentManager)
         viewPager.adapter = mPagerAdapter
         viewPager.offscreenPageLimit = 3
         id_environmental_control_tab.setupWithViewPager(viewPager)
@@ -111,7 +112,7 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                     if (result == null) {
                         return
                     }
-                    if (result?.code == 100) {
+                    if (result.code == 100) {
                         val contentList = result.contentList
                         items.clear()
                         for (content in contentList) {
@@ -154,14 +155,14 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                         ToastUtils.showLong("执行场景超时")
                         return
                     }
-                    if (result?.code == 100) {
+                    if (result.code == 100) {
                         when (result.result) {
                             0 -> showLoadingSuccess()
                             100 -> showLoading()
                             else -> showLoadingFail()
                         }
                     } else {
-                        ToastUtils.showLong(result?.msg)
+                        ToastUtils.showLong(result.msg)
                     }
                 }
             })
@@ -245,8 +246,8 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
     }
 
     private fun startWebSocketClient() {
-        var userId = AppConfig.userId
-        var token = AppConfig.loginToken
+        var userId =  SPUtils.getInstance().getString(AppConfig.USER_ID)
+        var token =  SPUtils.getInstance().getString(AppConfig.LOGIN_TOKEN)
         val wsClient: WebSocketNotifyClient = WebSocketNotifyClient.getInstance()
         wsClient.handler = mNotifyHandler
         val wsInent = Intent(this.context, WebSocketClientService::class.java)

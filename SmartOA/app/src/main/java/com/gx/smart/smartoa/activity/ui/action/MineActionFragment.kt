@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.AppConfig
@@ -40,9 +41,11 @@ class MineActionFragment : Fragment(), View.OnClickListener {
     private var readAllFlag: Boolean = false
     private lateinit var viewModel: ActionViewModel
     private var currentPage = 0
+    private var employeeId: Long = 0L
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         flag = activity?.intent?.hasExtra("fromMine") ?: false
+        employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
     }
 
     override fun onCreateView(
@@ -82,7 +85,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         val onItemClick = object : ActionAdapter.OnItemClickListener {
 
             override fun onItemClick(view: View, position: Int) {
-                val item = adapter.mList!![position]
+                val item = adapter.mList[position]
                 if (!item.hasRead) {
                     messageRead(item.activityId, 3)
                 }
@@ -166,7 +169,8 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         if (isDetached) {
             return
         }
-        if (AppConfig.employeeId == 0L) {
+
+        if (employeeId == 0L) {
             refreshLayout.finishRefresh()
             emptyLayout.visibility = View.VISIBLE
             return
@@ -193,8 +197,8 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                         ToastUtils.showLong("查询活动超时!")
                         return
                     }
-                    if (result?.code == 100) {
-                        val list = result?.contentList
+                    if (result.code == 100) {
+                        val list = result.contentList
                         if (list.isEmpty() && currentPage == 0) {
                             emptyLayout.visibility = View.VISIBLE
                         } else {
@@ -212,7 +216,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
                     } else {
                         emptyLayout.visibility = View.VISIBLE
-                        ToastUtils.showLong(result?.msg)
+                        ToastUtils.showLong(result.msg)
                     }
                 }
 
@@ -221,7 +225,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
 
     private fun messageRead(messageId: Long, type: Int) {
-        if (AppConfig.employeeId == 0L) {
+        if (employeeId == 0L) {
             return
         }
 
@@ -235,7 +239,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                     if (result?.code == 100) {
                         //ToastUtils.showLong("成功")
                     } else {
-                        ToastUtils.showLong(result?.msg)
+                        ToastUtils.showLong(result.msg)
                     }
                 }
 
@@ -256,14 +260,24 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                             ToastUtils.showLong("查询我的企业超时!")
                             return
                         }
-                        if (result?.code == 100) {
+                        if (result.code == 100) {
                             val employeeList = result.employeeInfoList
                             if (employeeList.isNotEmpty()) {
                                 val employeeInfo = employeeList[0]
-                                AppConfig.employeeId = employeeInfo.employeeId
-                                AppConfig.currentSysTenantNo = employeeInfo.tenantNo
-                                AppConfig.SMART_HOME_SN = employeeInfo.appDepartmentInfo.smartHomeSn
-                                AppConfig.ROOM_ID = employeeInfo.appDepartmentInfo.smartHomeId
+                                SPUtils.getInstance()
+                                    .put(AppConfig.EMPLOYEE_ID, employeeInfo.employeeId)
+                                SPUtils.getInstance()
+                                    .put(AppConfig.SYS_TENANT_NO, employeeInfo.tenantNo)
+                                SPUtils.getInstance()
+                                    .put(AppConfig.SMART_HOME_SN, employeeInfo.appDepartmentInfo.smartHomeSn)
+                                SPUtils.getInstance()
+                                    .put(AppConfig.ROOM_ID, employeeInfo.appDepartmentInfo.smartHomeId)
+                                SPUtils.getInstance()
+                                    .put(AppConfig.PLACE_NAME, employeeInfo.buildingName)
+                                SPUtils.getInstance()
+                                    .put(AppConfig.COMPANY_NAME, employeeInfo.companyName)
+                                SPUtils.getInstance()
+                                    .put(AppConfig.COMPANY_APPLY_STATUS, employeeInfo.status)
                                 findMyApplyInfos(query)
                             } else {
                                 refreshLayout.finishRefresh()
@@ -285,7 +299,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         if (isDetached) {
             return
         }
-        if (AppConfig.employeeId == 0L) {
+        if (employeeId == 0L) {
             refreshLayout.finishRefresh()
             emptyLayout.visibility = View.VISIBLE
             return
@@ -310,7 +324,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                         ToastUtils.showLong("查询活动超时!")
                         return
                     }
-                    if (result?.code == 100) {
+                    if (result.code == 100) {
                         val list = result.contentList
                         if (list.isEmpty() && currentPage == 0) {
                             emptyLayout.visibility = View.VISIBLE
@@ -336,14 +350,14 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
 
     fun readAllMessage() {
-        if (AppConfig.employeeId == 0L) {
+        if (employeeId == 0L) {
             return
         }
 
         refreshLayout.autoRefresh()
         readAllFlag = true
         val list = adapter.mList
-        if (list == null || list.isEmpty()) {
+        if (list.isEmpty()) {
             return
         }
         for (item in list) {

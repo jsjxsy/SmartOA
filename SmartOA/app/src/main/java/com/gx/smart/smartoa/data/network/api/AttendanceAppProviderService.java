@@ -1,5 +1,6 @@
 package com.gx.smart.smartoa.data.network.api;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.gx.smart.smartoa.data.network.ApiConfig;
 import com.gx.smart.smartoa.data.network.AppConfig;
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
@@ -58,7 +59,7 @@ public class AttendanceAppProviderService {  //25秒，网络请求超时
             @Override
             protected getEmployeeDayRecordResp doRequestData(ManagedChannel channel) {
                 getEmployeeRecordDto message = getEmployeeRecordDto.newBuilder()
-                        .setEmployeeId(AppConfig.employeeId)
+                        .setEmployeeId(SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID,0L))
                         .build();
                 Logger.d(message);
                 getEmployeeDayRecordResp response = null;
@@ -86,7 +87,7 @@ public class AttendanceAppProviderService {  //25秒，网络请求超时
             protected getEmployeeDayRecordResp doRequestData(ManagedChannel channel) {
                 getEmployeeRecordListQueryReq message = getEmployeeRecordListQueryReq.newBuilder()
                         .setDto(getEmployeeRecordDto.newBuilder()
-                                .setEmployeeId(AppConfig.employeeId)
+                                .setEmployeeId(SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID,0L))
                                 .setWorkTime(date)
                                 .build())
                         .build();

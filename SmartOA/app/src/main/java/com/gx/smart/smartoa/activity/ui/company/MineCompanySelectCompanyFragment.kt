@@ -72,7 +72,7 @@ class MineCompanySelectCompanyFragment : Fragment(), View.OnClickListener {
             object : CompanyAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, position: Int) {
                     var bundle = Bundle()
-                    bundle.putInt(MineCompanyEmployeesFragment.ARG_COMPANY_ID, adapter.mList!![position].id)
+                    bundle.putLong(MineCompanyEmployeesFragment.ARG_COMPANY_ID, adapter.mList!![position].id)
                     bundle.putString(MineCompanyEmployeesFragment.ARG_COMPANY_NAME, adapter.mList!![position].name)
                     bundle.putString(MineCompanyEmployeesFragment.ARG_BUILDING_NAME, placeName)
 

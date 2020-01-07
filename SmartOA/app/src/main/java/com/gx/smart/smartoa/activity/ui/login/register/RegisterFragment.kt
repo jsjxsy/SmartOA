@@ -272,10 +272,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                 }
                 val msg = result.dataMap["errMsg"]
                 if (result.code == 100) {
-                    val token = result.token
-                    val refreshToken = result.refreshToken
-                    AppConfig.loginToken = token
-                    AppConfig.refreshToken = refreshToken
+                    SPUtils.getInstance().put(AppConfig.LOGIN_TOKEN, result.token)
                     //保存当前用户
                     SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, mPhone)
                     SPUtils.getInstance().put(AppConfig.SH_PASSWORD, passWord)
@@ -305,10 +302,12 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                 }
 
                 if (result.code === 100) {
+                    SPUtils.getInstance().put(AppConfig.USER_ID,result.appUserInfoDto.userId)
                     mLoadingView.visibility = View.GONE
                     ActivityUtils.startActivity(Intent(activity, MainActivity::class.java))
                     //用户已经绑定
                 } else if (result.code == 7003) {
+                    SPUtils.getInstance().put(AppConfig.USER_ID,result.appUserInfoDto.userId)
                     mLoadingView.visibility = View.GONE
                     ActivityUtils.startActivity(Intent(activity, MainActivity::class.java))
                 } else {

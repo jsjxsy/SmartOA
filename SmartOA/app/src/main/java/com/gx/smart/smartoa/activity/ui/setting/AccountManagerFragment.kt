@@ -56,7 +56,7 @@ class AccountManagerFragment : Fragment(), View.OnClickListener {
             R.id.left_nav_image_view -> activity?.onBackPressed()
             R.id.accountUnregisterLayout -> {
                 Navigation.findNavController(v)
-                    .navigate(R.id.action_settingFragment_to_accountManagerFragment)
+                    .navigate(R.id.action_accountManagerFragment_to_accountUnregisterFragment)
             }
         }
     }

@@ -130,13 +130,15 @@ class SettingFragment : Fragment(), View.OnClickListener {
                     return
                 }
                 if (result.code === 100) {
+                    activity?.finish()
                     //跳转登录界面
-                    SPUtils.getInstance().put(AppConfig.SH_PASSWORD, "")
+                    SPUtils.getInstance().clear()
                     ActivityUtils.startActivity(Intent(activity, LoginActivity::class.java))
                     ToastUtils.showLong("退出登录成功")
                 } else {
+                    activity?.finish()
                     //设置自动登录关闭
-                    SPUtils.getInstance().put(AppConfig.SH_PASSWORD, "")
+                    SPUtils.getInstance().clear()
                     ActivityUtils.startActivity(Intent(activity, LoginActivity::class.java))
                     ToastUtils.showLong("退出登录失败")
                 }

@@ -14,6 +14,7 @@ import com.bigkoo.convenientbanner.ConvenientBanner
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator
 import com.bigkoo.convenientbanner.holder.Holder
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -131,7 +132,8 @@ class HomeActionViewBinder :
 
 
     fun findAllApplyInfos() {
-        if (AppConfig.employeeId == 0L) {
+        val employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
+        if (employeeId == 0L) {
             mRefreshLayout?.finishRefresh()
             return
         }

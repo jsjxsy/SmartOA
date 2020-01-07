@@ -74,8 +74,6 @@ class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
         }
         companyName.text = employeeInfo.companyName
         companyDepartment.text = employeeInfo.departmentName
-        AppConfig.employeeId = employeeInfo.employeeId
-        AppConfig.currentSysTenantNo = employeeInfo.tenantNo
         verify.text = when (employeeInfo.status) {
             1 -> {
                 statue = 1
@@ -110,11 +108,11 @@ class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
                             ToastUtils.showLong("解绑公司超时!")
                             return
                         }
-                        if (result?.code == 100) {
+                        if (result.code == 100) {
                             ToastUtils.showLong("解绑公司成功!")
-                            SPUtils.getInstance().put(AppConfig.PLACE_NAME, "")
-                            AppConfig.employeeId = 0
-                            AppConfig.currentSysTenantNo = 0
+                            SPUtils.getInstance().remove(AppConfig.COMPANY_NAME)
+                            SPUtils.getInstance().remove(AppConfig.EMPLOYEE_ID)
+                            SPUtils.getInstance().remove(AppConfig.COMPANY_APPLY_STATUS)
                             activity?.onBackPressed()
                         } else {
                             ToastUtils.showLong(result.msg)
@@ -136,11 +134,11 @@ class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
                             ToastUtils.showLong("解绑公司超时!")
                             return
                         }
-                        if (result?.code == 100) {
+                        if (result.code == 100) {
                             ToastUtils.showLong("解绑公司成功!")
-                            SPUtils.getInstance().put(AppConfig.PLACE_NAME, "")
-                            AppConfig.employeeId = 0
-                            AppConfig.currentSysTenantNo = 0
+                            SPUtils.getInstance().remove(AppConfig.COMPANY_NAME)
+                            SPUtils.getInstance().remove(AppConfig.EMPLOYEE_ID)
+                            SPUtils.getInstance().remove(AppConfig.COMPANY_APPLY_STATUS)
                             activity?.onBackPressed()
                         } else {
                             ToastUtils.showLong(result.msg)

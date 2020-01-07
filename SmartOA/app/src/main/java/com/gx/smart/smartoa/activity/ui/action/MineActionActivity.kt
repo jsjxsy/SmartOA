@@ -25,5 +25,5 @@ class MineActionActivity : BaseActivity() {
     }
 
     override fun onSupportNavigateUp() =
-        Navigation.findNavController(this, R.id.meetingScheduleFragmentEnter).navigateUp()
+        Navigation.findNavController(this, R.id.mineActionFragmentEnter).navigateUp()
 }

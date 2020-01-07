@@ -6,30 +6,30 @@ package com.gx.smart.smartoa.data.network;
  * @Describe
  **/
 public class AppConfig {
-    public static int currentSysTenantNo;
-    public static String userId;
-    public static String loginToken;
-    public static String refreshToken;
-
-    public static long employeeId;
-
-
     //是不是第一次登录
     public static final String SH_FIRST_OPEN = "FIRST_OPEN";
     //保存登录用户信息
     public static final String SH_USER_ACCOUNT = "account";
     public static final String SH_USER_REAL_NAME = "userName";
     public static final String SH_PASSWORD = "password";
-    //company
+    public static final String LOGIN_TOKEN = "loginToken";
+    public static final String USER_ID = "userId";
+    //building
     public static final String PLACE_NAME = "place";
+    public static final String SYS_TENANT_NO = "sysTenantNo";
+    //company
+    public static final String COMPANY_NAME = "companyName";
     public static final String COMPANY_APPLY_STATUS = "status";
-
+    public static final String EMPLOYEE_ID = "employeeId";
+    //room
+    public static final String SMART_HOME_SN = "sn";
+    public static final String ROOM_ID = "roomId";
+    //极光
+    public static final String JI_GUANG_TOKEN = "JGToken";
     public static String mJiGuangToken;
     public static String JGPushMsg;
     public static String JGPushContent;
 
-    public static String SMART_HOME_SN;
-    public static long ROOM_ID;
 
     public static final String REPAIR_PREFIX = "repair";
 }

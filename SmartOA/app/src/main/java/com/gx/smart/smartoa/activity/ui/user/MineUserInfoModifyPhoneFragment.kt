@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.login.LoginActivity
@@ -126,7 +127,7 @@ class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
 
     private fun save() {
         mLoadingView.visibility = View.VISIBLE
-        val token1: String = AppConfig.loginToken
+        val token1: String = SPUtils.getInstance().getString(AppConfig.LOGIN_TOKEN)
         val holder1: JwtHolder = AuthUtils.parseJwtHolder(token1)
         val userId1: String = holder1.subject
         val verifyCode: String = verifyCode.text.toString().trim()

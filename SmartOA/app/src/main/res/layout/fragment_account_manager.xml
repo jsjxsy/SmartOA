@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ui.user.UserActivity">
+    tools:context=".activity.ui.login.password.ForgetPasswordFragment">
 
     <include
         android:id="@+id/title"
@@ -13,7 +13,8 @@
         android:layout_height="@dimen/title_height_style"
         android:layout_marginTop="21dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <RelativeLayout
         android:id="@+id/accountUnregisterLayout"
