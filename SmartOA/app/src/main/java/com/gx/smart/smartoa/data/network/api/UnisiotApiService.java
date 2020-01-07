@@ -818,10 +818,11 @@ public class UnisiotApiService {
                         .setAreaId(areaId)
                         .setHostSn(host_sn)
                         .build();
-
+                Logger.d(message);
                 AreaSceneListResp response = null;
                 try {
                     response = getZiGuangStub(channel).areaSceneList(message);
+                    Logger.d(response);
                 } catch (Exception e) {
                     Logger.e(e, e.getMessage());
                 }
