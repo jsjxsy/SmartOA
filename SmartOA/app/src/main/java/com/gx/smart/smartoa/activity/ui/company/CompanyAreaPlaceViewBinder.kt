@@ -38,19 +38,25 @@ class CompanyAreaPlaceViewBinder :
             SPUtils.getInstance().put(AppConfig.SYS_TENANT_NO, item.place.sysTenantNo)
             val activity = ActivityUtils.getActivityByView(holder.itemView)
             val intent = activity.intent
-            if (intent.hasExtra(MineCompanyActivity.FROM_SPLASH) ||
-                intent.hasExtra(MineCompanyActivity.FROM_HOME)
-            ) {
-                SPUtils.getInstance().put(AppConfig.PLACE_NAME, item.place.name)
-                mainActivity(activity)
-            } else {
-                val args = Bundle()
-                args.putString(MineCompanySelectCompanyFragment.ARG_PLACE_NAME, item.place.name)
-                Navigation.findNavController(holder.itemView)
-                    .navigate(
-                        R.id.action_mineCompanySelectAreaFragment_to_mineCompanySelectCompanyFragment,
-                        args
-                    )
+            when {
+                intent.hasExtra(MineCompanyActivity.FROM_SPLASH) -> {
+                    SPUtils.getInstance().put(AppConfig.PLACE_NAME, item.place.name)
+                    mainActivity(activity)
+                }
+                intent.hasExtra(MineCompanyActivity.FROM_HOME) -> {
+                    SPUtils.getInstance().put(AppConfig.PLACE_NAME, item.place.name)
+                    activity.finish()
+                    activity.setResult(Activity.RESULT_OK)
+                }
+                else -> {
+                    val args = Bundle()
+                    args.putString(MineCompanySelectCompanyFragment.ARG_PLACE_NAME, item.place.name)
+                    Navigation.findNavController(holder.itemView)
+                        .navigate(
+                            R.id.action_mineCompanySelectAreaFragment_to_mineCompanySelectCompanyFragment,
+                            args
+                        )
+                }
             }
 
         }

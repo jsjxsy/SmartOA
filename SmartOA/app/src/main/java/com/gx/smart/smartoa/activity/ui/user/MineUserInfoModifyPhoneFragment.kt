@@ -148,7 +148,7 @@ class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
             ToastUtils.showLong("与登陆手机号相同")
             mLoadingView.visibility = View.GONE
         } else {
-            changePhone(verifyCode)
+            changePhone(newPhone)
             if (GrpcAsyncTask.isFinish(userModifyMobileTask)) {
                 userModifyMobileTask = AuthApiService.getInstance().userModifyMobile(
                     newPhone,
