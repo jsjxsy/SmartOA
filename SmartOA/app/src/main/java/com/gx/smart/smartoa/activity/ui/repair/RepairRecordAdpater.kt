@@ -80,7 +80,7 @@ class RepairRecordAdapter :
 
         }
 
-        //holder.employeeName.text = item.employeeName
+        holder.employeeName.text = item.handleName ?: "--"
 
         holder.time.text = if (item.handleTime == 0L) {
             "-"

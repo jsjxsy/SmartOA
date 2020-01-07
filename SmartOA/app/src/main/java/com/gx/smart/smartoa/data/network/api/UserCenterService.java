@@ -14,7 +14,9 @@ import com.gx.wisestone.work.app.grpc.appuser.GetAppUserInfoRequest;
 import com.gx.wisestone.work.app.grpc.appuser.HasNotReadMessageRequest;
 import com.gx.wisestone.work.app.grpc.appuser.UpdateAppUserRequest;
 import com.gx.wisestone.work.app.grpc.appuser.VerifiedRequest;
+import com.gx.wisestone.work.app.grpc.common.CommonEmptyRequest;
 import com.gx.wisestone.work.app.grpc.common.CommonResponse;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -314,16 +316,11 @@ public class UserCenterService {
 
 
     /**
-     *
-     */
-
-
-    /**
      * 退出登录
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, CommonResponse>  hasNotReadMessage(CallBack callBack) {
+    public GrpcAsyncTask<String, Void, CommonResponse> hasNotReadMessage(CallBack callBack) {
         return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
             @Override
             protected CommonResponse doRequestData(ManagedChannel channel) {
@@ -340,5 +337,32 @@ public class UserCenterService {
             }
         }.doExecute();
     }
+
+
+    /**
+     * 注销用户
+     *
+     * @return callBack返回值
+     */
+    public GrpcAsyncTask<String, Void, CommonResponse> unRegister(CallBack callBack) {
+        return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
+            @Override
+            protected CommonResponse doRequestData(ManagedChannel channel) {
+                CommonEmptyRequest message = CommonEmptyRequest.newBuilder()
+                        .build();
+                Logger.d(message);
+                CommonResponse response = null;
+                try {
+                    response = getUserStub(channel).unRegister(message);
+                    Logger.d(response);
+                } catch (Exception e) {
+                    Logger.e(e, "unRegister");
+                }
+
+                return response;
+            }
+        }.doExecute();
+    }
+
 
 }

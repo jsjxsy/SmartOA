@@ -81,6 +81,11 @@ class SettingFragment : Fragment(), View.OnClickListener {
                 .navigate(R.id.action_settingFragment_to_suggestionFragment)
         }
 
+        accountLayout.setOnClickListener {
+            Navigation.findNavController(it)
+                .navigate(R.id.action_settingFragment_to_accountManagerFragment)
+        }
+
         aboutLayout.setOnClickListener {
             Navigation.findNavController(it)
                 .navigate(R.id.action_settingFragment_to_aboutFragment)

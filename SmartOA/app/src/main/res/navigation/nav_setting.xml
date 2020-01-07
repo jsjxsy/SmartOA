@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_settingFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_accountManagerFragment"
+            app:destination="@id/accountManagerFragment" />
     </fragment>
 
     <fragment
@@ -37,4 +40,17 @@
         android:name="com.gx.smart.smartoa.activity.ui.setting.SuggestionFragment"
         android:label="fragment_suggestion"
         tools:layout="@layout/fragment_suggestion" />
+    <fragment
+        android:id="@+id/accountManagerFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.setting.AccountManagerFragment"
+        android:label="fragment_account_manager"
+        tools:layout="@layout/fragment_account_manager" >
+        <action
+            android:id="@+id/action_accountManagerFragment_to_accountUnregisterFragment"
+            app:destination="@id/accountUnregisterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountUnregisterFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.setting.AccountUnregisterFragment"
+        android:label="AccountUnregisterFragment" />
 </navigation>

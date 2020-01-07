@@ -174,4 +174,7 @@
 
     <string name="password_input">0123456789zxcvbnmasdfghjklqwertyuiopZXCVBNMASDFGHJKLQWERTYUIOP</string>
     <string name="phone_input">0123456789</string>
+    <string name="account_manage">账号管理</string>
+    <string name="account_unregister">账号注销</string>
+    <string name="confirm_cancel">确认取消</string>
 </resources>
