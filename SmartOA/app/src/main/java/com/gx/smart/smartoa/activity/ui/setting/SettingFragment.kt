@@ -14,7 +14,6 @@ import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.login.LoginActivity
 import com.gx.smart.smartoa.activity.ui.setting.utils.DataCleanManager
-import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.UserCenterService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
@@ -136,11 +135,7 @@ class SettingFragment : Fragment(), View.OnClickListener {
                     ActivityUtils.startActivity(Intent(activity, LoginActivity::class.java))
                     ToastUtils.showLong("退出登录成功")
                 } else {
-                    activity?.finish()
-                    //设置自动登录关闭
-                    SPUtils.getInstance().clear()
-                    ActivityUtils.startActivity(Intent(activity, LoginActivity::class.java))
-                    ToastUtils.showLong("退出登录失败")
+                    ToastUtils.showLong(result.msg)
                 }
             }
         }
