@@ -23,6 +23,8 @@ service AppUserCenterInterface {
     rpc addOpinion (AddOpinionRequest) returns (CommonResponse) {}
     //意见反馈
     rpc hasNotReadMessage (HasNotReadMessageRequest) returns (CommonResponse) {}
+    //注销用户
+    rpc unRegister (CommonEmptyRequest) returns (CommonResponse) {}
 }
 
 

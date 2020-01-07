@@ -8,6 +8,7 @@ option java_package = "com.gx.wisestone.work.app.grpc.repair";
 option java_outer_classname = "AppRepairInterfaceService";
 
 
+
 service AppRepairInterface {
 
     //添加报修
@@ -42,6 +43,8 @@ message RepairInfo {
     int64 handle_time = 12;  //处理时间
     int64 create_time = 13;  //创建时间
     int64 modify_time = 14;  //修改时间
+    string handleName = 15; //处理人姓名
+    int64 handleId = 16;//处理人id
 }
 
 message RepairRequest{
