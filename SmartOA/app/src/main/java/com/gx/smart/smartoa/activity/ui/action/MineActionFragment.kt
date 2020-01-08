@@ -314,11 +314,6 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         if (!ActivityUtils.isActivityAlive(activity)) {
             return
         }
-        if (employeeId == 0L) {
-            refreshLayout.finishRefresh()
-            emptyLayout.visibility = View.VISIBLE
-            return
-        }
 
         AppActivityService.getInstance()
             .findAllActivityInfos(query, object : CallBack<ActivityCommonResponse>() {
@@ -367,9 +362,6 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
 
     fun readAllMessage() {
-        if (employeeId == 0L) {
-            return
-        }
 
         refreshLayout.autoRefresh()
         readAllFlag = true

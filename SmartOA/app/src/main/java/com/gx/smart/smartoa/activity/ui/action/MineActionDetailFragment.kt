@@ -163,6 +163,7 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
             ToastUtils.showLong("活动为空!")
             return
         }
+
         AppActivityService.getInstance()
             .findApplyInfo(activityId, object : CallBack<AppActivityApplyResponse>() {
                 override fun callBack(result: AppActivityApplyResponse?) {

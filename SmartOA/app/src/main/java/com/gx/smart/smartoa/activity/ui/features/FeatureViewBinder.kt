@@ -98,7 +98,14 @@ class FeatureViewBinder : ItemViewBinder<Feature, FeatureViewBinder.ViewHolder>(
 
 
     private fun joinCompanyContinue(type: Int) {
-        val employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
+        var employeeId = 0L
+        val buildingSysTenantNo =
+            SPUtils.getInstance().getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
+        val companySysTenantNo =
+            SPUtils.getInstance().getInt(AppConfig.COMPANY_SYS_TENANT_NO, 0)
+        if (buildingSysTenantNo == companySysTenantNo) {
+            employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
+        }
         if (employeeId == 0L) {
             when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 2)) {
                 1 -> IOSMsgDialog.init(fragmentManager!!)
