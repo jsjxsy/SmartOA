@@ -47,7 +47,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         flag = activity?.intent?.hasExtra("fromMine") ?: false
-        employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
+
     }
 
     override fun onCreateView(
@@ -61,6 +61,13 @@ class MineActionFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ActionViewModel::class.java)
+        val buildingSysTenantNo =
+            SPUtils.getInstance().getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
+        val companySysTenantNo =
+            SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0)
+        if (buildingSysTenantNo == companySysTenantNo) {
+            employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
+        }
         initTitle()
         initContent()
     }

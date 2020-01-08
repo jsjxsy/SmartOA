@@ -24,6 +24,7 @@ class NewsFragment : Fragment() {
     private lateinit var adapter: NewsAdapter
     private var currentPage = 0
     private var readAllFlag: Boolean = false
+    private var employeeId: Long = 0L
 
     companion object {
         fun newInstance() = NewsFragment()
@@ -40,6 +41,13 @@ class NewsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mViewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
+        val buildingSysTenantNo =
+            SPUtils.getInstance().getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
+        val companySysTenantNo =
+            SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0)
+        if (buildingSysTenantNo == companySysTenantNo) {
+            employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
+        }
         initContent()
     }
 
@@ -84,7 +92,7 @@ class NewsFragment : Fragment() {
     }
 
     private fun getInformation(query: QueryDto) {
-        val employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
+
         if (employeeId == 0L) {
             refreshLayout.finishRefresh()
             emptyLayout.visibility = View.VISIBLE
@@ -138,7 +146,6 @@ class NewsFragment : Fragment() {
     }
 
     private fun messageRead(messageId: Long, type: Int) {
-        val employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
         if (employeeId == 0L) {
             return
         }
@@ -161,7 +168,6 @@ class NewsFragment : Fragment() {
 
 
     fun readAllMessage() {
-        val employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
         if (employeeId == 0L) {
             return
         }

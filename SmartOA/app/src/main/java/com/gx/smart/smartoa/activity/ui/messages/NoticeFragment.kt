@@ -42,7 +42,14 @@ class NoticeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(NoticeViewModel::class.java)
-        employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
+        val buildingSysTenantNo =
+            SPUtils.getInstance().getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
+        val companySysTenantNo =
+            SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0)
+        if (buildingSysTenantNo == companySysTenantNo) {
+            employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
+        }
+
         initContent()
     }
 
@@ -116,7 +123,7 @@ class NoticeFragment : Fragment() {
                         ToastUtils.showLong("获取消息超时!")
                         return
                     }
-                    if (result?.code == 100) {
+                    if (result.code == 100) {
                         val appAnnouncementDtoList =
                             result.appAnnouncementDtoList.toList()
                         if (appAnnouncementDtoList.isEmpty() && currentPage == 0) {
@@ -151,7 +158,7 @@ class NoticeFragment : Fragment() {
                         ToastUtils.showLong("查询活动超时!")
                         return
                     }
-                    if (result?.code == 100) {
+                    if (result.code == 100) {
                         //ToastUtils.showLong("成功")
                     } else {
                         ToastUtils.showLong(result?.msg)
