@@ -97,7 +97,7 @@ class NoticeFragment : Fragment() {
         AppInformationService.getInstance()
             .getAnnouncement(query, object : CallBack<AppAnnouncementResponse>() {
                 override fun callBack(result: AppAnnouncementResponse?) {
-                    if(!ActivityUtils.isActivityAlive(activity)) {
+                    if (!ActivityUtils.isActivityAlive(activity)) {
                         return
                     }
                     if (currentPage == 0) {
@@ -127,6 +127,8 @@ class NoticeFragment : Fragment() {
                                 currentPage++
                                 adapter.addList(appAnnouncementDtoList)
                                 adapter.notifyDataSetChanged()
+                            } else {
+                                refreshLayout.isLoadmoreFinished = true
                             }
                         }
                     } else {

@@ -93,7 +93,7 @@ class NewsFragment : Fragment() {
         AppInformationService.getInstance()
             .getInformation(query, object : CallBack<AppInformationResponse>() {
                 override fun callBack(result: AppInformationResponse?) {
-                    if(!ActivityUtils.isActivityAlive(activity)) {
+                    if (!ActivityUtils.isActivityAlive(activity)) {
                         return
                     }
 
@@ -124,6 +124,8 @@ class NewsFragment : Fragment() {
                                 currentPage++
                                 adapter.addList(appInformationNoticeRecordDtoList)
                                 adapter.notifyDataSetChanged()
+                            } else {
+                                refreshLayout.isLoadmoreFinished = true
                             }
 
                         }

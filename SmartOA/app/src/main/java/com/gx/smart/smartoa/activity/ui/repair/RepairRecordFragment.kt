@@ -101,6 +101,8 @@ class RepairRecordFragment : Fragment(), View.OnClickListener {
                                     currentPage++
                                     adapter.addList(list)
                                     adapter.notifyDataSetChanged()
+                                } else {
+                                    refreshLayout.isLoadmoreFinished = true
                                 }
 
                             }

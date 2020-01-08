@@ -21,7 +21,8 @@ import com.gx.wisestone.core.grpc.lib.common.QueryDto
 import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
 import com.gx.wisestone.work.app.grpc.information.MessageReadResponse
-import kotlinx.android.synthetic.main.fragment_mine_action.*
+import kotlinx.android.synthetic.main.fragment_mine_action.emptyLayout
+import kotlinx.android.synthetic.main.fragment_mine_action.refreshLayout
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.layout_common_title.title
 import kotlinx.android.synthetic.main.list_action_layout.recyclerView
@@ -344,6 +345,8 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                                     adapter.mList = this
                                 }
                                 adapter.notifyDataSetChanged()
+                            }else {
+                                refreshLayout.isLoadmoreFinished = true
                             }
                         }
                     } else {
