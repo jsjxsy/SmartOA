@@ -277,7 +277,7 @@ class SplashActivity : BaseActivity() {
                                 SPUtils.getInstance()
                                     .put(AppConfig.EMPLOYEE_ID, employeeInfo.employeeId)
                                 SPUtils.getInstance()
-                                    .put(AppConfig.SYS_TENANT_NO, employeeInfo.tenantNo)
+                                    .put(AppConfig.COMPANY_SYS_TENANT_NO, employeeInfo.tenantNo)
                                 SPUtils.getInstance()
                                     .put(
                                         AppConfig.SMART_HOME_SN,
@@ -297,7 +297,7 @@ class SplashActivity : BaseActivity() {
                                 mainActivity()
                             } else {
                                 val tenantNo = SPUtils.getInstance()
-                                    .getInt(AppConfig.SYS_TENANT_NO, 0)
+                                    .getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
                                 if (tenantNo == 0) {
                                     mineCompanyActivity()
                                 } else {

@@ -109,7 +109,7 @@ class AccountUnregisterFragment : Fragment(), View.OnClickListener {
         SPUtils.getInstance()
             .remove(AppConfig.EMPLOYEE_ID)
         SPUtils.getInstance()
-            .remove(AppConfig.SYS_TENANT_NO)
+            .remove(AppConfig.COMPANY_SYS_TENANT_NO)
         SPUtils.getInstance()
             .remove(AppConfig.SMART_HOME_SN)
         SPUtils.getInstance()

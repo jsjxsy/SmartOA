@@ -35,7 +35,7 @@ class CompanyAreaPlaceViewBinder :
     override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull item: CompanyAreaPlace) {
         holder.place.text = item.place.name
         holder.itemView.setOnClickListener {
-            SPUtils.getInstance().put(AppConfig.SYS_TENANT_NO, item.place.sysTenantNo)
+            SPUtils.getInstance().put(AppConfig.BUILDING_SYS_TENANT_NO, item.place.sysTenantNo)
             val activity = ActivityUtils.getActivityByView(holder.itemView)
             val intent = activity.intent
             when {

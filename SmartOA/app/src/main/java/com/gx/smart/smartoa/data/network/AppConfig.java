@@ -16,11 +16,12 @@ public class AppConfig {
     public static final String USER_ID = "userId";
     //building
     public static final String PLACE_NAME = "place";
-    public static final String SYS_TENANT_NO = "sysTenantNo";
+    public static final String BUILDING_SYS_TENANT_NO = "buildingSysTenantNo";
     //company
     public static final String COMPANY_NAME = "companyName";
     public static final String COMPANY_APPLY_STATUS = "status";
     public static final String EMPLOYEE_ID = "employeeId";
+    public static final String COMPANY_SYS_TENANT_NO = "companySysTenantNo";
     //room
     public static final String SMART_HOME_SN = "sn";
     public static final String ROOM_ID = "roomId";

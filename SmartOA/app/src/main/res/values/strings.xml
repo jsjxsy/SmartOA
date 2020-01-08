@@ -176,6 +176,6 @@
     <string name="phone_input">0123456789</string>
     <string name="account_manage">账号管理</string>
     <string name="account_unregister">账号注销</string>
-    <string name="confirm_cancel">确认取消</string>
+    <string name="confirm_unregister">确认注销</string>
     <string name="input_address">请输入地址</string>
 </resources>

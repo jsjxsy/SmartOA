@@ -109,7 +109,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/confirm_cancel"
+        android:text="@string/confirm_unregister"
         app:layout_constraintTop_toBottomOf="@id/verifyLayout" />
 
 

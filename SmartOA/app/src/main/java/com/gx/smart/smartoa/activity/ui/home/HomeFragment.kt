@@ -178,7 +178,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                                 SPUtils.getInstance()
                                     .put(AppConfig.EMPLOYEE_ID, employeeInfo.employeeId)
                                 SPUtils.getInstance()
-                                    .put(AppConfig.SYS_TENANT_NO, employeeInfo.tenantNo)
+                                    .put(AppConfig.COMPANY_SYS_TENANT_NO, employeeInfo.tenantNo)
                                 SPUtils.getInstance()
                                     .put(
                                         AppConfig.SMART_HOME_SN,

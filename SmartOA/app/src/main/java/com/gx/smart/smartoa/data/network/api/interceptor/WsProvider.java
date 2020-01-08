@@ -13,7 +13,11 @@ public class WsProvider implements WsClientCall.Provider {
 
     @Override
     public Integer sysTenantNo() {
-        return SPUtils.getInstance().getInt(AppConfig.SYS_TENANT_NO, 0);
+        int sysTenantNo = SPUtils.getInstance().getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0);
+        if (sysTenantNo == 0) {
+            sysTenantNo = SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0);
+        }
+        return sysTenantNo;
     }
 
     public Long employeeId() {
