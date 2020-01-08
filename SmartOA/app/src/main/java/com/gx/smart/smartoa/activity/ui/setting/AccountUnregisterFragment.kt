@@ -80,10 +80,10 @@ class AccountUnregisterFragment : Fragment(), View.OnClickListener {
                     return
                 }
                 if (result?.code == 100) {
-                    activity?.finish()
-                    SPUtils.getInstance().clear()
+                    clearCache()
                     ActivityUtils.startActivity(Intent(activity, LoginActivity::class.java))
                     ToastUtils.showLong("注销账号成功")
+                    activity?.finish()
                 } else {
                     ToastUtils.showLong(result.msg)
                 }
@@ -102,5 +102,31 @@ class AccountUnregisterFragment : Fragment(), View.OnClickListener {
             .setPositiveButton("确定", View.OnClickListener {
                 unRegister()
             }).show()
+    }
+
+
+    fun clearCache() {
+        SPUtils.getInstance()
+            .remove(AppConfig.EMPLOYEE_ID)
+        SPUtils.getInstance()
+            .remove(AppConfig.SYS_TENANT_NO)
+        SPUtils.getInstance()
+            .remove(AppConfig.SMART_HOME_SN)
+        SPUtils.getInstance()
+            .remove(AppConfig.ROOM_ID)
+        SPUtils.getInstance()
+            .remove(AppConfig.PLACE_NAME)
+        SPUtils.getInstance()
+            .remove(AppConfig.COMPANY_NAME)
+        SPUtils.getInstance()
+            .remove(AppConfig.SH_USER_ACCOUNT)
+        SPUtils.getInstance()
+            .remove(AppConfig.SH_USER_REAL_NAME)
+        SPUtils.getInstance()
+            .remove(AppConfig.SH_PASSWORD)
+        SPUtils.getInstance()
+            .remove(AppConfig.LOGIN_TOKEN)
+        SPUtils.getInstance()
+            .remove(AppConfig.USER_ID)
     }
 }

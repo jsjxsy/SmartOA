@@ -25,8 +25,7 @@ public class AppConfig {
     public static final String SMART_HOME_SN = "sn";
     public static final String ROOM_ID = "roomId";
     //极光
-    public static final String JI_GUANG_TOKEN = "JGToken";
-    public static String mJiGuangToken;
+    public static String JGToken;
     public static String JGPushMsg;
     public static String JGPushContent;
 

@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AppEmployeeService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.smart.smartoa.widget.LoadingView
@@ -91,18 +91,29 @@ class MineCompanyFragment : Fragment(), View.OnClickListener {
     }
 
     private fun toMineCompanyFragmentAdd() {
-        val fm: FragmentManager = childFragmentManager
-        val transaction: FragmentTransaction = fm.beginTransaction()
-        transaction.replace(R.id.content, MineCompanyFragmentAdd())
-        transaction.commit()
+        if (!ActivityUtils.isActivityAlive(activity)) {
+            return
+        }
+        if (isAdded) {
+            val fm: FragmentManager = childFragmentManager
+            val transaction: FragmentTransaction = fm.beginTransaction()
+            transaction.replace(R.id.content, MineCompanyFragmentAdd())
+            transaction.commit()
+        }
     }
 
     private fun toMineCompanyFragmentAdded(employeeInfo: EmployeeInfo) {
-        val fm: FragmentManager = childFragmentManager
-        val transaction: FragmentTransaction = fm.beginTransaction()
-        val fragment = MineCompanyFragmentAdded()
-        fragment.employeeInfo = employeeInfo
-        transaction.replace(R.id.content, fragment)
-        transaction.commit()
+        if (!ActivityUtils.isActivityAlive(activity)) {
+            return
+        }
+
+        if (isAdded) {
+            val fm: FragmentManager = childFragmentManager
+            val transaction: FragmentTransaction = fm.beginTransaction()
+            val fragment = MineCompanyFragmentAdded()
+            fragment.employeeInfo = employeeInfo
+            transaction.replace(R.id.content, fragment)
+            transaction.commit()
+        }
     }
 }

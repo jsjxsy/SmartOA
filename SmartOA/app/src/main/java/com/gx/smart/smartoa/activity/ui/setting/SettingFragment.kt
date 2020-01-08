@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.login.LoginActivity
 import com.gx.smart.smartoa.activity.ui.setting.utils.DataCleanManager
+import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.UserCenterService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
@@ -129,16 +130,40 @@ class SettingFragment : Fragment(), View.OnClickListener {
                     return
                 }
                 if (result.code === 100) {
-                    activity?.finish()
+                    clearCache()
                     //跳转登录界面
-                    SPUtils.getInstance().clear()
                     ActivityUtils.startActivity(Intent(activity, LoginActivity::class.java))
                     ToastUtils.showLong("退出登录成功")
+                    activity?.finish()
                 } else {
                     ToastUtils.showLong(result.msg)
                 }
             }
         }
+    }
+
+
+    fun clearCache() {
+        SPUtils.getInstance()
+            .remove(AppConfig.EMPLOYEE_ID)
+        SPUtils.getInstance()
+            .remove(AppConfig.SYS_TENANT_NO)
+        SPUtils.getInstance()
+            .remove(AppConfig.SMART_HOME_SN)
+        SPUtils.getInstance()
+            .remove(AppConfig.ROOM_ID)
+        SPUtils.getInstance()
+            .remove(AppConfig.PLACE_NAME)
+        SPUtils.getInstance()
+            .remove(AppConfig.COMPANY_NAME)
+        SPUtils.getInstance()
+            .remove(AppConfig.SH_USER_REAL_NAME)
+        SPUtils.getInstance()
+            .remove(AppConfig.SH_PASSWORD)
+        SPUtils.getInstance()
+            .remove(AppConfig.LOGIN_TOKEN)
+        SPUtils.getInstance()
+            .remove(AppConfig.USER_ID)
     }
 
 }

@@ -18,7 +18,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ActivityUtils
@@ -487,9 +486,9 @@ class LoginFragment : Fragment(), OnClickListener {
 
     private fun updateMessagePush() {
         //上传极光ID
-        if (null != AppConfig.mJiGuangToken) {
+        if (null != AppConfig.JGToken) {
             AppMessagePushService.getInstance().updateMessagePush(
-                AppConfig.mJiGuangToken,
+                AppConfig.JGToken,
                 object : CallBack<UpdateMessagePushResponse?>() {
                     override fun callBack(result: UpdateMessagePushResponse?) {
                         Log.i("jtpush", result.toString())
