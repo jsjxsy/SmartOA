@@ -48,7 +48,7 @@
             android:layout_marginLeft="100dp"
             android:background="@android:color/white"
             android:hint="@string/input_phone_number"
-            android:textColor="@color/font_color_style_six"
+            android:textColor="@color/font_color_style_seven"
             android:textSize="@dimen/font_size_style_one"/>
     </RelativeLayout>
 
@@ -94,7 +94,7 @@
             android:layout_toLeftOf="@id/getVerifyCodeText"
             android:background="@android:color/white"
             android:hint="@string/input_verify_code"
-            android:textColor="@color/font_color_style_six"
+            android:textColor="@color/font_color_style_seven"
             android:textSize="@dimen/font_size_style_one"/>
 
     </RelativeLayout>

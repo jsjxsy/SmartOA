@@ -94,8 +94,8 @@ class AccountUnregisterFragment : Fragment(), View.OnClickListener {
 
     private fun tipAction() {
         IOSMsgDialog.init(fragmentManager!!)
-            .setTitle("注销登陆")
-            .setMessage("确定要注销登陆吗？")
+            .setTitle("注销账号")
+            .setMessage("确定要注销账号吗？")
             .setNegativeButton("取消", View.OnClickListener {
 
             })
