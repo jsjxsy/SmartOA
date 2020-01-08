@@ -69,7 +69,7 @@
         app:layout_constraintTop_toBottomOf="@id/phoneLayout" />
 
     <RelativeLayout
-        android:id="@+id/verifyLayout"
+        android:id="@+id/newPasswordLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
@@ -114,7 +114,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/background_style_six"
-        app:layout_constraintTop_toBottomOf="@id/verifyLayout" />
+        app:layout_constraintTop_toBottomOf="@id/newPasswordLayout" />
 
 
     <Button
