@@ -79,9 +79,10 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
             if (actionId == EditorInfo.IME_ACTION_SEARCH || event != null && event.keyCode === KeyEvent.KEYCODE_ENTER) {
                 val name = searchArea.text.toString()
                 if (TextUtils.isEmpty(name)) {
-                    ToastUtils.showLong("搜索办公地点不能为空!")
+                    getSysTenantList()
+                } else {
+                    getSysTenantListByName(name)
                 }
-                getSysTenantListByName(name)
                 return@OnEditorActionListener true
             }
             false
@@ -136,11 +137,11 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
                             ToastUtils.showLong("获取办公地点超时!")
                             return
                         }
-                        if (result?.code == 100) {
+                        if (result.code == 100) {
                             val sysTenantsList =
                                 JSON.parseArray(result.jsonstr, SysTenantList::class.java)
 
-                            if (sysTenantsList.isNullOrEmpty()) {
+                            if (sysTenantsList.isNotEmpty()) {
                                 for (sysTenants in sysTenantsList) {
                                     val item1 = CompanyAreaCity(sysTenants.title ?: "")
                                     items.add(item1)
