@@ -23,9 +23,9 @@ public class WsProvider implements WsClientCall.Provider {
     public Long employeeId() {
         int buildingSysTenantNo = SPUtils.getInstance().getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0);
         int companySysTenantNo = SPUtils.getInstance().getInt(AppConfig.COMPANY_SYS_TENANT_NO, 0);
-        long employeeId =0L;
+        long employeeId = 0L;
         if (buildingSysTenantNo == companySysTenantNo) {
-            SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L);
+            employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L);
         }
         return employeeId;
     }

@@ -102,7 +102,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                 args.putString(MineActionDetailFragment.ARG_TITLE, item.title)
                 args.putString(
                     MineActionDetailFragment.ARG_TIME,
-                    "${item.startTime - item.endTime}"
+                    "${item.startTime} - ${item.endTime}"
                 )
                 args.putString(MineActionDetailFragment.ARG_CONTENT, item.content)
                 args.putLong(MineActionDetailFragment.ARG_ACTIVITY_ID, item.activityId)
