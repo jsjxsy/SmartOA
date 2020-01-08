@@ -69,7 +69,7 @@ public class GeneralInformationService {
 
                 return response;
             }
-        }.setPort(ApiConfig.GENERALINFO_SERVICE_PORT).doExecute();
+        }.setPort(ApiConfig.GENERAL_INFO_SERVICE_PORT).doExecute();
     }
 
 }

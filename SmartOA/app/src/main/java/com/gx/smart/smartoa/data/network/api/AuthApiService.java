@@ -30,7 +30,7 @@ public class AuthApiService {
 
     //25秒，网络请求超时
     public static final int TIMEOUT_NETWORK = 25;
-    private static String user_space = ApiConfig.HUISHI_USER_SPACE;
+    private static String user_space = ApiConfig.USER_SPACE;
 
     private static AuthApiService AuthClient;
 

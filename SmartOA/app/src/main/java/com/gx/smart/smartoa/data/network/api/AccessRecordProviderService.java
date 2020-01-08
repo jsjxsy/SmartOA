@@ -77,6 +77,6 @@ public class AccessRecordProviderService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ATTENDANCE_SERVICE_PORT).doExecute();
+        }.doExecute();
     }
 }

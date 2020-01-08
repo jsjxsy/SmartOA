@@ -72,7 +72,7 @@ public class AttendanceAppProviderService {  //25秒，网络请求超时
 
                 return response;
             }
-        }.setPort(ApiConfig.ATTENDANCE_SERVICE_PORT).doExecute();
+        }.doExecute();
     }
 
 
@@ -102,6 +102,6 @@ public class AttendanceAppProviderService {  //25秒，网络请求超时
 
                 return response;
             }
-        }.setPort(ApiConfig.ATTENDANCE_SERVICE_PORT).doExecute();
+        }.doExecute();
     }
 }
