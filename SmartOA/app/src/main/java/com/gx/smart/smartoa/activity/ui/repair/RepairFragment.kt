@@ -219,19 +219,19 @@ class RepairFragment : Fragment(), View.OnClickListener {
                             val uploadImage =
                                 JSON.parseObject(result.jsonstr, UploadImage::class.java)
                             images.add(uploadImage.path)
-                            if (ActivityUtils.isActivityAlive(activity)) {
-                                when (position) {
-                                    1 -> {
-                                        state1.text = "上传完成"
-                                    }
-                                    2 -> {
-                                        state2.text = "上传完成"
-                                    }
-                                    3 -> {
-                                        state3.text = "上传完成"
-                                    }
-                                }
-                            }
+//                            if (ActivityUtils.isActivityAlive(activity)) {
+//                                when (position) {
+//                                    1 -> {
+//                                        state1.text = "上传完成"
+//                                    }
+//                                    2 -> {
+//                                        state2.text = "上传完成"
+//                                    }
+//                                    3 -> {
+//                                        state3.text = "上传完成"
+//                                    }
+//                                }
+//                            }
 
                         } else {
                             uploadImageFail(result.msg)
@@ -250,19 +250,19 @@ class RepairFragment : Fragment(), View.OnClickListener {
 
     private fun uploadImageFail(msg: String) {
         ToastUtils.showLong(msg)
-        if (ActivityUtils.isActivityAlive(activity)) {
-            when (position) {
-                1 -> {
-                    state1.text = "上传失败"
-                }
-                2 -> {
-                    state2.text = "上传失败"
-                }
-                3 -> {
-                    state3.text = "上传失败"
-                }
-            }
-        }
+//        if (ActivityUtils.isActivityAlive(activity)) {
+//            when (position) {
+//                1 -> {
+//                    state1.text = "上传失败"
+//                }
+//                2 -> {
+//                    state2.text = "上传失败"
+//                }
+//                3 -> {
+//                    state3.text = "上传失败"
+//                }
+//            }
+//        }
     }
 
 
@@ -369,7 +369,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
         when (position) {
             1 -> {
                 Glide.with(this@RepairFragment).load(cropImagePath).into(addImage1)
-                addImage2Layout.visibility = View.VISIBLE
+//                addImage2Layout.visibility = View.VISIBLE
             }
             2 -> {
                 Glide.with(this@RepairFragment).load(cropImagePath).into(addImage2)
@@ -401,17 +401,17 @@ class RepairFragment : Fragment(), View.OnClickListener {
         AsyncTask<android.net.Uri, Progress, kotlin.Unit>() {
         override fun onPreExecute() {
             super.onPreExecute()
-            when (position) {
-                1 -> {
-                    state1.visibility = View.VISIBLE
-                }
-                2 -> {
-                    state2.visibility = View.VISIBLE
-                }
-                3 -> {
-                    state3.visibility = View.VISIBLE
-                }
-            }
+//            when (position) {
+//                1 -> {
+//                    state1.visibility = View.VISIBLE
+//                }
+//                2 -> {
+//                    state2.visibility = View.VISIBLE
+//                }
+//                3 -> {
+//                    state3.visibility = View.VISIBLE
+//                }
+//            }
         }
 
         override fun doInBackground(vararg params: android.net.Uri) {
