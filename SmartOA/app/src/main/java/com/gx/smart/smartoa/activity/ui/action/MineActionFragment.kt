@@ -1,6 +1,7 @@
 package com.gx.smart.smartoa.activity.ui.action
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +11,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
+import com.blankj.utilcode.util.TimeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AppActivityService
 import com.gx.smart.smartoa.data.network.api.AppEmployeeService
@@ -26,6 +29,7 @@ import kotlinx.android.synthetic.main.fragment_mine_action.refreshLayout
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.layout_common_title.title
 import kotlinx.android.synthetic.main.list_action_layout.recyclerView
+import top.limuyang2.customldialog.IOSMsgDialog
 
 /**
  * A simple [Fragment] subclass.
@@ -94,27 +98,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         val onItemClick = object : ActionAdapter.OnItemClickListener {
 
             override fun onItemClick(view: View, position: Int) {
-                val item = adapter.mList[position]
-                if (!item.hasRead) {
-                    messageRead(item.activityId, 3)
-                }
-                val args = Bundle()
-                args.putString(MineActionDetailFragment.ARG_TITLE, item.title)
-                args.putString(
-                    MineActionDetailFragment.ARG_TIME,
-                    "${item.startTime} - ${item.endTime}"
-                )
-                args.putString(MineActionDetailFragment.ARG_CONTENT, item.content)
-                args.putLong(MineActionDetailFragment.ARG_ACTIVITY_ID, item.activityId)
-                if (flag) {
-                    findNavController().navigate(
-                        R.id.action_mineActionFragment_to_mineActionDetailFragment,
-                        args
-                    )
-                } else {
-                    findNavController().navigate(R.id.action_global_mineActionActivity, args)
-                }
-
+                joinCompanyContinue(position)
             }
 
         }
@@ -347,7 +331,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                                     adapter.mList = this
                                 }
                                 adapter.notifyDataSetChanged()
-                            }else {
+                            } else {
                                 refreshLayout.isLoadmoreFinished = true
                             }
                         }
@@ -374,6 +358,67 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                 messageRead(item.activityId, 1)
             }
 
+        }
+    }
+
+    private fun joinCompanyContinue(position: Int) {
+        var employeeId = 0L
+        val buildingSysTenantNo =
+            SPUtils.getInstance().getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
+        val companySysTenantNo =
+            SPUtils.getInstance().getInt(AppConfig.COMPANY_SYS_TENANT_NO, 0)
+        if (buildingSysTenantNo == companySysTenantNo) {
+            employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
+        }
+        if (employeeId == 0L) {
+            when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 2)) {
+                1 -> IOSMsgDialog.init(fragmentManager!!)
+                    .setTitle("加入企业")
+                    .setMessage("您申请的企业在审核中，请耐心等待")
+                    .setPositiveButton("确定").show()
+
+                2 -> IOSMsgDialog.init(fragmentManager!!)
+                    .setTitle("加入企业")
+                    .setMessage("您还未入驻任何企业，请先进行企业身份认证")
+                    .setPositiveButton("马上认证", View.OnClickListener {
+                        ActivityUtils.startActivity(
+                            Intent(
+                                ActivityUtils.getTopActivity(),
+                                MineCompanyActivity::class.java
+                            )
+                        )
+                    }).show()
+            }
+
+            return
+        }
+
+        goActionDetail(position)
+
+    }
+
+    private fun goActionDetail(position: Int) {
+        val item = adapter.mList[position]
+        if (!item.hasRead) {
+            messageRead(item.activityId, 3)
+        }
+        val args = Bundle()
+        args.putString(MineActionDetailFragment.ARG_TITLE, item.title)
+        val startTime = TimeUtils.millis2String(item.startTime, "yyyy.MM.dd")
+        val endTime = TimeUtils.millis2String(item.endTime, "yyyy.MM.dd")
+        args.putString(
+            MineActionDetailFragment.ARG_TIME,
+            "$startTime - $endTime"
+        )
+        args.putString(MineActionDetailFragment.ARG_CONTENT, item.content)
+        args.putLong(MineActionDetailFragment.ARG_ACTIVITY_ID, item.activityId)
+        if (flag) {
+            findNavController().navigate(
+                R.id.action_mineActionFragment_to_mineActionDetailFragment,
+                args
+            )
+        } else {
+            findNavController().navigate(R.id.action_global_mineActionActivity, args)
         }
     }
 

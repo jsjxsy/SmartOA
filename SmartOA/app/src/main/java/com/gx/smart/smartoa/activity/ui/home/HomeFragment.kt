@@ -100,6 +100,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
         homeActionViewBinder = HomeActionViewBinder()
         homeActionViewBinder.mRefreshLayout = mRefreshLayout
+        homeActionViewBinder.fragmentManager = fragmentManager!!
         adapter.register(homeActionViewBinder)
 
         adapter.register(DividerViewBinder())
@@ -112,9 +113,9 @@ class HomeFragment : Fragment(), View.OnClickListener {
         items.add(Divider())
 
         val advises = arrayListOf(
-            CompanyAdvise(R.mipmap.home_banner_test, "1 广信篮球队报名开始啦！", "2019-10-10 14:39"),
-            CompanyAdvise(R.mipmap.home_banner_test, "2 广信篮球队报名开始啦！", "2019-10-10 14:39"),
-            CompanyAdvise(R.mipmap.home_banner_test, "3 广信篮球队报名开始啦！", "2019-10-10 14:39")
+            CompanyAdvise(R.mipmap.home_banner_test, "1 广信篮球队报名开始啦！", "2019.10.10"),
+            CompanyAdvise(R.mipmap.home_banner_test, "2 广信篮球队报名开始啦！", "2020.01.12"),
+            CompanyAdvise(R.mipmap.home_banner_test, "3 广信篮球队报名开始啦！", "2020.02.02")
         )
         items.add(HomeCompanyAdvise(advises))
         items.add(Divider())
