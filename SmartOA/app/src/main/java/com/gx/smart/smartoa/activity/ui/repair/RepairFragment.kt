@@ -12,6 +12,8 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +37,8 @@ import com.gx.wisestone.upload.grpc.images.AdminImagesResponse
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.repair_fragment.*
+import kotlinx.android.synthetic.main.repair_fragment.loadingView
+import kotlinx.android.synthetic.main.repair_fragment.wordCount
 import java.io.File
 
 class RepairFragment : Fragment(), View.OnClickListener {
@@ -90,7 +94,22 @@ class RepairFragment : Fragment(), View.OnClickListener {
         companyName.setSelection(companyNameStr.length)
         val phoneValue = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")
         phone.setText(phoneValue)
+        contentEdit.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                    val length = s?.length ?: 0
+                    if (length > 0) {
+                        wordCount.text = "$length/60"
+                    }
+                    contentEdit.setSelection(length)
+                }
 
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+            })
         repair_type.setOnClickListener(this)
         addImage1Layout.setOnClickListener(this)
         addImage2Layout.setOnClickListener(this)
@@ -193,7 +212,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
                                     save.setTag(R.id.save, true)
                                 }
                             }
-                            position++
+                            //position++
                             return
                         }
                         if (result?.code == 100) {
@@ -222,7 +241,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
                                 save.setTag(R.id.save, true)
                             }
                         }
-                        position++
+                       // position++
                     }
 
                 })

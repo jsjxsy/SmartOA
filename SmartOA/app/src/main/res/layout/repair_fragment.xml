@@ -151,18 +151,36 @@
             android:textColor="@color/font_color_style_six"
             android:textSize="@dimen/font_size_style_one" />
 
+
+    <RelativeLayout
+        android:id="@+id/suggestionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@android:color/white"
+        android:layout_toRightOf="@id/content">
         <EditText
             android:id="@+id/contentEdit"
             style="@style/editTextStyle"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_alignParentRight="true"
-            android:layout_toRightOf="@id/content"
             android:background="@android:color/white"
             android:focusedByDefault="true"
             android:gravity="start"
             android:hint="@string/input_content"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:maxLength="60"/>
+        <TextView
+            android:id="@+id/wordCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0/60"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/margin_style_four"
+            android:textSize="@dimen/font_size_style_one"
+            android:textColor="@color/font_color_style_seven"/>
+    </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -197,7 +215,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_clear" />
+                    android:src="@drawable/ic_clear"
+                    android:visibility="gone"/>
             </RelativeLayout>
 
 
@@ -229,7 +248,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_clear" />
+                    android:src="@drawable/ic_clear"
+                    android:visibility="gone"/>
             </RelativeLayout>
 
             <RelativeLayout
