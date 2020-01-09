@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
@@ -159,12 +160,15 @@ class AttendanceFragment : Fragment(), View.OnClickListener {
         AttendanceAppProviderService.getInstance()
             .getEmployeeDayRecord(object : CallBack<getEmployeeDayRecordResp>() {
                 override fun callBack(result: getEmployeeDayRecordResp?) {
+                    if(!ActivityUtils.isActivityAlive(activity)) {
+                        return
+                    }
+
                     if (result == null) {
                         ToastUtils.showLong("外勤打卡超时!")
                         return
                     }
-                    if (result!!.code == 100) {
-
+                    if (result.code == 100) {
                         val day = result.contentOrBuilderList
                         if (day == null || day.isEmpty()) {
                             work_on_time.text = "--:--:--"
@@ -177,7 +181,7 @@ class AttendanceFragment : Fragment(), View.OnClickListener {
                         }
 
                     } else {
-                        ToastUtils.showLong(result!!.msg)
+                        ToastUtils.showLong(result.msg)
                     }
                 }
 

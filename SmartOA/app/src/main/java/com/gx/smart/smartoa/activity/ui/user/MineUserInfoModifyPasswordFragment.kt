@@ -136,6 +136,9 @@ class MineUserInfoModifyPasswordFragment : Fragment(), View.OnClickListener {
     private fun appModifyPassword() {
         userModifyPassWordTaskCallBack = object : CallBack<UserModifyResp>() {
             override fun callBack(result: UserModifyResp?) {
+                if (!ActivityUtils.isActivityAlive(activity)) {
+                    return
+                }
                 mLoadingView.visibility = View.GONE
                 if (result == null) {
                     ToastUtils.showLong("修改密码超时")

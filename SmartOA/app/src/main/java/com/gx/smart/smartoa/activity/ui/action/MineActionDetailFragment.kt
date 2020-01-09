@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.AppActivityService
@@ -114,6 +115,9 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
         AppActivityService.getInstance()
             .cancelApply(activityId!!, object : CallBack<AppActivityApplyResponse>() {
                 override fun callBack(result: AppActivityApplyResponse?) {
+                    if(!ActivityUtils.isActivityAlive(activity)) {
+                        return
+                    }
                     loadingView.visibility = View.GONE
                     if (result == null) {
                         ToastUtils.showLong("取消报名超时!")
@@ -141,6 +145,9 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
         AppActivityService.getInstance()
             .apply(activityId!!, mark, object : CallBack<AppActivityApplyResponse>() {
                 override fun callBack(result: AppActivityApplyResponse?) {
+                    if(!ActivityUtils.isActivityAlive(activity)) {
+                        return
+                    }
                     loadingView.visibility = View.GONE
                     if (result == null) {
                         ToastUtils.showLong("报名超时!")
@@ -167,6 +174,9 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
         AppActivityService.getInstance()
             .findApplyInfo(activityId, object : CallBack<AppActivityApplyResponse>() {
                 override fun callBack(result: AppActivityApplyResponse?) {
+                    if(!ActivityUtils.isActivityAlive(activity)) {
+                        return
+                    }
                     if (result == null) {
                         ToastUtils.showLong("报名超时!")
                         return

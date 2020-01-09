@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.UserCenterService
@@ -86,6 +87,9 @@ class SuggestionFragment : Fragment(), View.OnClickListener {
             UserCenterService.getInstance()
                 .addOpinion(content, object : CallBack<CommonResponse>() {
                     override fun callBack(result: CommonResponse?) {
+                        if (!ActivityUtils.isActivityAlive(activity)) {
+                            return
+                        }
                         loadingView.visibility = View.GONE
                         if (result == null) {
                             ToastUtils.showLong("提交建议超时")

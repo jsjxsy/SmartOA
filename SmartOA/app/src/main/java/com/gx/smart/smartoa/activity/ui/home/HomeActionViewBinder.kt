@@ -31,6 +31,7 @@ import com.gx.smart.smartoa.data.network.api.AppActivityService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.core.grpc.lib.common.QueryDto
 import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
+import com.gx.wisestone.work.app.grpc.activity.ActivityRequest
 import com.gx.wisestone.work.app.grpc.activity.AppActivityDto
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import top.limuyang2.customldialog.IOSMsgDialog
@@ -98,9 +99,18 @@ class HomeActionViewBinder :
             .setPage(0)
             .setPageSize(3)
             .build()
+        val companyId = SPUtils.getInstance()
+            .getLong(AppConfig.COMPANY_STRUCTURE_ID, 0L)
+        var request = ActivityRequest.newBuilder().
+            setAuthorCompanyId(companyId)
+            .build()
+
         AppActivityService.getInstance()
-            .findAllActivityInfos(query, object : CallBack<ActivityCommonResponse>() {
+            .findAllActivityInfos(request, query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
+                    if(!ActivityUtils.isActivityAlive(mRefreshLayout.context)) {
+                        return
+                    }
                     mRefreshLayout?.finishRefresh()
                     if (result == null) {
                         ToastUtils.showLong("查询活动超时!")

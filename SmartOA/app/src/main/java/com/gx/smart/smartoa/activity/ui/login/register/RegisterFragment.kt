@@ -210,6 +210,9 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     private fun getVerifyCode() {
         verifyCallBack = object : CallBack<VerifyCodeResp?>() {
             override fun callBack(result: VerifyCodeResp?) {
+                if(!ActivityUtils.isActivityAlive(activity)) {
+                    return
+                }
                 if (result == null) {
                     ToastUtils.showLong("验证码请求超时")
                     return
@@ -235,6 +238,9 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     private fun appUserRegisterCallBack() {
         registerBack = object : CallBack<RegistResp?>() {
             override fun callBack(result: RegistResp?) {
+                if(!ActivityUtils.isActivityAlive(activity)) {
+                    return
+                }
                 if (result == null) {
                     ToastUtils.showLong("注册请求超时")
                     mLoadingView.visibility = View.GONE
@@ -265,6 +271,9 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     fun authLoginCallBack() {
         loginCallBack = object : CallBack<LoginResp?>() {
             override fun callBack(result: LoginResp?) {
+                if(!ActivityUtils.isActivityAlive(activity)) {
+                    return
+                }
                 if (result == null) {
                     mLoadingView.visibility = View.GONE
                     ToastUtils.showLong("注册后登陆超时")
@@ -295,6 +304,9 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     fun bindAppCallBack() {
         bindCallBack = object : CallBack<AppInfoResponse?>() {
             override fun callBack(result: AppInfoResponse?) {
+                if(!ActivityUtils.isActivityAlive(activity)) {
+                    return
+                }
                 if (result == null) {
                     ToastUtils.showLong("登录后绑定超时")
                     mLoadingView.visibility = View.GONE

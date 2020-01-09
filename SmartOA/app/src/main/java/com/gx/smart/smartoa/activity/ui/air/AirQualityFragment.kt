@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.blankj.utilcode.util.ActivityUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.GeneralInformationService
@@ -76,6 +77,9 @@ class AirQualityFragment : Fragment(), View.OnClickListener {
         airBoxDataGetTask = UnisiotApiService.getInstance()
             .airBoxDataGet(AppConfig.SMART_HOME_SN, object : CallBack<AirBoxDataGetResp>() {
                 override fun callBack(result: AirBoxDataGetResp?) {
+                    if(!ActivityUtils.isActivityAlive(activity)) {
+                        return
+                    }
                     items.clear()
                     if (result == null) { //MyApplication.showToast("获取环境数据超时");
                         return
@@ -123,6 +127,9 @@ class AirQualityFragment : Fragment(), View.OnClickListener {
         generalInfoTask = GeneralInformationService.getInstance()
             .getWeatherInfo(province, city, area, object : CallBack<WeatherInformationResponse>() {
                 override fun callBack(result: WeatherInformationResponse?) {
+                    if(!ActivityUtils.isActivityAlive(activity)) {
+                        return
+                    }
                     if (result == null) {
                         return
                     }

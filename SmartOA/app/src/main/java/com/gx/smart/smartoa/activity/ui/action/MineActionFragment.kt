@@ -22,6 +22,7 @@ import com.gx.smart.smartoa.data.network.api.AppInformationService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.core.grpc.lib.common.QueryDto
 import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
+import com.gx.wisestone.work.app.grpc.activity.ActivityRequest
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
 import com.gx.wisestone.work.app.grpc.information.MessageReadResponse
 import kotlinx.android.synthetic.main.fragment_mine_action.emptyLayout
@@ -236,6 +237,10 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         AppInformationService.getInstance()
             .messageRead(messageId, type, object : CallBack<MessageReadResponse>() {
                 override fun callBack(result: MessageReadResponse?) {
+                    if(!ActivityUtils.isActivityAlive(activity)) {
+                        return
+                    }
+
                     if (result == null) {
                         ToastUtils.showLong("查询活动超时!")
                         return
@@ -309,9 +314,14 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         if (!ActivityUtils.isActivityAlive(activity)) {
             return
         }
+        val companyId = SPUtils.getInstance()
+            .getLong(AppConfig.COMPANY_STRUCTURE_ID, 0L)
+
+        var request = ActivityRequest.newBuilder().setAuthorCompanyId(companyId)
+            .build()
 
         AppActivityService.getInstance()
-            .findAllActivityInfos(query, object : CallBack<ActivityCommonResponse>() {
+            .findAllActivityInfos(request, query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
                     if (!ActivityUtils.isActivityAlive(activity)) {
                         return
@@ -366,7 +376,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         }
         for (item in list) {
             if (!item.hasRead) {
-                messageRead(item.activityId, 1)
+                messageRead(item.activityId, 3)
             }
 
         }

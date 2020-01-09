@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.UserCenterService
@@ -110,6 +111,9 @@ class MineUserInfoModifyNickNameFragment : Fragment(), View.OnClickListener {
         UserCenterService.getInstance()
             .updateAppUserNickName(name, object : CallBack<AppInfoResponse>() {
                 override fun callBack(result: AppInfoResponse?) {
+                    if (!ActivityUtils.isActivityAlive(activity)) {
+                        return
+                    }
                     loadingView.visibility = View.GONE
                     if (result == null) {
                         ToastUtils.showLong("修改姓名超时")

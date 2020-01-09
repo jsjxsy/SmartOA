@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.drakeet.multitype.MultiTypeAdapter
@@ -112,6 +113,10 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
         sceneListTask = UnisiotApiService.getInstance().areaSceneList(roomId.toString(),
             smartSN, object : CallBack<AreaSceneListResp>() {
                 override fun callBack(result: AreaSceneListResp?) {
+                    if(!ActivityUtils.isActivityAlive(activity)) {
+                        return
+                    }
+
                     if (result == null) {
                         return
                     }
@@ -160,6 +165,10 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
             sceneId,
             object : CallBack<UnisiotResp>() {
                 override fun callBack(result: UnisiotResp?) {
+                    if(!ActivityUtils.isActivityAlive(activity)) {
+                        return
+                    }
+
                     if (result == null) {
                         ToastUtils.showLong("执行场景超时")
                         return
@@ -185,6 +194,9 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                     smartSN,
                     object : CallBack<AreaDeviceListResp>() {
                         override fun callBack(result: AreaDeviceListResp?) {
+                            if(!ActivityUtils.isActivityAlive(activity)) {
+                                return
+                            }
                             refreshLayout.finishRefresh()
                             if (result == null) {
                                 ToastUtils.showLong("获取设备列表超时")

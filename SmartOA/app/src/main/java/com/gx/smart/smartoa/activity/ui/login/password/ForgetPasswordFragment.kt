@@ -223,6 +223,7 @@ class ForgetPasswordFragment : Fragment(), View.OnClickListener {
     private fun loginResponseCallBack() {
         loginCallBack = object : CallBack<LoginResp?>() {
             override fun callBack(result: LoginResp?) {
+
                 if (result == null) {
                     mLoadingView.visibility = View.GONE
                     ToastUtils.showLong("登录超时")
@@ -256,6 +257,9 @@ class ForgetPasswordFragment : Fragment(), View.OnClickListener {
     private fun appModifyPassword() {
         userModifyPassWordTaskCallBack = object : CallBack<UserModifyResp>() {
             override fun callBack(result: UserModifyResp?) {
+                if(!ActivityUtils.isActivityAlive(activity)) {
+                    return
+                }
                 mLoadingView.visibility = View.GONE
                 if (result == null) {
                     ToastUtils.showLong("修改密码超时")

@@ -35,6 +35,7 @@ import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.smart.smartoa.data.network.api.lib.model.UploadImage
 import com.gx.wisestone.upload.grpc.images.AdminImagesResponse
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
+import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.repair_fragment.*
 import kotlinx.android.synthetic.main.repair_fragment.loadingView
@@ -177,6 +178,9 @@ class RepairFragment : Fragment(), View.OnClickListener {
                 images,
                 object : CallBack<CommonResponse>() {
                     override fun callBack(result: CommonResponse?) {
+                        if (!ActivityUtils.isActivityAlive(activity)) {
+                            return
+                        }
                         loadingView.visibility = View.GONE
                         if (result == null) {
                             ToastUtils.showLong("添加超时!")

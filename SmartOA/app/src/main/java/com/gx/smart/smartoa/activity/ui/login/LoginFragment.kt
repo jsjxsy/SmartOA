@@ -314,6 +314,9 @@ class LoginFragment : Fragment(), OnClickListener {
     private fun verifyCodeCallBack() {
         verifyCallBack = object : CallBack<VerifyCodeResp?>() {
             override fun callBack(result: VerifyCodeResp?) {
+                if(!ActivityUtils.isActivityAlive(activity)) {
+                    return
+                }
                 if (result == null) {
                     ToastUtils.showLong("验证码请求超时")
                     return
@@ -361,6 +364,9 @@ class LoginFragment : Fragment(), OnClickListener {
     ) {
         loginCallBack = object : CallBack<LoginResp?>() {
             override fun callBack(result: LoginResp?) {
+                if(!ActivityUtils.isActivityAlive(activity)) {
+                    return
+                }
                 if (result == null) {
                     mLoadingView.visibility = View.GONE
                     ToastUtils.showLong("登录超时")
@@ -427,6 +433,9 @@ class LoginFragment : Fragment(), OnClickListener {
             .myCompany(
                 object : CallBack<AppMyCompanyResponse>() {
                     override fun callBack(result: AppMyCompanyResponse?) {
+                        if(!ActivityUtils.isActivityAlive(activity)) {
+                            return
+                        }
                         mLoadingView.visibility = View.GONE
                         if (result == null) {
                             ToastUtils.showLong("查询我的企业超时!")
@@ -438,6 +447,8 @@ class LoginFragment : Fragment(), OnClickListener {
                                 val employeeInfo = employeeList[0]
                                 SPUtils.getInstance()
                                     .put(AppConfig.EMPLOYEE_ID, employeeInfo.employeeId)
+                                SPUtils.getInstance()
+                                    .put(AppConfig.COMPANY_STRUCTURE_ID, employeeInfo.companyStructureId)
                                 SPUtils.getInstance()
                                     .put(AppConfig.COMPANY_SYS_TENANT_NO, employeeInfo.tenantNo)
                                 SPUtils.getInstance()
@@ -456,6 +467,12 @@ class LoginFragment : Fragment(), OnClickListener {
                                     .put(AppConfig.COMPANY_NAME, employeeInfo.companyName)
                                 SPUtils.getInstance()
                                     .put(AppConfig.COMPANY_APPLY_STATUS, employeeInfo.status)
+                                val tenantNo = SPUtils.getInstance()
+                                    .getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
+                                if (tenantNo == 0) {
+                                    SPUtils.getInstance()
+                                        .put(AppConfig.BUILDING_SYS_TENANT_NO, employeeInfo.tenantNo)
+                                }
                                 mainActivity()
                             } else {
                                 val tenantNo = SPUtils.getInstance()

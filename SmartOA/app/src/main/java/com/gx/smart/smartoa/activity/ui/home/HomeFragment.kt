@@ -152,6 +152,9 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private fun hasNotReadMessage() {
         UserCenterService.getInstance().hasNotReadMessage(object : CallBack<CommonResponse>() {
             override fun callBack(result: CommonResponse?) {
+                if(!ActivityUtils.isActivityAlive(activity)) {
+                    return
+                }
                 if (result?.code == 100) {
                     val flag = result.dataMap["hasNotReadMessage"]
                     if (flag == "true") {
@@ -172,12 +175,17 @@ class HomeFragment : Fragment(), View.OnClickListener {
             .myCompany(
                 object : CallBack<AppMyCompanyResponse>() {
                     override fun callBack(result: AppMyCompanyResponse?) {
+                        if(!ActivityUtils.isActivityAlive(activity)) {
+                            return
+                        }
                         if (result?.code == 100) {
                             val employeeList = result.employeeInfoList
                             if (employeeList.isNotEmpty()) {
                                 val employeeInfo = employeeList[0]
                                 SPUtils.getInstance()
                                     .put(AppConfig.EMPLOYEE_ID, employeeInfo.employeeId)
+                                SPUtils.getInstance()
+                                    .put(AppConfig.COMPANY_STRUCTURE_ID, employeeInfo.companyStructureId)
                                 SPUtils.getInstance()
                                     .put(AppConfig.COMPANY_SYS_TENANT_NO, employeeInfo.tenantNo)
                                 SPUtils.getInstance()
@@ -196,6 +204,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
                                     .put(AppConfig.COMPANY_NAME, employeeInfo.companyName)
                                 SPUtils.getInstance()
                                     .put(AppConfig.COMPANY_APPLY_STATUS, employeeInfo.status)
+
+                                left_nav_text_view?.let {
+                                    it.text = SPUtils.getInstance().getString(AppConfig.PLACE_NAME, "")
+                                }
                             }
                         }
                     }

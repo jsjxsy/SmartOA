@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.amap.api.location.AMapLocation
 import com.amap.api.maps2d.AMap
 import com.amap.api.maps2d.MapView
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.map.MapLocationHelper
 import com.gx.smart.smartoa.R
@@ -153,6 +154,10 @@ class AttendanceOutAreaFragment : Fragment(), MapLocationHelper.LocationCallBack
         AppAttendanceService.getInstance()
             .attendance(latitude, longitude, address, object : CallBack<CommonResponse>() {
                 override fun callBack(result: CommonResponse?) {
+                    if(!ActivityUtils.isActivityAlive(activity)) {
+                        return
+                    }
+
                     loadingView.visibility = View.GONE
                     if (result == null) {
                         ToastUtils.showLong("外勤打卡超时!")
@@ -182,6 +187,9 @@ class AttendanceOutAreaFragment : Fragment(), MapLocationHelper.LocationCallBack
                 address,
                 object : CallBack<AccessRecordReportedResp>() {
                     override fun callBack(result: AccessRecordReportedResp?) {
+                        if(!ActivityUtils.isActivityAlive(activity)) {
+                            return
+                        }
                         loadingView.visibility = View.GONE
                         if (result == null) {
                             ToastUtils.showLong("外勤打卡超时!")

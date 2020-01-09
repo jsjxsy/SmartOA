@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
@@ -85,6 +86,10 @@ class AttendanceRecordFragment : Fragment(), View.OnClickListener {
         AttendanceAppProviderService.getInstance()
             .getEmployeeRecordList(month, object : CallBack<getEmployeeDayRecordResp>() {
                 override fun callBack(result: getEmployeeDayRecordResp?) {
+                    if(!ActivityUtils.isActivityAlive(activity)) {
+                        return
+                    }
+
                     if (result == null) {
                         ToastUtils.showLong("外勤打卡超时!")
                         return

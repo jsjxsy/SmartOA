@@ -166,6 +166,9 @@ class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
     private fun changePhone(changeNo: String?) {
         userModifyMobileCallBack = object : CallBack<UserModifyResp>() {
             override fun callBack(result: UserModifyResp?) {
+                if (!ActivityUtils.isActivityAlive(activity)) {
+                    return
+                }
                 if (result == null) {
                     mLoadingView.visibility = View.GONE
                     ToastUtils.showLong("修改手机号超时")
@@ -190,6 +193,9 @@ class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
     fun changeUserMobile() {
         updateAppUserMobileCallBack = object : CallBack<AppInfoResponse>() {
             override fun callBack(result: AppInfoResponse?) {
+                if (!ActivityUtils.isActivityAlive(activity)) {
+                    return
+                }
                 mLoadingView.visibility = View.GONE
                 if (result == null) {
                     ToastUtils.showLong("修改手机号超时")

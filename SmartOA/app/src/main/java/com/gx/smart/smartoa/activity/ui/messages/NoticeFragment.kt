@@ -101,8 +101,10 @@ class NoticeFragment : Fragment() {
             return
         }
 
+        val authorCompanyId = SPUtils.getInstance()
+            .getLong(AppConfig.COMPANY_STRUCTURE_ID, 0L)
         AppInformationService.getInstance()
-            .getAnnouncement(query, object : CallBack<AppAnnouncementResponse>() {
+            .getAnnouncement(authorCompanyId, query, object : CallBack<AppAnnouncementResponse>() {
                 override fun callBack(result: AppAnnouncementResponse?) {
                     if (!ActivityUtils.isActivityAlive(activity)) {
                         return

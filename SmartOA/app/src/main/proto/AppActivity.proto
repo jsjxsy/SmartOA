@@ -52,6 +52,10 @@ message AppActivityDto{
     string image_url = 11; //banner图300*200
     string company_ids = 12; //公司id
     bool has_read = 13; //true已读
+    int32 level = 15;//1为办公楼发布2为公司发布
+    int64 author_company_id = 16;//发布人公司id，level=2时为公司id
+    int64 author_id = 17;//发布人id
+
 }
 
 message ActivityRequest {
@@ -65,6 +69,9 @@ message ActivityRequest {
     int32 total_num = 10; //计划报名人数，0表示不限人数
     string image_url = 11; //banner图300*200
     string company_ids = 12; //公司id notnull
+    int32 level = 15;//1为办公楼发布2为公司发布
+    int64 author_company_id = 16;//发布人公司id，level=2时为公司id
+    int64 author_id = 17;//发布人id
 }
 
 message ActivityQueryRequest{

@@ -55,6 +55,7 @@ class SplashActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.AppTheme)//恢复原有的样式
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
@@ -277,6 +278,8 @@ class SplashActivity : BaseActivity() {
                                 SPUtils.getInstance()
                                     .put(AppConfig.EMPLOYEE_ID, employeeInfo.employeeId)
                                 SPUtils.getInstance()
+                                    .put(AppConfig.COMPANY_STRUCTURE_ID, employeeInfo.companyStructureId)
+                                SPUtils.getInstance()
                                     .put(AppConfig.COMPANY_SYS_TENANT_NO, employeeInfo.tenantNo)
                                 SPUtils.getInstance()
                                     .put(
@@ -294,6 +297,12 @@ class SplashActivity : BaseActivity() {
                                     .put(AppConfig.COMPANY_NAME, employeeInfo.companyName)
                                 SPUtils.getInstance()
                                     .put(AppConfig.COMPANY_APPLY_STATUS, employeeInfo.status)
+                                val tenantNo = SPUtils.getInstance()
+                                    .getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
+                                if (tenantNo == 0) {
+                                    SPUtils.getInstance()
+                                        .put(AppConfig.BUILDING_SYS_TENANT_NO, employeeInfo.tenantNo)
+                                }
                                 mainActivity()
                             } else {
                                 val tenantNo = SPUtils.getInstance()

@@ -11,13 +11,7 @@ class IntroActivity : AppIntro() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Build.VERSION.SDK_INT > 21) {
-            val decorView = window.decorView
-            decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            window.statusBarColor = Color.TRANSPARENT
-        }
-
+        showStatusBar(false)
         addSlide(FirstFragment.newInstance())
         addSlide(SecondFragment.newInstance())
         addSlide(ThirdFragment.newInstance())

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.AppRepairService
@@ -82,6 +83,9 @@ class RepairRecordFragment : Fragment(), View.OnClickListener {
             .queryMyRepair(
                 query, object : CallBack<RepairCommonResponse>() {
                     override fun callBack(result: RepairCommonResponse?) {
+                        if (!ActivityUtils.isActivityAlive(activity)) {
+                            return
+                        }
                         if (currentPage == 0) {
                             refreshLayout.finishRefresh()
                         } else {

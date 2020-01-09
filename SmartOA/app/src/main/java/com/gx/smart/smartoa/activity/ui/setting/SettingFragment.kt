@@ -124,6 +124,9 @@ class SettingFragment : Fragment(), View.OnClickListener {
         loadingView.visibility = View.VISIBLE
         appLogoutCallBack = object : CallBack<CommonResponse>() {
             override fun callBack(result: CommonResponse?) {
+                if (!ActivityUtils.isActivityAlive(activity)) {
+                    return
+                }
                 loadingView.visibility = View.GONE
                 if (result == null) {
                     ToastUtils.showLong("退出登录失败")

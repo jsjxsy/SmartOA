@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
@@ -107,6 +108,9 @@ class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
             .cancelCompanyBind(
                 object : CallBack<CommonResponse>() {
                     override fun callBack(result: CommonResponse?) {
+                        if(!ActivityUtils.isActivityAlive(activity)) {
+                            return
+                        }
                         loadingView.visibility = View.GONE
                         if (result == null) {
                             ToastUtils.showLong("解绑公司超时!")
@@ -133,6 +137,9 @@ class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
             .cancelCompanyApply(employeeInfo.applyId,
                 object : CallBack<CommonResponse>() {
                     override fun callBack(result: CommonResponse?) {
+                        if(!ActivityUtils.isActivityAlive(activity)) {
+                            return
+                        }
                         loadingView.visibility = View.GONE
                         if (result == null) {
                             ToastUtils.showLong("解绑公司超时!")

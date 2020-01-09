@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
@@ -147,6 +148,9 @@ class FreshAirViewBinder : ItemViewBinder<FreshAir, FreshAirViewBinder.ViewHolde
             cmd,
             object : CallBack<UnisiotResp>() {
                 override fun callBack(result: UnisiotResp?) {
+                    if(!ActivityUtils.isActivityAlive(fragment?.activity)) {
+                        return
+                    }
                     if (result == null) {
                         ToastUtils.showLong("控制新风超时")
                         return

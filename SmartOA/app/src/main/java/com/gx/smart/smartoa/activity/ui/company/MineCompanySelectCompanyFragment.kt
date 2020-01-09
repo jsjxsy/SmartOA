@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.alibaba.fastjson.JSON
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.company.model.Company
@@ -94,6 +95,10 @@ class MineCompanySelectCompanyFragment : Fragment(), View.OnClickListener {
             .getBuildingInfo(
                 object : CallBack<CommonResponse>() {
                     override fun callBack(result: CommonResponse?) {
+                        if(!ActivityUtils.isActivityAlive(activity)) {
+                            return
+                        }
+
                         if (result == null) {
                             ToastUtils.showLong("添加超时!")
                             return

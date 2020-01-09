@@ -13,6 +13,7 @@ import android.widget.TextView.OnEditorActionListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.alibaba.fastjson.JSON
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.company.model.SysTenantList
@@ -96,6 +97,10 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
             .getSysTenantList(
                 object : CallBack<CommonResponse>() {
                     override fun callBack(result: CommonResponse?) {
+                        if(!ActivityUtils.isActivityAlive(activity)) {
+                            return
+                        }
+
                         items.clear()
                         if (result == null) {
                             ToastUtils.showLong("获取办公地点超时!")
@@ -132,6 +137,9 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
             .getSysTenantList(name,
                 object : CallBack<CommonResponse>() {
                     override fun callBack(result: CommonResponse?) {
+                        if(!ActivityUtils.isActivityAlive(activity)) {
+                            return
+                        }
                         items.clear()
                         if (result == null) {
                             ToastUtils.showLong("获取办公地点超时!")

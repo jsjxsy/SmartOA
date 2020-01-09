@@ -26,6 +26,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatSeekBar
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
@@ -130,6 +131,10 @@ class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBind
                     cmd,
                     object : CallBack<UnisiotResp>() {
                         override fun callBack(result: UnisiotResp?) {
+                            if(!ActivityUtils.isActivityAlive(fragment?.activity)) {
+                                return
+                            }
+
                             if (result == null) {
                                 ToastUtils.showLong("控制灯光超时")
                                 fragment?.showLoadingFail()
@@ -225,6 +230,10 @@ class LightItemTwoViewBinder : ItemViewBinder<LightItemTwo, LightItemTwoViewBind
             cmd,
             object : CallBack<UnisiotResp>() {
                 override fun callBack(result: UnisiotResp?) {
+                    if(!ActivityUtils.isActivityAlive(fragment?.activity)) {
+                        return
+                    }
+
                     if (result == null) {
                         ToastUtils.showLong("控制灯光超时")
                         return

@@ -309,6 +309,9 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
     fun carouselFigure() {
         AppFigureService.getInstance().carouselFigure(object : CallBack<ImagesResponse?>() {
             override fun callBack(result: ImagesResponse?) {
+                if(!ActivityUtils.isActivityAlive(redPotView.context)) {
+                    return
+                }
                 var listNetwork = listOf<ImagesInfoOrBuilder>()
                 var listLocal = arrayListOf(
                     R.mipmap.home_banner_test,

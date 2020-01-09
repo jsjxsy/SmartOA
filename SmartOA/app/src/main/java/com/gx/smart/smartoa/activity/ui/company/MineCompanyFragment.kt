@@ -70,6 +70,10 @@ class MineCompanyFragment : Fragment(), View.OnClickListener {
             .myCompany(
                 object : CallBack<AppMyCompanyResponse>() {
                     override fun callBack(result: AppMyCompanyResponse?) {
+                        if(!ActivityUtils.isActivityAlive(activity)) {
+                            return
+                        }
+
                         mLoadingView?.visibility = View.GONE
                         if (result == null) {
                             ToastUtils.showLong("查询我的企业超时!")

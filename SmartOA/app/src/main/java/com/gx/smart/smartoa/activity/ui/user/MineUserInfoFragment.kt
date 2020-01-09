@@ -170,6 +170,9 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
     private fun getUserInfo() {
         UserCenterService.getInstance().getAppUserInfo(object : CallBack<AppInfoResponse>() {
             override fun callBack(result: AppInfoResponse?) {
+                if (!ActivityUtils.isActivityAlive(activity)) {
+                    return
+                }
                 if (result?.code == 100) {
                     val userInfo = result.appUserInfoDto
                     if (userInfo.imageUrl.isNotBlank()) {
@@ -346,6 +349,7 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
     private fun uploadHeadImageCallBack(cropImagePath: String?) {
         callBack = object : CallBack<AppInfoResponse?>() {
             override fun callBack(result: AppInfoResponse?) {
+
                 if (result == null) {
                     ToastUtils.showLong("头像上传超时")
                     return
@@ -404,6 +408,9 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
     fun changeUserGender(gender: String) {
         callBack = object : CallBack<AppInfoResponse?>() {
             override fun callBack(result: AppInfoResponse?) {
+                if (!ActivityUtils.isActivityAlive(activity)) {
+                    return
+                }
                 if (result == null) {
                     ToastUtils.showLong("修改性别超时")
                     return

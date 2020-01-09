@@ -79,13 +79,14 @@ public class AppInformationService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, AppAnnouncementResponse> getAnnouncement(QueryDto query, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, AppAnnouncementResponse> getAnnouncement(long authorCompanyId, QueryDto query, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, AppAnnouncementResponse>(callBack) {
             @Override
             protected AppAnnouncementResponse doRequestData(ManagedChannel channel) {
-                AnnouncementRequest message = AnnouncementRequest.newBuilder()
-                        .setQuery(query)
-                        .build();
+                AnnouncementRequest  message = AnnouncementRequest.newBuilder()
+                            .setAuthorCompanyId(authorCompanyId)
+                            .setQuery(query)
+                            .build();
                 Logger.d(message);
                 AppAnnouncementResponse response = null;
                 try {
@@ -111,7 +112,7 @@ public class AppInformationService {
             @Override
             protected MessageReadResponse doRequestData(ManagedChannel channel) {
                 MessageReadRequest message = MessageReadRequest.newBuilder()
-                        .setMessageId(messageId)
+                        .addMessageId(messageId)
                         .setMessageType(messageType)
                         .build();
                 Logger.d(message);

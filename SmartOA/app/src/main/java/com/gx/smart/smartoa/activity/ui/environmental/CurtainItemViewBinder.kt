@@ -24,6 +24,7 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
@@ -150,6 +151,10 @@ class CurtainItemViewBinder : ItemViewBinder<CurtainItem, CurtainItemViewBinder.
             cmd,
             object : CallBack<UnisiotResp>() {
                 override fun callBack(result: UnisiotResp?) {
+                    if(!ActivityUtils.isActivityAlive(fragment?.activity)) {
+                        return
+                    }
+
                     if (result == null) {
                         ToastUtils.showLong("控制窗帘超时")
                         return

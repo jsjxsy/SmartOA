@@ -107,8 +107,9 @@ class MineFragment : Fragment() {
                             .placeholder(R.drawable.ic_head)
                             .apply(RequestOptions.bitmapTransform(CircleCrop()))
                             .into(mine_head_image_view)
+                        mine_user_name_text_view.text = userInfo.nickName
                     }
-                    mine_user_name_text_view.text = userInfo.nickName
+
                 }
             }
 

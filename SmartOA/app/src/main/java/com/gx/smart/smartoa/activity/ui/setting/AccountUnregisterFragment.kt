@@ -74,6 +74,9 @@ class AccountUnregisterFragment : Fragment(), View.OnClickListener {
         loadingView.visibility = View.VISIBLE
         UserCenterService.getInstance().unRegister(object : CallBack<CommonResponse>() {
             override fun callBack(result: CommonResponse?) {
+                if (!ActivityUtils.isActivityAlive(activity)) {
+                    return
+                }
                 loadingView.visibility = View.GONE
                 if (result == null) {
                     ToastUtils.showLong("注销账号超时!")

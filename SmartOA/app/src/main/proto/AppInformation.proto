@@ -24,7 +24,7 @@ message PersonInformationRequest {
 
 
 message MessageReadRequest {
-    int64 message_id = 1;
+    repeated int64 message_id = 1;
     int32 message_type = 2; //1个人信息，2物业公告，3.活动报名
 }
 
@@ -36,6 +36,7 @@ message MessageReadResponse {
 
 message AnnouncementRequest {
     com.gx.wisestone.core.grpc.common.QueryDto query = 1;
+    int64 author_company_id = 2; //发布人公司id，level=2时为公司id
 }
 
 
@@ -80,4 +81,7 @@ message AppAnnouncementDto {
     int64 end_time = 10;  //结束时间
     int32 status = 11;  //1 发布状态 2过期状态
     bool has_read = 12; //true已读
+    int32 level = 13; //1为办公楼发布2为公司发布
+    int64 author_company_id = 14; //发布人公司id，level=2时为公司id
+    int64 author_id = 15; //发布人id
 }
