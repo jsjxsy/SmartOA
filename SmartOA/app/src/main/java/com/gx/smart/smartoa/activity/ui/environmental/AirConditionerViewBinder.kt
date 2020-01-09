@@ -622,7 +622,7 @@ class AirConditionerViewBinder :
             cmd,
             object : CallBack<UnisiotResp>() {
                 override fun callBack(result: UnisiotResp?) {
-                    if(!ActivityUtils.isActivityAlive(activity)) {
+                    if(!ActivityUtils.isActivityAlive(fragment?.activity)) {
                         return
                     }
 

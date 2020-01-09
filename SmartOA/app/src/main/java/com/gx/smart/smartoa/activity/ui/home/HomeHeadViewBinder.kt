@@ -44,7 +44,6 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
     View.OnClickListener {
     lateinit var convenientBanner: ConvenientBanner<Any>
     lateinit var fragmentManager: FragmentManager
-    lateinit var redPotView: View
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.id_environmental_control_text_view -> joinCompanyContinue(1)
@@ -309,7 +308,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
     fun carouselFigure() {
         AppFigureService.getInstance().carouselFigure(object : CallBack<ImagesResponse?>() {
             override fun callBack(result: ImagesResponse?) {
-                if(!ActivityUtils.isActivityAlive(redPotView.context)) {
+                if(!ActivityUtils.isActivityAlive(convenientBanner.context)) {
                     return
                 }
                 var listNetwork = listOf<ImagesInfoOrBuilder>()

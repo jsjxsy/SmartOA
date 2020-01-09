@@ -65,13 +65,20 @@ class AttendanceRecordFragment : Fragment(), View.OnClickListener {
         adapter = AttendanceRecordAdapter()
         recyclerView.adapter = adapter
         //添加Android自带的分割线
-        recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
         val monthArray = resources.getStringArray(R.array.month_items)
         val calendar = Calendar.getInstance(TimeZone.getDefault())
         val monthIndex = calendar.get(Calendar.MONTH)
+        monthArray[monthIndex] = "本月"
         getEmployeeRecordList(calendar.timeInMillis)
         val subMonth = monthArray.slice(0..monthIndex)
         monthSpinner.attachDataSource(subMonth)
+
         monthSpinner.selectedIndex = monthIndex
         monthSpinner.onSpinnerItemSelectedListener =
             OnSpinnerItemSelectedListener { _, _, position, _ ->
@@ -86,7 +93,7 @@ class AttendanceRecordFragment : Fragment(), View.OnClickListener {
         AttendanceAppProviderService.getInstance()
             .getEmployeeRecordList(month, object : CallBack<getEmployeeDayRecordResp>() {
                 override fun callBack(result: getEmployeeDayRecordResp?) {
-                    if(!ActivityUtils.isActivityAlive(activity)) {
+                    if (!ActivityUtils.isActivityAlive(activity)) {
                         return
                     }
 
