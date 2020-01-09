@@ -171,7 +171,7 @@ dependencies {
     implementation 'org.bitbucket.b_c:jose4j:0.6.5'
     implementation 'com.auth0:java-jwt:3.8.1'
     //cropper
-    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
     //intro
     implementation 'com.github.AppIntro:AppIntro:5.1.0'
     //spinner
@@ -186,6 +186,7 @@ dependencies {
     implementation project(path: ':ldialog')
     implementation project(path: ':share')
     implementation project(path: ':map')
+    implementation project(path: ':eventbus')
 }
 
 

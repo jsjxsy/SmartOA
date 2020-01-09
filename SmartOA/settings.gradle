@@ -1,2 +1,2 @@
-include ':app', ':webview', ':webview', ':push', ':custom_ldialog', ':ldialog', ':share', ':map'
+include ':app', ':webview', ':webview', ':push', ':custom_ldialog', ':ldialog', ':share', ':map', ':eventbus'
 rootProject.name = 'SmartOA'

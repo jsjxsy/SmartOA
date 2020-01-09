@@ -1,0 +1,40 @@
+ext {
+
+    versionCode = 81
+    versionName = "2.9.1"
+
+    android = [
+            compileSdkVer: 27,
+            buildToolsVer: "27.0.3",
+            minSdkVer    : 18,
+            targetSdkVer : 23,
+    ]
+
+    version = [
+            //suport
+            androidSupportVer: "27.1.1",
+
+            //rxjava
+            rxjavaVersion     : "1.1.8",
+            rxandroidVersion  : "1.2.1",
+            rxbindingVersion  : "0.4.0",
+            rxjava2Version    : "2.2.0",
+            rxandroid2Version : "2.0.2",
+            //arch
+            archVersion       : "1.1.0",
+
+            //wpt.lib.http
+            gsonVersion       : "2.8.0",
+            retrofitVersion   : "2.4.0",
+            okhttpVersion     : "3.10.0",
+
+            //glide
+            glideVersion      : "4.8.0",
+    ]
+
+
+    dependencies = [
+    ]
+
+
+}
