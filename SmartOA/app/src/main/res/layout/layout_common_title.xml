@@ -73,7 +73,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:padding="4dp"
+        android:padding="12dp"
         android:src="@drawable/ic_message_ic"
         android:visibility="gone"
         tools:visibility="visible" />
@@ -82,6 +82,8 @@
         android:id="@+id/id_message_red_point"
         android:layout_width="8dp"
         android:layout_height="8dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="6dp"
         android:layout_alignTop="@id/right_nav_Image_view"
         android:layout_alignRight="@id/right_nav_Image_view"
         android:background="@drawable/shape_home_message_point"
