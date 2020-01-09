@@ -23,9 +23,9 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.ui.action.MineActionActivity
 import com.gx.smart.smartoa.activity.ui.action.MineActionDetailFragment
 import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
-import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AppActivityService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
@@ -56,8 +56,8 @@ class HomeActionViewBinder :
     override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull actionRecommendList: HomeActionRecommend) {
         actionRecommendBanner = holder.item
         holder.more.setOnClickListener {
-            val intent = Intent(holder.itemView.context, MessageActivity::class.java)
-            intent.putExtra(MessageActivity.INTENT_KEY, MessageActivity.INTENT_MESSAGE)
+            val intent = Intent(holder.itemView.context, MineActionActivity::class.java)
+            intent.putExtra(MineActionActivity.FROM_MORE, MineActionActivity.FROM_MORE)
             ActivityUtils.startActivity(intent)
         }
         findAllApplyInfos()
@@ -204,7 +204,6 @@ class HomeActionViewBinder :
             Navigation.findNavController(view)
                 .navigate(R.id.action_navigation_home_to_mineActionActivity, args)
         }
-
 
     }
 

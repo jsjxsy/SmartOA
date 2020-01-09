@@ -65,13 +65,6 @@ class MessagesFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initContent() {
-        var flag = (activity?.intent?.hasExtra(MessageActivity.INTENT_KEY)!! &&
-                activity?.intent?.getStringExtra(MessageActivity.INTENT_KEY)!! == MessageActivity.INTENT_MESSAGE)
-
-        if (flag) {
-            viewPager.currentItem = 1
-        }
-
         viewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {
 

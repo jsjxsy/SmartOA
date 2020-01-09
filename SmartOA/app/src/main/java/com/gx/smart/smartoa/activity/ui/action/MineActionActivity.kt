@@ -15,8 +15,8 @@ class MineActionActivity : BaseActivity() {
         val navHostFragment = mineActionFragmentEnter as NavHostFragment
         val inflater = navHostFragment.navController.navInflater
         val graph = inflater.inflate(R.navigation.nav_mine_action)
-        if (intent.hasExtra("fromHome") ||
-            intent.hasExtra("fromMessage")) {
+        if (intent.hasExtra(FROM_HOME) ||
+            intent.hasExtra(FROM_MESSAGE)) {
             graph.startDestination = R.id.mineActionDetailFragment
         } else {
             graph.startDestination = R.id.mineActionFragment
@@ -26,4 +26,11 @@ class MineActionActivity : BaseActivity() {
 
     override fun onSupportNavigateUp() =
         Navigation.findNavController(this, R.id.mineActionFragmentEnter).navigateUp()
+
+    companion object {
+        const val FROM_HOME = "fromHome"
+        const val FROM_MESSAGE = "fromMessage"
+        const val FROM_MORE= "fromMore"
+        const val FROM_MINE= "fromMine"
+    }
 }

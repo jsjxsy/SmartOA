@@ -34,7 +34,7 @@
     <string name="more">更多</string>
 
     <string name="action_recommend">活动推荐</string>
-    <string name="company_advise">企业咨询</string>
+    <string name="company_advise">企业资讯</string>
     <string name="message_notice">消息通知</string>
 
     <string-array name="environmental_control_items">
@@ -178,4 +178,7 @@
     <string name="account_unregister">账号注销</string>
     <string name="confirm_unregister">确认注销</string>
     <string name="input_address">请输入地址</string>
+    <string name="action">活动</string>
+
+
 </resources>

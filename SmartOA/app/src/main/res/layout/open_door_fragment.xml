@@ -23,6 +23,7 @@
         android:background="@drawable/shape_list_item_background_color"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title">
@@ -60,5 +61,13 @@
             android:textColor="@color/font_color_style_one"
             android:textSize="@dimen/font_size_style_one" />
     </LinearLayout>
+
+    <include
+        android:id="@+id/noService"
+        layout="@layout/common_no_pen_service_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

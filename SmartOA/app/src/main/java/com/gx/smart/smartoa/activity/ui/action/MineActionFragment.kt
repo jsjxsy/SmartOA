@@ -37,6 +37,7 @@ import top.limuyang2.customldialog.IOSMsgDialog
 class MineActionFragment : Fragment(), View.OnClickListener {
     var flag: Boolean = false
     lateinit var adapter: ActionAdapter
+    var fromMore: Boolean = false
 
     companion object {
         fun newInstance() = MineActionFragment()
@@ -50,8 +51,8 @@ class MineActionFragment : Fragment(), View.OnClickListener {
     private var employeeId: Long = 0L
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        flag = activity?.intent?.hasExtra("fromMine") ?: false
-
+        flag = activity?.intent?.hasExtra(MineActionActivity.FROM_MINE) ?: false
+        fromMore = activity?.intent?.hasExtra(MineActionActivity.FROM_MORE) ?: false
     }
 
     override fun onCreateView(
@@ -86,6 +87,16 @@ class MineActionFragment : Fragment(), View.OnClickListener {
             center_title.let {
                 it.visibility = View.VISIBLE
                 it.text = getString(R.string.mine_action)
+            }
+        } else if (fromMore) {
+            title.visibility = View.VISIBLE
+            left_nav_image_view?.let {
+                it.visibility = View.VISIBLE
+                it.setOnClickListener(this)
+            }
+            center_title.let {
+                it.visibility = View.VISIBLE
+                it.text = getString(R.string.action)
             }
         } else {
             title.visibility = View.GONE
@@ -412,7 +423,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         )
         args.putString(MineActionDetailFragment.ARG_CONTENT, item.content)
         args.putLong(MineActionDetailFragment.ARG_ACTIVITY_ID, item.activityId)
-        if (flag) {
+        if (flag || fromMore) {
             findNavController().navigate(
                 R.id.action_mineActionFragment_to_mineActionDetailFragment,
                 args

@@ -114,7 +114,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
         val advises = arrayListOf(
             CompanyAdvise(R.mipmap.home_banner_test, "1 广信篮球队报名开始啦！", "2019.10.10"),
-            CompanyAdvise(R.mipmap.home_banner_test, "2 广信篮球队报名开始啦！", "2020.01.12"),
+            CompanyAdvise(R.mipmap.home_banner_test, "航天广信 | 智慧办公综合服务平台为企业员工创造更大价值！", "2020.01.12"),
             CompanyAdvise(R.mipmap.home_banner_test, "3 广信篮球队报名开始啦！", "2020.02.02")
         )
         items.add(HomeCompanyAdvise(advises))
