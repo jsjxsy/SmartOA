@@ -153,6 +153,7 @@
 
         <EditText
             android:id="@+id/contentEdit"
+            style="@style/editTextStyle"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_alignParentRight="true"
@@ -161,9 +162,7 @@
             android:focusedByDefault="true"
             android:gravity="start"
             android:hint="@string/input_content"
-            android:padding="12dp"
-            android:textColor="@color/font_color_style_five"
-            android:textSize="@dimen/font_size_style_one" />
+            android:padding="12dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"

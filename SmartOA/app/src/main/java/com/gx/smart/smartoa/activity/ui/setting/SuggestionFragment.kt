@@ -2,7 +2,9 @@ package com.gx.smart.smartoa.activity.ui.setting
 
 
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,6 +51,22 @@ class SuggestionFragment : Fragment(), View.OnClickListener {
 
     private fun initContent() {
         submit.setOnClickListener(this)
+        suggestionEdit.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val length = s?.length ?: 0
+                if (length > 0) {
+                    wordCount.text = "$length/140"
+                }
+                suggestionEdit.setSelection(length)
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
     }
 
     override fun onClick(v: View?) {
@@ -61,27 +79,28 @@ class SuggestionFragment : Fragment(), View.OnClickListener {
 
     private fun applySuggestion() {
         val content = suggestionEdit.text.toString()
-        if(TextUtils.isEmpty(content)){
+        if (TextUtils.isEmpty(content)) {
             ToastUtils.showLong("提交的建议不能为空!")
-        }else{
+        } else {
             loadingView.visibility = View.VISIBLE
-            UserCenterService.getInstance().addOpinion(content, object: CallBack<CommonResponse>() {
-                override fun callBack(result: CommonResponse?) {
-                    loadingView.visibility = View.GONE
-                    if(result == null) {
-                        ToastUtils.showLong("提交建议超时")
-                        return
+            UserCenterService.getInstance()
+                .addOpinion(content, object : CallBack<CommonResponse>() {
+                    override fun callBack(result: CommonResponse?) {
+                        loadingView.visibility = View.GONE
+                        if (result == null) {
+                            ToastUtils.showLong("提交建议超时")
+                            return
+                        }
+
+                        if (result?.code == 100) {
+                            ToastUtils.showLong("提交建议成功")
+                            activity?.onBackPressed()
+                        } else {
+                            ToastUtils.showLong(result.msg)
+                        }
                     }
 
-                    if(result?.code == 100) {
-                        ToastUtils.showLong("提交建议成功")
-                        activity?.onBackPressed()
-                    }else{
-                        ToastUtils.showLong(result.msg)
-                    }
-                }
-
-            })
+                })
         }
     }
 
