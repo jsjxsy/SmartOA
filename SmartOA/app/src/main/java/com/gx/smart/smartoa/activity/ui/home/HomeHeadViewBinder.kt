@@ -42,7 +42,7 @@ import top.limuyang2.customldialog.IOSMsgDialog
  */
 class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolder>(),
     View.OnClickListener {
-    lateinit var convenientBanner: ConvenientBanner<ImagesInfoOrBuilder>
+    lateinit var convenientBanner: ConvenientBanner<Any>
     lateinit var fragmentManager: FragmentManager
     lateinit var redPotView: View
     override fun onClick(v: View?) {
@@ -177,7 +177,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val item: ConvenientBanner<ImagesInfoOrBuilder> = itemView.findViewById(R.id.headBanner)
+        val item: ConvenientBanner<Any> = itemView.findViewById(R.id.headBanner)
         val id_environmental_control_text_view: TextView =
             itemView.findViewById(R.id.id_environmental_control_text_view)
         val id_more_text_view: TextView =
@@ -216,31 +216,54 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
     }
 
     private fun initBanner(
-        convenientBanner: ConvenientBanner<ImagesInfoOrBuilder>, list: List<ImagesInfoOrBuilder>
+        convenientBanner: ConvenientBanner<Any>,
+        listNetwork: List<ImagesInfoOrBuilder>,
+        listLocal: List<Int>
     ) {
 
-        convenientBanner.setPages(object : CBViewHolderCreator {
-            override fun createHolder(itemView: View): Holder<*> {
-                return LocalImageHolderView(itemView)
-            }
+        if (listNetwork.isNotEmpty()) {
+            convenientBanner.setPages(object : CBViewHolderCreator{
+                override fun createHolder(itemView: View): NetWorkImageHolderView {
+                    return NetWorkImageHolderView(itemView)
+                }
 
-            override fun getLayoutId(): Int {
-                return R.layout.item_home_head_item_localimage
-            }
-        }, list)
-            .setPageIndicator(
-                intArrayOf(
-                    R.drawable.shape_page_indicator,
-                    R.drawable.shape_page_indicator_focus
+                override fun getLayoutId(): Int {
+                    return R.layout.item_home_head_item_localimage
+                }
+            }, listNetwork)
+                .setPageIndicator(
+                    intArrayOf(
+                        R.drawable.shape_page_indicator,
+                        R.drawable.shape_page_indicator_focus
+                    )
                 )
-            )
-            .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
-            .setPointViewVisible(true)
-            .startTurning(2000)
+                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
+                .setPointViewVisible(true)
+                .startTurning(2000)
+        }else{
+            convenientBanner.setPages(object : CBViewHolderCreator {
+                override fun createHolder(itemView: View): LocalImageHolderView {
+                    return LocalImageHolderView(itemView)
+                }
+
+                override fun getLayoutId(): Int {
+                    return R.layout.item_home_head_item_localimage
+                }
+            }, listLocal)
+                .setPageIndicator(
+                    intArrayOf(
+                        R.drawable.shape_page_indicator,
+                        R.drawable.shape_page_indicator_focus
+                    )
+                )
+                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
+                .setPointViewVisible(true)
+                .startTurning(2000)
+        }
     }
 
-    //B、本地图片
-    inner class LocalImageHolderView(itemView: View) : Holder<ImagesInfoOrBuilder>(itemView) {
+    //A、网络图片
+    inner class NetWorkImageHolderView(itemView: View) : Holder<ImagesInfoOrBuilder>(itemView) {
         private lateinit var imageView: ImageView
         override fun updateUI(data: ImagesInfoOrBuilder) {
 
@@ -248,8 +271,25 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
                 val imageUrl = data.imageUrl + "?v=" + data.modifyTime
                 Glide.with(itemView).load(imageUrl).into(imageView)
                 imageView.setOnClickListener {
-                    goWebView(data.forwardUrl)
+                    if (data.forwardUrl.isNotEmpty()) {
+                        goWebView(data.forwardUrl)
+                    }
                 }
+            }
+        }
+
+        override fun initView(itemView: View) {
+            imageView = itemView.findViewById(R.id.imageViewHomeBanner)
+        }
+
+    }
+
+    //B、本地图片
+    inner class LocalImageHolderView(itemView: View) : Holder<Int>(itemView) {
+        private lateinit var imageView: ImageView
+        override fun updateUI(data: Int) {
+            if (ActivityUtils.isActivityAlive(itemView.context)) {
+                Glide.with(itemView).load(data).into(imageView)
             }
         }
 
@@ -269,10 +309,20 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
     fun carouselFigure() {
         AppFigureService.getInstance().carouselFigure(object : CallBack<ImagesResponse?>() {
             override fun callBack(result: ImagesResponse?) {
+                var listNetwork = listOf<ImagesInfoOrBuilder>()
+                var listLocal = arrayListOf(
+                    R.mipmap.home_banner_test,
+                    R.mipmap.home_banner_test,
+                    R.mipmap.home_banner_test
+                )
                 if (result?.code == 100) {
-                    var list = result.imagesInfoOrBuilderList.toList()
-                    initBanner(convenientBanner, list)
+                    val list = result.imagesInfoOrBuilderList.toList()
+                    listNetwork.toMutableList().apply {
+                        addAll(list)
+                        listNetwork = this
+                    }
                 }
+                initBanner(convenientBanner, listNetwork, listLocal)
             }
 
         })

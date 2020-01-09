@@ -89,6 +89,7 @@ class HomeActionViewBinder :
         )
             .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
             .setPointViewVisible(true)
+            .startTurning(3000)
 
     }
 
