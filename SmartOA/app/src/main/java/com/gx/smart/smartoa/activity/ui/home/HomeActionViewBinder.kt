@@ -100,7 +100,7 @@ class HomeActionViewBinder :
                 .into(imageView)
 
             title.text = data.title
-            time.text = "${data.startTime - data.endTime}"
+            time.text = "${data.startTime} - ${data.endTime}"
             number.text = data.currentNum.toString() + "人参加"
             itemView.setOnClickListener {
                 goActionDetail(it, data)
