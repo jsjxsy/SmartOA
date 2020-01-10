@@ -47,12 +47,12 @@ class SplashFragment : Fragment() {
     fun showAd() {
         AppFigureService.getInstance().bannerFigure(object : CallBack<ImagesResponse?>() {
             override fun callBack(result: ImagesResponse?) {
+                if (!ActivityUtils.isActivityAlive(activity)) {
+                    return
+                }
                 if (result?.code == 100) {
                     val list = result.imagesInfoOrBuilderList
                     if (list.isNotEmpty()) {
-                        if (!ActivityUtils.isActivityAlive(activity)) {
-                            return
-                        }
                         val index = Random().nextInt(list.size)
                         val data = list[index]
                         val imageUrl = data.imageUrl + "?v=" + data.modifyTime
@@ -96,6 +96,8 @@ class SplashFragment : Fragment() {
                     } else {
                         login()
                     }
+                } else {
+                    login()
                 }
 
             }

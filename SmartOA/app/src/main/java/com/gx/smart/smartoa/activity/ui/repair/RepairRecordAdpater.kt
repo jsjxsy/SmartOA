@@ -26,7 +26,7 @@ class RepairRecordAdapter :
         return mList.size
     }
 
-    fun addList(list: List<RepairInfoOrBuilder>){
+    fun addList(list: List<RepairInfoOrBuilder>) {
         mList.toMutableList().apply {
             addAll(list)
             mList = this
@@ -58,7 +58,12 @@ class RepairRecordAdapter :
     //填充视图
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mList!![position]
-        holder.mContent.text = item.content
+        holder.mContent.text = when (item.type) {
+            1 -> "设备损坏"
+            2 -> "办公绿色"
+            3 -> "公共卫生"
+            else -> "未知"
+        }
         holder.state.text = when (item.status) {
             //1.未处理2.处理中3.已完成
             1 -> {
