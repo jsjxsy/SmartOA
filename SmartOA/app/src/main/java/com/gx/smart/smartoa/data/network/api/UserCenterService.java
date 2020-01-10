@@ -80,11 +80,13 @@ public class UserCenterService {
                         .setMobile(mobile)
                         .setName(name)
                         .build();
+                Logger.d(message);
                 AppInfoResponse response = null;
                 try {
                     response = getUserStub(channel).bindAppUser(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Log.i("UserCenterService", e.getMessage());
+                    Logger.e(e, "hasNotReadMessage");
                 }
 
                 return response;
@@ -105,11 +107,14 @@ public class UserCenterService {
                 UpdateAppUserRequest message = UpdateAppUserRequest.newBuilder()
                         .setName(name)
                         .build();
+                Logger.d(message);
                 AppInfoResponse response = null;
                 try {
                     response = getUserStub(channel).updateAppUser(message);
+                    Logger.d(response);
                 } catch (Exception e) {
                     Log.i("UserCenterService", e.getMessage());
+                    Logger.e(e, "hasNotReadMessage");
                 }
 
                 return response;
@@ -130,11 +135,14 @@ public class UserCenterService {
                 UpdateAppUserRequest message = UpdateAppUserRequest.newBuilder()
                         .setNickName(nickName)
                         .build();
+                Logger.d(message);
                 AppInfoResponse response = null;
                 try {
                     response = getUserStub(channel).updateAppUser(message);
+                    Logger.d(response);
                 } catch (Exception e) {
                     Log.i("UserCenterService", e.getMessage());
+                    Logger.e(e, "hasNotReadMessage");
                 }
 
                 return response;
@@ -155,11 +163,14 @@ public class UserCenterService {
                 UpdateAppUserRequest message = UpdateAppUserRequest.newBuilder()
                         .setMobile(mobile)
                         .build();
+                Logger.d(message);
                 AppInfoResponse response = null;
                 try {
                     response = getUserStub(channel).updateAppUser(message);
+                    Logger.d(response);
                 } catch (Exception e) {
                     Log.i("UserCenterService", e.getMessage());
+                    Logger.e(e, "hasNotReadMessage");
                 }
 
                 return response;
@@ -180,11 +191,14 @@ public class UserCenterService {
                 AddOpinionRequest message = AddOpinionRequest.newBuilder()
                         .setContent(content)
                         .build();
+                Logger.d(message);
                 CommonResponse response = null;
                 try {
                     response = getUserStub(channel).addOpinion(message);
+                    Logger.d(response);
                 } catch (Exception e) {
                     Log.i("UserCenterService", e.getMessage());
+                    Logger.e(e, "hasNotReadMessage");
                 }
 
                 return response;
@@ -205,11 +219,14 @@ public class UserCenterService {
                         .setIdentityCard(identityCard)
                         .setName(name)
                         .build();
+                Logger.d(message);
                 CommonResponse response = null;
                 try {
                     response = getUserStub(channel).verified(message);
+                    Logger.d(response);
                 } catch (Exception e) {
                     Log.i("UserCenterService", e.getMessage());
+                    Logger.e(e, "hasNotReadMessage");
                 }
 
                 return response;
@@ -230,11 +247,14 @@ public class UserCenterService {
                 UpdateAppUserRequest message = UpdateAppUserRequest.newBuilder()
                         .setGender(gender)
                         .build();
+                Logger.d(message);
                 AppInfoResponse response = null;
                 try {
                     response = getUserStub(channel).updateAppUser(message);
+                    Logger.d(response);
                 } catch (Exception e) {
                     Log.i("UserCenterService", e.getMessage());
+                    Logger.e(e, "hasNotReadMessage");
                 }
 
                 return response;
@@ -255,11 +275,14 @@ public class UserCenterService {
                 UpdateAppUserRequest message = UpdateAppUserRequest.newBuilder()
                         .setImageBytes(data)
                         .build();
+                Logger.d(message);
                 AppInfoResponse response = null;
                 try {
                     response = getUserStub(channel).updateAppUser(message);
+                    Logger.d(response);
                 } catch (Exception e) {
                     Log.i("UserCenterService", e.getMessage());
+                    Logger.e(e, "hasNotReadMessage");
                 }
 
                 return response;
@@ -278,11 +301,13 @@ public class UserCenterService {
             protected AppInfoResponse doRequestData(ManagedChannel channel) {
                 GetAppUserInfoRequest message = GetAppUserInfoRequest.newBuilder()
                         .build();
+                Logger.d(message);
                 AppInfoResponse response = null;
                 try {
                     response = getUserStub(channel).getAppUserInfo(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Log.i("UserCenterService", e.getMessage());
+                    Logger.e(e, "getAppUserInfo");
                 }
 
                 return response;
@@ -302,11 +327,15 @@ public class UserCenterService {
             protected CommonResponse doRequestData(ManagedChannel channel) {
                 AppLogoutRequest message = AppLogoutRequest.newBuilder()
                         .build();
+                Logger.d(message);
                 CommonResponse response = null;
                 try {
                     response = getUserStub(channel).appLogout(message);
+                    Logger.d(response);
                 } catch (Exception e) {
                     Log.i("UserCenterService", e.getMessage());
+                    Logger.e(e, "hasNotReadMessage");
+
                 }
 
                 return response;
@@ -326,11 +355,13 @@ public class UserCenterService {
             protected CommonResponse doRequestData(ManagedChannel channel) {
                 HasNotReadMessageRequest message = HasNotReadMessageRequest.newBuilder()
                         .build();
+                Logger.d(message);
                 CommonResponse response = null;
                 try {
                     response = getUserStub(channel).hasNotReadMessage(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Log.i("UserCenterService", e.getMessage());
+                    Logger.e(e, "hasNotReadMessage");
                 }
 
                 return response;

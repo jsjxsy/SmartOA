@@ -37,7 +37,9 @@
 
 -keepattributes Signature #范型
 
--keep class com.gx.smart.smartoa.data.network.api.lib.**{*;}
+-keep class com.gx.smart.smartoa.data.network.api.**{*;}
+
+-keep class com.gx.wisetone.**{*;}
 
 -dontskipnonpubliclibraryclasses # 不忽略非公共的库类
 -optimizationpasses 5            # 指定代码的压缩级别
