@@ -100,7 +100,7 @@ class MineFragment : Fragment(), View.OnClickListener{
             override fun callBack(result: AppInfoResponse?) {
                 if (result?.code == 100) {
                     val userInfo = result.appUserInfoDto
-                    if (userInfo.imageUrl.isNotBlank() && ActivityUtils.isActivityAlive(activity)) {
+                    if (ActivityUtils.isActivityAlive(activity)) {
                         Glide.with(activity!!)
                             .load(userInfo.imageUrl)
                             .error(R.drawable.ic_head)
