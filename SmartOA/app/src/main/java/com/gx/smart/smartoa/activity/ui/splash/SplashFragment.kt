@@ -49,50 +49,53 @@ class SplashFragment : Fragment() {
             override fun callBack(result: ImagesResponse?) {
                 if (result?.code == 100) {
                     val list = result.imagesInfoOrBuilderList
-                    val index = Random().nextInt(list.size)
-                    val data = list[index]
-                    val imageUrl = data.imageUrl + "?v=" + data.modifyTime
-                    if (!ActivityUtils.isActivityAlive(activity)) {
-                        return
-                    }
-                    Glide.with(activity!!).load(imageUrl)
-                        .listener(object : RequestListener<Drawable> {
-                            override fun onLoadFailed(
-                                e: GlideException?,
-                                model: Any?,
-                                target: Target<Drawable>?,
-                                isFirstResource: Boolean
-                            ): Boolean {
-                                login()
-                                jumpButton.visibility = View.GONE
-                                return false
-                            }
+                    if (list.isNotEmpty()) {
+                        if (!ActivityUtils.isActivityAlive(activity)) {
+                            return
+                        }
+                        val index = Random().nextInt(list.size)
+                        val data = list[index]
+                        val imageUrl = data.imageUrl + "?v=" + data.modifyTime
 
-                            override fun onResourceReady(
-                                resource: Drawable?,
-                                model: Any?,
-                                target: Target<Drawable>?,
-                                dataSource: DataSource?,
-                                isFirstResource: Boolean
-                            ): Boolean {
-                                jumpButton.visibility = View.VISIBLE
-                                mTime = TimeCount(3000, 1000, jumpButton)
-                                mTime?.start()
-                                splashImage.setOnClickListener {
-                                    mTime?.cancel()
-                                    goWebView(list[index].forwardUrl)
-                                }
-                                jumpButton.setOnClickListener {
-                                    mTime?.cancel()
+                        Glide.with(activity!!).load(imageUrl)
+                            .listener(object : RequestListener<Drawable> {
+                                override fun onLoadFailed(
+                                    e: GlideException?,
+                                    model: Any?,
+                                    target: Target<Drawable>?,
+                                    isFirstResource: Boolean
+                                ): Boolean {
                                     login()
+                                    jumpButton.visibility = View.GONE
+                                    return false
                                 }
-                                return false
-                            }
 
-                        })
-                        .into(splashImage)
-                } else {
-                    login()
+                                override fun onResourceReady(
+                                    resource: Drawable?,
+                                    model: Any?,
+                                    target: Target<Drawable>?,
+                                    dataSource: DataSource?,
+                                    isFirstResource: Boolean
+                                ): Boolean {
+                                    jumpButton.visibility = View.VISIBLE
+                                    mTime = TimeCount(3000, 1000, jumpButton)
+                                    mTime?.start()
+                                    splashImage.setOnClickListener {
+                                        mTime?.cancel()
+                                        goWebView(list[index].forwardUrl)
+                                    }
+                                    jumpButton.setOnClickListener {
+                                        mTime?.cancel()
+                                        login()
+                                    }
+                                    return false
+                                }
+
+                            })
+                            .into(splashImage)
+                    } else {
+                        login()
+                    }
                 }
 
             }

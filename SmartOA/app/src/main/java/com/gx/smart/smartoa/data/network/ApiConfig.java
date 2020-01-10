@@ -6,7 +6,8 @@ package com.gx.smart.smartoa.data.network;
  * @Describe
  **/
 public class ApiConfig {
-    public static final String USER_SERVER_URL = "192.168.139.201";
+    //| test.huishi.cloud | 32331/gRPC | 办公APP服务 | svc-ws-work-app-service.ws-work |
+    public static final String USER_SERVER_URL = "test.huishi.cloud";
     //common
     public static final String USER_SERVER_PORT = "32331";
     //auth
