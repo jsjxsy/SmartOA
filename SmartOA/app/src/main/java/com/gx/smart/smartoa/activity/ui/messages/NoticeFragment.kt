@@ -23,7 +23,7 @@ class NoticeFragment : Fragment() {
 
     companion object {
         fun newInstance() = NoticeFragment()
-        const val NOTICE_TYPE = 3
+        const val NOTICE_TYPE = 1
     }
 
     private var readAllFlag: Boolean = false

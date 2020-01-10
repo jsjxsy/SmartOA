@@ -28,7 +28,7 @@ class NewsFragment : Fragment() {
 
     companion object {
         fun newInstance() = NewsFragment()
-        const val NOTICE_NEWS = 1
+        const val NOTICE_NEWS = 3
     }
 
     override fun onCreateView(

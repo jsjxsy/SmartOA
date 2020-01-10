@@ -165,9 +165,11 @@ public class AppActivityService {
                 AppActivityApplyDto message = AppActivityApplyDto.newBuilder()
                         .setActivityId(activityId)
                         .build();
+                Logger.d(message);
                 AppActivityApplyResponse response = null;
                 try {
                     response = getAppActivityStub(channel).cancelApply(message);
+                    Logger.d(message);
                 } catch (Exception e) {
                     Logger.e("AppActivityService", e.getMessage());
                 }
@@ -189,11 +191,13 @@ public class AppActivityService {
                 AppActivityApplyDto message = AppActivityApplyDto.newBuilder()
                         .setActivityId(activityId)
                         .build();
+                Logger.d(message);
                 AppActivityApplyResponse response = null;
                 try {
                     response = getAppActivityStub(channel).findApplyInfo(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Logger.e("AppActivityService", e.getMessage());
+                    Logger.e(e,"findApplyInfo");
                 }
 
                 return response;

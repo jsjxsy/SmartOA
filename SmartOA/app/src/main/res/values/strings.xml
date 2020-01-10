@@ -47,11 +47,11 @@
     <string-array name="message_items">
         <item>公告</item>
         <item>活动</item>
-        <item>物业</item>
+        <item>消息</item>
     </string-array>
 
     <string-array name="month_items">
-        <item>1月 </item>
+        <item>1月</item>
         <item>2月</item>
         <item>3月</item>
         <item>4月</item>
