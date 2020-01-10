@@ -50,7 +50,7 @@ class ActionAdapter :
             .load(item.imageUrl)
             .error(R.mipmap.default_image_small)
             .placeholder(R.mipmap.default_image_small)
-            .transform(CenterCrop(), RoundedCorners(10))
+            //.transform(CenterCrop(), RoundedCorners(10))
             .into(holder.mImage)
 
         holder.redFlag.let {

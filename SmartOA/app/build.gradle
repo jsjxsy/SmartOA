@@ -167,7 +167,6 @@ dependencies {
     implementation "org.java-websocket:Java-WebSocket:1.4.0"
     //json
     implementation('com.alibaba:fastjson:1.2.38')
-    //
     implementation 'org.bitbucket.b_c:jose4j:0.6.5'
     implementation 'com.auth0:java-jwt:3.8.1'
     //cropper
@@ -176,6 +175,8 @@ dependencies {
     implementation 'com.github.AppIntro:AppIntro:5.1.0'
     //spinner
     implementation 'com.github.arcadefire:nice-spinner:1.4.4'
+    //pickerView
+    implementation 'com.contrarywind:Android-PickerView:4.1.9'
     //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

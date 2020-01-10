@@ -21,7 +21,7 @@ import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import kotlinx.android.synthetic.main.fragment_mine.*
 
-class MineFragment : Fragment() {
+class MineFragment : Fragment(), View.OnClickListener{
 
     companion object {
         fun newInstance() = MineFragment()
@@ -48,9 +48,11 @@ class MineFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_mine, container, false)
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MineViewModel::class.java)
+
         val mineList = mine_setting_list_view as ListView
         val adapter = MineAdapter(activity as Context)
         adapter.lists = arrayListOf(
@@ -79,9 +81,7 @@ class MineFragment : Fragment() {
         setting.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_mineFragment_to_settingActivity)
         }
-        mine_user_info_text_view.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_mineFragment_to_userActivity)
-        }
+        mine_user_info_text_view.setOnClickListener(this)
     }
 
     class Item {
@@ -116,6 +116,13 @@ class MineFragment : Fragment() {
         })
     }
 
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.mine_user_info_text_view -> {
+                Navigation.findNavController(v).navigate(R.id.action_mineFragment_to_userActivity)
+            }
+        }
+    }
 
 
 }

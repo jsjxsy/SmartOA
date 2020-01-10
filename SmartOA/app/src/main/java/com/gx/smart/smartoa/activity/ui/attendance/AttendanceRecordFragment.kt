@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.bigkoo.pickerview.builder.TimePickerBuilder
+import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -16,7 +18,6 @@ import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.grpc.ds.attendanceapp.getEmployeeDayRecordResp
 import kotlinx.android.synthetic.main.attendance_record_fragment.*
 import kotlinx.android.synthetic.main.layout_common_title.*
-import org.angmarch.views.OnSpinnerItemSelectedListener
 import java.util.*
 
 
@@ -71,21 +72,12 @@ class AttendanceRecordFragment : Fragment(), View.OnClickListener {
                 DividerItemDecoration.VERTICAL
             )
         )
-        val monthArray = resources.getStringArray(R.array.month_items)
         val calendar = Calendar.getInstance(TimeZone.getDefault())
-        val monthIndex = calendar.get(Calendar.MONTH)
-        monthArray[monthIndex] = "本月"
         getEmployeeRecordList(calendar.timeInMillis)
-        val subMonth = monthArray.slice(0..monthIndex)
-        monthSpinner.attachDataSource(subMonth)
-
-        monthSpinner.selectedIndex = monthIndex
-        monthSpinner.onSpinnerItemSelectedListener =
-            OnSpinnerItemSelectedListener { _, _, position, _ ->
-                calendar.set(calendar.get(Calendar.YEAR), position, 1)
-                val timestamp = TimeUtils.date2Millis(calendar.time)
-                getEmployeeRecordList(timestamp)
-            }
+        selectedTime.text = TimeUtils.date2String(calendar.time, "MM月")
+        selectedTime.setOnClickListener {
+            showDateSelect()
+        }
     }
 
 
@@ -128,5 +120,27 @@ class AttendanceRecordFragment : Fragment(), View.OnClickListener {
 
             })
     }
+
+
+    private fun showDateSelect() {
+        val calendar = Calendar.getInstance(TimeZone.getDefault())
+        val startDate = Calendar.getInstance()
+        startDate.set(calendar.get(Calendar.YEAR) - 1, 0, 1)
+        val endDate = Calendar.getInstance()
+        endDate.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), 1)
+        //时间选择器
+        TimePickerBuilder(activity,
+            OnTimeSelectListener { date, v ->
+                selectedTime.text = TimeUtils.date2String(date, "MM月")
+                val timestamp = TimeUtils.date2Millis(date)
+                getEmployeeRecordList(timestamp)
+            })
+            .setType(booleanArrayOf(true, true, false, false, false, false))// 默认全部显示)
+            .setDate(endDate)
+            .setRangDate(startDate, endDate)//起始终止年月日设定
+            .build()
+            .show()
+    }
+
 
 }
