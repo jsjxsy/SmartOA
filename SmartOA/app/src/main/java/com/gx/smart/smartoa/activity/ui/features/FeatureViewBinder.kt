@@ -98,22 +98,20 @@ class FeatureViewBinder : ItemViewBinder<Feature, FeatureViewBinder.ViewHolder>(
 
 
     private fun joinCompanyContinue(type: Int) {
-        var employeeId = 0L
         val buildingSysTenantNo =
             SPUtils.getInstance().getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
         val companySysTenantNo =
             SPUtils.getInstance().getInt(AppConfig.COMPANY_SYS_TENANT_NO, 0)
         if (buildingSysTenantNo == companySysTenantNo) {
-            employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
-        }
-        if (employeeId == 0L) {
-            when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 2)) {
+            when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0)) {
                 1 -> IOSMsgDialog.init(fragmentManager!!)
                     .setTitle("加入企业")
                     .setMessage("您申请的企业在审核中，请耐心等待")
                     .setPositiveButton("确定").show()
 
-                2 -> IOSMsgDialog.init(fragmentManager!!)
+                2 -> gotoDetailAction(type)
+
+                else -> IOSMsgDialog.init(fragmentManager!!)
                     .setTitle("加入企业")
                     .setMessage("您还未入驻任何企业，请先进行企业身份认证")
                     .setPositiveButton("马上认证", View.OnClickListener {
@@ -126,9 +124,24 @@ class FeatureViewBinder : ItemViewBinder<Feature, FeatureViewBinder.ViewHolder>(
                     }).show()
             }
 
-            return
+
+        } else {
+            IOSMsgDialog.init(fragmentManager!!)
+                .setTitle("加入企业")
+                .setMessage("您还未入驻任何企业，请先进行企业身份认证")
+                .setPositiveButton("马上认证", View.OnClickListener {
+                    ActivityUtils.startActivity(
+                        Intent(
+                            ActivityUtils.getTopActivity(),
+                            MineCompanyActivity::class.java
+                        )
+                    )
+                }).show()
         }
 
+    }
+
+    private fun gotoDetailAction(type: Int) {
         when (type) {
             1 -> ActivityUtils.startActivity(
                 Intent(
@@ -152,8 +165,6 @@ class FeatureViewBinder : ItemViewBinder<Feature, FeatureViewBinder.ViewHolder>(
             )
 
         }
-
-
     }
 
 }

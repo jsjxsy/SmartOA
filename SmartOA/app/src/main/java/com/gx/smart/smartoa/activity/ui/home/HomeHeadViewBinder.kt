@@ -95,37 +95,48 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
 
 
     private fun joinCompanyContinue(type: Int) {
-        var employeeId = 0L
         val buildingSysTenantNo =
             SPUtils.getInstance().getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
         val companySysTenantNo =
             SPUtils.getInstance().getInt(AppConfig.COMPANY_SYS_TENANT_NO, 0)
         if (buildingSysTenantNo == companySysTenantNo) {
-            employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
-        }
-        if (employeeId == 0L) {
-            when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 2)) {
+            when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0)) {
                 1 -> IOSMsgDialog.init(fragmentManager!!)
                     .setTitle("加入企业")
                     .setMessage("您申请的企业在审核中，请耐心等待")
                     .setPositiveButton("确定").show()
-
-                2 -> IOSMsgDialog.init(fragmentManager!!)
-                    .setTitle("加入企业")
-                    .setMessage("您还未入驻任何企业，请先进行企业身份认证")
-                    .setPositiveButton("马上认证", View.OnClickListener {
-                        ActivityUtils.startActivity(
-                            Intent(
-                                ActivityUtils.getTopActivity(),
-                                MineCompanyActivity::class.java
+                2 -> gotoDetailAction(type)
+                else ->
+                    IOSMsgDialog.init(fragmentManager!!)
+                        .setTitle("加入企业")
+                        .setMessage("您还未入驻任何企业，请先进行企业身份认证")
+                        .setPositiveButton("马上认证", View.OnClickListener {
+                            ActivityUtils.startActivity(
+                                Intent(
+                                    ActivityUtils.getTopActivity(),
+                                    MineCompanyActivity::class.java
+                                )
                             )
-                        )
-                    }).show()
+                        }).show()
             }
 
-            return
+        } else {
+            IOSMsgDialog.init(fragmentManager!!)
+                .setTitle("加入企业")
+                .setMessage("您还未入驻任何企业，请先进行企业身份认证")
+                .setPositiveButton("马上认证", View.OnClickListener {
+                    ActivityUtils.startActivity(
+                        Intent(
+                            ActivityUtils.getTopActivity(),
+                            MineCompanyActivity::class.java
+                        )
+                    )
+                }).show()
         }
+    }
 
+
+    private fun gotoDetailAction(type: Int) {
         when (type) {
             1 -> ActivityUtils.startActivity(
                 Intent(
@@ -149,8 +160,6 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
             )
 
         }
-
-
     }
 
 
@@ -221,7 +230,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
     ) {
 
         if (listNetwork.isNotEmpty()) {
-            convenientBanner.setPages(object : CBViewHolderCreator{
+            convenientBanner.setPages(object : CBViewHolderCreator {
                 override fun createHolder(itemView: View): NetWorkImageHolderView {
                     return NetWorkImageHolderView(itemView)
                 }
@@ -239,7 +248,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
                 .setPointViewVisible(true)
                 .startTurning(2000)
-        }else{
+        } else {
             convenientBanner.setPages(object : CBViewHolderCreator {
                 override fun createHolder(itemView: View): LocalImageHolderView {
                     return LocalImageHolderView(itemView)
@@ -308,7 +317,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
     fun carouselFigure() {
         AppFigureService.getInstance().carouselFigure(object : CallBack<ImagesResponse?>() {
             override fun callBack(result: ImagesResponse?) {
-                if(!ActivityUtils.isActivityAlive(convenientBanner.context)) {
+                if (!ActivityUtils.isActivityAlive(convenientBanner.context)) {
                     return
                 }
                 var listNetwork = listOf<ImagesInfoOrBuilder>()

@@ -118,7 +118,7 @@ class AccountUnregisterFragment : Fragment(), View.OnClickListener {
         SPUtils.getInstance()
             .remove(AppConfig.ROOM_ID)
         SPUtils.getInstance()
-            .remove(AppConfig.PLACE_NAME)
+            .remove(AppConfig.COMPANY_PLACE_NAME)
         SPUtils.getInstance()
             .remove(AppConfig.COMPANY_NAME)
         SPUtils.getInstance()

@@ -21,6 +21,7 @@ public class AppConfig {
     public static final String COMPANY_NAME = "companyName";
     public static final String COMPANY_APPLY_STATUS = "status";
     public static final String EMPLOYEE_ID = "employeeId";
+    public static final String COMPANY_PLACE_NAME = "companyPlace";
     public static final String COMPANY_STRUCTURE_ID = "companyStructureId";
     public static final String COMPANY_SYS_TENANT_NO = "companySysTenantNo";
     //room

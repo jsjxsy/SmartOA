@@ -70,7 +70,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         val buildingSysTenantNo =
             SPUtils.getInstance().getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
         val companySysTenantNo =
-            SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0)
+            SPUtils.getInstance().getInt(AppConfig.COMPANY_SYS_TENANT_NO, 0)
         if (buildingSysTenantNo == companySysTenantNo) {
             employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
         }
@@ -237,7 +237,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         AppInformationService.getInstance()
             .messageRead(messageId, type, object : CallBack<MessageReadResponse>() {
                 override fun callBack(result: MessageReadResponse?) {
-                    if(!ActivityUtils.isActivityAlive(activity)) {
+                    if (!ActivityUtils.isActivityAlive(activity)) {
                         return
                     }
 
@@ -383,22 +383,18 @@ class MineActionFragment : Fragment(), View.OnClickListener {
     }
 
     private fun joinCompanyContinue(position: Int) {
-        var employeeId = 0L
         val buildingSysTenantNo =
             SPUtils.getInstance().getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
         val companySysTenantNo =
             SPUtils.getInstance().getInt(AppConfig.COMPANY_SYS_TENANT_NO, 0)
         if (buildingSysTenantNo == companySysTenantNo) {
-            employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
-        }
-        if (employeeId == 0L) {
-            when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 2)) {
+            when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0)) {
                 1 -> IOSMsgDialog.init(fragmentManager!!)
                     .setTitle("加入企业")
                     .setMessage("您申请的企业在审核中，请耐心等待")
                     .setPositiveButton("确定").show()
-
-                2 -> IOSMsgDialog.init(fragmentManager!!)
+                2 -> goActionDetail(position)
+                else -> IOSMsgDialog.init(fragmentManager!!)
                     .setTitle("加入企业")
                     .setMessage("您还未入驻任何企业，请先进行企业身份认证")
                     .setPositiveButton("马上认证", View.OnClickListener {
@@ -411,11 +407,19 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                     }).show()
             }
 
-            return
+        } else {
+            IOSMsgDialog.init(fragmentManager!!)
+                .setTitle("加入企业")
+                .setMessage("您还未入驻任何企业，请先进行企业身份认证")
+                .setPositiveButton("马上认证", View.OnClickListener {
+                    ActivityUtils.startActivity(
+                        Intent(
+                            ActivityUtils.getTopActivity(),
+                            MineCompanyActivity::class.java
+                        )
+                    )
+                }).show()
         }
-
-        goActionDetail(position)
-
     }
 
     private fun goActionDetail(position: Int) {

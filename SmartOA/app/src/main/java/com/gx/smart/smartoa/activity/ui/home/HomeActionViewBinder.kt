@@ -101,14 +101,13 @@ class HomeActionViewBinder :
             .build()
         val companyId = SPUtils.getInstance()
             .getLong(AppConfig.COMPANY_STRUCTURE_ID, 0L)
-        var request = ActivityRequest.newBuilder().
-            setAuthorCompanyId(companyId)
+        var request = ActivityRequest.newBuilder().setAuthorCompanyId(companyId)
             .build()
 
         AppActivityService.getInstance()
             .findAllActivityInfos(request, query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
-                    if(!ActivityUtils.isActivityAlive(mRefreshLayout.context)) {
+                    if (!ActivityUtils.isActivityAlive(mRefreshLayout.context)) {
                         return
                     }
                     mRefreshLayout?.finishRefresh()
@@ -166,22 +165,19 @@ class HomeActionViewBinder :
             item: AppActivityDto,
             fragmentManager: FragmentManager
         ) {
-            var employeeId = 0L
             val buildingSysTenantNo =
                 SPUtils.getInstance().getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
             val companySysTenantNo =
                 SPUtils.getInstance().getInt(AppConfig.COMPANY_SYS_TENANT_NO, 0)
             if (buildingSysTenantNo == companySysTenantNo) {
-                employeeId = SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L)
-            }
-            if (employeeId == 0L) {
-                when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 2)) {
+                when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0)) {
                     1 -> IOSMsgDialog.init(fragmentManager!!)
                         .setTitle("加入企业")
                         .setMessage("您申请的企业在审核中，请耐心等待")
                         .setPositiveButton("确定").show()
 
-                    2 -> IOSMsgDialog.init(fragmentManager!!)
+                    2 -> goActionDetail(view, item)
+                    else -> IOSMsgDialog.init(fragmentManager!!)
                         .setTitle("加入企业")
                         .setMessage("您还未入驻任何企业，请先进行企业身份认证")
                         .setPositiveButton("马上认证", View.OnClickListener {
@@ -194,10 +190,19 @@ class HomeActionViewBinder :
                         }).show()
                 }
 
-                return
+            } else {
+                IOSMsgDialog.init(fragmentManager!!)
+                    .setTitle("加入企业")
+                    .setMessage("您还未入驻任何企业，请先进行企业身份认证")
+                    .setPositiveButton("马上认证", View.OnClickListener {
+                        ActivityUtils.startActivity(
+                            Intent(
+                                ActivityUtils.getTopActivity(),
+                                MineCompanyActivity::class.java
+                            )
+                        )
+                    }).show()
             }
-
-            goActionDetail(view, item)
 
         }
 

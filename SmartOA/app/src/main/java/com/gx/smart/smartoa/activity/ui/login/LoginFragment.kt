@@ -462,7 +462,7 @@ class LoginFragment : Fragment(), OnClickListener {
                                         employeeInfo.appDepartmentInfo.smartHomeId
                                     )
                                 SPUtils.getInstance()
-                                    .put(AppConfig.PLACE_NAME, employeeInfo.buildingName)
+                                    .put(AppConfig.COMPANY_PLACE_NAME, employeeInfo.buildingName)
                                 SPUtils.getInstance()
                                     .put(AppConfig.COMPANY_NAME, employeeInfo.companyName)
                                 SPUtils.getInstance()
