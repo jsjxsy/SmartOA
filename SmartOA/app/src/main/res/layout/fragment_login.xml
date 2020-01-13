@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="userModel"
             type="com.gx.smart.smartoa.activity.ui.login.LoginViewModel" />
@@ -46,15 +46,15 @@
                     android:id="@+id/id_input_phone_edit_text"
                     style="@style/editTextStyle"
                     android:layout_width="match_parent"
+                    android:digits="@string/phone_input"
                     android:drawableLeft="@drawable/ic_login_phone_icon"
                     android:hint="@string/login_input_phone"
                     android:imeOptions="actionNext"
                     android:inputType="phone"
-                    android:textColor="@color/font_color_style_six"
-                    android:textSize="@dimen/font_size_style_one"
                     android:maxLength="11"
-                    android:digits="@string/phone_input"
-                    android:text="@={userModel.phone}"/>
+                    android:text="@={userModel.phone}"
+                    android:textColor="@color/font_color_style_six"
+                    android:textSize="@dimen/font_size_style_one" />
 
                 <ImageView
                     android:id="@+id/delete"
@@ -76,6 +76,7 @@
                     android:id="@+id/id_input_password_edit_text"
                     style="@style/editTextStyle"
                     android:layout_width="match_parent"
+                    android:digits="@string/password_input"
                     android:drawableLeft="@drawable/ic_login_password"
                     android:hint="@string/login_input_password"
                     android:imeOptions="actionDone"
@@ -83,8 +84,7 @@
                     android:maxLength="18"
                     android:text="@={userModel.password}"
                     android:textColor="@color/font_color_style_six"
-                    android:textSize="@dimen/font_size_style_one"
-                    android:digits="@string/password_input"/>
+                    android:textSize="@dimen/font_size_style_one" />
 
                 <ImageView
                     android:id="@+id/passwordState"
@@ -156,11 +156,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/id_login_input_layout" />
 
-        <com.gx.smart.smartoa.widget.LoadingView
-            android:id="@+id/loadingView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:visibility="gone" />
+<!--        <com.gx.smart.smartoa.widget.LoadingView-->
+<!--            android:id="@+id/loadingView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:gravity="center"-->
+<!--            android:onClick="@null"-->
+<!--            android:visibility="@{true ? View.VISIBLE : View.GONE}" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

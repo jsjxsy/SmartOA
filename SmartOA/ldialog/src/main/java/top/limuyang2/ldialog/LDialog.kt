@@ -12,7 +12,7 @@ import top.limuyang2.ldialog.base.ViewHandlerListener
  * Date 2018/6/27
  * @author limuyang
  */
-class LDialog : BaseLDialog<LDialog>() {
+open class LDialog : BaseLDialog<LDialog>() {
 
     override fun layoutRes(): Int = 0
 
@@ -32,7 +32,7 @@ class LDialog : BaseLDialog<LDialog>() {
         return this
     }
 
-    fun setViewHandlerListener(viewHandlerListener: ViewHandlerListener): LDialog {
+    fun setViewHandlerListener(viewHandlerListener: ViewHandlerListener?): LDialog {
         this@LDialog.viewHandlerListener = viewHandlerListener
         return this
     }
