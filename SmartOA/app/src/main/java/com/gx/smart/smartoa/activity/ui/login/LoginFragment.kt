@@ -28,7 +28,6 @@ import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
 import com.gx.smart.smartoa.activity.ui.login.password.ForgetPasswordFragment
-import com.gx.smart.smartoa.activity.ui.splash.SplashActivity
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.databinding.FragmentLoginBinding
 import com.gx.smart.smartoa.utils.DataCheckUtil
@@ -164,10 +163,10 @@ class LoginFragment : Fragment(), OnClickListener {
     }
 
     private fun loginType() {
+        id_input_password_edit_text.editableText.clear()
         when (loginFlag) {
             LoginTypeEnum.PHONE -> {
                 loginFlag = LoginTypeEnum.VERIFY_CODE
-                id_input_password_edit_text.editableText.clear()
                 loginType.text = getString(R.string.login_phone_verify)
                 id_input_password_edit_text.maxHeight = 6
                 id_input_password_edit_text.inputType = InputType.TYPE_CLASS_NUMBER
@@ -177,7 +176,7 @@ class LoginFragment : Fragment(), OnClickListener {
                     HideReturnsTransformationMethod.getInstance()
             }
             LoginTypeEnum.VERIFY_CODE -> {
-                id_input_password_edit_text.editableText.clear()
+
                 loginFlag = LoginTypeEnum.PHONE
                 loginType.text = getString(R.string.login_phone_password)
                 id_input_password_edit_text.maxHeight = 12
@@ -244,13 +243,6 @@ class LoginFragment : Fragment(), OnClickListener {
                     ToastUtils.showLong("验证码不能为空")
                     return
                 }
-                loadingView.visibility = View.VISIBLE
-                loadingView.setText("登录中")
-                loadingView.showLoading()
-                loadingView.postDelayed(
-                    { loadingView.visibility = View.GONE },
-                    SplashActivity.DELAY_TIME
-                )
                 viewModel.login(3)
             }
             LoginTypeEnum.PHONE -> {
@@ -259,13 +251,14 @@ class LoginFragment : Fragment(), OnClickListener {
                     ToastUtils.showLong("密码不能为空")
                     return
                 }
-
-                loadingView.visibility = View.VISIBLE
-                loadingView.setText("登录中")
-                loadingView.showLoading()
                 viewModel.login(2)
             }
+
         }
+
+        loadingView.visibility = View.VISIBLE
+        loadingView.setText("登录中")
+        loadingView.showLoading()
     }
 
 
