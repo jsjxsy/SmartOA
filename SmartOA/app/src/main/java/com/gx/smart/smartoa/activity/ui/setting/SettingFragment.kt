@@ -135,7 +135,9 @@ class SettingFragment : Fragment(), View.OnClickListener {
                 if (result.code === 100) {
                     clearCache()
                     //跳转登录界面
-                    ActivityUtils.startActivity(Intent(activity, LoginActivity::class.java))
+                    val intent = Intent(activity, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    ActivityUtils.startActivity(intent)
                     ToastUtils.showLong("退出登录成功")
                     activity?.finish()
                 } else {
