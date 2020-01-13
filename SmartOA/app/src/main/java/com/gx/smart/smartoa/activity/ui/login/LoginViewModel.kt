@@ -1,6 +1,8 @@
 package com.gx.smart.smartoa.activity.ui.login
 
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,6 +28,7 @@ class LoginViewModel : ViewModel() {
     var password = MutableLiveData<String>("")
     var verifyCodeCallBackSuccess = MutableLiveData<Boolean>(false)
     var isLoading = MutableLiveData<Boolean>()
+    var deleteVisible = MutableLiveData<Boolean>()
     var targetPage = MutableLiveData<Int>()
 
     private var verifyTask: GrpcAsyncTask<String, Void, VerifyCodeResp>? = null
@@ -37,12 +40,34 @@ class LoginViewModel : ViewModel() {
     private var bindTask: GrpcAsyncTask<String, Void, AppInfoResponse>? = null
     private var bindCallBack: CallBack<AppInfoResponse?>? = null
 
+
     //获取登录验证码
     private val targetType = 1
     private val purpose = 1
 
     fun setPhone() {
-        phone.value = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")
+        val account = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")
+        phone.value = account
+        deleteVisible.value = account.isNotEmpty()
+    }
+
+    fun clearPhone() {
+        phone.value = ""
+    }
+
+    val textWatcher = object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            val length = s?.length ?: 0
+            deleteVisible.value = length > 0
+            //id_input_phone_edit_text.setSelection(length)
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+
     }
 
     /**

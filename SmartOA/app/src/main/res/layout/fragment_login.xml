@@ -44,7 +44,7 @@
                 android:layout_marginTop="57.5dp"
                 android:gravity="center_horizontal">
 
-                <EditText
+                <EditText xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/id_input_phone_edit_text"
                     style="@style/editTextStyle"
                     android:layout_width="match_parent"
@@ -56,7 +56,9 @@
                     android:maxLength="11"
                     android:text="@={userModel.phone}"
                     android:textColor="@color/font_color_style_six"
-                    android:textSize="@dimen/font_size_style_one" />
+                    android:textSize="@dimen/font_size_style_one"
+                    app:addTextChangedListener="@{userModel.textWatcher}"
+                    />
 
                 <ImageView
                     android:id="@+id/delete"
@@ -65,7 +67,9 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="30dp"
-                    android:src="@drawable/ic_clear" />
+                    android:onClick="@{() -> userModel.clearPhone()}"
+                    android:src="@drawable/ic_clear"
+                    android:visibility="@{userModel.deleteVisible ? View.VISIBLE : View.GONE}"/>
             </RelativeLayout>
 
 
