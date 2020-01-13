@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ActivityUtils
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.gx.smart.smartoa.R
@@ -21,7 +22,7 @@ import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import kotlinx.android.synthetic.main.fragment_mine.*
 
-class MineFragment : Fragment(), View.OnClickListener{
+class MineFragment : Fragment(), View.OnClickListener {
 
     companion object {
         fun newInstance() = MineFragment()
@@ -106,6 +107,8 @@ class MineFragment : Fragment(), View.OnClickListener{
                             .error(R.drawable.ic_head)
                             .placeholder(R.drawable.ic_head)
                             .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                            .skipMemoryCache(true) // 不使用内存缓存
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .into(mine_head_image_view)
                         mine_user_name_text_view.text = userInfo.nickName
                     }
@@ -117,7 +120,7 @@ class MineFragment : Fragment(), View.OnClickListener{
     }
 
     override fun onClick(v: View?) {
-        when(v?.id){
+        when (v?.id) {
             R.id.mine_user_info_text_view -> {
                 Navigation.findNavController(v).navigate(R.id.action_mineFragment_to_userActivity)
             }

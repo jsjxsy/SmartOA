@@ -134,6 +134,9 @@ class HomeActionViewBinder :
         private lateinit var time: TextView
         private lateinit var number: TextView
         override fun updateUI(data: AppActivityDto) {
+            if (!ActivityUtils.isActivityAlive(mRefreshLayout.context)) {
+                return
+            }
             Glide.with(itemView).load(data.imageUrl)
                 .error(R.mipmap.default_image_small)
                 .placeholder(R.mipmap.default_image_small)

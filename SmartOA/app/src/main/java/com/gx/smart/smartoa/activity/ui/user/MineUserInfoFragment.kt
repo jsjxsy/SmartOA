@@ -25,6 +25,7 @@ import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.google.protobuf.ByteString
@@ -175,14 +176,15 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                 }
                 if (result?.code == 100) {
                     val userInfo = result.appUserInfoDto
-                    if (userInfo.imageUrl.isNotBlank()) {
+
                         Glide.with(activity!!)
                             .load(userInfo.imageUrl)
                             .error(R.drawable.ic_head)
                             .placeholder(R.drawable.ic_head)
                             .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                            .skipMemoryCache(true) // 不使用内存缓存
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .into(headImage)
-                    }
 
                     if (userInfo.nickName.isNotBlank()) {
                         nick = userInfo.nickName
