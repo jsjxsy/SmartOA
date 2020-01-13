@@ -19,7 +19,7 @@ import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp
 class LoginViewModel : ViewModel() {
     var phone = MutableLiveData<String>("")
     var password = MutableLiveData<String>("")
-    var refreshing = MutableLiveData<Boolean>()
+    var verifyCodeCallBackSuccess = MutableLiveData<Boolean>(false)
 
     private var verifyTask: GrpcAsyncTask<String, Void, VerifyCodeResp>? = null
     private var verifyCallBack: CallBack<VerifyCodeResp?>? = null

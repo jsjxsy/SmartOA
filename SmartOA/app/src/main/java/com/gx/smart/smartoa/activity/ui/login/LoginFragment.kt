@@ -18,6 +18,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ActivityUtils
@@ -40,7 +41,6 @@ import com.gx.smart.smartoa.databinding.FragmentLoginBinding
 import com.gx.smart.smartoa.utils.DataCheckUtil
 import com.gx.smart.smartoa.widget.LoadingView
 import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp
-import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
 import com.gx.wisestone.work.app.grpc.push.UpdateMessagePushResponse
@@ -69,7 +69,7 @@ class LoginFragment : Fragment(), OnClickListener {
             R.id.id_register_text_view ->
                 Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment)
             R.id.loginType -> loginType()
-//            R.id.getVerifyCodeText -> getVerifyCode()
+            R.id.getVerifyCodeText -> viewModel.getVerifyCode()
             R.id.passwordState -> passwordState()
 
         }
@@ -126,7 +126,16 @@ class LoginFragment : Fragment(), OnClickListener {
         super.onActivityCreated(savedInstanceState)
         initContent()
         initTimer()
+        viewModel.verifyCodeCallBackSuccess.observe(this, verifyCodeObserver)
     }
+
+     // Create the observer which updates the UI.
+     private val verifyCodeObserver = Observer<Boolean> {
+         getVerifyCode ->
+         if(getVerifyCode) {
+             mTime?.start()
+         }
+     }
 
     private fun initContent() {
         id_login_button.setOnClickListener(this)
@@ -450,6 +459,8 @@ class LoginFragment : Fragment(), OnClickListener {
                                 if (tenantNo == 0) {
                                     SPUtils.getInstance()
                                         .put(AppConfig.BUILDING_SYS_TENANT_NO, employeeInfo.tenantNo)
+                                    SPUtils.getInstance()
+                                        .put(AppConfig.PLACE_NAME, employeeInfo.companyName)
                                 }
                                 mainActivity()
                             } else {
