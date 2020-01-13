@@ -10,6 +10,7 @@ import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
@@ -139,8 +140,9 @@ class FreshAirViewBinder : ItemViewBinder<FreshAir, FreshAirViewBinder.ViewHolde
         mode: Int, cmd: String, type: Int, freshAir: DevDto, position: Int
     ) {
         fragment?.showLoadingView()
+        val smartSN = SPUtils.getInstance().getString(AppConfig.SMART_HOME_SN, "")
         devComTask = UnisiotApiService.getInstance().devCom(
-            AppConfig.SMART_HOME_SN,
+            smartSN,
             java.lang.String.valueOf(freshAir.uuid),
             freshAir.category,
             freshAir.model,

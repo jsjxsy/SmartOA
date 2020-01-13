@@ -25,6 +25,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
@@ -140,10 +141,10 @@ class CurtainItemViewBinder : ItemViewBinder<CurtainItem, CurtainItemViewBinder.
 
 
     private fun setStateAction(state: Int, curtain: DevDto, position: Int) {
-
+        val homeSN = SPUtils.getInstance().getString(AppConfig.SMART_HOME_SN, "")
         val cmd = state.toString()
         devComTask = UnisiotApiService.getInstance().devCom(
-            AppConfig.SMART_HOME_SN,
+            homeSN,
             java.lang.String.valueOf(curtain.uuid),
             curtain.category,
             curtain.model,

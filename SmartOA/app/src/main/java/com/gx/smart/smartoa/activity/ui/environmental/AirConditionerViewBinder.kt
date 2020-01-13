@@ -12,6 +12,7 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
@@ -613,8 +614,9 @@ class AirConditionerViewBinder :
         position: Int
     ) {
         fragment?.showLoadingView()
+        val homeSN = SPUtils.getInstance().getString(AppConfig.SMART_HOME_SN, "")
         devComTask = UnisiotApiService.getInstance().devCom(
-            AppConfig.SMART_HOME_SN,
+            homeSN,
             java.lang.String.valueOf(airConditioner.uuid),
             airConditioner.category,
             airConditioner.model,

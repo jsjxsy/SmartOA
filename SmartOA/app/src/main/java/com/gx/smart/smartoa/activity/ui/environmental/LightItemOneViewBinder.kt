@@ -24,6 +24,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
@@ -111,8 +112,9 @@ class LightItemOneViewBinder : ItemViewBinder<LightItemOne, LightItemOneViewBind
         position: Int
     ) {
         val cmd = if (finalTurnStatus == 1) "-1" else "1"
+        val smartSN = SPUtils.getInstance().getString(AppConfig.SMART_HOME_SN, "")
         devComTask = UnisiotApiService.getInstance().devCom(
-            AppConfig.SMART_HOME_SN,
+            smartSN,
             java.lang.String.valueOf(item.light.uuid),
             item.light.category,
             item.light.model,

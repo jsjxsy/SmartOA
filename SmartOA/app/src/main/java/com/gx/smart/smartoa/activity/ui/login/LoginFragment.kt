@@ -10,6 +10,7 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
@@ -29,8 +30,18 @@ import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
 import com.gx.smart.smartoa.activity.ui.login.password.ForgetPasswordFragment
 import com.gx.smart.smartoa.data.network.AppConfig
+import com.gx.smart.smartoa.data.network.api.AppEmployeeService
+import com.gx.smart.smartoa.data.network.api.AppMessagePushService
+import com.gx.smart.smartoa.data.network.api.AuthApiService
+import com.gx.smart.smartoa.data.network.api.UserCenterService
+import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
 import com.gx.smart.smartoa.databinding.FragmentLoginBinding
 import com.gx.smart.smartoa.utils.DataCheckUtil
+import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp
+import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
+import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
+import com.gx.wisestone.work.app.grpc.push.UpdateMessagePushResponse
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
@@ -94,6 +105,7 @@ class LoginFragment : Fragment(), OnClickListener {
             container,
             false
         )
+        loginFragmentBinding.lifecycleOwner = this
         loginFragmentBinding.userModel = viewModel
         return loginFragmentBinding.root
     }

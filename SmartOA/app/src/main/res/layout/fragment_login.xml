@@ -156,12 +156,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/id_login_input_layout" />
 
-<!--        <com.gx.smart.smartoa.widget.LoadingView-->
-<!--            android:id="@+id/loadingView"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:gravity="center"-->
-<!--            android:onClick="@null"-->
-<!--            android:visibility="@{true ? View.VISIBLE : View.GONE}" />-->
+        <com.gx.smart.smartoa.widget.LoadingView
+            android:id="@+id/loadingView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:onClick="@null"
+            android:visibility="gone" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

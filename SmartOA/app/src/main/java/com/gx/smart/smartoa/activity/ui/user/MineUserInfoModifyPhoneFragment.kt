@@ -203,6 +203,8 @@ class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
                 }
                 if (result?.code === 100) {
                     ToastUtils.showLong("修改手机号成功")
+                    val phone = newPhone.text.toString().trim()
+                    SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, phone)
                     activity?.finish()
                     ActivityUtils.startActivity(activity!!, LoginActivity::class.java)
                 } else {

@@ -2,11 +2,15 @@ package com.gx.smart.smartoa.activity.ui.setting
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
@@ -14,6 +18,9 @@ import com.gx.smart.smartoa.activity.ui.login.LoginActivity
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.UserCenterService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
+import com.gx.smart.smartoa.widget.LoadingView
+import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import kotlinx.android.synthetic.main.fragment_account_unregister.*
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -21,6 +28,13 @@ import top.limuyang2.customldialog.IOSMsgDialog
 
 
 class AccountUnregisterFragment : Fragment(), View.OnClickListener {
+
+    private var mTime: TimeCount? = null
+    private lateinit var verifyCodeText: TextView
+    private lateinit var mLoadingView: LoadingView
+    private var verifyTask: GrpcAsyncTask<String, Void, VerifyCodeResp>? = null
+    private var verifyCallBack: CallBack<VerifyCodeResp?>? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,6 +66,10 @@ class AccountUnregisterFragment : Fragment(), View.OnClickListener {
         val phoneNumber = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")
         phone.setText(phoneNumber)
         phone.setSelection(phoneNumber.length)
+        verifyCodeText = getVerifyCodeText
+        getVerifyCodeText.setOnClickListener(this)
+        initData()
+
     }
 
     override fun onClick(v: View?) {
@@ -60,6 +78,7 @@ class AccountUnregisterFragment : Fragment(), View.OnClickListener {
             R.id.cancel -> {
                 tipAction()
             }
+            R.id.getVerifyCodeText -> getVerifyCodeAction()
         }
     }
 
@@ -71,6 +90,16 @@ class AccountUnregisterFragment : Fragment(), View.OnClickListener {
 
 
     private fun unRegister() {
+        val verifyCode = verifyCode.text.trim()
+        if (verifyCode.isEmpty()) {
+            ToastUtils.showLong("验证码不能为空!")
+            return
+        }
+        if (verifyCode.isNotEmpty()) {
+            ToastUtils.showLong("验证码不正确!")
+            return
+        }
+
         loadingView.visibility = View.VISIBLE
         UserCenterService.getInstance().unRegister(object : CallBack<CommonResponse>() {
             override fun callBack(result: CommonResponse?) {
@@ -131,5 +160,81 @@ class AccountUnregisterFragment : Fragment(), View.OnClickListener {
             .remove(AppConfig.LOGIN_TOKEN)
         SPUtils.getInstance()
             .remove(AppConfig.USER_ID)
+    }
+
+
+    private fun getVerifyCodeAction() {
+        if (!NetworkUtils.isConnected()) {
+            ToastUtils.showLong("网络连接不可用")
+            return
+        }
+        mTime?.start()
+        val targetType = 1
+        val purpose = 3
+//        getVerifyCode()
+//        if (GrpcAsyncTask.isFinish(verifyTask)) {
+//            verifyTask = AuthApiService.getInstance()
+//                .verifyCode(mPhone, targetType, purpose, verifyCallBack)
+//        }
+    }
+
+    private fun initData() {
+        verifyCodeText = getVerifyCodeText
+        mTime = TimeCount(60000, 1000, verifyCodeText)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mTime?.cancel()
+    }
+
+    //获取验证码定时器
+    class TimeCount(
+        millisInFuture: Long,
+        countDownInterval: Long,
+        private val verifyCodeText: TextView
+    ) :
+        CountDownTimer(millisInFuture, countDownInterval) {
+        override fun onFinish() {
+            verifyCodeText.text = "获取验证码"
+            verifyCodeText.isClickable = true
+        }
+
+        override fun onTick(millisUntilFinished: Long) {
+            verifyCodeText.isClickable = false
+            verifyCodeText.text = String.format(
+                "%s",
+                millisUntilFinished.div(1000).toString() + "s"
+            )
+        }
+    }
+
+
+    /*******************************************获取验证码回调 */
+    private fun getVerifyCode() {
+        verifyCallBack = object : CallBack<VerifyCodeResp?>() {
+            override fun callBack(result: VerifyCodeResp?) {
+                if (!ActivityUtils.isActivityAlive(activity)) {
+                    return
+                }
+                if (result == null) {
+                    ToastUtils.showLong("验证码请求超时")
+                    return
+                }
+                val msg = result.dataMap["errMsg"]
+                if (result.code == 100) {
+                    mTime?.start()
+                    ToastUtils.showLong("获取验证码成功")
+                } else {
+                    ToastUtils.showLong(msg)
+                    mLoadingView.visibility = View.GONE
+                    val userId = result.dataMap["userId"]
+                    if (!TextUtils.isEmpty(userId)) {
+                        activity?.finish()
+                        ActivityUtils.startActivity(Intent(activity, LoginActivity::class.java))
+                    }
+                }
+            }
+        }
     }
 }

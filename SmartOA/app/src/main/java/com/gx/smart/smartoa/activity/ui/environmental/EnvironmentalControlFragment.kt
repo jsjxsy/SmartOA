@@ -161,7 +161,7 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
      */
     private fun executeScene(sceneId: String) {
         sceneComTask = UnisiotApiService.getInstance().sceneCom(
-            AppConfig.SMART_HOME_SN,
+            smartSN,
             sceneId,
             object : CallBack<UnisiotResp>() {
                 override fun callBack(result: UnisiotResp?) {

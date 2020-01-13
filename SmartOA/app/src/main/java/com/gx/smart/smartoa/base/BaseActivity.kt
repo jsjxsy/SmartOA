@@ -6,9 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.widget.LoadingDialog
 import kotlinx.android.synthetic.main.layout_common_title.*
-import top.limuyang2.ldialog.LDialog
 
 /**
  *@author xiaosy
@@ -16,7 +14,6 @@ import top.limuyang2.ldialog.LDialog
  *@Describe 基础类
  **/
 open class BaseActivity : AppCompatActivity(), View.OnClickListener {
-    lateinit var loadingDialog: LDialog
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> onBackPressed()
@@ -38,26 +35,5 @@ open class BaseActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
-    fun showLoadingDialog() {
-        loadingDialog = LoadingDialog(supportFragmentManager)
-            .showLoading()
-            .setCancelableOutside(false)
-            .show()
-
-    }
-
-    fun showLoadingDialog(text: String) {
-        loadingDialog = LoadingDialog(supportFragmentManager)
-            .setText(text)
-            .showLoading()
-            .setCancelableOutside(false)
-            .show()
-
-    }
-
-
-    fun dismissLoadingDialog() {
-        loadingDialog.dismiss()
-    }
 
 }

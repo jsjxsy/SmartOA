@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.SPUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.GeneralInformationService
@@ -74,10 +75,11 @@ class AirQualityFragment : Fragment(), View.OnClickListener {
      * 获取环境数据
      */
     private fun getAirBoxData() {
+        val homeSN = SPUtils.getInstance().getString(AppConfig.SMART_HOME_SN, "")
         airBoxDataGetTask = UnisiotApiService.getInstance()
-            .airBoxDataGet(AppConfig.SMART_HOME_SN, object : CallBack<AirBoxDataGetResp>() {
+            .airBoxDataGet(homeSN, object : CallBack<AirBoxDataGetResp>() {
                 override fun callBack(result: AirBoxDataGetResp?) {
-                    if(!ActivityUtils.isActivityAlive(activity)) {
+                    if (!ActivityUtils.isActivityAlive(activity)) {
                         return
                     }
                     items.clear()
@@ -127,7 +129,7 @@ class AirQualityFragment : Fragment(), View.OnClickListener {
         generalInfoTask = GeneralInformationService.getInstance()
             .getWeatherInfo(province, city, area, object : CallBack<WeatherInformationResponse>() {
                 override fun callBack(result: WeatherInformationResponse?) {
-                    if(!ActivityUtils.isActivityAlive(activity)) {
+                    if (!ActivityUtils.isActivityAlive(activity)) {
                         return
                     }
                     if (result == null) {

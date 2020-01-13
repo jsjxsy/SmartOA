@@ -37,8 +37,6 @@ import com.gx.wisestone.upload.grpc.images.AdminImagesResponse
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.repair_fragment.*
-import kotlinx.android.synthetic.main.repair_fragment.loadingView
-import kotlinx.android.synthetic.main.repair_fragment.wordCount
 import java.io.File
 
 class RepairFragment : Fragment(), View.OnClickListener {
@@ -95,25 +93,27 @@ class RepairFragment : Fragment(), View.OnClickListener {
         val phoneValue = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")
         phone.setText(phoneValue)
         contentEdit.addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(s: Editable?) {
-                    val length = s?.length ?: 0
-                    if (length > 0) {
-                        wordCount.text = "$length/60"
-                    }
-                    contentEdit.setSelection(length)
+            override fun afterTextChanged(s: Editable?) {
+                val length = s?.length ?: 0
+                if (length > 0) {
+                    wordCount.text = "$length/60"
                 }
+                contentEdit.setSelection(length)
+            }
 
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
 
-            })
+        })
         repair_type.setOnClickListener(this)
-        addImage1Layout.setOnClickListener(this)
-        addImage2Layout.setOnClickListener(this)
-        addImage3Layout.setOnClickListener(this)
+        //addImage1Layout.setOnClickListener(this)
+//        addImage2Layout.setOnClickListener(this)
+//        addImage3Layout.setOnClickListener(this)
+        addImage1.setOnClickListener(this)
+        clearImage1.setOnClickListener(this)
 
     }
 
@@ -151,12 +151,19 @@ class RepairFragment : Fragment(), View.OnClickListener {
 
             }
 
-            R.id.addImage1Layout,
-            R.id.addImage2Layout,
-            R.id.addImage3Layout -> uploadHeadImage()
+//            R.id.addImage1Layout,
+//            R.id.addImage2Layout,
+//            R.id.addImage3Layout -> uploadHeadImage()
+            R.id.addImage1 -> uploadHeadImage()
+            R.id.clearImage1 -> clearImage()
         }
 
 
+    }
+
+    private fun clearImage() {
+        images.clear()
+        Glide.with(this@RepairFragment).load(R.drawable.ic_add_file).into(addImage1)
     }
 
 
@@ -245,7 +252,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
                                 save.setTag(R.id.save, true)
                             }
                         }
-                       // position++
+                        // position++
                     }
 
                 })
