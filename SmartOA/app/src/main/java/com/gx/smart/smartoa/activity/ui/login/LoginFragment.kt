@@ -94,6 +94,7 @@ class LoginFragment : Fragment(), OnClickListener {
             container,
             false
         )
+        loginFragmentBinding.lifecycleOwner = this
         loginFragmentBinding.userModel = viewModel
         return loginFragmentBinding.root
     }
