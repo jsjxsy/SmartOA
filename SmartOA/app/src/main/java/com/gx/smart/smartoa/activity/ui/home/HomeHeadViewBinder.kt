@@ -63,13 +63,6 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
                         VisitorActivity::class.java
                     )
                 )
-            R.id.id_more_text_view -> ActivityUtils.startActivity(
-                Intent(
-                    ActivityUtils.getTopActivity(),
-                    AllFeatureActivity::class.java
-                )
-            )
-
             R.id.id_repair_text_view -> joinCompanyContinue(3)
             R.id.id_air_quality_text_view -> ActivityUtils.startActivity(
                 Intent(
@@ -107,7 +100,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
                     .setPositiveButton("确定").show()
                 2 -> gotoDetailAction(type)
                 else ->
-                    IOSMsgDialog.init(fragmentManager!!)
+                    IOSMsgDialog.init(fragmentManager)
                         .setTitle("加入企业")
                         .setMessage("您还未入驻任何企业，请先进行企业身份认证")
                         .setPositiveButton("马上认证", View.OnClickListener {
@@ -121,7 +114,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
             }
 
         } else {
-            IOSMsgDialog.init(fragmentManager!!)
+            IOSMsgDialog.init(fragmentManager)
                 .setTitle("加入企业")
                 .setMessage("您还未入驻任何企业，请先进行企业身份认证")
                 .setPositiveButton("马上认证", View.OnClickListener {
@@ -169,13 +162,13 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
         return ViewHolder(root)
     }
 
-    override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull homeHead: HomeHead) {
+    override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull item: HomeHead) {
         convenientBanner = holder.item
         initClickEvent(
-            holder.id_environmental_control_text_view,
-            holder.id_more_text_view,
-            holder.id_attendance_text_view,
-            holder.id_visitor_text_view,
+            holder.idEnvironmentalControlTextView,
+            holder.idMoreTextView,
+            holder.idAttendanceTextView,
+            holder.idVisitorTextView,
             holder.idRepairTextView,
             holder.idAirQualityTextView,
             holder.idShareWorkTextView,
@@ -186,13 +179,13 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val item: ConvenientBanner<Any> = itemView.findViewById(R.id.headBanner)
-        val id_environmental_control_text_view: TextView =
+        val idEnvironmentalControlTextView: TextView =
             itemView.findViewById(R.id.id_environmental_control_text_view)
-        val id_more_text_view: TextView =
+        val idMoreTextView: TextView =
             itemView.findViewById(R.id.id_more_text_view)
-        val id_attendance_text_view: TextView =
+        val idAttendanceTextView: TextView =
             itemView.findViewById(R.id.id_attendance_text_view)
-        val id_visitor_text_view: TextView =
+        val idVisitorTextView: TextView =
             itemView.findViewById(R.id.id_visitor_text_view)
 
         val idRepairTextView: TextView = itemView.findViewById(R.id.id_repair_text_view)

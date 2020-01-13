@@ -54,7 +54,7 @@ class HomeActionViewBinder :
         return ViewHolder(root)
     }
 
-    override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull actionRecommendList: HomeActionRecommend) {
+    override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull item: HomeActionRecommend) {
         actionRecommendBanner = holder.item
         holder.more.setOnClickListener {
             val intent = Intent(holder.itemView.context, MineActionActivity::class.java)
@@ -76,7 +76,7 @@ class HomeActionViewBinder :
     ) {
         actionRecommendBanner.setPages(object : CBViewHolderCreator {
             override fun createHolder(itemView: View): Holder<*> {
-                return ActionRecommendHolderView(itemView, fragmentManager)
+                return ActionRecommendHolderView(itemView)
             }
 
             override fun getLayoutId(): Int {
@@ -110,12 +110,12 @@ class HomeActionViewBinder :
                     if (!ActivityUtils.isActivityAlive(mRefreshLayout.context)) {
                         return
                     }
-                    mRefreshLayout?.finishRefresh()
+                    mRefreshLayout.finishRefresh()
                     if (result == null) {
                         ToastUtils.showLong("查询活动超时!")
                         return
                     }
-                    if (result?.code == 100) {
+                    if (result.code == 100) {
                         var list = result.contentList.toList()
                         initActionRecommend(actionRecommendBanner, list)
                     } else {
@@ -127,7 +127,7 @@ class HomeActionViewBinder :
     }
 
 
-    inner class ActionRecommendHolderView(itemView: View, fragmentManager: FragmentManager) :
+    inner class ActionRecommendHolderView(itemView: View) :
         Holder<AppActivityDto>(itemView) {
         private lateinit var imageView: ImageView
         private lateinit var title: TextView
@@ -171,13 +171,13 @@ class HomeActionViewBinder :
                 SPUtils.getInstance().getInt(AppConfig.COMPANY_SYS_TENANT_NO, 0)
             if (buildingSysTenantNo == companySysTenantNo) {
                 when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0)) {
-                    1 -> IOSMsgDialog.init(fragmentManager!!)
+                    1 -> IOSMsgDialog.init(fragmentManager)
                         .setTitle("加入企业")
                         .setMessage("您申请的企业在审核中，请耐心等待")
                         .setPositiveButton("确定").show()
 
                     2 -> goActionDetail(view, item)
-                    else -> IOSMsgDialog.init(fragmentManager!!)
+                    else -> IOSMsgDialog.init(fragmentManager)
                         .setTitle("加入企业")
                         .setMessage("您还未入驻任何企业，请先进行企业身份认证")
                         .setPositiveButton("马上认证", View.OnClickListener {
@@ -191,7 +191,7 @@ class HomeActionViewBinder :
                 }
 
             } else {
-                IOSMsgDialog.init(fragmentManager!!)
+                IOSMsgDialog.init(fragmentManager)
                     .setTitle("加入企业")
                     .setMessage("您还未入驻任何企业，请先进行企业身份认证")
                     .setPositiveButton("马上认证", View.OnClickListener {

@@ -40,11 +40,11 @@ class FeatureViewBinder : ItemViewBinder<Feature, FeatureViewBinder.ViewHolder>(
         return ViewHolder(root)
     }
 
-    override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull feature: Feature) {
-        val context = ActivityUtils.getActivityByView(holder.itemView)
-        val drawableTop = ContextCompat.getDrawable(context, feature.resId)
+    override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull item: Feature) {
+        val context = ActivityUtils.getActivityByView(holder.item)
+        val drawableTop = ContextCompat.getDrawable(context, item.resId)
         holder.item.setCompoundDrawablesWithIntrinsicBounds(null, drawableTop, null, null)
-        holder.item.text = feature.name
+        holder.item.text = item.name
         holder.item.setOnClickListener {
             when (holder.item.text) {
                 holder.itemView.resources.getString(R.string.environmental_control) -> {
@@ -104,14 +104,14 @@ class FeatureViewBinder : ItemViewBinder<Feature, FeatureViewBinder.ViewHolder>(
             SPUtils.getInstance().getInt(AppConfig.COMPANY_SYS_TENANT_NO, 0)
         if (buildingSysTenantNo == companySysTenantNo) {
             when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0)) {
-                1 -> IOSMsgDialog.init(fragmentManager!!)
+                1 -> IOSMsgDialog.init(fragmentManager)
                     .setTitle("加入企业")
                     .setMessage("您申请的企业在审核中，请耐心等待")
                     .setPositiveButton("确定").show()
 
                 2 -> gotoDetailAction(type)
 
-                else -> IOSMsgDialog.init(fragmentManager!!)
+                else -> IOSMsgDialog.init(fragmentManager)
                     .setTitle("加入企业")
                     .setMessage("您还未入驻任何企业，请先进行企业身份认证")
                     .setPositiveButton("马上认证", View.OnClickListener {
@@ -126,7 +126,7 @@ class FeatureViewBinder : ItemViewBinder<Feature, FeatureViewBinder.ViewHolder>(
 
 
         } else {
-            IOSMsgDialog.init(fragmentManager!!)
+            IOSMsgDialog.init(fragmentManager)
                 .setTitle("加入企业")
                 .setMessage("您还未入驻任何企业，请先进行企业身份认证")
                 .setPositiveButton("马上认证", View.OnClickListener {

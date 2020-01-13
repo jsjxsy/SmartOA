@@ -69,7 +69,7 @@ class LoginFragment : Fragment(), OnClickListener {
             R.id.id_register_text_view ->
                 Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment)
             R.id.loginType -> loginType()
-            R.id.getVerifyCodeText -> getVerifyCode()
+//            R.id.getVerifyCodeText -> getVerifyCode()
             R.id.passwordState -> passwordState()
 
         }
@@ -84,8 +84,7 @@ class LoginFragment : Fragment(), OnClickListener {
     private var mTime: TimeCount? = null
     private lateinit var verifyCodeText: TextView
     private lateinit var mLoadingView: LoadingView
-    private var verifyTask: GrpcAsyncTask<String, Void, VerifyCodeResp>? = null
-    private var verifyCallBack: CallBack<VerifyCodeResp?>? = null
+
 
     private var loginTask: GrpcAsyncTask<String, Void, LoginResp>? = null
     private var loginCallBack: CallBack<LoginResp?>? = null
@@ -310,50 +309,29 @@ class LoginFragment : Fragment(), OnClickListener {
     }
 
 
-    /*******************************************获取验证码回调 */
-    private fun verifyCodeCallBack() {
-        verifyCallBack = object : CallBack<VerifyCodeResp?>() {
-            override fun callBack(result: VerifyCodeResp?) {
-                if(!ActivityUtils.isActivityAlive(activity)) {
-                    return
-                }
-                if (result == null) {
-                    ToastUtils.showLong("验证码请求超时")
-                    return
-                }
-                val msg = result.dataMap["errMsg"]
-                if (result.code == 100) {
-                    mTime?.start()
-                    ToastUtils.showLong("获取验证码成功")
-                } else {
-                    ToastUtils.showLong(msg)
-                    mLoadingView.visibility = View.GONE
-                }
-            }
-        }
-    }
 
-    private fun getVerifyCode() {
-        mPhone = id_input_phone_edit_text.text.toString()
-        if (!NetworkUtils.isConnected()) {
-            ToastUtils.showLong("网络连接不可用")
-            return
-        }
-        if (TextUtils.isEmpty(mPhone)) {
-            ToastUtils.showLong("手机号不能为空")
-        } else if (mPhone?.length != 11 || !DataCheckUtil.isMobile(mPhone)) {
-            ToastUtils.showLong("非法手机号")
-        } else { //获取登录验证码
-            val targetType = 1
-            val purpose = 1
-            verifyCodeCallBack()
-            if (GrpcAsyncTask.isFinish(verifyTask)) {
-                verifyTask =
-                    AuthApiService.getInstance()
-                        .verifyCode(mPhone, targetType, purpose, verifyCallBack)
-            }
-        }
-    }
+
+//    private fun getVerifyCode() {
+//        mPhone = id_input_phone_edit_text.text.toString()
+//        if (!NetworkUtils.isConnected()) {
+//            ToastUtils.showLong("网络连接不可用")
+//            return
+//        }
+//        if (TextUtils.isEmpty(mPhone)) {
+//            ToastUtils.showLong("手机号不能为空")
+//        } else if (mPhone?.length != 11 || !DataCheckUtil.isMobile(mPhone)) {
+//            ToastUtils.showLong("非法手机号")
+//        } else { //获取登录验证码
+//            val targetType = 1
+//            val purpose = 1
+//            verifyCodeCallBack()
+//            if (GrpcAsyncTask.isFinish(verifyTask)) {
+//                verifyTask =
+//                    AuthApiService.getInstance()
+//                        .verifyCode(mPhone, targetType, purpose, verifyCallBack)
+//            }
+//        }
+//    }
 
 
     /*******************************************登录回调 */
@@ -441,7 +419,7 @@ class LoginFragment : Fragment(), OnClickListener {
                             ToastUtils.showLong("查询我的企业超时!")
                             return
                         }
-                        if (result?.code == 100) {
+                        if (result.code == 100) {
                             val employeeList = result.employeeInfoList
                             if (employeeList.isNotEmpty()) {
                                 val employeeInfo = employeeList[0]
