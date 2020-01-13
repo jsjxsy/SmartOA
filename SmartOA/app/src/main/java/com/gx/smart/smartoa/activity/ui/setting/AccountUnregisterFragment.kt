@@ -113,7 +113,9 @@ class AccountUnregisterFragment : Fragment(), View.OnClickListener {
                 }
                 if (result?.code == 100) {
                     clearCache()
-                    ActivityUtils.startActivity(Intent(activity, LoginActivity::class.java))
+                    val intent = Intent(activity, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    ActivityUtils.startActivity(intent)
                     ToastUtils.showLong("注销账号成功")
                     activity?.finish()
                 } else {
@@ -230,8 +232,10 @@ class AccountUnregisterFragment : Fragment(), View.OnClickListener {
                     mLoadingView.visibility = View.GONE
                     val userId = result.dataMap["userId"]
                     if (!TextUtils.isEmpty(userId)) {
+                        val intent = Intent(activity, LoginActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        ActivityUtils.startActivity(intent)
                         activity?.finish()
-                        ActivityUtils.startActivity(Intent(activity, LoginActivity::class.java))
                     }
                 }
             }

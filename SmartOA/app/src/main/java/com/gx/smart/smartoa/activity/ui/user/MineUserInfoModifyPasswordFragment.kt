@@ -147,7 +147,8 @@ class MineUserInfoModifyPasswordFragment : Fragment(), View.OnClickListener {
                 val msg = result.dataMap["errMsg"]
                 if (result?.code == 100) {
                     ToastUtils.showLong("修改密码成功")
-                    activity?.finish()
+                    val intent = Intent(activity, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     ActivityUtils.startActivity(Intent(activity!!, LoginActivity::class.java))
                 } else {
                     ToastUtils.showLong(msg)

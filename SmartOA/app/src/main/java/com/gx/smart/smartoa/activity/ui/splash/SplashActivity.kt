@@ -140,7 +140,9 @@ class SplashActivity : BaseActivity() {
 
     private fun loginActivity() {
         finish()
-        startActivity(Intent(SplashActivity@ this, LoginActivity::class.java))
+        val intent = Intent(SplashActivity@ this, LoginActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        ActivityUtils.startActivity(intent)
     }
 
     private fun loginAuto() {
@@ -278,7 +280,10 @@ class SplashActivity : BaseActivity() {
                                 SPUtils.getInstance()
                                     .put(AppConfig.EMPLOYEE_ID, employeeInfo.employeeId)
                                 SPUtils.getInstance()
-                                    .put(AppConfig.COMPANY_STRUCTURE_ID, employeeInfo.companyStructureId)
+                                    .put(
+                                        AppConfig.COMPANY_STRUCTURE_ID,
+                                        employeeInfo.companyStructureId
+                                    )
                                 SPUtils.getInstance()
                                     .put(AppConfig.COMPANY_SYS_TENANT_NO, employeeInfo.tenantNo)
                                 SPUtils.getInstance()
@@ -301,7 +306,10 @@ class SplashActivity : BaseActivity() {
                                     .getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
                                 if (tenantNo == 0) {
                                     SPUtils.getInstance()
-                                        .put(AppConfig.BUILDING_SYS_TENANT_NO, employeeInfo.tenantNo)
+                                        .put(
+                                            AppConfig.BUILDING_SYS_TENANT_NO,
+                                            employeeInfo.tenantNo
+                                        )
                                 }
                                 mainActivity()
                             } else {

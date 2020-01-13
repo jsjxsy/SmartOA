@@ -227,7 +227,9 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                     val userId = result.dataMap["userId"]
                     if (!TextUtils.isEmpty(userId)) {
                         activity?.finish()
-                        ActivityUtils.startActivity(Intent(activity, LoginActivity::class.java))
+                        val intent = Intent(activity, LoginActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        ActivityUtils.startActivity(intent)
                     }
                 }
             }

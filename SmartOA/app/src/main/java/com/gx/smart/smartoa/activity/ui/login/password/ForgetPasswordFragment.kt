@@ -269,7 +269,9 @@ class ForgetPasswordFragment : Fragment(), View.OnClickListener {
                 if (result?.code == 100) {
                     ToastUtils.showLong("修改密码成功")
                     activity?.finish()
-                    ActivityUtils.startActivity(Intent(activity!!, LoginActivity::class.java))
+                    val intent = Intent(activity, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    ActivityUtils.startActivity(intent)
                 } else {
                     ToastUtils.showLong(msg)
                 }

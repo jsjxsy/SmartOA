@@ -1,5 +1,6 @@
 package com.gx.smart.smartoa.activity.ui.user
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -206,7 +207,9 @@ class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
                     val phone = newPhone.text.toString().trim()
                     SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, phone)
                     activity?.finish()
-                    ActivityUtils.startActivity(activity!!, LoginActivity::class.java)
+                    val intent = Intent(activity, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    ActivityUtils.startActivity(intent)
                 } else {
                     ToastUtils.showLong(result?.msg)
                 }
