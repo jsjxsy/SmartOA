@@ -253,7 +253,6 @@ public class UserCenterService {
                     response = getUserStub(channel).updateAppUser(message);
                     Logger.d(response);
                 } catch (Exception e) {
-                    Log.i("UserCenterService", e.getMessage());
                     Logger.e(e, "hasNotReadMessage");
                 }
 

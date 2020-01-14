@@ -32,6 +32,7 @@ import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AdminImageProviderService
 import com.gx.smart.smartoa.data.network.api.AppRepairService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
 import com.gx.smart.smartoa.data.network.api.lib.model.UploadImage
 import com.gx.wisestone.upload.grpc.images.AdminImagesResponse
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
@@ -51,6 +52,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
     private lateinit var viewModel: RepairViewModel
     private var type: RepairType = RepairType(1, "设备损坏")
     private var images: MutableList<String> = arrayListOf()
+    private var uploadImageTask: GrpcAsyncTask<String, Void, AdminImagesResponse>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -162,6 +164,10 @@ class RepairFragment : Fragment(), View.OnClickListener {
     }
 
     private fun clearImage() {
+        save.setTag(R.id.save, true)
+        if(!GrpcAsyncTask.isFinish(uploadImageTask)) {
+            uploadImageTask?.cancelTask(true)
+        }
         images.clear()
         Glide.with(this@RepairFragment).load(R.drawable.ic_add_file).into(addImage1)
     }
@@ -175,7 +181,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
         images: List<String>
     ) {
         loadingView.visibility = View.VISIBLE
-        AppRepairService.getInstance()
+       AppRepairService.getInstance()
             .addRepair(
                 content,
                 type,
@@ -208,7 +214,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
         fileName: String,
         image_bytes: ByteString
     ) {
-        AdminImageProviderService.getInstance()
+         uploadImageTask = AdminImageProviderService.getInstance()
             .uploadByByte(
                 AppConfig.REPAIR_PREFIX,
                 fileName,
