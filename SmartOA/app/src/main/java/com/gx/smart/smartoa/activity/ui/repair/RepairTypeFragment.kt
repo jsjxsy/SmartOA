@@ -71,7 +71,7 @@ class RepairTypeFragment : Fragment(), View.OnClickListener {
         adapter.onItemClick = onItemClick
         adapter.mList = arrayListOf(
             RepairType(1,"设备损坏"),
-            RepairType(2,"办公绿色"),
+            RepairType(2,"办公绿化"),
             RepairType(3,"公共卫生")
         )
 
