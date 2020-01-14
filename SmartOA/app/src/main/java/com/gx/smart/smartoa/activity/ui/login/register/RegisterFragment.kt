@@ -16,7 +16,6 @@ import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.activity.WebViewActivity
 import com.gx.smart.smartoa.activity.ui.login.LoginActivity
 import com.gx.smart.smartoa.activity.ui.splash.SplashActivity.Companion.DELAY_TIME
@@ -210,7 +209,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     private fun getVerifyCode() {
         verifyCallBack = object : CallBack<VerifyCodeResp?>() {
             override fun callBack(result: VerifyCodeResp?) {
-                if(!ActivityUtils.isActivityAlive(activity)) {
+                if (!ActivityUtils.isActivityAlive(activity)) {
                     return
                 }
                 if (result == null) {
@@ -240,7 +239,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     private fun appUserRegisterCallBack() {
         registerBack = object : CallBack<RegistResp?>() {
             override fun callBack(result: RegistResp?) {
-                if(!ActivityUtils.isActivityAlive(activity)) {
+                if (!ActivityUtils.isActivityAlive(activity)) {
                     return
                 }
                 if (result == null) {
@@ -273,7 +272,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     fun authLoginCallBack() {
         loginCallBack = object : CallBack<LoginResp?>() {
             override fun callBack(result: LoginResp?) {
-                if(!ActivityUtils.isActivityAlive(activity)) {
+                if (!ActivityUtils.isActivityAlive(activity)) {
                     return
                 }
                 if (result == null) {
@@ -306,7 +305,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     fun bindAppCallBack() {
         bindCallBack = object : CallBack<AppInfoResponse?>() {
             override fun callBack(result: AppInfoResponse?) {
-                if(!ActivityUtils.isActivityAlive(activity)) {
+                if (!ActivityUtils.isActivityAlive(activity)) {
                     return
                 }
                 if (result == null) {
@@ -316,14 +315,14 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                 }
 
                 if (result.code === 100) {
-                    SPUtils.getInstance().put(AppConfig.USER_ID,result.appUserInfoDto.userId)
+                    SPUtils.getInstance().put(AppConfig.USER_ID, result.appUserInfoDto.userId)
                     mLoadingView.visibility = View.GONE
-                    ActivityUtils.startActivity(Intent(activity, MainActivity::class.java))
+                    gotoLoginPage()
                     //用户已经绑定
                 } else if (result.code == 7003) {
-                    SPUtils.getInstance().put(AppConfig.USER_ID,result.appUserInfoDto.userId)
+                    SPUtils.getInstance().put(AppConfig.USER_ID, result.appUserInfoDto.userId)
                     mLoadingView.visibility = View.GONE
-                    ActivityUtils.startActivity(Intent(activity, MainActivity::class.java))
+                    gotoLoginPage()
                 } else {
                     ToastUtils.showLong(result.msg)
                     mLoadingView.visibility = View.GONE
@@ -331,6 +330,12 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                 //处理数据,刷新UI
             }
         }
+    }
+
+    private fun gotoLoginPage() {
+        val intent = Intent(activity, LoginActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        ActivityUtils.startActivity(intent)
     }
 
     /*******************************************密码校验 */

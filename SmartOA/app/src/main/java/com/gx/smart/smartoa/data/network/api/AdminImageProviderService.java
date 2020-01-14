@@ -69,11 +69,11 @@ public class AdminImageProviderService {
                     response = getAdminImage(channel).uploadByByte(message);
                     Logger.d(response);
                 } catch (Exception e) {
-                    Logger.e(e,"uploadByByte");
+                    Logger.e(e, "uploadByByte");
                 }
 
                 return response;
             }
-        }.setPort(ApiConfig.UPLOAD_IMAGE_SERVER_PORT).doExecute();
+        }.setHost(ApiConfig.UPLOAD_IMAGE_SERVER_URL, ApiConfig.UPLOAD_IMAGE_SERVER_PORT).doExecute();
     }
 }

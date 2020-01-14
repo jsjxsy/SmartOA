@@ -69,12 +69,8 @@ public class WebSocketNotifyClient {
             preToken = token;
         }
         Draft draft = new Draft_6455();
-        String wslocation = "";
-        if (true) {
-            wslocation = ApiConfig.WEB_SOCKET_URL;
-        } else {
-            wslocation = ApiConfig.WEB_SOCKET_TEST_URL;
-        }
+        String wslocation = ApiConfig.WEB_SOCKET_URL;
+
         String str = wslocation;
         str = str.replaceAll("\\{ID\\}", id);
         str = str.replaceAll("\\{TOKEN\\}", token);

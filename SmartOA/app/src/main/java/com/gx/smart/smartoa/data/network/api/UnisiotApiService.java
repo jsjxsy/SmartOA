@@ -106,7 +106,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
     /**
@@ -134,7 +134,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
     /**
@@ -159,7 +159,7 @@ public class UnisiotApiService {
                 }
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -192,7 +192,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
     /**
@@ -222,7 +222,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
     /**
@@ -258,7 +258,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -285,7 +285,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -312,7 +312,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -341,7 +341,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -374,7 +374,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -411,7 +411,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -440,7 +440,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -469,7 +469,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
     /**
@@ -499,7 +499,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -530,7 +530,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -561,7 +561,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -592,7 +592,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -623,7 +623,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -650,7 +650,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
     /**
@@ -676,7 +676,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
     /**
@@ -704,7 +704,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -738,7 +738,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -771,7 +771,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -800,7 +800,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -829,6 +829,6 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setPort(ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 }

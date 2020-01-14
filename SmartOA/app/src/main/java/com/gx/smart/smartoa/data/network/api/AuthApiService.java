@@ -1,8 +1,6 @@
 package com.gx.smart.smartoa.data.network.api;
 
 
-import android.util.Log;
-
 import com.gx.smart.smartoa.data.network.ApiConfig;
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
@@ -77,16 +75,18 @@ public class AuthApiService {
                         .setMobile(mobile)
                         .setMobileVerifyCode(mobile_verify_code)
                         .build();
+                Logger.d(message);
                 RegistResp response = null;
                 try {
                     response = getAuthStub(channel).regist(message);
+                    Logger.d(response);
                 } catch (Exception e) {
                     Logger.e(e, "regist");
                 }
 
                 return response;
             }
-        }.setPort(ApiConfig.AUTH_API_SERVER_PORT).doExecute();
+        }.setHost(ApiConfig.AUTH_API_SERVER_URL, ApiConfig.AUTH_API_SERVER_PORT).doExecute();
     }
 
 
@@ -112,28 +112,30 @@ public class AuthApiService {
                         .setUserId(userId)
                         .setToken(token)
                         .build();
+                Logger.d(message);
                 UserModifyResp response = null;
                 try {
                     response = getAuthStub(channel).userModify(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Log.i("AuthApiService", e.getMessage());
+                    Logger.e(e, "login");
                 }
 
                 return response;
             }
-        }.setPort(ApiConfig.AUTH_API_SERVER_PORT).doExecute();
+        }.setHost(ApiConfig.AUTH_API_SERVER_URL, ApiConfig.AUTH_API_SERVER_PORT).doExecute();
     }
 
     /**
      * 用户手机号修改
      *
-     * @param userId            (必) 账号/手机号 根据登录类型而定
-     * @param token           (必) 密码/验证码 根据登录类型而定
+     * @param userId             (必) 账号/手机号 根据登录类型而定
+     * @param token              (必) 密码/验证码 根据登录类型而定
      * @param mobile             登录手机号
      * @param mobile_verify_code 手机验证码
      * @return callBack返回值
      */
-    public  GrpcAsyncTask<String, Void, UserModifyResp> userModifyMobile(final String mobile, final String mobile_verify_code, final String userId, final String token, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, UserModifyResp> userModifyMobile(final String mobile, final String mobile_verify_code, final String userId, final String token, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, UserModifyResp>(callBack) {
             @Override
             protected UserModifyResp doRequestData(ManagedChannel channel) {
@@ -144,16 +146,18 @@ public class AuthApiService {
                         .setUserId(userId)
                         .setToken(token)
                         .build();
+                Logger.d(message);
                 UserModifyResp response = null;
                 try {
                     response = getAuthStub(channel).userModify(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Log.i("AuthApiService", e.getMessage());
+                    Logger.e(e, "login");
                 }
 
                 return response;
             }
-        }.setPort(ApiConfig.AUTH_API_SERVER_PORT).doExecute();
+        }.setHost(ApiConfig.AUTH_API_SERVER_URL, ApiConfig.AUTH_API_SERVER_PORT).doExecute();
     }
 
     /**
@@ -172,16 +176,18 @@ public class AuthApiService {
                         .setUserId(userId)
                         .setToken(token)
                         .build();
+                Logger.d(message);
                 UserModifyResp response = null;
                 try {
                     response = getAuthStub(channel).userModify(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Log.i("AuthApiService", e.getMessage());
+                    Logger.e(e, "login");
                 }
 
                 return response;
             }
-        }.setPort(ApiConfig.AUTH_API_SERVER_PORT).doExecute();
+        }.setHost(ApiConfig.AUTH_API_SERVER_URL, ApiConfig.AUTH_API_SERVER_PORT).doExecute();
     }
 
 
@@ -201,16 +207,18 @@ public class AuthApiService {
                         .setUserId(userId)
                         .setToken(token)
                         .build();
+                Logger.d(message);
                 UserModifyResp response = null;
                 try {
                     response = getAuthStub(channel).userModify(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Log.i("AuthApiService", e.getMessage());
+                    Logger.e(e, "login");
                 }
 
                 return response;
             }
-        }.setPort(ApiConfig.AUTH_API_SERVER_PORT).doExecute();
+        }.setHost(ApiConfig.AUTH_API_SERVER_URL, ApiConfig.AUTH_API_SERVER_PORT).doExecute();
     }
 
     /**
@@ -231,16 +239,18 @@ public class AuthApiService {
                         .setPassword(password)
                         .setLoginType(login_type)
                         .build();
+                Logger.d(message);
                 LoginResp response = null;
                 try {
                     response = getAuthStub(channel).login(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Log.i("AuthApiService", e.getMessage());
+                    Logger.e(e, "login");
                 }
 
                 return response;
             }
-        }.setPort(ApiConfig.AUTH_API_SERVER_PORT).doExecute();
+        }.setHost(ApiConfig.AUTH_API_SERVER_URL, ApiConfig.AUTH_API_SERVER_PORT).doExecute();
     }
 
 
@@ -262,16 +272,18 @@ public class AuthApiService {
                         .setRefreshToken(refresh_token)
                         .setAccount(account)
                         .build();
+                Logger.d(message);
                 RefreshTokenResp response = null;
                 try {
                     response = getAuthStub(channel).refreshToken(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Log.i("AuthApiService", e.getMessage());
+                    Logger.e(e, "login");
                 }
 
                 return response;
             }
-        }.setPort(ApiConfig.AUTH_API_SERVER_PORT).doExecute();
+        }.setHost(ApiConfig.AUTH_API_SERVER_URL, ApiConfig.AUTH_API_SERVER_PORT).doExecute();
     }
 
 
@@ -290,16 +302,18 @@ public class AuthApiService {
                         .setType(type)
                         .setUserSpace(user_space)
                         .build();
+                Logger.d(message);
                 TokenKeysResp response = null;
                 try {
                     response = getAuthStub(channel).tokenKeys(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Log.i("AuthApiService", e.getMessage());
+                    Logger.e(e, "login");
                 }
 
                 return response;
             }
-        }.setPort(ApiConfig.AUTH_API_SERVER_PORT).doExecute();
+        }.setHost(ApiConfig.AUTH_API_SERVER_URL, ApiConfig.AUTH_API_SERVER_PORT).doExecute();
     }
 
 
@@ -311,7 +325,7 @@ public class AuthApiService {
      * @param purpose    用途 1 登录 2 注册 3 修改
      * @return callBack返回值
      */
-    public  GrpcAsyncTask<String, Void, VerifyCodeResp> verifyCode(final String target, final int targetType, final int purpose, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, VerifyCodeResp> verifyCode(final String target, final int targetType, final int purpose, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, VerifyCodeResp>(callBack) {
             @Override
             protected VerifyCodeResp doRequestData(ManagedChannel channel) {
@@ -321,15 +335,17 @@ public class AuthApiService {
                         .setTargetType(targetType)
                         .setPurpose(purpose)
                         .build();
+                Logger.d(message);
                 VerifyCodeResp response = null;
                 try {
                     response = getAuthStub(channel).verifyCode(message);
+                    Logger.d(response);
                 } catch (Exception e) {
-                    Log.i("AuthApiService", e.getMessage());
+                    Logger.e(e, "login");
                 }
 
                 return response;
             }
-        }.setPort(ApiConfig.AUTH_API_SERVER_PORT).doExecute();
+        }.setHost(ApiConfig.AUTH_API_SERVER_URL, ApiConfig.AUTH_API_SERVER_PORT).doExecute();
     }
 }

@@ -30,4 +30,9 @@ public class WsProvider implements WsClientCall.Provider {
         return employeeId;
     }
 
+    @Override
+    public String wsVer() {
+        return AppConfig.wsVer;
+    }
+
 }

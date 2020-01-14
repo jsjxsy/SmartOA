@@ -20,6 +20,7 @@ public class WsClientCall<ReqT, RespT> extends ForwardingClientCall.SimpleForwar
             String token = provider.token();
             Integer sysTenantNo = provider.sysTenantNo();
             Long employeeId = provider.employeeId();
+            String wsVer = provider.wsVer();
             if (null != token && token.length() > 0) {
                 headers.put(IntercepterConstants.AUTHORIZATION_KEY, IntercepterConstants.BEARER + token);
             }
@@ -28,6 +29,9 @@ public class WsClientCall<ReqT, RespT> extends ForwardingClientCall.SimpleForwar
             }
             if (null != employeeId) {
                 headers.put(IntercepterConstants.META_KEY_EMPLOYEE_ID, String.valueOf(employeeId));
+            }
+            if (null != wsVer) {
+                headers.put(IntercepterConstants.META_KEY_WS_VER, wsVer + "");
             }
 
         }
@@ -41,5 +45,7 @@ public class WsClientCall<ReqT, RespT> extends ForwardingClientCall.SimpleForwar
         Integer sysTenantNo();
 
         Long employeeId();
+
+        String wsVer();
     }
 }
