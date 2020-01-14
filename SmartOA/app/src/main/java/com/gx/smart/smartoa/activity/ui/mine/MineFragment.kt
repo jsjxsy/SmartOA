@@ -3,6 +3,7 @@ package com.gx.smart.smartoa.activity.ui.mine
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -102,8 +103,10 @@ class MineFragment : Fragment(), View.OnClickListener {
                 if (result?.code == 100) {
                     val userInfo = result.appUserInfoDto
                     if (ActivityUtils.isActivityAlive(activity)) {
+                        val headImageUrl =
+                            userInfo.imageUrl + "?v=" + SystemClock.currentThreadTimeMillis()
                         Glide.with(activity!!)
-                            .load(userInfo.imageUrl)
+                            .load(headImageUrl)
                             .error(R.drawable.ic_head)
                             .placeholder(R.drawable.ic_head)
                             .apply(RequestOptions.bitmapTransform(CircleCrop()))

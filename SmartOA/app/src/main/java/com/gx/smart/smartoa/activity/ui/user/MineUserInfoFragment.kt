@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.os.SystemClock
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -176,9 +177,10 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                 }
                 if (result?.code == 100) {
                     val userInfo = result.appUserInfoDto
-
+                    val headImageUrl =
+                        userInfo.imageUrl + "?v=" + SystemClock.currentThreadTimeMillis()
                         Glide.with(activity!!)
-                            .load(userInfo.imageUrl)
+                            .load(headImageUrl)
                             .error(R.drawable.ic_head)
                             .placeholder(R.drawable.ic_head)
                             .apply(RequestOptions.bitmapTransform(CircleCrop()))
