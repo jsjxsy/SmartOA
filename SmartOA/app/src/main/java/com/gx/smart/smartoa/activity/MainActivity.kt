@@ -10,7 +10,6 @@ import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.home.HomeFragment
 import com.gx.smart.smartoa.activity.ui.mine.MineFragment
 import com.gx.smart.smartoa.activity.ui.open.OpenDoorFragment
-import com.gx.smart.smartoa.activity.ui.user.MineUserInfoFragment
 import com.gx.smart.smartoa.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 

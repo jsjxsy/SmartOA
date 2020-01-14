@@ -1,18 +1,12 @@
 package com.gx.smart.smartoa
 
-import android.app.AlertDialog
 import android.app.Application
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Build
 import android.text.TextUtils
 import cn.jpush.android.api.JPushInterface
-import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.Utils
 import com.gx.smart.smartoa.data.network.AppConfig
-import com.gx.smart.smartoa.push.PushMessageConstants.*
 import com.gx.smart.webview.X5NetService
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger

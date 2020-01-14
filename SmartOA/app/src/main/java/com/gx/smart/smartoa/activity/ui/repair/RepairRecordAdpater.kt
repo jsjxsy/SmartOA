@@ -60,7 +60,7 @@ class RepairRecordAdapter :
         val item = mList!![position]
         holder.mContent.text = when (item.type) {
             1 -> "设备损坏"
-            2 -> "办公绿色"
+            2 -> "办公绿化"
             3 -> "公共卫生"
             else -> "未知"
         }

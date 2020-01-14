@@ -165,6 +165,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
 
     private fun clearImage() {
         save.setTag(R.id.save, true)
+        requestUploadImageCount = 0
         if(!GrpcAsyncTask.isFinish(uploadImageTask)) {
             uploadImageTask?.cancelTask(true)
         }

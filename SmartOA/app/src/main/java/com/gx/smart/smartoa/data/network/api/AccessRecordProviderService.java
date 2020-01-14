@@ -1,7 +1,6 @@
 package com.gx.smart.smartoa.data.network.api;
 
 import com.blankj.utilcode.util.SPUtils;
-import com.gx.smart.smartoa.data.network.ApiConfig;
 import com.gx.smart.smartoa.data.network.AppConfig;
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;

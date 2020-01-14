@@ -64,7 +64,7 @@ public class X5WebView extends WebView {
         webSetting.setAllowFileAccess(true);//在File域下，能够执行任意的JavaScript代码，同源策略跨域访问能够对私有目录文件进行访问等
         webSetting.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);//控制页面的布局(使所有列的宽度不超过屏幕宽度)
         webSetting.setSupportZoom(true);//支持页面缩放
-        webSetting.setBuiltInZoomControls(true);//进行控制缩放
+        webSetting.setBuiltInZoomControls(false);//进行控制缩放
         webSetting.setAllowContentAccess(true);//是否允许在WebView中访问内容URL（Content Url），默认允许
         webSetting.setUseWideViewPort(true);//设置缩放密度
         webSetting.setSupportMultipleWindows(false);//设置WebView是否支持多窗口,如果为true需要实现onCreateWindow(WebView, boolean, boolean, Message)

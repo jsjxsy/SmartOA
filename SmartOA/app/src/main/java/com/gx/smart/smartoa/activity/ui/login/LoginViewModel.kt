@@ -1,10 +1,8 @@
 package com.gx.smart.smartoa.activity.ui.login
 
 import android.text.TextUtils
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -13,7 +11,6 @@ import com.gx.smart.smartoa.data.network.api.AuthApiService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
 import com.gx.smart.smartoa.utils.DataCheckUtil
-import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp
 import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp
 
 class LoginViewModel : ViewModel() {
