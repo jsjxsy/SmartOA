@@ -41,8 +41,8 @@ import java.io.File
 class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
 
     private var companyId: Long = 0
-    private lateinit var companyName: String
-    private lateinit var placeName: String
+    private var companyName: String? = null
+    private var placeName: String? = null
     private var employeeName: String? = null
     private var phoneNumber: String? = null
     private var imageString: ByteString? = null
@@ -125,7 +125,7 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
             .applyEmployee(name, mobile, image, companyId,
                 object : CallBack<CommonResponse>() {
                     override fun callBack(result: CommonResponse?) {
-                        if(!ActivityUtils.isActivityAlive(activity)) {
+                        if (!ActivityUtils.isActivityAlive(activity)) {
                             return
                         }
 

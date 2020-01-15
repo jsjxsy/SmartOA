@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.Utils
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.push.PushMessageConstants.*
 import com.gx.smart.webview.X5NetService
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
@@ -53,6 +54,7 @@ class SmartOAApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        
         initLogger()
         Utils.init(this)
         preInitX5Core()
@@ -60,7 +62,15 @@ class SmartOAApplication : Application() {
         disableAPIDialog()
         initPush()
         CrashHandler.instance.init(this)
+        initEventBus()
     }
+    
+    private fun initEventBus() {
+        LiveEventBus
+            .config()
+            .enableLogger(true)
+    }
+
 
 
     private fun initLogger() {

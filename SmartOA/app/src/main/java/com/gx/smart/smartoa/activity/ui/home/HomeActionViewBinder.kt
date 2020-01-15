@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.drakeet.multitype.ItemViewBinder
+import com.gx.smart.eventbus.EventBusMessageConstant
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.action.MineActionActivity
 import com.gx.smart.smartoa.activity.ui.action.MineActionDetailFragment
@@ -33,7 +34,8 @@ import com.gx.wisestone.core.grpc.lib.common.QueryDto
 import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
 import com.gx.wisestone.work.app.grpc.activity.ActivityRequest
 import com.gx.wisestone.work.app.grpc.activity.AppActivityDto
-import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.jeremyliao.liveeventbus.LiveEventBus
+//import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import top.limuyang2.customldialog.IOSMsgDialog
 
 
@@ -45,7 +47,7 @@ import top.limuyang2.customldialog.IOSMsgDialog
 class HomeActionViewBinder :
     ItemViewBinder<HomeActionRecommend, HomeActionViewBinder.ViewHolder>() {
 
-    lateinit var mRefreshLayout: SmartRefreshLayout
+//    lateinit var mRefreshLayout: SmartRefreshLayout
     lateinit var actionRecommendBanner: ConvenientBanner<AppActivityDto>
     lateinit var fragmentManager: FragmentManager
     @NonNull
@@ -107,10 +109,13 @@ class HomeActionViewBinder :
         AppActivityService.getInstance()
             .findAllActivityInfos(request, query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
-                    if (!ActivityUtils.isActivityAlive(mRefreshLayout.context)) {
-                        return
-                    }
-                    mRefreshLayout.finishRefresh()
+//                    if (!ActivityUtils.isActivityAlive(mRefreshLayout.context)) {
+//                        return
+//                    }
+                    LiveEventBus
+                        .get(EventBusMessageConstant.REFRESH_KEY)
+                        .post(true)
+                   // mRefreshLayout.finishRefresh()
                     if (result == null) {
                         ToastUtils.showLong("查询活动超时!")
                         return

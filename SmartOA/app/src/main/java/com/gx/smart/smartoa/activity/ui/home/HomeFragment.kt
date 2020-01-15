@@ -9,10 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
 import com.drakeet.multitype.MultiTypeAdapter
+import com.gx.smart.eventbus.EventBusMessageConstant
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
@@ -27,6 +29,7 @@ import com.gx.smart.smartoa.data.network.api.UserCenterService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -89,6 +92,16 @@ class HomeFragment : Fragment(), View.OnClickListener {
         context = requireActivity()
         initTitleView()
         initRecyclerView()
+        initEventBus()
+    }
+
+    private fun initEventBus() {
+        LiveEventBus.get(EventBusMessageConstant.REFRESH_KEY,Boolean::class.java)
+            .observe(this, Observer {
+                if(it){
+                    mRefreshLayout.finishRefresh()
+                }
+            })
     }
 
     private fun initRecyclerView() {
@@ -99,7 +112,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         adapter.register(homeHeadViewBinder)
 
         homeActionViewBinder = HomeActionViewBinder()
-        homeActionViewBinder.mRefreshLayout = mRefreshLayout
+//        homeActionViewBinder.mRefreshLayout = mRefreshLayout
         homeActionViewBinder.fragmentManager = fragmentManager!!
         adapter.register(homeActionViewBinder)
 

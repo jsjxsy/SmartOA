@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.layout_common_title.*
  * A simple [Fragment] subclass.
  */
 class MineUserInfoModifyNickNameFragment : Fragment(), View.OnClickListener {
-    private var nickName: String = ""
+    private lateinit var nickName: String
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()
@@ -32,7 +32,7 @@ class MineUserInfoModifyNickNameFragment : Fragment(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            nickName = it.getString(ARG_NICK_NAME)
+            nickName = it.getString(ARG_NICK_NAME) ?: ""
         }
     }
 
@@ -64,9 +64,9 @@ class MineUserInfoModifyNickNameFragment : Fragment(), View.OnClickListener {
 
     private fun initContent() {
         modifyName.setText(nickName)
-        if(nickName.isNullOrEmpty()){
+        if (nickName.isNullOrEmpty()) {
             delete.visibility = View.GONE
-        }else{
+        } else {
             delete.visibility = View.VISIBLE
             modifyName.setSelection(nickName.length)
         }
