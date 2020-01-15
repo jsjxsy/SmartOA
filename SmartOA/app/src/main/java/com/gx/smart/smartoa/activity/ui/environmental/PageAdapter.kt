@@ -52,10 +52,6 @@ class PageAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(
         return mPageFragment[position].title
     }
 
-    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        super.destroyItem(container, position, `object`)
-        //container.removeView(`object` as View)
-    }
 
     override fun getItemPosition(`object`: Any): Int {
         return POSITION_NONE
