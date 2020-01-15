@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.NonNull
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bigkoo.convenientbanner.ConvenientBanner
@@ -26,7 +25,6 @@ import com.gx.smart.eventbus.EventBusMessageConstant
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.action.MineActionActivity
 import com.gx.smart.smartoa.activity.ui.action.MineActionDetailFragment
-import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AppActivityService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
@@ -35,8 +33,6 @@ import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
 import com.gx.wisestone.work.app.grpc.activity.ActivityRequest
 import com.gx.wisestone.work.app.grpc.activity.AppActivityDto
 import com.jeremyliao.liveeventbus.LiveEventBus
-//import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import top.limuyang2.customldialog.IOSMsgDialog
 
 
 /**
@@ -47,9 +43,8 @@ import top.limuyang2.customldialog.IOSMsgDialog
 class HomeActionViewBinder :
     ItemViewBinder<HomeActionRecommend, HomeActionViewBinder.ViewHolder>() {
 
-//    lateinit var mRefreshLayout: SmartRefreshLayout
     lateinit var actionRecommendBanner: ConvenientBanner<AppActivityDto>
-    lateinit var fragmentManager: FragmentManager
+//    lateinit var fragmentManager: FragmentManager
     @NonNull
     override fun onCreateViewHolder(@NonNull inflater: LayoutInflater, @NonNull parent: ViewGroup): ViewHolder {
         val root = inflater.inflate(R.layout.item_home_action_recommend_item, parent, false)
@@ -109,13 +104,9 @@ class HomeActionViewBinder :
         AppActivityService.getInstance()
             .findAllActivityInfos(request, query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
-//                    if (!ActivityUtils.isActivityAlive(mRefreshLayout.context)) {
-//                        return
-//                    }
                     LiveEventBus
                         .get(EventBusMessageConstant.REFRESH_KEY)
                         .post(true)
-                   // mRefreshLayout.finishRefresh()
                     if (result == null) {
                         ToastUtils.showLong("查询活动超时!")
                         return
@@ -152,7 +143,7 @@ class HomeActionViewBinder :
             time.text = "$startTime - $endTime"
             number.text = data.currentNum.toString() + "人参加"
             itemView.setOnClickListener {
-                joinCompanyContinue(it, data, fragmentManager)
+                joinCompanyContinue(it, data)
             }
         }
 
@@ -167,8 +158,7 @@ class HomeActionViewBinder :
 
         private fun joinCompanyContinue(
             view: View,
-            item: AppActivityDto,
-            fragmentManager: FragmentManager
+            item: AppActivityDto
         ) {
             val buildingSysTenantNo =
                 SPUtils.getInstance().getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
@@ -176,37 +166,16 @@ class HomeActionViewBinder :
                 SPUtils.getInstance().getInt(AppConfig.COMPANY_SYS_TENANT_NO, 0)
             if (buildingSysTenantNo == companySysTenantNo) {
                 when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0)) {
-                    1 -> IOSMsgDialog.init(fragmentManager)
-                        .setTitle("加入企业")
-                        .setMessage("您申请的企业在审核中，请耐心等待")
-                        .setPositiveButton("确定").show()
-
+                    1 -> LiveEventBus.get(EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY,Int::class.java)
+                        .post(1)
                     2 -> goActionDetail(view, item)
-                    else -> IOSMsgDialog.init(fragmentManager)
-                        .setTitle("加入企业")
-                        .setMessage("您还未入驻任何企业，请先进行企业身份认证")
-                        .setPositiveButton("马上认证", View.OnClickListener {
-                            ActivityUtils.startActivity(
-                                Intent(
-                                    ActivityUtils.getTopActivity(),
-                                    MineCompanyActivity::class.java
-                                )
-                            )
-                        }).show()
+                    else -> LiveEventBus.get(EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY,Int::class.java)
+                        .post(3)
                 }
 
             } else {
-                IOSMsgDialog.init(fragmentManager)
-                    .setTitle("加入企业")
-                    .setMessage("您还未入驻任何企业，请先进行企业身份认证")
-                    .setPositiveButton("马上认证", View.OnClickListener {
-                        ActivityUtils.startActivity(
-                            Intent(
-                                ActivityUtils.getTopActivity(),
-                                MineCompanyActivity::class.java
-                            )
-                        )
-                    }).show()
+                LiveEventBus.get(EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY,Int::class.java)
+                    .post(3)
             }
 
         }

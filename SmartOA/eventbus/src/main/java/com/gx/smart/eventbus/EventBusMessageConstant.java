@@ -7,4 +7,5 @@ package com.gx.smart.eventbus;
  **/
 public interface EventBusMessageConstant {
     String REFRESH_KEY = "isFinishRefresh";
+    String COMPANY_APPLY_STATUS_KEY = "status";
 }

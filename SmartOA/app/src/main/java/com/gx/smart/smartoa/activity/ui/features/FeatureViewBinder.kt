@@ -17,6 +17,7 @@ import com.gx.smart.smartoa.activity.ui.air.AirQualityActivity
 import com.gx.smart.smartoa.activity.ui.attendance.AttendanceActivity
 import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
 import com.gx.smart.smartoa.activity.ui.environmental.EnvironmentalActivity
+import com.gx.smart.smartoa.activity.ui.home.HomeHeadViewBinder
 import com.gx.smart.smartoa.activity.ui.meetings.MeetingScheduleActivity
 import com.gx.smart.smartoa.activity.ui.repair.RepairActivity
 import com.gx.smart.smartoa.activity.ui.visitor.VisitorActivity
@@ -48,7 +49,7 @@ class FeatureViewBinder : ItemViewBinder<Feature, FeatureViewBinder.ViewHolder>(
         holder.item.setOnClickListener {
             when (holder.item.text) {
                 holder.itemView.resources.getString(R.string.environmental_control) -> {
-                    joinCompanyContinue(1)
+                    HomeHeadViewBinder.joinCompanyContinue(1)
                 }
                 holder.itemView.resources.getString(R.string.meeting_schedule) -> {
                     ActivityUtils.startActivity(
@@ -59,10 +60,10 @@ class FeatureViewBinder : ItemViewBinder<Feature, FeatureViewBinder.ViewHolder>(
                     )
                 }
                 holder.itemView.resources.getString(R.string.attendance) -> {
-                    joinCompanyContinue(2)
+                    HomeHeadViewBinder.joinCompanyContinue(2)
                 }
                 holder.itemView.resources.getString(R.string.repair) -> {
-                    joinCompanyContinue(3)
+                    HomeHeadViewBinder.joinCompanyContinue(3)
                 }
                 holder.itemView.resources.getString(R.string.air_quality) -> {
                     ActivityUtils.startActivity(
@@ -95,76 +96,4 @@ class FeatureViewBinder : ItemViewBinder<Feature, FeatureViewBinder.ViewHolder>(
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val item: TextView = itemView.findViewById(R.id.item)
     }
-
-
-    private fun joinCompanyContinue(type: Int) {
-        val buildingSysTenantNo =
-            SPUtils.getInstance().getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
-        val companySysTenantNo =
-            SPUtils.getInstance().getInt(AppConfig.COMPANY_SYS_TENANT_NO, 0)
-        if (buildingSysTenantNo == companySysTenantNo) {
-            when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0)) {
-                1 -> IOSMsgDialog.init(fragmentManager)
-                    .setTitle("加入企业")
-                    .setMessage("您申请的企业在审核中，请耐心等待")
-                    .setPositiveButton("确定").show()
-
-                2 -> gotoDetailAction(type)
-
-                else -> IOSMsgDialog.init(fragmentManager)
-                    .setTitle("加入企业")
-                    .setMessage("您还未入驻任何企业，请先进行企业身份认证")
-                    .setPositiveButton("马上认证", View.OnClickListener {
-                        ActivityUtils.startActivity(
-                            Intent(
-                                ActivityUtils.getTopActivity(),
-                                MineCompanyActivity::class.java
-                            )
-                        )
-                    }).show()
-            }
-
-
-        } else {
-            IOSMsgDialog.init(fragmentManager)
-                .setTitle("加入企业")
-                .setMessage("您还未入驻任何企业，请先进行企业身份认证")
-                .setPositiveButton("马上认证", View.OnClickListener {
-                    ActivityUtils.startActivity(
-                        Intent(
-                            ActivityUtils.getTopActivity(),
-                            MineCompanyActivity::class.java
-                        )
-                    )
-                }).show()
-        }
-
-    }
-
-    private fun gotoDetailAction(type: Int) {
-        when (type) {
-            1 -> ActivityUtils.startActivity(
-                Intent(
-                    ActivityUtils.getTopActivity(),
-                    EnvironmentalActivity::class.java
-                )
-            )
-
-            2 -> ActivityUtils.startActivity(
-                Intent(
-                    ActivityUtils.getTopActivity(),
-                    AttendanceActivity::class.java
-                )
-            )
-
-            3 -> ActivityUtils.startActivity(
-                Intent(
-                    ActivityUtils.getTopActivity(),
-                    RepairActivity::class.java
-                )
-            )
-
-        }
-    }
-
 }

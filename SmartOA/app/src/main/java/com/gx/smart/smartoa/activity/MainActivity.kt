@@ -3,16 +3,23 @@ package com.gx.smart.smartoa.activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.widget.RadioGroup
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
+import com.blankj.utilcode.util.ActivityUtils
+import com.gx.smart.eventbus.EventBusMessageConstant
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
 import com.gx.smart.smartoa.activity.ui.home.HomeFragment
 import com.gx.smart.smartoa.activity.ui.mine.MineFragment
 import com.gx.smart.smartoa.activity.ui.open.OpenDoorFragment
-import com.gx.smart.smartoa.activity.ui.user.MineUserInfoFragment
 import com.gx.smart.smartoa.base.BaseActivity
+import com.jeremyliao.liveeventbus.LiveEventBus
 import kotlinx.android.synthetic.main.activity_main.*
+import top.limuyang2.customldialog.IOSMsgDialog
 
 class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
 
@@ -22,6 +29,7 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
         setContentView(R.layout.activity_main)
         val navView = nav_view as RadioGroup
         navView.setOnCheckedChangeListener(this)
+        initEventBus()
     }
 
 
@@ -46,7 +54,6 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
     }
 
 
-
     fun stateSetting() {
         val fragment =
             supportFragmentManager.findFragmentById(R.id.navHostFragmentEnter) as NavHostFragment
@@ -68,4 +75,29 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
 
     }
 
+    private fun initEventBus() {
+        LiveEventBus.get(EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY, Int::class.java)
+            .observe(this, Observer {
+                val fragmentActivity = ActivityUtils.getTopActivity() as FragmentActivity
+                when (it) {
+                    1 -> IOSMsgDialog.init(fragmentActivity.supportFragmentManager)
+                        .setTitle("加入企业")
+                        .setMessage("您申请的企业在审核中，请耐心等待")
+                        .setPositiveButton("确定").show()
+
+                    3 -> IOSMsgDialog.init(fragmentActivity.supportFragmentManager)
+                        .setTitle("加入企业")
+                        .setMessage("您还未入驻任何企业，请先进行企业身份认证")
+                        .setPositiveButton("马上认证", View.OnClickListener {
+                            ActivityUtils.startActivity(
+                                Intent(
+                                    ActivityUtils.getTopActivity(),
+                                    MineCompanyActivity::class.java
+                                )
+                            )
+                        }).show()
+                }
+            })
+
+    }
 }

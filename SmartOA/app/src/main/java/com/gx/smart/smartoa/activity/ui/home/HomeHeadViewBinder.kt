@@ -16,6 +16,7 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
 import com.bumptech.glide.Glide
 import com.drakeet.multitype.ItemViewBinder
+import com.gx.smart.eventbus.EventBusMessageConstant
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.WebViewActivity
 import com.gx.smart.smartoa.activity.ui.air.AirQualityActivity
@@ -32,6 +33,7 @@ import com.gx.smart.smartoa.data.network.api.AppFigureService
 import com.gx.smart.smartoa.data.network.api.base.CallBack
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesInfoOrBuilder
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesResponse
+import com.jeremyliao.liveeventbus.LiveEventBus
 import top.limuyang2.customldialog.IOSMsgDialog
 
 
@@ -43,7 +45,6 @@ import top.limuyang2.customldialog.IOSMsgDialog
 class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolder>(),
     View.OnClickListener {
     lateinit var convenientBanner: ConvenientBanner<Any>
-    lateinit var fragmentManager: FragmentManager
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.id_environmental_control_text_view -> joinCompanyContinue(1)
@@ -87,73 +88,54 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
     }
 
 
-    private fun joinCompanyContinue(type: Int) {
-        val buildingSysTenantNo =
-            SPUtils.getInstance().getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
-        val companySysTenantNo =
-            SPUtils.getInstance().getInt(AppConfig.COMPANY_SYS_TENANT_NO, 0)
-        if (buildingSysTenantNo == companySysTenantNo) {
-            when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0)) {
-                1 -> IOSMsgDialog.init(fragmentManager!!)
-                    .setTitle("加入企业")
-                    .setMessage("您申请的企业在审核中，请耐心等待")
-                    .setPositiveButton("确定").show()
-                2 -> gotoDetailAction(type)
-                else ->
-                    IOSMsgDialog.init(fragmentManager)
-                        .setTitle("加入企业")
-                        .setMessage("您还未入驻任何企业，请先进行企业身份认证")
-                        .setPositiveButton("马上认证", View.OnClickListener {
-                            ActivityUtils.startActivity(
-                                Intent(
-                                    ActivityUtils.getTopActivity(),
-                                    MineCompanyActivity::class.java
-                                )
-                            )
-                        }).show()
+    companion object {
+        fun joinCompanyContinue(type: Int) {
+            val buildingSysTenantNo =
+                SPUtils.getInstance().getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
+            val companySysTenantNo =
+                SPUtils.getInstance().getInt(AppConfig.COMPANY_SYS_TENANT_NO, 0)
+            if (buildingSysTenantNo == companySysTenantNo) {
+                when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0)) {
+                    1 -> LiveEventBus.get(EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY,Int::class.java)
+                        .post(1)
+                    2 -> gotoDetailAction(type)
+                    else -> LiveEventBus.get(EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY,Int::class.java)
+                        .post(3)
+                }
+
+            } else {
+                LiveEventBus.get(EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY,Int::class.java)
+                    .post(3)
             }
+        }
 
-        } else {
-            IOSMsgDialog.init(fragmentManager)
-                .setTitle("加入企业")
-                .setMessage("您还未入驻任何企业，请先进行企业身份认证")
-                .setPositiveButton("马上认证", View.OnClickListener {
-                    ActivityUtils.startActivity(
-                        Intent(
-                            ActivityUtils.getTopActivity(),
-                            MineCompanyActivity::class.java
-                        )
+        private fun gotoDetailAction(type: Int) {
+            when (type) {
+                1 -> ActivityUtils.startActivity(
+                    Intent(
+                        ActivityUtils.getTopActivity(),
+                        EnvironmentalActivity::class.java
                     )
-                }).show()
+                )
+
+                2 -> ActivityUtils.startActivity(
+                    Intent(
+                        ActivityUtils.getTopActivity(),
+                        AttendanceActivity::class.java
+                    )
+                )
+
+                3 -> ActivityUtils.startActivity(
+                    Intent(
+                        ActivityUtils.getTopActivity(),
+                        RepairActivity::class.java
+                    )
+                )
+
+            }
         }
     }
 
-
-    private fun gotoDetailAction(type: Int) {
-        when (type) {
-            1 -> ActivityUtils.startActivity(
-                Intent(
-                    ActivityUtils.getTopActivity(),
-                    EnvironmentalActivity::class.java
-                )
-            )
-
-            2 -> ActivityUtils.startActivity(
-                Intent(
-                    ActivityUtils.getTopActivity(),
-                    AttendanceActivity::class.java
-                )
-            )
-
-            3 -> ActivityUtils.startActivity(
-                Intent(
-                    ActivityUtils.getTopActivity(),
-                    RepairActivity::class.java
-                )
-            )
-
-        }
-    }
 
 
     @NonNull
