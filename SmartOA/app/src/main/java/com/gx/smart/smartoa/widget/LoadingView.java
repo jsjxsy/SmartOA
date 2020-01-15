@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.Keep;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
@@ -17,6 +18,7 @@ import com.gx.smart.smartoa.R;
 /**
  * 加载控件
  */
+@Keep
 public class LoadingView extends LinearLayout {
     private ProgressBar progressBar;
     private TextView tv;
