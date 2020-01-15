@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">智慧办公</string>
+    <string name="app_name">航天易办公</string>
 
     <string name="login_input_phone">请输入手机号</string>
     <string name="login_input_password">请输入登录密码</string>

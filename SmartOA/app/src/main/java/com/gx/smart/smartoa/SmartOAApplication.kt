@@ -47,6 +47,7 @@ class SmartOAApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
         initLogger()
         Utils.init(this)
         preInitX5Core()

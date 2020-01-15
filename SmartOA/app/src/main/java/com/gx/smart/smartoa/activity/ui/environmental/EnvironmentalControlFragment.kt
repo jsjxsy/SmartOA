@@ -120,35 +120,39 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                     if (result == null) {
                         return
                     }
-                    if (result.code == 100) {
-                        val contentList = result.contentList
-                        items.clear()
-                        if(contentList.isEmpty()){
-                            NoDataLayout.visibility = View.VISIBLE
-                        }
-                        for (content in contentList) {
-                            val headTextItem = LightHeadItem(
-                                content.sceneName,
-                                ApiUtils.getImageResource(content.iconSign)
-                            )
-                            items.add(headTextItem)
-                        }
-                        val onItemClickListener =
-                            object : LightHeadItemViewBinder.OnItemClickListener {
-                                override fun onClick(view: View, position: Int) {
-                                    showLoadingView()
-                                    executeScene(contentList[position].sceneId)
-                                }
+                    when (result.code) {
+                        100 -> {
+                            val contentList = result.contentList
+                            items.clear()
+                            if(contentList.isEmpty()){
+                                NoDataLayout.visibility = View.VISIBLE
                             }
-                        headItemView.onItemClickListener = onItemClickListener
-                        adapter.items = items
-                        adapter.notifyDataSetChanged()
-                    } else if (result.code == 104) {
-                        NoDataLayout.visibility = View.VISIBLE
-                        tip.text = "网关离线了"
-                    }else{
-                        NoDataLayout.visibility = View.VISIBLE
-                        tip.text = "网关离线了"
+                            for (content in contentList) {
+                                val headTextItem = LightHeadItem(
+                                    content.sceneName,
+                                    ApiUtils.getImageResource(content.iconSign)
+                                )
+                                items.add(headTextItem)
+                            }
+                            val onItemClickListener =
+                                object : LightHeadItemViewBinder.OnItemClickListener {
+                                    override fun onClick(view: View, position: Int) {
+                                        showLoadingView()
+                                        executeScene(contentList[position].sceneId)
+                                    }
+                                }
+                            headItemView.onItemClickListener = onItemClickListener
+                            adapter.items = items
+                            adapter.notifyDataSetChanged()
+                        }
+                        104 -> {
+                            NoDataLayout.visibility = View.VISIBLE
+                            tip.text = "网关离线了"
+                        }
+                        else -> {
+                            NoDataLayout.visibility = View.VISIBLE
+                            tip.text = "网关离线了"
+                        }
                     }
                 }
             })
@@ -187,7 +191,6 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
     }
 
     private fun getDevList() {
-        if (GrpcAsyncTask.isFinish(devListTask)) {
             devListTask = UnisiotApiService.getInstance()
                 .areaDeviceList(
                     roomId.toString(),
@@ -214,7 +217,6 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                         }
 
                     })
-        }
     }
 
     fun showLoadingView() {
