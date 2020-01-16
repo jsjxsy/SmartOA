@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -138,7 +139,9 @@ class LoginFragment : Fragment(), OnClickListener {
         id_input_password_edit_text.transformationMethod =
             PasswordTransformationMethod.getInstance()
         viewModel.setPhone()
-        //id_input_phone_edit_text.setSelection(viewModel.phone.value?.length ?: 0)
+        id_input_phone_edit_text.setOnFocusChangeListener { view, b -> if(b){id_input_phone_edit_text.setSelection(
+            viewModel.phone.value?.length ?: 0
+        )} }
     }
 
 

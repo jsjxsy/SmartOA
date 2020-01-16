@@ -59,7 +59,6 @@ class LoginViewModel : ViewModel() {
         override fun afterTextChanged(s: Editable?) {
             val length = s?.length ?: 0
             deleteVisible.value = length > 0
-            //id_input_phone_edit_text.setSelection(length)
         }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -69,6 +68,7 @@ class LoginViewModel : ViewModel() {
         }
 
     }
+
 
     /**
      * 登陆
