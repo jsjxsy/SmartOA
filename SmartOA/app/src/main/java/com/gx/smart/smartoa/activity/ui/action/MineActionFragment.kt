@@ -1,7 +1,6 @@
 package com.gx.smart.smartoa.activity.ui.action
 
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +12,8 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.gx.smart.eventbus.EventBusMessageConstant
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AppActivityService
 import com.gx.smart.smartoa.data.network.api.AppEmployeeService
@@ -25,12 +24,12 @@ import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
 import com.gx.wisestone.work.app.grpc.activity.ActivityRequest
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
 import com.gx.wisestone.work.app.grpc.information.MessageReadResponse
+import com.jeremyliao.liveeventbus.LiveEventBus
 import kotlinx.android.synthetic.main.fragment_mine_action.emptyLayout
 import kotlinx.android.synthetic.main.fragment_mine_action.refreshLayout
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.layout_common_title.title
 import kotlinx.android.synthetic.main.list_action_layout.recyclerView
-import top.limuyang2.customldialog.IOSMsgDialog
 
 /**
  * A simple [Fragment] subclass.
@@ -389,36 +388,22 @@ class MineActionFragment : Fragment(), View.OnClickListener {
             SPUtils.getInstance().getInt(AppConfig.COMPANY_SYS_TENANT_NO, 0)
         if (buildingSysTenantNo == companySysTenantNo) {
             when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0)) {
-                1 -> IOSMsgDialog.init(fragmentManager!!)
-                    .setTitle("加入企业")
-                    .setMessage("您申请的企业在审核中，请耐心等待")
-                    .setPositiveButton("确定").show()
+                1 -> LiveEventBus.get(
+                    EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY,
+                    Int::class.java
+                )
+                    .post(1)
                 2 -> goActionDetail(position)
-                else -> IOSMsgDialog.init(fragmentManager!!)
-                    .setTitle("加入企业")
-                    .setMessage("您还未入驻任何企业，请先进行企业身份认证")
-                    .setPositiveButton("马上认证", View.OnClickListener {
-                        ActivityUtils.startActivity(
-                            Intent(
-                                ActivityUtils.getTopActivity(),
-                                MineCompanyActivity::class.java
-                            )
-                        )
-                    }).show()
+                else -> LiveEventBus.get(
+                    EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY,
+                    Int::class.java
+                )
+                    .post(3)
             }
 
         } else {
-            IOSMsgDialog.init(fragmentManager!!)
-                .setTitle("加入企业")
-                .setMessage("您还未入驻任何企业，请先进行企业身份认证")
-                .setPositiveButton("马上认证", View.OnClickListener {
-                    ActivityUtils.startActivity(
-                        Intent(
-                            ActivityUtils.getTopActivity(),
-                            MineCompanyActivity::class.java
-                        )
-                    )
-                }).show()
+            LiveEventBus.get(EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY, Int::class.java)
+                .post(3)
         }
     }
 

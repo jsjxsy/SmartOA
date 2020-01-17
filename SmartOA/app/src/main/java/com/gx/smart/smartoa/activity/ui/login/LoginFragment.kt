@@ -4,17 +4,15 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.text.Editable
 import android.text.InputType
 import android.text.TextUtils
-import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -30,25 +28,14 @@ import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
 import com.gx.smart.smartoa.activity.ui.login.password.ForgetPasswordFragment
 import com.gx.smart.smartoa.data.network.AppConfig
-import com.gx.smart.smartoa.data.network.api.AppEmployeeService
-import com.gx.smart.smartoa.data.network.api.AppMessagePushService
-import com.gx.smart.smartoa.data.network.api.AuthApiService
-import com.gx.smart.smartoa.data.network.api.UserCenterService
-import com.gx.smart.smartoa.data.network.api.base.CallBack
-import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
 import com.gx.smart.smartoa.databinding.FragmentLoginBinding
 import com.gx.smart.smartoa.utils.DataCheckUtil
-import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp
-import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
-import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
-import com.gx.wisestone.work.app.grpc.push.UpdateMessagePushResponse
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
 class LoginFragment : Fragment(), OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.id_login_button -> login()
             R.id.id_forget_password_text_view -> {
                 val userName = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")
                 if (TextUtils.isEmpty(userName)) {
@@ -64,9 +51,8 @@ class LoginFragment : Fragment(), OnClickListener {
 
             }
 
-            R.id.id_register_text_view ->
-                Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment)
-            R.id.loginType -> loginType()
+//            R.id.id_register_text_view ->
+//                Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment)
             R.id.getVerifyCodeText -> viewModel.getVerifyCode()
             R.id.passwordState -> passwordState()
 
@@ -78,22 +64,7 @@ class LoginFragment : Fragment(), OnClickListener {
     }
 
     private val viewModel by lazy { ViewModelProviders.of(this).get(LoginViewModel::class.java) }
-    private var loginFlag = LoginTypeEnum.PHONE
     private var mTime: TimeCount? = null
-    private lateinit var verifyCodeText: TextView
-
-
-    private var loginTask: GrpcAsyncTask<String, Void, LoginResp>? = null
-    private var loginCallBack: CallBack<LoginResp?>? = null
-
-    private var bindTask: GrpcAsyncTask<String, Void, AppInfoResponse>? = null
-    private var bindCallBack: CallBack<AppInfoResponse?>? = null
-
-    private var mPhone: String? = null
-
-    enum class LoginTypeEnum {
-        PHONE, VERIFY_CODE
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,17 +95,57 @@ class LoginFragment : Fragment(), OnClickListener {
         super.onActivityCreated(savedInstanceState)
         initContent()
         initTimer()
-        viewModel.verifyCodeCallBackSuccess.observe(this, verifyCodeObserver)
+        observer()
+
     }
 
-    // Create the observer which updates the UI.
-    private val verifyCodeObserver = Observer<Boolean> { getVerifyCode ->
-        if (getVerifyCode) {
-            mTime?.start()
-        }
+    private fun observer() {
+        viewModel.verifyCodeCallBackSuccess.observe(this, Observer<Boolean> { getVerifyCode ->
+            if (getVerifyCode) {
+                mTime?.start()
+            }
+        })
+
+        viewModel.isLoading.observe(this, Observer { isLoading ->
+            if (!isLoading) {
+                loadingView.visibility = View.GONE
+            }
+        })
+
+        viewModel.targetPage.observe(this, Observer {
+            when (it) {
+                1 -> mainActivity()
+                2 -> mineCompanyActivity()
+            }
+        })
+        viewModel.loginFlag.observe(this, Observer {
+            id_input_password_edit_text.editableText.clear()
+            when(it){
+                LoginViewModel.LoginTypeEnum.PHONE -> {
+                    loginType.text = getString(R.string.login_phone_password)
+                    id_input_password_edit_text.maxHeight = 12
+                    id_input_password_edit_text.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    getVerifyCodeText.visibility = View.GONE
+                    passwordState.visibility = View.VISIBLE
+                    passwordState.setImageResource(R.drawable.ic_login_password_state)
+                    //可见变为不可见
+                    id_input_password_edit_text.transformationMethod =
+                        PasswordTransformationMethod.getInstance()
+                }
+                LoginViewModel.LoginTypeEnum.VERIFY_CODE -> {
+                    loginType.text = getString(R.string.login_phone_verify)
+                    id_input_password_edit_text.maxHeight = 6
+                    id_input_password_edit_text.inputType = InputType.TYPE_CLASS_NUMBER
+                    getVerifyCodeText.visibility = View.VISIBLE
+                    passwordState.visibility = View.GONE
+                    id_input_password_edit_text.transformationMethod =
+                        HideReturnsTransformationMethod.getInstance()
+                }
+            }
+        })
     }
 
-    private fun initContent() {
+    fun initContent() {
         id_login_button.setOnClickListener(this)
         id_forget_password_text_view.setOnClickListener(this)
         id_register_text_view.setOnClickListener(this)
@@ -146,59 +157,11 @@ class LoginFragment : Fragment(), OnClickListener {
         id_input_password_edit_text.transformationMethod =
             PasswordTransformationMethod.getInstance()
         viewModel.setPhone()
-        delete.setOnClickListener {
-            id_input_phone_edit_text.editableText.clear()
-        }
-        id_input_phone_edit_text.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                val length = s?.length ?: 0
-                if (length > 0) {
-                    delete.visibility = View.VISIBLE
-                } else {
-                    delete.visibility = View.GONE
-                }
-                id_input_phone_edit_text.setSelection(length)
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-        })
+        id_input_phone_edit_text.setOnFocusChangeListener { _, b -> if(b){id_input_phone_edit_text.setSelection(
+            viewModel.phone.value?.length ?: 0
+        )} }
     }
 
-    private fun loginType() {
-        when (loginFlag) {
-            LoginTypeEnum.PHONE -> {
-                loginFlag = LoginTypeEnum.VERIFY_CODE
-                id_input_password_edit_text.editableText.clear()
-                loginType.text = getString(R.string.login_phone_verify)
-                id_input_password_edit_text.maxHeight = 6
-                id_input_password_edit_text.inputType = InputType.TYPE_CLASS_NUMBER
-                getVerifyCodeText.visibility = View.VISIBLE
-                passwordState.visibility = View.GONE
-                id_input_password_edit_text.transformationMethod =
-                    HideReturnsTransformationMethod.getInstance()
-            }
-            LoginTypeEnum.VERIFY_CODE -> {
-                id_input_password_edit_text.editableText.clear()
-                loginFlag = LoginTypeEnum.PHONE
-                loginType.text = getString(R.string.login_phone_password)
-                id_input_password_edit_text.maxHeight = 12
-                id_input_password_edit_text.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
-                getVerifyCodeText.visibility = View.GONE
-                passwordState.visibility = View.VISIBLE
-                passwordState.setImageResource(R.drawable.ic_login_password_state)
-                //可见变为不可见
-                id_input_password_edit_text.transformationMethod =
-                    PasswordTransformationMethod.getInstance()
-            }
-        }
-
-
-    }
 
     private fun passwordState() {
         when (id_input_password_edit_text.inputType) {
@@ -225,62 +188,8 @@ class LoginFragment : Fragment(), OnClickListener {
 
     }
 
-    /**
-     * 点击登陆
-     */
-    private fun login() {
-        if (!NetworkUtils.isConnected()) {
-            ToastUtils.showLong("网络连接不可用")
-            return
-        }
-        mPhone = viewModel.phone.value!!.trim()
-        when (loginFlag) {
-            LoginTypeEnum.VERIFY_CODE -> {
-                val identityCode: String = viewModel.password.value!!.trim()
-                if (TextUtils.isEmpty(mPhone)) {
-                    ToastUtils.showLong("手机号不能为空")
-                } else if (mPhone!!.length != 11 || !DataCheckUtil.isMobile(mPhone)) {
-                    ToastUtils.showLong("非法手机号")
-                } else if (TextUtils.isEmpty(identityCode)) {
-                    ToastUtils.showLong("验证码不能为空")
-                } else { //手机号验证码登录
-                    val loginType = 3
-                    loginResponseCallBack(false, mPhone, null)
-                    if (GrpcAsyncTask.isFinish(loginTask)) {
-                        loginTask = AuthApiService.getInstance()
-                            .login(mPhone, identityCode, loginType, loginCallBack)
-                    }
-                }
-            }
-            LoginTypeEnum.PHONE -> {
-                val password: String = viewModel.password.value!!.trim()
-                if (TextUtils.isEmpty(mPhone)) {
-                    ToastUtils.showLong("帐号名不能为空")
-                } else if (mPhone!!.length < 10) {
-                    ToastUtils.showLong("帐号名格式错误，长度不低于10位")
-                } else if (TextUtils.isEmpty(password)) {
-                    ToastUtils.showLong("密码不能为空")
-                } else {
-                    loadingView.visibility = View.VISIBLE
-                    loadingView.setOnClickListener(null)
-                    loadingView.setText("登录中")
-                    loadingView.showLoading()
-                    //手机号密码登录
-                    val loginType = 2
-                    loginResponseCallBack(true, mPhone, password)
-                    if (GrpcAsyncTask.isFinish(loginTask)) {
-                        loginTask = AuthApiService.getInstance()
-                            .login(mPhone, password, loginType, loginCallBack)
-                    }
-                }
-            }
-        }
-    }
-
-
     private fun initTimer() {
-        verifyCodeText = getVerifyCodeText
-        mTime = TimeCount(60000, 1000, verifyCodeText)
+        mTime = TimeCount(60000, 1000, getVerifyCodeText)
     }
 
     override fun onDestroy() {
@@ -310,193 +219,11 @@ class LoginFragment : Fragment(), OnClickListener {
     }
 
 
-//    private fun getVerifyCode() {
-//        mPhone = id_input_phone_edit_text.text.toString()
-//        if (!NetworkUtils.isConnected()) {
-//            ToastUtils.showLong("网络连接不可用")
-//            return
-//        }
-//        if (TextUtils.isEmpty(mPhone)) {
-//            ToastUtils.showLong("手机号不能为空")
-//        } else if (mPhone?.length != 11 || !DataCheckUtil.isMobile(mPhone)) {
-//            ToastUtils.showLong("非法手机号")
-//        } else { //获取登录验证码
-//            val targetType = 1
-//            val purpose = 1
-//            verifyCodeCallBack()
-//            if (GrpcAsyncTask.isFinish(verifyTask)) {
-//                verifyTask =
-//                    AuthApiService.getInstance()
-//                        .verifyCode(mPhone, targetType, purpose, verifyCallBack)
-//            }
-//        }
-//    }
-
-
-    /*******************************************登录回调 */
-    private fun loginResponseCallBack(
-        isPassWord: Boolean,
-        phone: String?,
-        password: String?
-    ) {
-        loginCallBack = object : CallBack<LoginResp?>() {
-            override fun callBack(result: LoginResp?) {
-                if (!ActivityUtils.isActivityAlive(activity)) {
-                    return
-                }
-                if (result == null) {
-                    loadingView.visibility = View.GONE
-                    ToastUtils.showLong("登录超时")
-                    return
-                }
-                val msg = result.dataMap["errMsg"]
-                if (result.code == 100) {
-                    SPUtils.getInstance().put(AppConfig.LOGIN_TOKEN, result.token)
-                    //保存当前用户
-                    if (isPassWord) { //保存当前用户
-                        SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, phone)
-                        SPUtils.getInstance().put(AppConfig.SH_PASSWORD, password)
-                    } else {
-                        SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, phone)
-                    }
-                    updateMessagePush()
-                    bindAppCallBack()
-                    if (GrpcAsyncTask.isFinish(bindTask)) {
-                        bindTask =
-                            UserCenterService.getInstance()
-                                .bindAppUser(phone, phone, bindCallBack)
-                    }
-                } else {
-                    loadingView.visibility = View.GONE
-                    ToastUtils.showLong(msg)
-                }
-            }
-        }
-    }
-
-
-    /*******************************************绑定回调 */
-    fun bindAppCallBack() {
-        bindCallBack = object : CallBack<AppInfoResponse?>() {
-            override fun callBack(result: AppInfoResponse?) {
-                if (result == null) {
-                    ToastUtils.showLong("登录后绑定超时")
-                    loadingView.visibility = View.GONE
-                    return
-                }
-
-                when {
-                    result.code === 100 -> {
-                        SPUtils.getInstance().put(AppConfig.USER_ID, result.appUserInfoDto.userId)
-                        myCompany()
-                        //用户已经绑定
-                    }
-                    result.code == 7003 -> {
-                        SPUtils.getInstance().put(AppConfig.USER_ID, result.appUserInfoDto.userId)
-                        myCompany()
-                    }
-                    else -> {
-                        ToastUtils.showLong(result.msg)
-                        loadingView.visibility = View.GONE
-                    }
-                }
-            }
-        }
-    }
-
-
-    private fun myCompany() {
-        AppEmployeeService.getInstance()
-            .myCompany(
-                object : CallBack<AppMyCompanyResponse>() {
-                    override fun callBack(result: AppMyCompanyResponse?) {
-                        if (!ActivityUtils.isActivityAlive(activity)) {
-                            return
-                        }
-                        loadingView.visibility = View.GONE
-                        if (result == null) {
-                            ToastUtils.showLong("查询我的企业超时!")
-                            return
-                        }
-                        if (result.code == 100) {
-                            val employeeList = result.employeeInfoList
-                            if (employeeList.isNotEmpty()) {
-                                val employeeInfo = employeeList[0]
-                                SPUtils.getInstance()
-                                    .put(AppConfig.EMPLOYEE_ID, employeeInfo.employeeId)
-                                SPUtils.getInstance()
-                                    .put(
-                                        AppConfig.COMPANY_STRUCTURE_ID,
-                                        employeeInfo.companyStructureId
-                                    )
-                                SPUtils.getInstance()
-                                    .put(AppConfig.COMPANY_SYS_TENANT_NO, employeeInfo.tenantNo)
-                                SPUtils.getInstance()
-                                    .put(
-                                        AppConfig.SMART_HOME_SN,
-                                        employeeInfo.appDepartmentInfo.smartHomeSn
-                                    )
-                                SPUtils.getInstance()
-                                    .put(
-                                        AppConfig.ROOM_ID,
-                                        employeeInfo.appDepartmentInfo.smartHomeId
-                                    )
-                                SPUtils.getInstance()
-                                    .put(AppConfig.COMPANY_PLACE_NAME, employeeInfo.buildingName)
-                                SPUtils.getInstance()
-                                    .put(AppConfig.COMPANY_NAME, employeeInfo.companyName)
-                                SPUtils.getInstance()
-                                    .put(AppConfig.COMPANY_APPLY_STATUS, employeeInfo.status)
-                                val tenantNo = SPUtils.getInstance()
-                                    .getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
-                                if (tenantNo == 0) {
-                                    SPUtils.getInstance()
-                                        .put(
-                                            AppConfig.BUILDING_SYS_TENANT_NO,
-                                            employeeInfo.tenantNo
-                                        )
-                                    SPUtils.getInstance()
-                                        .put(AppConfig.PLACE_NAME, employeeInfo.companyName)
-                                }
-                                mainActivity()
-                            } else {
-                                val tenantNo = SPUtils.getInstance()
-                                    .getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
-                                if (tenantNo == 0) {
-                                    mineCompanyActivity()
-                                } else {
-                                    mainActivity()
-                                }
-                            }
-                        } else {
-                            ToastUtils.showLong(result.msg)
-                            loadingView.visibility = View.GONE
-                        }
-                    }
-
-                })
-    }
-
-
     private fun mainActivity() {
         activity?.finish()
         ActivityUtils.startActivity(
             Intent(activity, MainActivity::class.java)
         )
-    }
-
-
-    private fun updateMessagePush() {
-        //上传极光ID
-        if (null != AppConfig.JGToken) {
-            AppMessagePushService.getInstance().updateMessagePush(
-                AppConfig.JGToken,
-                object : CallBack<UpdateMessagePushResponse?>() {
-                    override fun callBack(result: UpdateMessagePushResponse?) {
-                        Log.i("jtpush", result.toString())
-                    }
-                })
-        }
     }
 
     private fun mineCompanyActivity() {

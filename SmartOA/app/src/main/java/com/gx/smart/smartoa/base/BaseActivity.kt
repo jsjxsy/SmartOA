@@ -5,21 +5,13 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.gx.smart.smartoa.R
-import kotlinx.android.synthetic.main.layout_common_title.*
 
 /**
  *@author xiaosy
  *@create 2019-10-22
  *@Describe 基础类
  **/
-open class BaseActivity : AppCompatActivity(), View.OnClickListener {
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.left_nav_image_view -> onBackPressed()
-        }
-
-    }
+open class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +23,7 @@ open class BaseActivity : AppCompatActivity(), View.OnClickListener {
             window.statusBarColor = Color.WHITE
 
         }
-        left_nav_image_view?.setOnClickListener(this)
     }
-
 
 
 }

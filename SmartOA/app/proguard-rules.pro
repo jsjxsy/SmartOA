@@ -14,7 +14,7 @@
 
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+-keepattributes SourceFile,LineNumberTable
 
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
@@ -32,7 +32,7 @@
 #-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
 -keep class androidx.appcompat.widget.** { *; }
--keep class com.gx.smart.smartoa.data.model.** { *; }
+-keep class  com.gx.smart.smartoa.data.model.** { *; }
 
 
 -keepattributes Signature #范型
@@ -40,8 +40,6 @@
 -keep class com.gx.smart.smartoa.data.network.api.**{*;}
 
 -keep class com.gx.wisetone.**{*;}
--keep class com.gx.smart.smartoa.widget.**{*;}
-#-keepclassmembers class * { *** @null(android.view.View); }
 
 -dontskipnonpubliclibraryclasses # 不忽略非公共的库类
 -optimizationpasses 5            # 指定代码的压缩级别
@@ -120,7 +118,7 @@
 #-overloadaggressively
 
 # ------------------ Keep LineNumbers and properties ---------------- #
--keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,EnclosingMethod
+-keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod
 # --------------------------------------------------------------------------
 
 # Addidional for x5.sdk classes for apps
@@ -410,55 +408,9 @@
 
 -keep class **JNI* {*;}
 
-
-#-optimizationpasses 5
-# -dontusemixedcaseclassnames
-# -dontskipnonpubliclibraryclasses
-# -dontpreverify
-# -verbose
-# -keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod
-# -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
-# -dontwarn javax.annotation.Nullable
-#
-# -keep public class * extends android.app.Activity
-# -keep public class * extends android.app.Application
-# -keep public class * extends android.app.Service
-# -keep class * extends android.content.BroadcastReceiver
-# -keep public class * extends android.content.ContentProvider
-# -keep public class * extends android.app.backup.BackupAgentHelper
-# -keep public class * extends android.preference.Preference
-
-# -keep public class * extends android.os.IInterface
-# -keep class android.media.* { *; }
-# -keep public class com.android.internal.telephony.* { *; }
-# -keep public class android.os.storage.* { *; }
-# -keep public class android.content.pm.* { *; }
-# -keep public class * extends android.support.v4.app.Fragment
-# -keep public class * extends android.app.Fragment
-# -keep class com.tencent.stat.*{*;}
-# -keep class com.tencent.mid.*{*;}
-# -keep public class com.alibaba.android.arouter.routes.**{*;}
-# -keep class * implements com.alibaba.android.arouter.facade.template.ISyringe{*;}
-#
-# -keepclasseswithmembernames class * {
-#     native <methods>;
-# }
-#
-
-# -keepclassmembers enum * {
-#     public static **[] values();
-#     public static ** valueOf(java.lang.String);
-# }
-#
-# -keep class * implements android.os.Parcelable {
-#   public static final android.os.Parcelable$Creator *;
-# }
-#
-# -keepclassmembers class * {
-#    public <init>(org.json.JSONObject);
-# }
-#
-#-dontwarn !com.xxx.xxx.**
-#-keep class !com.xxx.xxx.** { *; }
-#-ignorewarnings
+#liveEventBus
+-dontwarn com.jeremyliao.liveeventbus.**
+-keep class com.jeremyliao.liveeventbus.** { *; }
+-keep class androidx.lifecycle.** { *; }
+-keep class androidx.arch.core.** { *; }
 

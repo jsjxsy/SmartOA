@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.layout_common_title.*
  * A simple [Fragment] subclass.
  */
 class MineCompanySelectCompanyFragment : Fragment(), View.OnClickListener {
-    lateinit var placeName:String
+    private var placeName:String? = null
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()
