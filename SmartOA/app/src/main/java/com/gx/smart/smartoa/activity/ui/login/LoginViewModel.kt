@@ -5,13 +5,16 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.data.LoginRepository
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.data.network.api.AppEmployeeService
 import com.gx.smart.smartoa.data.network.api.AppMessagePushService
@@ -25,8 +28,9 @@ import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
 import com.gx.wisestone.work.app.grpc.push.UpdateMessagePushResponse
+import kotlinx.coroutines.launch
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
     var phone = MutableLiveData<String>("")
     var password = MutableLiveData<String>("")
     var verifyCodeCallBackSuccess = MutableLiveData<Boolean>(false)
@@ -135,7 +139,36 @@ class LoginViewModel : ViewModel() {
      * @param loginType 2:手机号密码登录 3: 手机号验证码登录
      */
     fun login(loginType: Int) {
-        loginResponseCallBack(loginType == 2, phone.value, password.value)
+//        loginResponseCallBack(loginType == 2, phone.value, password.value)
+        launch({
+            val result = loginRepository.login(phone.value!!, password.value!!, loginType)
+            val msg = result.dataMap["errMsg"]
+            if (result.code == 100) {
+                SPUtils.getInstance().put(AppConfig.LOGIN_TOKEN, result.token)
+                //保存当前用户
+                val isPassWord = loginType == 2
+                if (isPassWord) {
+                    SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, phone.value)
+                    SPUtils.getInstance().put(AppConfig.SH_PASSWORD, password.value)
+                } else {
+                    SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, phone.value)
+                }
+                updateMessagePush()
+                bindAppCallBack()
+                if (GrpcAsyncTask.isFinish(bindTask)) {
+                    bindTask =
+                        UserCenterService.getInstance()
+                            .bindAppUser(phone.value!!, phone.value!!, bindCallBack)
+                }
+            } else {
+                isLoading.value = false
+                ToastUtils.showLong(msg)
+            }
+        }
+            , {
+                ToastUtils.showLong("登录超时")
+            })
+
         if (GrpcAsyncTask.isFinish(loginTask)) {
             loginTask = AuthApiService.getInstance()
                 .login(phone.value, password.value, loginType, loginCallBack)
@@ -143,42 +176,52 @@ class LoginViewModel : ViewModel() {
     }
 
 
-    /*******************************************登录回调 */
-    private fun loginResponseCallBack(
-        isPassWord: Boolean,
-        phone: String?,
-        password: String?
-    ) {
-        loginCallBack = object : CallBack<LoginResp?>() {
-            override fun callBack(result: LoginResp?) {
-                if (result == null) {
-                    ToastUtils.showLong("登录超时")
-                    return
-                }
-                val msg = result.dataMap["errMsg"]
-                if (result.code == 100) {
-                    SPUtils.getInstance().put(AppConfig.LOGIN_TOKEN, result.token)
-                    //保存当前用户
-                    if (isPassWord) { //保存当前用户
-                        SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, phone)
-                        SPUtils.getInstance().put(AppConfig.SH_PASSWORD, password)
-                    } else {
-                        SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, phone)
-                    }
-                    updateMessagePush()
-                    bindAppCallBack()
-                    if (GrpcAsyncTask.isFinish(bindTask)) {
-                        bindTask =
-                            UserCenterService.getInstance()
-                                .bindAppUser(phone, phone, bindCallBack)
-                    }
-                } else {
-                    isLoading.value = false
-                    ToastUtils.showLong(msg)
-                }
+    private fun launch(block: suspend () -> Unit, error: suspend (Throwable) -> Unit) =
+        viewModelScope.launch {
+            try {
+                block()
+            } catch (e: Throwable) {
+                error(e)
             }
         }
-    }
+
+
+//    /*******************************************登录回调 */
+//    private fun loginResponseCallBack(
+//        isPassWord: Boolean,
+//        phone: String?,
+//        password: String?
+//    ) {
+//        loginCallBack = object : CallBack<LoginResp?>() {
+//            override fun callBack(result: LoginResp?) {
+//                if (result == null) {
+//                    ToastUtils.showLong("登录超时")
+//                    return
+//                }
+//                val msg = result.dataMap["errMsg"]
+//                if (result.code == 100) {
+//                    SPUtils.getInstance().put(AppConfig.LOGIN_TOKEN, result.token)
+//                    //保存当前用户
+//                    if (isPassWord) { //保存当前用户
+//                        SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, phone)
+//                        SPUtils.getInstance().put(AppConfig.SH_PASSWORD, password)
+//                    } else {
+//                        SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, phone)
+//                    }
+//                    updateMessagePush()
+//                    bindAppCallBack()
+//                    if (GrpcAsyncTask.isFinish(bindTask)) {
+//                        bindTask =
+//                            UserCenterService.getInstance()
+//                                .bindAppUser(phone, phone, bindCallBack)
+//                    }
+//                } else {
+//                    isLoading.value = false
+//                    ToastUtils.showLong(msg)
+//                }
+//            }
+//        }
+//    }
 
 
     /*******************************************绑定回调 */

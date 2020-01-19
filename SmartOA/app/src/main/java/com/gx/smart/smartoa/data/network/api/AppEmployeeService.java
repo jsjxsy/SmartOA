@@ -72,7 +72,6 @@ public class AppEmployeeService {
     }
 
 
-
     /**
      * 我的企业
      *
@@ -90,14 +89,13 @@ public class AppEmployeeService {
                     response = getAppEmployeeStub(channel).myCompany(message);
                     Logger.d(response);
                 } catch (Exception e) {
-                    Logger.e( e, "myCompany");
+                    Logger.e(e, "myCompany");
                 }
 
                 return response;
             }
         }.doExecute();
     }
-
 
 
     /**
@@ -118,7 +116,7 @@ public class AppEmployeeService {
                     response = getAppEmployeeStub(channel).cancelCompanyApply(message);
                     Logger.d(response);
                 } catch (Exception e) {
-                    Logger.e( e, "cancelCompanyApply");
+                    Logger.e(e, "cancelCompanyApply");
                 }
 
                 return response;

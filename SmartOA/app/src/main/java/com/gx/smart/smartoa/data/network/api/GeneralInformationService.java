@@ -1,7 +1,6 @@
 package com.gx.smart.smartoa.data.network.api;
 
 
-
 import com.gx.smart.smartoa.data.network.ApiConfig;
 import com.gx.smart.smartoa.data.network.api.base.CallBack;
 import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
@@ -64,7 +63,7 @@ public class GeneralInformationService {
                 try {
                     response = GeneralInfoRPCClientStub(channel).getWeatherInfo(message);
                 } catch (Exception e) {
-                    Logger.e(e,"getWeatherInfo");
+                    Logger.e(e, "getWeatherInfo");
                 }
 
                 return response;

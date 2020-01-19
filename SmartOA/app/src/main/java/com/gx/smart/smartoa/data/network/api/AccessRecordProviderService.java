@@ -59,7 +59,7 @@ public class AccessRecordProviderService {
             @Override
             protected AccessRecordReportedResp doRequestData(ManagedChannel channel) {
                 AccessRecordReportedDto message = AccessRecordReportedDto.newBuilder()
-                        .setEmployeeId(SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID,0L))
+                        .setEmployeeId(SPUtils.getInstance().getLong(AppConfig.EMPLOYEE_ID, 0L))
                         .setLat(latitude)
                         .setLng(longitude)
                         .setAddress(address)
@@ -71,7 +71,7 @@ public class AccessRecordProviderService {
                     response = getAppAttendance(channel).accessRecordReported(message);
                     Logger.d(response);
                 } catch (Exception e) {
-                    Logger.e(e,"accessRecordReported");
+                    Logger.e(e, "accessRecordReported");
                 }
 
                 return response;

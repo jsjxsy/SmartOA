@@ -88,12 +88,12 @@ public class VerificationKey {
 
     public Map<String, Object> parseToParams() {
         Map<String, Object> params = new HashMap<>();
-        params.put("kid",kid);
-        params.put("kty",kty);
-        params.put("alg",alg);
-        params.put("use",use);
-        params.put("n",n);
-        params.put("e",e);
+        params.put("kid", kid);
+        params.put("kty", kty);
+        params.put("alg", alg);
+        params.put("use", use);
+        params.put("n", n);
+        params.put("e", e);
         return params;
     }
 

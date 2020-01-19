@@ -106,7 +106,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
     /**
@@ -134,34 +134,8 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
-
-    /**
-     * 设备列表
-     *
-     * @param host_sn 主机SN
-     * @return callBack返回值
-     */
-    public GrpcAsyncTask<String, Void, DevListResp> devList(final String host_sn, CallBack callBack) {
-        return new GrpcAsyncTask<String, Void, DevListResp>(callBack) {
-            @Override
-            protected DevListResp doRequestData(ManagedChannel channel) {
-                DevListReq message = DevListReq.newBuilder()
-                        .setHostSn(host_sn)
-                        .build();
-
-                DevListResp response = null;
-                try {
-                    response = getZiGuangStub(channel).devList(message);
-                } catch (Exception e) {
-                    Logger.e(e, "devList");
-                }
-                return response;
-            }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
-    }
-
 
     /**
      * 修改设备
@@ -192,7 +166,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
     /**
@@ -222,7 +196,32 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
+    }
+
+    /**
+     * 设备列表
+     *
+     * @param host_sn 主机SN
+     * @return callBack返回值
+     */
+    public GrpcAsyncTask<String, Void, DevListResp> devList(final String host_sn, CallBack callBack) {
+        return new GrpcAsyncTask<String, Void, DevListResp>(callBack) {
+            @Override
+            protected DevListResp doRequestData(ManagedChannel channel) {
+                DevListReq message = DevListReq.newBuilder()
+                        .setHostSn(host_sn)
+                        .build();
+
+                DevListResp response = null;
+                try {
+                    response = getZiGuangStub(channel).devList(message);
+                } catch (Exception e) {
+                    Logger.e(e, "devList");
+                }
+                return response;
+            }
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
     /**
@@ -258,7 +257,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -285,7 +284,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -312,7 +311,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -341,7 +340,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -374,7 +373,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -411,7 +410,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -422,7 +421,7 @@ public class UnisiotApiService {
      * @param scene_id 场景id
      * @return callBack返回值
      */
-    public  GrpcAsyncTask<String, Void, UnisiotResp> sceneDel(final String host_sn, final String scene_id, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, UnisiotResp> sceneDel(final String host_sn, final String scene_id, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, UnisiotResp>(callBack) {
             @Override
             protected UnisiotResp doRequestData(ManagedChannel channel) {
@@ -440,7 +439,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -469,7 +468,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
     /**
@@ -499,7 +498,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -511,7 +510,7 @@ public class UnisiotApiService {
      * @param icon_sign 场景图标
      * @return callBack返回值
      */
-    public  GrpcAsyncTask<String, Void, UnisiotResp> sceneEditIcon(final String host_sn, final String icon_sign, final String scene_id, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, UnisiotResp> sceneEditIcon(final String host_sn, final String icon_sign, final String scene_id, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, UnisiotResp>(callBack) {
             @Override
             protected UnisiotResp doRequestData(ManagedChannel channel) {
@@ -530,7 +529,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -542,7 +541,7 @@ public class UnisiotApiService {
      * @param dev_list 设备动作列表
      * @return callBack返回值
      */
-    public  GrpcAsyncTask<String, Void, UnisiotResp> sceneAddDevList(final String host_sn, final String scene_id, final ArrayList<DeviceOrderDto> dev_list, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, UnisiotResp> sceneAddDevList(final String host_sn, final String scene_id, final ArrayList<DeviceOrderDto> dev_list, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, UnisiotResp>(callBack) {
             @Override
             protected UnisiotResp doRequestData(ManagedChannel channel) {
@@ -561,7 +560,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -573,7 +572,7 @@ public class UnisiotApiService {
      * @param dev_list 设备动作列表
      * @return callBack返回值
      */
-    public  GrpcAsyncTask<String, Void, UnisiotResp> sceneEditDevList(final String host_sn, final String scene_id, final ArrayList<DeviceOrderDto> dev_list, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, UnisiotResp> sceneEditDevList(final String host_sn, final String scene_id, final ArrayList<DeviceOrderDto> dev_list, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, UnisiotResp>(callBack) {
             @Override
             protected UnisiotResp doRequestData(ManagedChannel channel) {
@@ -592,7 +591,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -604,7 +603,7 @@ public class UnisiotApiService {
      * @param link_id  关联id
      * @return callBack返回值
      */
-    public  GrpcAsyncTask<String, Void, UnisiotResp> sceneDelDevList(final String host_sn, final String scene_id, final String link_id, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, UnisiotResp> sceneDelDevList(final String host_sn, final String scene_id, final String link_id, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, UnisiotResp>(callBack) {
             @Override
             protected UnisiotResp doRequestData(ManagedChannel channel) {
@@ -623,7 +622,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -633,7 +632,7 @@ public class UnisiotApiService {
      * @param host_sn 主机SN
      * @return callBack返回值
      */
-    public  GrpcAsyncTask<String, Void, HostSysProtectionResp> hostSysProtection(final String host_sn, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, HostSysProtectionResp> hostSysProtection(final String host_sn, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, HostSysProtectionResp>(callBack) {
             @Override
             protected HostSysProtectionResp doRequestData(ManagedChannel channel) {
@@ -650,7 +649,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
     /**
@@ -659,7 +658,7 @@ public class UnisiotApiService {
      * @param host_sn 主机SN
      * @return callBack返回值
      */
-    public  GrpcAsyncTask<String, Void, HostSysDisarmResp> hostSysDisarm(final String host_sn, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, HostSysDisarmResp> hostSysDisarm(final String host_sn, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, HostSysDisarmResp>(callBack) {
             @Override
             protected HostSysDisarmResp doRequestData(ManagedChannel channel) {
@@ -676,7 +675,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
     /**
@@ -686,7 +685,7 @@ public class UnisiotApiService {
      * @param uuid    设备Id
      * @return callBack返回值
      */
-    public  GrpcAsyncTask<String, Void, ScenePannelGetResp> scenePannelGet(final String host_sn, final String uuid, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, ScenePannelGetResp> scenePannelGet(final String host_sn, final String uuid, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, ScenePannelGetResp>(callBack) {
             @Override
             protected ScenePannelGetResp doRequestData(ManagedChannel channel) {
@@ -704,7 +703,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -714,7 +713,7 @@ public class UnisiotApiService {
      * @param host_sn 主机SN
      * @return callBack返回值
      */
-    public  GrpcAsyncTask<String, Void, ScenePannelBindResp> scenePannelBind(final String host_sn, final String category, final String model, final String channelId, final String uuid, final String key_num, final String scene_id, final String scene_name, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, ScenePannelBindResp> scenePannelBind(final String host_sn, final String category, final String model, final String channelId, final String uuid, final String key_num, final String scene_id, final String scene_name, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, ScenePannelBindResp>(callBack) {
             @Override
             protected ScenePannelBindResp doRequestData(ManagedChannel channel) {
@@ -738,7 +737,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -748,7 +747,7 @@ public class UnisiotApiService {
      * @param host_sn 主机SN
      * @return callBack返回值
      */
-    public  GrpcAsyncTask<String, Void, ScenePannelUnbindResp> scenePannelUnbind(final String host_sn, final String channelId, final String uuid, final String key_num, final String scene_id, final String scene_name, final String linkId, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, ScenePannelUnbindResp> scenePannelUnbind(final String host_sn, final String channelId, final String uuid, final String key_num, final String scene_id, final String scene_name, final String linkId, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, ScenePannelUnbindResp>(callBack) {
             @Override
             protected ScenePannelUnbindResp doRequestData(ManagedChannel channel) {
@@ -771,7 +770,7 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -795,12 +794,12 @@ public class UnisiotApiService {
                     response = getZiGuangStub(channel).areaDeviceList(message);
                     Logger.d(response);
                 } catch (Exception e) {
-                    Logger.e( e, "areaDeviceList");
+                    Logger.e(e, "areaDeviceList");
                 }
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 
 
@@ -829,6 +828,6 @@ public class UnisiotApiService {
 
                 return response;
             }
-        }.setHost(ApiConfig.ZG_SERVICE_URL,ApiConfig.ZG_SERVICE_PORT).doExecute();
+        }.setHost(ApiConfig.ZG_SERVICE_URL, ApiConfig.ZG_SERVICE_PORT).doExecute();
     }
 }

@@ -25,10 +25,9 @@ import io.grpc.ManagedChannel;
 
 public class UserCenterService {
 
+    private static UserCenterService UserCenterClient;
     //25秒，网络请求超时
     public final int TIMEOUT_NETWORK = 25;
-
-    private static UserCenterService UserCenterClient;
 
     private UserCenterService() {
 

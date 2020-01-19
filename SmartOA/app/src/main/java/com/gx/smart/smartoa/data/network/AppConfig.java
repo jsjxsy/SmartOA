@@ -27,13 +27,11 @@ public class AppConfig {
     //room
     public static final String SMART_HOME_SN = "sn";
     public static final String ROOM_ID = "roomId";
+    public static final String REPAIR_PREFIX = "repair";
     //极光
     public static String JGToken;
     public static String JGPushMsg;
     public static String JGPushContent;
     //紫光
     public static String wsVer = "v2";
-
-
-    public static final String REPAIR_PREFIX = "repair";
 }

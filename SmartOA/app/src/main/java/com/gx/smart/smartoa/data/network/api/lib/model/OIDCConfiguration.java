@@ -11,6 +11,63 @@ import java.util.Map;
  */
 public class OIDCConfiguration {
 
+    @JSONField(name = "issuer")
+    private String issuer;
+    @JSONField(name = "authorization_endpoint")
+    private String authorizationEndpoint;
+    @JSONField(name = "token_endpoint")
+    private String tokenEndpoint;
+    @JSONField(name = "token_introspection_endpoint")
+    private String tokenIntrospectionEndpoint;
+    @JSONField(name = "userinfo_endpoint")
+    private String userinfoEndpoint;
+    @JSONField(name = "end_session_endpoint")
+    private String logoutEndpoint;
+    @JSONField(name = "jwks_uri")
+    private String jwksUri;
+    @JSONField(name = "check_session_iframe")
+    private String checkSessionIframe;
+    @JSONField(name = "grant_types_supported")
+    private List<String> grantTypesSupported;
+    @JSONField(name = "response_types_supported")
+    private List<String> responseTypesSupported;
+    @JSONField(name = "subject_types_supported")
+    private List<String> subjectTypesSupported;
+    @JSONField(name = "id_token_signing_alg_values_supported")
+    private List<String> idTokenSigningAlgValuesSupported;
+    @JSONField(name = "userinfo_signing_alg_values_supported")
+    private List<String> userInfoSigningAlgValuesSupported;
+    @JSONField(name = "request_object_signing_alg_values_supported")
+    private List<String> requestObjectSigningAlgValuesSupported;
+    @JSONField(name = "response_modes_supported")
+    private List<String> responseModesSupported;
+    @JSONField(name = "registration_endpoint")
+    private String registrationEndpoint;
+    @JSONField(name = "token_endpoint_auth_methods_supported")
+    private List<String> tokenEndpointAuthMethodsSupported;
+    @JSONField(name = "token_endpoint_auth_signing_alg_values_supported")
+    private List<String> tokenEndpointAuthSigningAlgValuesSupported;
+    @JSONField(name = "claims_supported")
+    private List<String> claimsSupported;
+    @JSONField(name = "claim_types_supported")
+    private List<String> claimTypesSupported;
+    @JSONField(name = "claims_parameter_supported")
+    private Boolean claimsParameterSupported;
+    @JSONField(name = "scopes_supported")
+    private List<String> scopesSupported;
+    @JSONField(name = "request_parameter_supported")
+    private Boolean requestParameterSupported;
+    @JSONField(name = "request_uri_parameter_supported")
+    private Boolean requestUriParameterSupported;
+    @JSONField(name = "code_challenge_methods_supported")
+    private List<String> codeChallengeMethodsSupported;
+    @JSONField(name = "tls_client_certificate_bound_access_tokens")
+    private Boolean tlsClientCertificateBoundAccessTokens;
+
+    public static OIDCConfiguration parseFromJson(String json) {
+        return JSON.parseObject(json, OIDCConfiguration.class);
+    }
+
     public Map<String, Object> toMap() {
         String json = toJson();
         return JSON.parseObject(json, Map.class);
@@ -19,88 +76,6 @@ public class OIDCConfiguration {
     public String toJson() {
         return JSON.toJSONString(this);
     }
-
-    public static OIDCConfiguration parseFromJson(String json) {
-        return JSON.parseObject(json, OIDCConfiguration.class);
-    }
-
-    @JSONField(name = "issuer")
-    private String issuer;
-
-    @JSONField(name = "authorization_endpoint")
-    private String authorizationEndpoint;
-
-    @JSONField(name = "token_endpoint")
-    private String tokenEndpoint;
-
-    @JSONField(name = "token_introspection_endpoint")
-    private String tokenIntrospectionEndpoint;
-
-    @JSONField(name = "userinfo_endpoint")
-    private String userinfoEndpoint;
-
-    @JSONField(name = "end_session_endpoint")
-    private String logoutEndpoint;
-
-    @JSONField(name = "jwks_uri")
-    private String jwksUri;
-
-    @JSONField(name = "check_session_iframe")
-    private String checkSessionIframe;
-
-    @JSONField(name = "grant_types_supported")
-    private List<String> grantTypesSupported;
-
-    @JSONField(name = "response_types_supported")
-    private List<String> responseTypesSupported;
-
-    @JSONField(name = "subject_types_supported")
-    private List<String> subjectTypesSupported;
-
-    @JSONField(name = "id_token_signing_alg_values_supported")
-    private List<String> idTokenSigningAlgValuesSupported;
-
-    @JSONField(name = "userinfo_signing_alg_values_supported")
-    private List<String> userInfoSigningAlgValuesSupported;
-
-    @JSONField(name = "request_object_signing_alg_values_supported")
-    private List<String> requestObjectSigningAlgValuesSupported;
-
-    @JSONField(name = "response_modes_supported")
-    private List<String> responseModesSupported;
-
-    @JSONField(name = "registration_endpoint")
-    private String registrationEndpoint;
-
-    @JSONField(name = "token_endpoint_auth_methods_supported")
-    private List<String> tokenEndpointAuthMethodsSupported;
-
-    @JSONField(name = "token_endpoint_auth_signing_alg_values_supported")
-    private List<String> tokenEndpointAuthSigningAlgValuesSupported;
-
-    @JSONField(name = "claims_supported")
-    private List<String> claimsSupported;
-
-    @JSONField(name = "claim_types_supported")
-    private List<String> claimTypesSupported;
-
-    @JSONField(name = "claims_parameter_supported")
-    private Boolean claimsParameterSupported;
-
-    @JSONField(name = "scopes_supported")
-    private List<String> scopesSupported;
-
-    @JSONField(name = "request_parameter_supported")
-    private Boolean requestParameterSupported;
-
-    @JSONField(name = "request_uri_parameter_supported")
-    private Boolean requestUriParameterSupported;
-
-    @JSONField(name = "code_challenge_methods_supported")
-    private List<String> codeChallengeMethodsSupported;
-
-    @JSONField(name = "tls_client_certificate_bound_access_tokens")
-    private Boolean tlsClientCertificateBoundAccessTokens;
 
     public String getIssuer() {
         return issuer;

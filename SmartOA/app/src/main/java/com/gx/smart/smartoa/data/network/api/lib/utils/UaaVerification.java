@@ -33,6 +33,22 @@ import okhttp3.Response;
  */
 public class UaaVerification {
 
+    public boolean issuerFilter = false;
+    public boolean clientFilter = false;
+    private ConcurrentHashMap<String, List<String>> accepts = new ConcurrentHashMap<>();
+    private KeyProvider keyProvider;
+
+
+    public UaaVerification() {
+        initDefKeyProvider();
+    }
+    public UaaVerification(KeyProvider keyProvider) {
+        this.keyProvider = keyProvider;
+        if (null == this.keyProvider) {
+            initDefKeyProvider();
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         String token = "eyJraWQiOiIzNzg5ZWI5NCIsInR5cCI6IkpXVCIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJuaWxpbmciLCJhdWQiOiI2OGNlMDczOCIsInVzcCI6ImRmYTI5YThlIiwiaXNzIjoiaHR0cDovLzEyNy4wLjAuMTozMTc3MS9hdXRoL3N5c2FwaSIsImV4cCI6MTU2NDM3MDkzNCwiaWF0IjoxNTY0MzY5MTM0fQ.b2XCye8lKEL9_jKQOdOSQ5yjRvxLhIW7_-d8uaw8r1dx1rm4QOD2MrzPh3mz_WiYFwq60tHFzlF-wRi5LGxyNstmr8bN1CaaytRbDtP_6BxpuUbvB_tSTelIBTY4eKs9lOICSYfNsJ2ZId43Cpox5DhUXZDkgAreylpDZfgs_qcUj1y9zxS6moPZAJZkxKdrXEwvQsuSizijtZW1cIE-evTn6M0REWAa9Jxypj6aHfvy-R5ANw7XnEb6vY71qRHMlo4Ym0lh4WkC0gizvruYHi-rXuYpw2Tn7eni-u27guAuKKFvb9lEkM03RAmUBpljM0CJWayg3D7ju0eSw2HsLw";
         UaaVerification verification = new UaaVerification();
@@ -44,38 +60,19 @@ public class UaaVerification {
         System.out.println(flag);
     }
 
-    public UaaVerification() {
-        initDefKeyProvider();
-    }
-
-    public UaaVerification(KeyProvider keyProvider) {
-        this.keyProvider = keyProvider;
-        if (null == this.keyProvider) {
-            initDefKeyProvider();
-        }
-    }
-
     public void initDefKeyProvider() {
         this.keyProvider = new RemoteKeyProvider();
-    }
-
-
-    public boolean issuerFilter = false;
-    public boolean clientFilter = false;
-
-    private ConcurrentHashMap<String, List<String>> accepts = new ConcurrentHashMap<>();
-    private KeyProvider keyProvider;
-
-    public void setKeyProvider(KeyProvider keyProvider) {
-        if (null != keyProvider) {
-            this.keyProvider = keyProvider;
-        }
     }
 
     public KeyProvider getKeyProvider() {
         return keyProvider;
     }
 
+    public void setKeyProvider(KeyProvider keyProvider) {
+        if (null != keyProvider) {
+            this.keyProvider = keyProvider;
+        }
+    }
 
     public void addFilter(String issuer, String... clientIds) {
         if (null == issuer) {
@@ -200,9 +197,9 @@ public class UaaVerification {
     }
 
     public static class RemoteKeyProvider implements KeyProvider {
+        private static final long CLEAR_TIME = 1000 * 60;
         private final ConcurrentHashMap<String, Map<String, VerificationKey>> issuers = new ConcurrentHashMap<>();
         private long lastClear = 0;
-        private static final long CLEAR_TIME = 1000 * 60;
 
         @Override
         public VerificationKey getKey(String issuer, String keyId) throws Exception {

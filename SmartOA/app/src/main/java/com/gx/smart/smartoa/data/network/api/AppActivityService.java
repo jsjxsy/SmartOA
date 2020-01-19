@@ -197,7 +197,7 @@ public class AppActivityService {
                     response = getAppActivityStub(channel).findApplyInfo(message);
                     Logger.d(response);
                 } catch (Exception e) {
-                    Logger.e(e,"findApplyInfo");
+                    Logger.e(e, "findApplyInfo");
                 }
 
                 return response;

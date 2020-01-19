@@ -207,8 +207,8 @@ public class AppStructureService {
      * @return callBack返回值
      */
     public GrpcAsyncTask<String, Void, CommonResponse> appChangeSwitch(String switch_type,
-                                                                              String switch_value,
-                                                                              final int structure_id, final int owner_id, CallBack callBack) {
+                                                                       String switch_value,
+                                                                       final int structure_id, final int owner_id, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
             @Override
             protected CommonResponse doRequestData(ManagedChannel channel) {

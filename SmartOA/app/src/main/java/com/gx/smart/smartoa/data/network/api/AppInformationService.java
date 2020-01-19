@@ -83,10 +83,10 @@ public class AppInformationService {
         return new GrpcAsyncTask<String, Void, AppAnnouncementResponse>(callBack) {
             @Override
             protected AppAnnouncementResponse doRequestData(ManagedChannel channel) {
-                AnnouncementRequest  message = AnnouncementRequest.newBuilder()
-                            .setAuthorCompanyId(authorCompanyId)
-                            .setQuery(query)
-                            .build();
+                AnnouncementRequest message = AnnouncementRequest.newBuilder()
+                        .setAuthorCompanyId(authorCompanyId)
+                        .setQuery(query)
+                        .build();
                 Logger.d(message);
                 AppAnnouncementResponse response = null;
                 try {

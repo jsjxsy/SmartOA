@@ -15,5 +15,4 @@ public abstract class CallBack<Data> {
      */
     public abstract void callBack(Data result);  //refresh view
 
-
 }

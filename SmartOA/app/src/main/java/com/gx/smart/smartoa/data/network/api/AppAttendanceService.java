@@ -64,7 +64,7 @@ public class AppAttendanceService {
                     response = getAppAttendance(channel).attendance(message);
                     Logger.d(response);
                 } catch (Exception e) {
-                    Logger.e( e, "attendance");
+                    Logger.e(e, "attendance");
                 }
 
                 return response;

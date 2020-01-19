@@ -6,11 +6,11 @@ package com.gx.smart.smartoa.data.network.api.lib.model;
  * @Describe
  **/
 public class UploadImage {
-    private String	key;//七牛中的key，用于下载
-    private String	hash;//	文件hash
-    private String	bucket;//	七牛bucket
-    private int	fileSize;//	文件大小
-    private String	path;//	文件路径，可下载查看
+    private String key;//七牛中的key，用于下载
+    private String hash;//	文件hash
+    private String bucket;//	七牛bucket
+    private int fileSize;//	文件大小
+    private String path;//	文件路径，可下载查看
 
     public String getKey() {
         return key;

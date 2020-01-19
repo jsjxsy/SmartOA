@@ -30,6 +30,7 @@ import com.gx.smart.smartoa.activity.ui.login.password.ForgetPasswordFragment
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.databinding.FragmentLoginBinding
 import com.gx.smart.smartoa.utils.DataCheckUtil
+import com.gx.smart.smartoa.utils.LoginUtil
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
@@ -51,8 +52,6 @@ class LoginFragment : Fragment(), OnClickListener {
 
             }
 
-//            R.id.id_register_text_view ->
-//                Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment)
             R.id.getVerifyCodeText -> viewModel.getVerifyCode()
             R.id.passwordState -> passwordState()
 
@@ -63,7 +62,7 @@ class LoginFragment : Fragment(), OnClickListener {
         fun newInstance() = LoginFragment()
     }
 
-    private val viewModel by lazy { ViewModelProviders.of(this).get(LoginViewModel::class.java) }
+    private val viewModel by lazy { ViewModelProviders.of(this, LoginUtil.getLoginFactory()).get(LoginViewModel::class.java) }
     private var mTime: TimeCount? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

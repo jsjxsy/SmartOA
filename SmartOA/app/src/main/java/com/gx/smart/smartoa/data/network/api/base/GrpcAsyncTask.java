@@ -32,6 +32,20 @@ public abstract class GrpcAsyncTask<Params, Progress, Data> extends AsyncTask<Pa
         this.callBack = callBack;
     }
 
+    /**
+     * 请求是否结束
+     *
+     * @param task
+     * @return
+     */
+    public static boolean isFinish(AsyncTask<?, ?, ?> task) {
+        return task == null || Status.FINISHED.equals(task.getStatus());
+    }
+
+    public CallBack<Data> getCallBack() {
+        return callBack;
+    }
+
     public GrpcAsyncTask setHost(String host, String port) {
         this.host = host;
         this.port = port;
@@ -67,7 +81,6 @@ public abstract class GrpcAsyncTask<Params, Progress, Data> extends AsyncTask<Pa
         return null;
     }
 
-
     @Override
     protected void onPostExecute(Data result) {
         if (callBack != null) {
@@ -89,16 +102,6 @@ public abstract class GrpcAsyncTask<Params, Progress, Data> extends AsyncTask<Pa
             execute(params);
         }
         return this;
-    }
-
-    /**
-     * 请求是否结束
-     *
-     * @param task
-     * @return
-     */
-    public static boolean isFinish(AsyncTask<?, ?, ?> task) {
-        return task == null || Status.FINISHED.equals(task.getStatus());
     }
 
     /**

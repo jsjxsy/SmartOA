@@ -61,7 +61,7 @@ public class AppFigureService {
                     response = getAppFigureStub(channel).bannerFigure(message);
                     Logger.d(response);
                 } catch (Exception e) {
-                    Logger.e(e,"bannerFigure");
+                    Logger.e(e, "bannerFigure");
                 }
 
                 return response;
@@ -86,7 +86,7 @@ public class AppFigureService {
                     response = getAppFigureStub(channel).carouselFigure(message);
                     Logger.d(response);
                 } catch (Exception e) {
-                    Logger.e(e,"carouselFigure");
+                    Logger.e(e, "carouselFigure");
                 }
 
                 return response;

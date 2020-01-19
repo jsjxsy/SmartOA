@@ -56,6 +56,68 @@ public class AuthApiService {
     }
 
     /**
+     * 用户密码修改
+     *
+     * @param password (必) 密码/验证码 根据登录类型而定
+     * @return callBack返回值
+     */
+    public static GrpcAsyncTask<String, Void, UserModifyResp> userForgetPassWord(final String password, final String userId, final String token, CallBack callBack) {
+        return new GrpcAsyncTask<String, Void, UserModifyResp>(callBack) {
+            @Override
+            protected UserModifyResp doRequestData(ManagedChannel channel) {
+                UserModifyReq message = UserModifyReq.newBuilder()
+                        .setUserSpace(user_space)
+                        .setPassword(password)
+                        .setUserId(userId)
+                        .setToken(token)
+                        .build();
+                Logger.d(message);
+                UserModifyResp response = null;
+                try {
+                    response = getAuthStub(channel).userModify(message);
+                    Logger.d(response);
+                } catch (Exception e) {
+                    Logger.e(e, "login");
+                }
+
+                return response;
+            }
+        }.setHost(ApiConfig.AUTH_API_SERVER_URL, ApiConfig.AUTH_API_SERVER_PORT).doExecute();
+    }
+
+    /**
+     * 刷新token
+     *
+     * @param token         秘钥
+     * @param refresh_token 刷新秘钥
+     * @param account       用户名
+     * @return callBack返回值
+     */
+    public static GrpcAsyncTask<String, Void, RefreshTokenResp> refreshToken(final String token, final String refresh_token, final String account, CallBack callBack) {
+        return new GrpcAsyncTask<String, Void, RefreshTokenResp>(callBack) {
+            @Override
+            protected RefreshTokenResp doRequestData(ManagedChannel channel) {
+                RefreshTokenReq message = RefreshTokenReq.newBuilder()
+                        .setUserSpace(user_space)
+                        .setToken(token)
+                        .setRefreshToken(refresh_token)
+                        .setAccount(account)
+                        .build();
+                Logger.d(message);
+                RefreshTokenResp response = null;
+                try {
+                    response = getAuthStub(channel).refreshToken(message);
+                    Logger.d(response);
+                } catch (Exception e) {
+                    Logger.e(e, "login");
+                }
+
+                return response;
+            }
+        }.setHost(ApiConfig.AUTH_API_SERVER_URL, ApiConfig.AUTH_API_SERVER_PORT).doExecute();
+    }
+
+    /**
      * 用户注册
      *
      * @param account            (必) 账号/手机号 根据登录类型而定
@@ -88,7 +150,6 @@ public class AuthApiService {
             }
         }.setHost(ApiConfig.AUTH_API_SERVER_URL, ApiConfig.AUTH_API_SERVER_PORT).doExecute();
     }
-
 
     /**
      * 用户信息修改
@@ -190,37 +251,6 @@ public class AuthApiService {
         }.setHost(ApiConfig.AUTH_API_SERVER_URL, ApiConfig.AUTH_API_SERVER_PORT).doExecute();
     }
 
-
-    /**
-     * 用户密码修改
-     *
-     * @param password (必) 密码/验证码 根据登录类型而定
-     * @return callBack返回值
-     */
-    public static GrpcAsyncTask<String, Void, UserModifyResp> userForgetPassWord(final String password, final String userId, final String token, CallBack callBack) {
-        return new GrpcAsyncTask<String, Void, UserModifyResp>(callBack) {
-            @Override
-            protected UserModifyResp doRequestData(ManagedChannel channel) {
-                UserModifyReq message = UserModifyReq.newBuilder()
-                        .setUserSpace(user_space)
-                        .setPassword(password)
-                        .setUserId(userId)
-                        .setToken(token)
-                        .build();
-                Logger.d(message);
-                UserModifyResp response = null;
-                try {
-                    response = getAuthStub(channel).userModify(message);
-                    Logger.d(response);
-                } catch (Exception e) {
-                    Logger.e(e, "login");
-                }
-
-                return response;
-            }
-        }.setHost(ApiConfig.AUTH_API_SERVER_URL, ApiConfig.AUTH_API_SERVER_PORT).doExecute();
-    }
-
     /**
      * 登陆
      *
@@ -252,40 +282,6 @@ public class AuthApiService {
             }
         }.setHost(ApiConfig.AUTH_API_SERVER_URL, ApiConfig.AUTH_API_SERVER_PORT).doExecute();
     }
-
-
-    /**
-     * 刷新token
-     *
-     * @param token         秘钥
-     * @param refresh_token 刷新秘钥
-     * @param account       用户名
-     * @return callBack返回值
-     */
-    public static GrpcAsyncTask<String, Void, RefreshTokenResp> refreshToken(final String token, final String refresh_token, final String account, CallBack callBack) {
-        return new GrpcAsyncTask<String, Void, RefreshTokenResp>(callBack) {
-            @Override
-            protected RefreshTokenResp doRequestData(ManagedChannel channel) {
-                RefreshTokenReq message = RefreshTokenReq.newBuilder()
-                        .setUserSpace(user_space)
-                        .setToken(token)
-                        .setRefreshToken(refresh_token)
-                        .setAccount(account)
-                        .build();
-                Logger.d(message);
-                RefreshTokenResp response = null;
-                try {
-                    response = getAuthStub(channel).refreshToken(message);
-                    Logger.d(response);
-                } catch (Exception e) {
-                    Logger.e(e, "login");
-                }
-
-                return response;
-            }
-        }.setHost(ApiConfig.AUTH_API_SERVER_URL, ApiConfig.AUTH_API_SERVER_PORT).doExecute();
-    }
-
 
     /**
      * tokenKeys
