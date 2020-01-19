@@ -7,13 +7,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
-import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.eventbus.EventBusMessageConstant
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
@@ -23,19 +20,15 @@ import com.gx.smart.smartoa.activity.ui.features.DividerViewBinder
 import com.gx.smart.smartoa.activity.ui.features.HomeCompanyAdvise
 import com.gx.smart.smartoa.activity.ui.features.HomeCompanyAdviseViewBinder
 import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
+import com.gx.smart.smartoa.base.BaseFragment
 import com.gx.smart.smartoa.data.network.AppConfig
-import com.gx.smart.smartoa.data.network.api.AppEmployeeService
-import com.gx.smart.smartoa.data.network.api.UserCenterService
-import com.gx.smart.smartoa.data.network.api.base.CallBack
-import com.gx.wisestone.work.app.grpc.common.CommonResponse
-import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 
-class HomeFragment : Fragment(), View.OnClickListener {
+class HomeFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -62,9 +55,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private lateinit var homeHeadViewBinder: HomeHeadViewBinder
     private lateinit var homeActionViewBinder: HomeActionViewBinder
     private lateinit var viewModel: HomeViewModel
-    private val adapter = MultiTypeAdapter()
-    private val items = ArrayList<Any>()
-    private lateinit var context: FragmentActivity
     private lateinit var mRefreshLayout: SmartRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,16 +79,25 @@ class HomeFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        context = requireActivity()
         initTitleView()
         initRecyclerView()
         initEventBus()
+        initObserver()
+    }
+
+    private fun initObserver() {
+        viewModel.dataChange.observe(this, Observer {
+            if(it){
+                adapter.notifyDataSetChanged()
+            }
+        })
+
     }
 
     private fun initEventBus() {
-        LiveEventBus.get(EventBusMessageConstant.REFRESH_KEY,Boolean::class.java)
+        LiveEventBus.get(EventBusMessageConstant.REFRESH_KEY, Boolean::class.java)
             .observe(this, Observer {
-                if(it){
+                if (it) {
                     mRefreshLayout.finishRefresh()
                 }
             })
@@ -106,11 +105,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
     private fun initRecyclerView() {
         mRefreshLayout = refreshLayout
-
-        homeHeadViewBinder = HomeHeadViewBinder()
+        homeHeadViewBinder = HomeHeadViewBinder(viewModel)
         adapter.register(homeHeadViewBinder)
 
-        homeActionViewBinder = HomeActionViewBinder()
+        homeActionViewBinder = HomeActionViewBinder(viewModel)
         adapter.register(homeActionViewBinder)
 
         adapter.register(DividerViewBinder())
@@ -132,13 +130,13 @@ class HomeFragment : Fragment(), View.OnClickListener {
         adapter.items = items
         adapter.notifyDataSetChanged()
 
-        myCompany()
         refreshLayout.setOnRefreshListener {
-            hasNotReadMessage()
-            homeHeadViewBinder.carouselFigure()
-            homeActionViewBinder.findAllApplyInfos()
-            myCompany()
+            viewModel.hasNotReadMessage()
+            viewModel.carouselFigure()
+            viewModel.findAllApplyInfos()
+            viewModel.myCompany()
         }
+        refreshLayout.autoRefresh()
         refreshLayout.isEnableLoadmore = false
     }
 
@@ -156,74 +154,12 @@ class HomeFragment : Fragment(), View.OnClickListener {
             it.setOnClickListener(this)
         }
         redPotView = id_message_red_point
-        hasNotReadMessage()
     }
 
-    private fun hasNotReadMessage() {
-        UserCenterService.getInstance().hasNotReadMessage(object : CallBack<CommonResponse>() {
-            override fun callBack(result: CommonResponse?) {
-                if(!ActivityUtils.isActivityAlive(activity)) {
-                    return
-                }
-                if (result?.code == 100) {
-                    val flag = result.dataMap["hasNotReadMessage"]
-                    if (flag == "true") {
-                        redPotView.visibility = View.VISIBLE
-                    } else {
-                        redPotView.visibility = View.GONE
-                    }
-
-                }
-            }
-
-        })
-    }
-
-
-    private fun myCompany() {
-        AppEmployeeService.getInstance()
-            .myCompany(
-                object : CallBack<AppMyCompanyResponse>() {
-                    override fun callBack(result: AppMyCompanyResponse?) {
-                        if(!ActivityUtils.isActivityAlive(activity)) {
-                            return
-                        }
-                        if (result?.code == 100) {
-                            val employeeList = result.employeeInfoList
-                            if (employeeList.isNotEmpty()) {
-                                val employeeInfo = employeeList[0]
-                                SPUtils.getInstance()
-                                    .put(AppConfig.EMPLOYEE_ID, employeeInfo.employeeId)
-                                SPUtils.getInstance()
-                                    .put(AppConfig.COMPANY_STRUCTURE_ID, employeeInfo.companyStructureId)
-                                SPUtils.getInstance()
-                                    .put(AppConfig.COMPANY_SYS_TENANT_NO, employeeInfo.tenantNo)
-                                SPUtils.getInstance()
-                                    .put(
-                                        AppConfig.SMART_HOME_SN,
-                                        employeeInfo.appDepartmentInfo.smartHomeSn
-                                    )
-                                SPUtils.getInstance()
-                                    .put(
-                                        AppConfig.ROOM_ID,
-                                        employeeInfo.appDepartmentInfo.smartHomeId
-                                    )
-                                SPUtils.getInstance()
-                                    .put(AppConfig.COMPANY_PLACE_NAME, employeeInfo.buildingName)
-                                SPUtils.getInstance()
-                                    .put(AppConfig.COMPANY_NAME, employeeInfo.companyName)
-                                SPUtils.getInstance()
-                                    .put(AppConfig.COMPANY_APPLY_STATUS, employeeInfo.status)
-                            }
-                        }
-                    }
-
-                })
-    }
 
     private fun mineCompanyActivity() {
         val intent = Intent(
-            context,
+            requireActivity(),
             MineCompanyActivity::class.java
         )
         intent.putExtra(MineCompanyActivity.FROM_HOME, MineCompanyActivity.FROM_HOME)

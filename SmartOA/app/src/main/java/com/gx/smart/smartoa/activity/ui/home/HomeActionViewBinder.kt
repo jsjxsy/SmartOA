@@ -40,7 +40,7 @@ import com.jeremyliao.liveeventbus.LiveEventBus
  * @create 2019-11-01
  * @Describe
  */
-class HomeActionViewBinder :
+class HomeActionViewBinder(private val viewModel: HomeViewModel) :
     ItemViewBinder<HomeActionRecommend, HomeActionViewBinder.ViewHolder>() {
 
     lateinit var actionRecommendBanner: ConvenientBanner<AppActivityDto>
@@ -57,7 +57,7 @@ class HomeActionViewBinder :
             intent.putExtra(MineActionActivity.FROM_MORE, MineActionActivity.FROM_MORE)
             ActivityUtils.startActivity(intent)
         }
-        findAllApplyInfos()
+        initActionRecommend(actionRecommendBanner, viewModel.listAction)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -90,36 +90,36 @@ class HomeActionViewBinder :
 
     }
 
-    fun findAllApplyInfos() {
-        val query = QueryDto.newBuilder()
-            .setPage(0)
-            .setPageSize(3)
-            .build()
-        val companyId = SPUtils.getInstance()
-            .getLong(AppConfig.COMPANY_STRUCTURE_ID, 0L)
-        var request = ActivityRequest.newBuilder().setAuthorCompanyId(companyId)
-            .build()
-
-        AppActivityService.getInstance()
-            .findAllActivityInfos(request, query, object : CallBack<ActivityCommonResponse>() {
-                override fun callBack(result: ActivityCommonResponse?) {
-                    LiveEventBus
-                        .get(EventBusMessageConstant.REFRESH_KEY)
-                        .post(true)
-                    if (result == null) {
-                        ToastUtils.showLong("查询活动超时!")
-                        return
-                    }
-                    if (result.code == 100) {
-                        var list = result.contentList.toList()
-                        initActionRecommend(actionRecommendBanner, list)
-                    } else {
-                        ToastUtils.showLong(result.msg)
-                    }
-                }
-
-            })
-    }
+//    fun findAllApplyInfos() {
+//        val query = QueryDto.newBuilder()
+//            .setPage(0)
+//            .setPageSize(3)
+//            .build()
+//        val companyId = SPUtils.getInstance()
+//            .getLong(AppConfig.COMPANY_STRUCTURE_ID, 0L)
+//        var request = ActivityRequest.newBuilder().setAuthorCompanyId(companyId)
+//            .build()
+//
+//        AppActivityService.getInstance()
+//            .findAllActivityInfos(request, query, object : CallBack<ActivityCommonResponse>() {
+//                override fun callBack(result: ActivityCommonResponse?) {
+//                    LiveEventBus
+//                        .get(EventBusMessageConstant.REFRESH_KEY)
+//                        .post(true)
+//                    if (result == null) {
+//                        ToastUtils.showLong("查询活动超时!")
+//                        return
+//                    }
+//                    if (result.code == 100) {
+//                        var list = result.contentList.toList()
+//                        initActionRecommend(actionRecommendBanner, list)
+//                    } else {
+//                        ToastUtils.showLong(result.msg)
+//                    }
+//                }
+//
+//            })
+//    }
 
 
     inner class ActionRecommendHolderView(itemView: View) :

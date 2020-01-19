@@ -42,7 +42,7 @@ import top.limuyang2.customldialog.IOSMsgDialog
  * @create 2019-11-01
  * @Describe
  */
-class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolder>(),
+class HomeHeadViewBinder(private val viewModel: HomeViewModel) : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolder>(),
     View.OnClickListener {
     lateinit var convenientBanner: ConvenientBanner<Any>
     override fun onClick(v: View?) {
@@ -156,7 +156,7 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
             holder.idShareWorkTextView,
             holder.idMeetingScheduleTextView
         )
-        carouselFigure()
+        initBanner(convenientBanner, viewModel.listNetwork, viewModel.listLocal)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -289,30 +289,30 @@ class HomeHeadViewBinder : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolde
     }
 
 
-    fun carouselFigure() {
-        AppFigureService.getInstance().carouselFigure(object : CallBack<ImagesResponse?>() {
-            override fun callBack(result: ImagesResponse?) {
-                if (!ActivityUtils.isActivityAlive(convenientBanner.context)) {
-                    return
-                }
-                var listNetwork = listOf<ImagesInfoOrBuilder>()
-                var listLocal = arrayListOf(
-                    R.mipmap.home_banner_test,
-                    R.mipmap.home_banner_test,
-                    R.mipmap.home_banner_test
-                )
-                if (result?.code == 100) {
-                    val list = result.imagesInfoOrBuilderList.toList()
-                    listNetwork.toMutableList().apply {
-                        addAll(list)
-                        listNetwork = this
-                    }
-                }
-                initBanner(convenientBanner, listNetwork, listLocal)
-            }
-
-        })
-    }
+//    fun carouselFigure() {
+//        AppFigureService.getInstance().carouselFigure(object : CallBack<ImagesResponse?>() {
+//            override fun callBack(result: ImagesResponse?) {
+//                if (!ActivityUtils.isActivityAlive(convenientBanner.context)) {
+//                    return
+//                }
+//                var listNetwork = listOf<ImagesInfoOrBuilder>()
+//                var listLocal = arrayListOf(
+//                    R.mipmap.home_banner_test,
+//                    R.mipmap.home_banner_test,
+//                    R.mipmap.home_banner_test
+//                )
+//                if (result?.code == 100) {
+//                    val list = result.imagesInfoOrBuilderList.toList()
+//                    listNetwork.toMutableList().apply {
+//                        addAll(list)
+//                        listNetwork = this
+//                    }
+//                }
+//                initBanner(convenientBanner, listNetwork, listLocal)
+//            }
+//
+//        })
+//    }
 
 
 }
