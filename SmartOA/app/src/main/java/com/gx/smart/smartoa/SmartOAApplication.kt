@@ -16,6 +16,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
+import org.litepal.LitePal
 
 
 /**
@@ -51,11 +52,15 @@ class SmartOAApplication : Application() {
         initLogger()
         Utils.init(this)
         preInitX5Core()
-        Logger.d("SmartOAApplication initLogger")
         disableAPIDialog()
         initPush()
         CrashHandler.instance.init(this)
         initEventBus()
+        initDataBase()
+    }
+
+    private fun initDataBase(){
+        LitePal.initialize(this)
     }
 
     private fun initEventBus() {
@@ -67,6 +72,7 @@ class SmartOAApplication : Application() {
 
 
     private fun initLogger() {
+        Logger.d("SmartOAApplication initLogger")
         val formatStrategy = PrettyFormatStrategy.newBuilder()
             .showThreadInfo(false)      //（可选）是否显示线程信息。 默认值为true
             .methodCount(2)               // （可选）要显示的方法行数。 默认2

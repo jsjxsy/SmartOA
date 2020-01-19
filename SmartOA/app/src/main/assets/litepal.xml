@@ -1,0 +1,7 @@
+<litepal>
+    <dbname value="smart" />
+    <version value="1" />
+    <list>
+    </list>
+    <storage value="external" />
+</litepal>

@@ -88,6 +88,7 @@ android {
             java {
                 srcDir 'src/main/java'
             }
+            assets.srcDirs = ['src/main/assets', 'src/main/assets/']
         }
     }
 
@@ -170,6 +171,8 @@ dependencies {
     implementation 'com.github.arcadefire:nice-spinner:1.4.4'
     //pickerView
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
+    //litepal
+    implementation 'org.litepal.android:kotlin:3.0.0'
     //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

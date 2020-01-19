@@ -414,3 +414,16 @@
 -keep class androidx.lifecycle.** { *; }
 -keep class androidx.arch.core.** { *; }
 
+
+#LitePal
+-keep class org.litepal.** {
+    *;
+}
+
+-keep class * extends org.litepal.crud.DataSupport {
+    *;
+}
+
+-keep class * extends org.litepal.crud.LitePalSupport {
+    *;
+}
