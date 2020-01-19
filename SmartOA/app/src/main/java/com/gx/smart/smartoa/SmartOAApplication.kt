@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Build
 import android.text.TextUtils
 import cn.jpush.android.api.JPushInterface
+import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.ProcessUtils
 import com.blankj.utilcode.util.Utils
 import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.webview.X5NetService
@@ -49,17 +51,20 @@ class SmartOAApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        initLogger()
-        Utils.init(this)
-        preInitX5Core()
-        disableAPIDialog()
-        initPush()
-        CrashHandler.instance.init(this)
-        initEventBus()
-        initDataBase()
+        if (ProcessUtils.isMainProcess()) {
+            AppUtils.getAppPackageName()
+            initLogger()
+            Utils.init(this)
+            preInitX5Core()
+            disableAPIDialog()
+            initPush()
+            CrashHandler.instance.init(this)
+            initEventBus()
+            initDataBase()
+        }
     }
 
-    private fun initDataBase(){
+    private fun initDataBase() {
         LitePal.initialize(this)
     }
 
@@ -68,7 +73,6 @@ class SmartOAApplication : Application() {
             .config()
             .enableLogger(true)
     }
-
 
 
     private fun initLogger() {
