@@ -61,7 +61,7 @@ abstract class BaseLDialog<T : BaseLDialog<T>> : DialogFragment() {
 
         //Restore UI status
         savedInstanceState?.let {
-            baseParams = it.getParcelable(KEY_PARAMS)
+            baseParams = it.getParcelable(KEY_PARAMS)!!
             viewHandlerListener = savedInstanceState.getParcelable(KEY_VIEW_HANDLER)
             onDialogDismissListener = savedInstanceState.getParcelable(KEY_DISMISS_LISTENER)
         }
