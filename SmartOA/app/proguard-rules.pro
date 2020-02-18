@@ -32,8 +32,8 @@
 #-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
 -keep class androidx.appcompat.widget.** { *; }
--keep class  com.gx.smart.smartoa.data.model.** { *; }
-
+-keep class com.gx.smart.smartoa.data.model.** { *; }
+-keep class com.gx.smart.smartoa.activity.ui.company.model.** {*; }
 
 -keepattributes Signature #范型
 

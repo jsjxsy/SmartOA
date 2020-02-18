@@ -92,7 +92,8 @@
             android:layout_marginLeft="100dp"
             android:layout_toLeftOf="@id/getVerifyCodeText"
             android:background="@android:color/white"
-            android:hint="@string/input_verify_code" />
+            android:hint="@string/input_verify_code"
+            android:inputType="number"/>
 
     </RelativeLayout>
 

@@ -7,8 +7,6 @@
 
         <import type="android.view.View" />
 
-        <import type="androidx.navigation.Navigation" />
-
         <variable
             name="userModel"
             type="com.gx.smart.smartoa.activity.ui.login.LoginViewModel" />
@@ -21,7 +19,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:context=".activity.ui.login.LoginActivity">
 
             <ImageView
@@ -32,7 +30,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
+            <linearlayout
                 android:id="@+id/id_login_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="360dp"
@@ -153,7 +151,7 @@
                     android:text="@string/login_register"
                     android:textColor="@color/font_color_style_two"
                     android:textSize="@dimen/font_size_style_one" />
-            </LinearLayout>
+            </linearlayout>
 
 
             <TextView

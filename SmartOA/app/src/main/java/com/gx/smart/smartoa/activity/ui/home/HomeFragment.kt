@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blankj.utilcode.util.ActivityUtils
@@ -22,6 +23,7 @@ import com.gx.smart.smartoa.activity.ui.features.HomeCompanyAdviseViewBinder
 import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
 import com.gx.smart.smartoa.base.BaseFragment
 import com.gx.smart.smartoa.data.network.AppConfig
+import com.gx.smart.smartoa.databinding.FragmentHomeBinding
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -54,7 +56,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     private lateinit var redPotView: View
     private lateinit var homeHeadViewBinder: HomeHeadViewBinder
     private lateinit var homeActionViewBinder: HomeActionViewBinder
-    private lateinit var viewModel: HomeViewModel
+//    private lateinit var viewModel: HomeViewModel
     private lateinit var mRefreshLayout: SmartRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,16 +71,19 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     }
 
 
+    private val viewModel by lazy { ViewModelProviders.of(this).get(HomeViewModel::class.java) }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+       val homeFragmentBinding =  DataBindingUtil.inflate<FragmentHomeBinding>(inflater, R.layout.fragment_home,container, false)
+        homeFragmentBinding.lifecycleOwner = this
+        return homeFragmentBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+//        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         initTitleView()
         initRecyclerView()
         initEventBus()
@@ -137,7 +142,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             viewModel.myCompany()
         }
         refreshLayout.autoRefresh()
-        refreshLayout.isEnableLoadmore = false
     }
 
 

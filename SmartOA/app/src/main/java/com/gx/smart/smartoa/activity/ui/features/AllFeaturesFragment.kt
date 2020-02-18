@@ -83,25 +83,25 @@ class AllFeaturesFragment : BaseFragment(), View.OnClickListener {
         items.add(category1)
         val item1 =
             Feature(R.drawable.ic_environmental_control, getString(R.string.environmental_control))
-        val item2 =
-            Feature(R.drawable.ic_meeting_schedule, getString(R.string.meeting_schedule))
+//        val item2 =
+//            Feature(R.drawable.ic_meeting_schedule, getString(R.string.meeting_schedule))
         val item3 =
             Feature(R.drawable.ic_attendance, getString(R.string.attendance))
         val item4 =
             Feature(R.drawable.ic_repair, getString(R.string.repair))
-        val item5 =
-            Feature(R.drawable.ic_air_quality, getString(R.string.air_quality))
-        val item6 =
-            Feature(R.drawable.ic_share_work, getString(R.string.share_work))
-        val item7 =
-            Feature(R.drawable.ic_visitor, getString(R.string.visitor))
+//        val item5 =
+//            Feature(R.drawable.ic_air_quality, getString(R.string.air_quality))
+//        val item6 =
+//            Feature(R.drawable.ic_share_work, getString(R.string.share_work))
+//        val item7 =
+//            Feature(R.drawable.ic_visitor, getString(R.string.visitor))
         items.add(item1)
-        items.add(item2)
+//        items.add(item2)
         items.add(item3)
         items.add(item4)
-        items.add(item5)
-        items.add(item6)
-        items.add(item7)
+//        items.add(item5)
+//        items.add(item6)
+//        items.add(item7)
 
         items.add(Divider())
 
@@ -111,25 +111,25 @@ class AllFeaturesFragment : BaseFragment(), View.OnClickListener {
         items.add(category21)
         val item11 =
             Feature(R.drawable.ic_environmental_control, getString(R.string.environmental_control))
-        val item12 =
-            Feature(R.drawable.ic_meeting_schedule, getString(R.string.meeting_schedule))
+//        val item12 =
+//            Feature(R.drawable.ic_meeting_schedule, getString(R.string.meeting_schedule))
         val item13 =
             Feature(R.drawable.ic_attendance, getString(R.string.attendance))
         val item14 =
             Feature(R.drawable.ic_repair, getString(R.string.repair))
-        val item15 =
-            Feature(R.drawable.ic_air_quality, getString(R.string.air_quality))
-        val item16 =
-            Feature(R.drawable.ic_share_work, getString(R.string.share_work))
-        val item17 =
-            Feature(R.drawable.ic_visitor, getString(R.string.visitor))
+//        val item15 =
+//            Feature(R.drawable.ic_air_quality, getString(R.string.air_quality))
+//        val item16 =
+//            Feature(R.drawable.ic_share_work, getString(R.string.share_work))
+//        val item17 =
+//            Feature(R.drawable.ic_visitor, getString(R.string.visitor))
         items.add(item11)
-        items.add(item12)
+//        items.add(item12)
         items.add(item13)
         items.add(item14)
-        items.add(item15)
-        items.add(item16)
-        items.add(item17)
+//        items.add(item15)
+//        items.add(item16)
+//        items.add(item17)
         adapter.items = items
         adapter.notifyDataSetChanged()
     }

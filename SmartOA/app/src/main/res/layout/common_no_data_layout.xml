@@ -5,16 +5,12 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@null"
-        android:src="@mipmap/no_data" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_style_four"
+        android:drawableTop="@mipmap/no_data"
+        android:drawablePadding="@dimen/margin_style_four"
+        android:gravity="center"
         android:text="暂无记录"
         android:textColor="@color/font_color_style_seven"
         android:textSize="@dimen/font_size_style_two" />

@@ -50,10 +50,10 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:onClick="share"
                     android:text="微信好友"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
+                <!-- android:onClick="share" -->
             </LinearLayout>
 
             <LinearLayout
@@ -75,10 +75,10 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:onClick="share"
                     android:text="QQ好友"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
+                <!--                    android:onClick="share"-->
             </LinearLayout>
         </LinearLayout>
 

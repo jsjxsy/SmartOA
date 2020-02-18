@@ -31,6 +31,7 @@ import com.gx.smart.smartoa.data.network.AppConfig
 import com.gx.smart.smartoa.databinding.FragmentLoginBinding
 import com.gx.smart.smartoa.utils.DataCheckUtil
 import com.gx.smart.smartoa.utils.LoginUtil
+import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
@@ -139,6 +140,9 @@ class LoginFragment : Fragment(), OnClickListener {
                     passwordState.visibility = View.GONE
                     id_input_password_edit_text.transformationMethod =
                         HideReturnsTransformationMethod.getInstance()
+                }
+                else ->{
+                    Logger.e("login type argument is exception")
                 }
             }
         })

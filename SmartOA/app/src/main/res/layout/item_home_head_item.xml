@@ -25,6 +25,7 @@
         android:background="@android:color/white"
         android:paddingTop="@dimen/padding_style_two"
         android:paddingBottom="@dimen/padding_style_two"
+        android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/headBanner">
@@ -35,11 +36,11 @@
             android:drawableTop="@drawable/ic_environmental_control"
             android:text="@string/environmental_control" />
 
-        <TextView
-            android:id="@+id/id_meeting_schedule_text_view"
-            style="@style/iconStyle"
-            android:drawableTop="@drawable/ic_meeting_schedule"
-            android:text="@string/meeting_schedule" />
+<!--        <TextView-->
+<!--            android:id="@+id/id_meeting_schedule_text_view"-->
+<!--            style="@style/iconStyle"-->
+<!--            android:drawableTop="@drawable/ic_meeting_schedule"-->
+<!--            android:text="@string/meeting_schedule" />-->
 
         <TextView
             android:id="@+id/id_attendance_text_view"
@@ -52,40 +53,46 @@
             style="@style/iconStyle"
             android:drawableTop="@drawable/ic_repair"
             android:text="@string/repair" />
+        <TextView
+            android:id="@+id/id_more_text_view"
+            style="@style/iconStyle"
+            android:drawableTop="@drawable/ic_more_ic"
+            android:text="@string/more" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/id_icon_two_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:background="@android:color/white"
         android:paddingBottom="@dimen/padding_style_two"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/id_icon_one_layout">
 
-        <TextView
-            android:id="@+id/id_air_quality_text_view"
-            style="@style/iconStyle"
-            android:drawableTop="@drawable/ic_air_quality"
-            android:text="@string/air_quality" />
+<!--        <TextView-->
+<!--            android:id="@+id/id_air_quality_text_view"-->
+<!--            style="@style/iconStyle"-->
+<!--            android:drawableTop="@drawable/ic_air_quality"-->
+<!--            android:text="@string/air_quality" />-->
 
-        <TextView
-            android:id="@+id/id_share_work_text_view"
-            style="@style/iconStyle"
-            android:drawableTop="@drawable/ic_share_work"
-            android:text="@string/share_work" />
+<!--        <TextView-->
+<!--            android:id="@+id/id_share_work_text_view"-->
+<!--            style="@style/iconStyle"-->
+<!--            android:drawableTop="@drawable/ic_share_work"-->
+<!--            android:text="@string/share_work" />-->
 
-        <TextView
-            android:id="@+id/id_visitor_text_view"
-            style="@style/iconStyle"
-            android:drawableTop="@drawable/ic_visitor"
-            android:text="@string/visitor" />
+<!--        <TextView-->
+<!--            android:id="@+id/id_visitor_text_view"-->
+<!--            style="@style/iconStyle"-->
+<!--            android:drawableTop="@drawable/ic_visitor"-->
+<!--            android:text="@string/visitor" />-->
 
-        <TextView
-            android:id="@+id/id_more_text_view"
-            style="@style/iconStyle"
-            android:drawableTop="@drawable/ic_more_ic"
-            android:text="@string/more" />
+<!--        <TextView-->
+<!--            android:id="@+id/id_more_text_view"-->
+<!--            style="@style/iconStyle"-->
+<!--            android:drawableTop="@drawable/ic_more_ic"-->
+<!--            android:text="@string/more" />-->
     </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

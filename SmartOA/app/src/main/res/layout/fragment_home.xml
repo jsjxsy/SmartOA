@@ -1,34 +1,49 @@
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refreshLayout"
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.gx.smart.smartoa.activity.ui.home.HomeViewModel" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:srlEnableLoadmore="false">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/homeRecyclerView"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layoutManager="LinearLayoutManager"
-                tools:itemCount="1"
-                tools:listitem="@layout/item_home_head_item" />
+                android:layout_height="match_parent">
 
-            <include
-                layout="@layout/layout_common_title"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/title_height_style"
-                android:layout_marginTop="21dp" />
-        </RelativeLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/homeRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="LinearLayoutManager"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/item_home_head_item" />
 
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+                <include
+                    layout="@layout/layout_common_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/title_height_style"
+                    android:layout_marginTop="21dp" />
+            </RelativeLayout>
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
+
+
 

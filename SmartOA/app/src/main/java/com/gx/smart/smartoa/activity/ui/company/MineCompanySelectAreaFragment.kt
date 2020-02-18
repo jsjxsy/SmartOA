@@ -114,10 +114,12 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
                                 for (sysTenants in sysTenantsList) {
                                     val item1 = CompanyAreaCity(sysTenants.title ?: "")
                                     items.add(item1)
-                                    for (sysTenant in sysTenants.sysTenants) {
-                                        val item11 =
-                                            CompanyAreaPlace(sysTenant)
-                                        items.add(item11)
+                                    if(sysTenants.sysTenants != null && sysTenants.sysTenants.isNotEmpty()){
+                                        for (sysTenant in sysTenants.sysTenants) {
+                                            val item11 =
+                                                CompanyAreaPlace(sysTenant)
+                                            items.add(item11)
+                                        }
                                     }
                                     items.add(Divider())
 
@@ -153,10 +155,12 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
                                 for (sysTenants in sysTenantsList) {
                                     val item1 = CompanyAreaCity(sysTenants.title ?: "")
                                     items.add(item1)
-                                    for (sysTenant in sysTenants.sysTenants) {
-                                        val item11 =
-                                            CompanyAreaPlace(sysTenant)
-                                        items.add(item11)
+                                    if(sysTenants.sysTenants != null && sysTenants.sysTenants.isNotEmpty()) {
+                                        for (sysTenant in sysTenants.sysTenants) {
+                                            val item11 =
+                                                CompanyAreaPlace(sysTenant)
+                                            items.add(item11)
+                                        }
                                     }
                                     items.add(Divider())
 

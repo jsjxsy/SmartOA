@@ -33,7 +33,7 @@ class HomeViewModel : ViewModel() {
 
     var listAction = listOf<AppActivityDto>()
     var unReadMessage = MutableLiveData<Boolean>(false)
-    var dataChange =  MutableLiveData<Boolean>(false)
+    var dataChange = MutableLiveData<Boolean>(false)
 
     fun carouselFigure() {
         AppFigureService.getInstance().carouselFigure(object : CallBack<ImagesResponse?>() {
@@ -137,4 +137,5 @@ class HomeViewModel : ViewModel() {
 
                 })
     }
+
 }
