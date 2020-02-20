@@ -106,16 +106,13 @@ class LoginFragment : Fragment(), OnClickListener {
             }
         })
 
-        viewModel.isLoading.observe(this, Observer { isLoading ->
-            if (!isLoading) {
-                loadingView.visibility = View.GONE
-            }
-        })
-
         viewModel.targetPage.observe(this, Observer {
             when (it) {
                 1 -> mainActivity()
                 2 -> mineCompanyActivity()
+                else ->{
+                    Logger.e("jump page argument is exception'")
+                }
             }
         })
         viewModel.loginFlag.observe(this, Observer {
@@ -142,7 +139,7 @@ class LoginFragment : Fragment(), OnClickListener {
                         HideReturnsTransformationMethod.getInstance()
                 }
                 else ->{
-                    Logger.e("login type argument is exception")
+                    Logger.e("login type argument is exception'")
                 }
             }
         })
