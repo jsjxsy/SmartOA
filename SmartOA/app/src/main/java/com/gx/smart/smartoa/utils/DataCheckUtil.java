@@ -30,4 +30,6 @@ public class DataCheckUtil {
         Matcher matcher = pattern.matcher(phoneNumber);
         return matcher.matches();
     }
+
+
 }

@@ -75,17 +75,22 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
 
     }
 
+    var dialog: IOSMsgDialog? = null
     private fun initEventBus() {
+
         LiveEventBus.get(EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY, Int::class.java)
             .observe(this, Observer {
                 val fragmentActivity = ActivityUtils.getTopActivity() as FragmentActivity
+                if (dialog != null && dialog!!.isVisible) {
+                    dialog!!.dismiss()
+                }
                 when (it) {
-                    1 -> IOSMsgDialog.init(fragmentActivity.supportFragmentManager)
+                    1 -> dialog = IOSMsgDialog.init(fragmentActivity.supportFragmentManager)
                         .setTitle("加入企业")
                         .setMessage("您申请的企业在审核中，请耐心等待")
                         .setPositiveButton("确定").show()
 
-                    3 -> IOSMsgDialog.init(fragmentActivity.supportFragmentManager)
+                    3 -> dialog = IOSMsgDialog.init(fragmentActivity.supportFragmentManager)
                         .setTitle("加入企业")
                         .setMessage("您还未入驻任何企业，请先进行企业身份认证")
                         .setPositiveButton("马上认证", View.OnClickListener {

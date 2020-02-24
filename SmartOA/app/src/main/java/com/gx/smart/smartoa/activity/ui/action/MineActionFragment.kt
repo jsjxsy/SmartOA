@@ -35,7 +35,7 @@ import kotlinx.android.synthetic.main.list_action_layout.recyclerView
  * A simple [Fragment] subclass.
  */
 class MineActionFragment : Fragment(), View.OnClickListener {
-    var flag: Boolean = false
+    var flag: Boolean = false//是否是? "我的活动"
     lateinit var adapter: ActionAdapter
     var fromMore: Boolean = false
 
@@ -43,8 +43,6 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         fun newInstance() = MineActionFragment()
         const val ACTION_TYPE = 2
     }
-
-
     private var readAllFlag: Boolean = false
     private lateinit var viewModel: ActionViewModel
     private var currentPage = 0
@@ -78,28 +76,32 @@ class MineActionFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initTitle() {
-        if (flag) {
-            title.visibility = View.VISIBLE
-            left_nav_image_view?.let {
-                it.visibility = View.VISIBLE
-                it.setOnClickListener(this)
+        when {
+            flag -> {
+                title.visibility = View.VISIBLE
+                left_nav_image_view?.let {
+                    it.visibility = View.VISIBLE
+                    it.setOnClickListener(this)
+                }
+                center_title.let {
+                    it.visibility = View.VISIBLE
+                    it.text = getString(R.string.mine_action)
+                }
             }
-            center_title.let {
-                it.visibility = View.VISIBLE
-                it.text = getString(R.string.mine_action)
+            fromMore -> {
+                title.visibility = View.VISIBLE
+                left_nav_image_view?.let {
+                    it.visibility = View.VISIBLE
+                    it.setOnClickListener(this)
+                }
+                center_title.let {
+                    it.visibility = View.VISIBLE
+                    it.text = getString(R.string.action)
+                }
             }
-        } else if (fromMore) {
-            title.visibility = View.VISIBLE
-            left_nav_image_view?.let {
-                it.visibility = View.VISIBLE
-                it.setOnClickListener(this)
+            else -> {
+                title.visibility = View.GONE
             }
-            center_title.let {
-                it.visibility = View.VISIBLE
-                it.text = getString(R.string.action)
-            }
-        } else {
-            title.visibility = View.GONE
         }
 
     }
@@ -121,26 +123,19 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                 clear()
                 adapter.mList = this
             }
-            val query = QueryDto.newBuilder()
-                .setPage(currentPage)
-                .setPageSize(10)
-                .build()
+
             if (flag) {
-                myCompany(query)
+                myCompany()
             } else {
-                findAllActivityInfos(query)
+                findAllActivityInfos()
             }
         }
         refreshLayout.setOnLoadmoreListener {
-            val query = QueryDto.newBuilder()
-                .setPage(currentPage)
-                .setPageSize(10)
-                .build()
+            currentPage++
             if (flag) {
-                findMyApplyInfos(query)
+                findMyApplyInfos()
             } else {
-
-                findAllActivityInfos(query)
+                findAllActivityInfos()
             }
         }
         refreshLayout.autoRefresh()
@@ -169,7 +164,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
     }
 
 
-    private fun findMyApplyInfos(query: QueryDto) {
+    private fun findMyApplyInfos() {
         if (!ActivityUtils.isActivityAlive(activity)) {
             return
         }
@@ -180,6 +175,10 @@ class MineActionFragment : Fragment(), View.OnClickListener {
             return
         }
 
+        val query = QueryDto.newBuilder()
+            .setPage(currentPage)
+            .setPageSize(10)
+            .build()
         AppActivityService.getInstance()
             .findMyApplyInfos(query, object : CallBack<ActivityCommonResponse>() {
                 override fun callBack(result: ActivityCommonResponse?) {
@@ -208,14 +207,15 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                         } else {
                             emptyLayout.visibility = View.GONE
                             if (list.isNotEmpty()) {
-                                currentPage++
                                 adapter.mList.toMutableList().apply {
+                                    if (currentPage == 0) {
+                                        clear()
+                                    }
                                     addAll(list)
                                     adapter.mList = this
                                 }
                                 adapter.notifyDataSetChanged()
                             }
-
                         }
 
                     } else {
@@ -255,7 +255,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
     }
 
 
-    private fun myCompany(query: QueryDto) {
+    private fun myCompany() {
         AppEmployeeService.getInstance()
             .myCompany(
                 object : CallBack<AppMyCompanyResponse>() {
@@ -292,7 +292,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                                     .put(AppConfig.COMPANY_NAME, employeeInfo.companyName)
                                 SPUtils.getInstance()
                                     .put(AppConfig.COMPANY_APPLY_STATUS, employeeInfo.status)
-                                findMyApplyInfos(query)
+                                findMyApplyInfos()
                             } else {
                                 refreshLayout.finishRefresh()
                                 ToastUtils.showLong("企业申请还没通过!")
@@ -309,14 +309,20 @@ class MineActionFragment : Fragment(), View.OnClickListener {
     }
 
 
-    private fun findAllActivityInfos(query: QueryDto) {
+    private fun findAllActivityInfos() {
         if (!ActivityUtils.isActivityAlive(activity)) {
             return
         }
         val companyId = SPUtils.getInstance()
             .getLong(AppConfig.COMPANY_STRUCTURE_ID, 0L)
 
-        var request = ActivityRequest.newBuilder().setAuthorCompanyId(companyId)
+        var request = ActivityRequest.newBuilder()
+            .setAuthorCompanyId(companyId)
+            .build()
+
+        val query = QueryDto.newBuilder()
+            .setPage(currentPage)
+            .setPageSize(10)
             .build()
 
         AppActivityService.getInstance()
@@ -345,8 +351,10 @@ class MineActionFragment : Fragment(), View.OnClickListener {
                         } else {
                             emptyLayout.visibility = View.GONE
                             if (list.isNotEmpty()) {
-                                currentPage++
                                 adapter.mList.toMutableList().apply {
+                                    if (currentPage == 0) {
+                                        clear()
+                                    }
                                     addAll(list)
                                     adapter.mList = this
                                 }

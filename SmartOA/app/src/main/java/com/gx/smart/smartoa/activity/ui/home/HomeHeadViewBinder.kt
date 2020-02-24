@@ -150,11 +150,7 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) : ItemViewBinder<
             holder.idEnvironmentalControlTextView,
             holder.idMoreTextView,
             holder.idAttendanceTextView,
-//            holder.idVisitorTextView,
             holder.idRepairTextView
-//            holder.idAirQualityTextView,
-//            holder.idShareWorkTextView,
-//            holder.idMeetingScheduleTextView
         )
         initBanner(convenientBanner, viewModel.listNetwork, viewModel.listLocal)
     }
@@ -167,14 +163,8 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) : ItemViewBinder<
             itemView.findViewById(R.id.id_more_text_view)
         val idAttendanceTextView: TextView =
             itemView.findViewById(R.id.id_attendance_text_view)
-//        val idVisitorTextView: TextView =
-//            itemView.findViewById(R.id.id_visitor_text_view)
 
         val idRepairTextView: TextView = itemView.findViewById(R.id.id_repair_text_view)
-//        val idAirQualityTextView: TextView = itemView.findViewById(R.id.id_air_quality_text_view)
-//        val idShareWorkTextView: TextView = itemView.findViewById(R.id.id_share_work_text_view)
-//        val idMeetingScheduleTextView: TextView =
-//            itemView.findViewById(R.id.id_meeting_schedule_text_view)
 
     }
 
@@ -182,20 +172,12 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) : ItemViewBinder<
         id_environmental_control_text_view: TextView,
         id_more_text_view: TextView,
         id_attendance_text_view: TextView,
-//        id_visitor_text_view: TextView,
         idRepairTextView: TextView
-//        idAirQualityTextView: TextView,
-//        idShareWorkTextView: TextView,
-//        idMeetingScheduleTextView: TextView
     ) {
         id_environmental_control_text_view.setOnClickListener(this)
         id_more_text_view.setOnClickListener(this)
         id_attendance_text_view.setOnClickListener(this)
-//        id_visitor_text_view.setOnClickListener(this)
         idRepairTextView.setOnClickListener(this)
-//        idAirQualityTextView.setOnClickListener(this)
-//        idShareWorkTextView.setOnClickListener(this)
-//        idMeetingScheduleTextView.setOnClickListener(this)
     }
 
     private fun initBanner(

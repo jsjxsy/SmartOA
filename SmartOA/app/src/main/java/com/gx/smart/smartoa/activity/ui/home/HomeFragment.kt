@@ -18,8 +18,6 @@ import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
 import com.gx.smart.smartoa.activity.ui.features.Divider
 import com.gx.smart.smartoa.activity.ui.features.DividerViewBinder
-import com.gx.smart.smartoa.activity.ui.features.HomeCompanyAdvise
-import com.gx.smart.smartoa.activity.ui.features.HomeCompanyAdviseViewBinder
 import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
 import com.gx.smart.smartoa.base.BaseFragment
 import com.gx.smart.smartoa.data.network.AppConfig
@@ -56,7 +54,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     private lateinit var redPotView: View
     private lateinit var homeHeadViewBinder: HomeHeadViewBinder
     private lateinit var homeActionViewBinder: HomeActionViewBinder
-//    private lateinit var viewModel: HomeViewModel
     private lateinit var mRefreshLayout: SmartRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,7 +80,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         initTitleView()
         initRecyclerView()
         initEventBus()
@@ -136,10 +132,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         adapter.notifyDataSetChanged()
 
         refreshLayout.setOnRefreshListener {
-            viewModel.hasNotReadMessage()
-            viewModel.carouselFigure()
-            viewModel.findAllApplyInfos()
-            viewModel.myCompany()
+            viewModel.onRefresh()
         }
         refreshLayout.autoRefresh()
     }

@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.activity.ui.features
+package com.gx.smart.smartoa.activity.ui.home
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -19,6 +19,7 @@ import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.WebViewActivity
 import com.gx.smart.smartoa.activity.ui.home.CompanyAdvise
+import com.gx.smart.smartoa.activity.ui.home.HomeCompanyAdvise
 import com.gx.smart.smartoa.data.network.ApiConfig
 
 

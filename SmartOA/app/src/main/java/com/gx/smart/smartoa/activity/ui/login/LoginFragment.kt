@@ -115,6 +115,7 @@ class LoginFragment : Fragment(), OnClickListener {
                 }
             }
         })
+
         viewModel.loginFlag.observe(this, Observer {
             id_input_password_edit_text.editableText.clear()
             when(it){

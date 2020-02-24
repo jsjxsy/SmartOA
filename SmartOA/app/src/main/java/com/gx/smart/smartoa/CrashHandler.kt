@@ -99,6 +99,7 @@ class CrashHandler private constructor() : Thread.UncaughtExceptionHandler {
                 if (!dir.exists()) {
                     dir.mkdirs()
                 }
+
                 val fos = FileOutputStream(path + fileName)
                 fos.write(sb.toString().toByteArray())
                 fos.close()

@@ -139,7 +139,6 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
      * @param loginType 2:手机号密码登录 3: 手机号验证码登录
      */
     fun login(loginType: Int) {
-//        loginResponseCallBack(loginType == 2, phone.value, password.value)
         launch({
             val result = loginRepository.login(phone.value!!, password.value!!, loginType)
             val msg = result.dataMap["errMsg"]
@@ -186,46 +185,8 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         }
 
 
-//    /*******************************************登录回调 */
-//    private fun loginResponseCallBack(
-//        isPassWord: Boolean,
-//        phone: String?,
-//        password: String?
-//    ) {
-//        loginCallBack = object : CallBack<LoginResp?>() {
-//            override fun callBack(result: LoginResp?) {
-//                if (result == null) {
-//                    ToastUtils.showLong("登录超时")
-//                    return
-//                }
-//                val msg = result.dataMap["errMsg"]
-//                if (result.code == 100) {
-//                    SPUtils.getInstance().put(AppConfig.LOGIN_TOKEN, result.token)
-//                    //保存当前用户
-//                    if (isPassWord) { //保存当前用户
-//                        SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, phone)
-//                        SPUtils.getInstance().put(AppConfig.SH_PASSWORD, password)
-//                    } else {
-//                        SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, phone)
-//                    }
-//                    updateMessagePush()
-//                    bindAppCallBack()
-//                    if (GrpcAsyncTask.isFinish(bindTask)) {
-//                        bindTask =
-//                            UserCenterService.getInstance()
-//                                .bindAppUser(phone, phone, bindCallBack)
-//                    }
-//                } else {
-//                    isLoading.value = false
-//                    ToastUtils.showLong(msg)
-//                }
-//            }
-//        }
-//    }
-
-
     /*******************************************绑定回调 */
-    fun bindAppCallBack() {
+    private fun bindAppCallBack() {
         bindCallBack = object : CallBack<AppInfoResponse?>() {
             override fun callBack(result: AppInfoResponse?) {
                 if (result == null) {

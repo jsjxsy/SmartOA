@@ -77,7 +77,6 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(RegisterViewModel::class.java)
-
         mLoadingView = loadingView
         initTitle()
         initData()
@@ -126,19 +125,17 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                     ToastUtils.showLong("密码不能为空")
                 } else if (password.length < 6 || password.length > 16) {
                     ToastUtils.showLong("密码长度不得小于6位大于16位")
-                } else if (doExcute(password) < 2) {
-                    ToastUtils.showLong("密码格式不正确")
                 } else if (TextUtils.isEmpty(confirmPassword)) {
                     ToastUtils.showLong("确认密码不能为空")
                 } else if (password != confirmPassword) {
                     ToastUtils.showLong("确认密码与密码不一致")
                 } else {
-                    mLoadingView.setVisibility(View.VISIBLE)
+                    mLoadingView.visibility = View.VISIBLE
                     mLoadingView.setOnClickListener(null)
                     mLoadingView.setText("注册中")
                     mLoadingView.showLoading()
                     mLoadingView.postDelayed(
-                        { mLoadingView.setVisibility(View.GONE) },
+                        { mLoadingView.visibility = View.GONE },
                         DELAY_TIME
                     )
                     passWord = password
@@ -314,18 +311,22 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                     return
                 }
 
-                if (result.code === 100) {
-                    SPUtils.getInstance().put(AppConfig.USER_ID, result.appUserInfoDto.userId)
-                    mLoadingView.visibility = View.GONE
-                    gotoLoginPage()
-                    //用户已经绑定
-                } else if (result.code == 7003) {
-                    SPUtils.getInstance().put(AppConfig.USER_ID, result.appUserInfoDto.userId)
-                    mLoadingView.visibility = View.GONE
-                    gotoLoginPage()
-                } else {
-                    ToastUtils.showLong(result.msg)
-                    mLoadingView.visibility = View.GONE
+                when {
+                    result.code === 100 -> {
+                        SPUtils.getInstance().put(AppConfig.USER_ID, result.appUserInfoDto.userId)
+                        mLoadingView.visibility = View.GONE
+                        gotoLoginPage()
+                        //用户已经绑定
+                    }
+                    result.code == 7003 -> {
+                        SPUtils.getInstance().put(AppConfig.USER_ID, result.appUserInfoDto.userId)
+                        mLoadingView.visibility = View.GONE
+                        gotoLoginPage()
+                    }
+                    else -> {
+                        ToastUtils.showLong(result.msg)
+                        mLoadingView.visibility = View.GONE
+                    }
                 }
                 //处理数据,刷新UI
             }
@@ -338,40 +339,4 @@ class RegisterFragment : Fragment(), View.OnClickListener {
         ActivityUtils.startActivity(intent)
     }
 
-    /*******************************************密码校验 */
-    fun doExcute(password: String): Int {
-        var kindOfCharacter = 0
-        val digital = "[0-9]"
-        val capital = "[A-Z]"
-        val lowercase = "[a-z]"
-        val spec = "[-~!@#$%^&*()_+{}|:<>?;',.]"
-        /** 有大写字母或小写字母，即有字母  */
-        for (i in 0 until password.length) {
-            if (password.substring(i, i + 1).matches(capital.toRegex())
-                || password.substring(i, i + 1).matches(lowercase.toRegex())
-            ) {
-                println(password.substring(i, i + 1))
-                kindOfCharacter++
-                break
-            }
-        }
-        /** 有数字  */
-        for (i in 0 until password.length) {
-            if (password.substring(i, i + 1).matches(digital.toRegex())) {
-                kindOfCharacter++
-                break
-            }
-        }
-        /** 有符号  */
-        for (i in 0 until password.length) {
-            if (password.substring(i, i + 1).matches(spec.toRegex())) {
-                kindOfCharacter++
-                break
-            }
-        }
-        if (password.length < 6) {
-            kindOfCharacter = 1
-        }
-        return kindOfCharacter
-    }
 }

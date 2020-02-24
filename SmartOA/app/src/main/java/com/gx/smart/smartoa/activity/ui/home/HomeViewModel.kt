@@ -21,6 +21,9 @@ import com.gx.wisestone.work.app.grpc.appfigure.ImagesResponse
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
 import com.jeremyliao.liveeventbus.LiveEventBus
+import com.orhanobut.logger.Logger
+import com.scwang.smartrefresh.layout.api.RefreshLayout
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 
 class HomeViewModel : ViewModel() {
 
@@ -35,7 +38,7 @@ class HomeViewModel : ViewModel() {
     var unReadMessage = MutableLiveData<Boolean>(false)
     var dataChange = MutableLiveData<Boolean>(false)
 
-    fun carouselFigure() {
+    private fun carouselFigure() {
         AppFigureService.getInstance().carouselFigure(object : CallBack<ImagesResponse?>() {
             override fun callBack(result: ImagesResponse?) {
                 if (result?.code == 100) {
@@ -50,8 +53,15 @@ class HomeViewModel : ViewModel() {
         })
     }
 
+    fun onRefresh() {
+        hasNotReadMessage()
+        carouselFigure()
+        findAllApplyInfos()
+        myCompany()
+    }
 
-    fun findAllApplyInfos() {
+
+    private fun findAllApplyInfos() {
         val query = QueryDto.newBuilder()
             .setPage(0)
             .setPageSize(3)
@@ -83,13 +93,12 @@ class HomeViewModel : ViewModel() {
     }
 
 
-    fun hasNotReadMessage() {
+    private fun hasNotReadMessage() {
         UserCenterService.getInstance().hasNotReadMessage(object : CallBack<CommonResponse>() {
             override fun callBack(result: CommonResponse?) {
                 if (result?.code == 100) {
                     val flag = result.dataMap["hasNotReadMessage"]
                     unReadMessage.value = flag == "true"
-
                 }
             }
 
@@ -97,7 +106,7 @@ class HomeViewModel : ViewModel() {
     }
 
 
-    fun myCompany() {
+    private fun myCompany() {
         AppEmployeeService.getInstance()
             .myCompany(
                 object : CallBack<AppMyCompanyResponse>() {

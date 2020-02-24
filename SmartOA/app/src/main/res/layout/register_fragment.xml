@@ -5,6 +5,11 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.gx.smart.smartoa.activity.ui.login.register.RegisterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,7 +59,9 @@
                 android:layout_marginLeft="100dp"
                 android:background="@android:color/white"
                 android:hint="@string/input_phone_number"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:maxLength="@integer/phone_length"
+                android:text="@={viewModel.phone}" />
         </RelativeLayout>
 
         <View
@@ -99,7 +106,8 @@
                 android:layout_toLeftOf="@id/getVerifyCodeText"
                 android:background="@android:color/white"
                 android:hint="@string/input_verify_code"
-                android:inputType="number" />
+                android:inputType="number"
+                android:text="@={viewModel.identityCode}" />
 
         </RelativeLayout>
 
@@ -133,8 +141,10 @@
                 android:layout_height="@dimen/list_item_height_style"
                 android:layout_marginLeft="100dp"
                 android:background="@android:color/white"
+                android:digits="@string/password_input"
                 android:hint="@string/input_new_password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:text="@={viewModel.password}" />
 
         </RelativeLayout>
 
@@ -169,8 +179,10 @@
                 android:layout_height="@dimen/list_item_height_style"
                 android:layout_marginLeft="100dp"
                 android:background="@android:color/white"
+                android:digits="@string/password_input"
                 android:hint="@string/confirm_input_new_password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:text="@={viewModel.confirmPassword}" />
         </RelativeLayout>
 
         <View
