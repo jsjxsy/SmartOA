@@ -4,8 +4,6 @@
 
     <data>
 
-        <import type="android.view.View" />
-
         <variable
             name="viewModel"
             type="com.gx.smart.smartoa.activity.ui.home.HomeViewModel" />
@@ -19,7 +17,8 @@
             android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:srlEnableLoadmore="false">
+            app:srlEnableLoadmore="false"
+            app:refreshListener="@{viewModel.refreshListener}">
 
             <RelativeLayout
                 android:layout_width="match_parent"

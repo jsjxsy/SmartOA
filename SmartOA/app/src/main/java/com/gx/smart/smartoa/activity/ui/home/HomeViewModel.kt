@@ -21,8 +21,6 @@ import com.gx.wisestone.work.app.grpc.appfigure.ImagesResponse
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
 import com.jeremyliao.liveeventbus.LiveEventBus
-import com.orhanobut.logger.Logger
-import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 
 class HomeViewModel : ViewModel() {
@@ -37,6 +35,8 @@ class HomeViewModel : ViewModel() {
     var listAction = listOf<AppActivityDto>()
     var unReadMessage = MutableLiveData<Boolean>(false)
     var dataChange = MutableLiveData<Boolean>(false)
+    //smart refreshListener 下拉刷新监听
+    val refreshListener = OnRefreshListener { onRefresh() }
 
     private fun carouselFigure() {
         AppFigureService.getInstance().carouselFigure(object : CallBack<ImagesResponse?>() {
@@ -53,7 +53,7 @@ class HomeViewModel : ViewModel() {
         })
     }
 
-    fun onRefresh() {
+    private fun onRefresh() {
         hasNotReadMessage()
         carouselFigure()
         findAllApplyInfos()

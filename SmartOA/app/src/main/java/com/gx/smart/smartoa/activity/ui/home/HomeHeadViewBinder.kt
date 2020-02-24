@@ -40,11 +40,11 @@ import top.limuyang2.customldialog.IOSMsgDialog
 /**
  * @author xiaosy
  * @create 2019-11-01
- * @Describe
+ * @Describe banner 广告栏
  */
 class HomeHeadViewBinder(private val viewModel: HomeViewModel) : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolder>(),
     View.OnClickListener {
-    lateinit var convenientBanner: ConvenientBanner<Any>
+    private lateinit var convenientBanner: ConvenientBanner<Any>
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.id_environmental_control_text_view -> joinCompanyContinue(1)
@@ -270,31 +270,6 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) : ItemViewBinder<
         ActivityUtils.startActivity(intent)
     }
 
-
-//    fun carouselFigure() {
-//        AppFigureService.getInstance().carouselFigure(object : CallBack<ImagesResponse?>() {
-//            override fun callBack(result: ImagesResponse?) {
-//                if (!ActivityUtils.isActivityAlive(convenientBanner.context)) {
-//                    return
-//                }
-//                var listNetwork = listOf<ImagesInfoOrBuilder>()
-//                var listLocal = arrayListOf(
-//                    R.mipmap.home_banner_test,
-//                    R.mipmap.home_banner_test,
-//                    R.mipmap.home_banner_test
-//                )
-//                if (result?.code == 100) {
-//                    val list = result.imagesInfoOrBuilderList.toList()
-//                    listNetwork.toMutableList().apply {
-//                        addAll(list)
-//                        listNetwork = this
-//                    }
-//                }
-//                initBanner(convenientBanner, listNetwork, listLocal)
-//            }
-//
-//        })
-//    }
 
 
 }

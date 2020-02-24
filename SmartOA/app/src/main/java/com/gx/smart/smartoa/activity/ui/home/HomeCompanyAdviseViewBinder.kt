@@ -26,7 +26,7 @@ import com.gx.smart.smartoa.data.network.ApiConfig
 /**
  * @author xiaosy
  * @create 2019-11-01
- * @Describe
+ * @Describe 企业资讯
  */
 class HomeCompanyAdviseViewBinder :
     ItemViewBinder<HomeCompanyAdvise, HomeCompanyAdviseViewBinder.ViewHolder>(),

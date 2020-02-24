@@ -75,6 +75,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     ): View? {
        val homeFragmentBinding =  DataBindingUtil.inflate<FragmentHomeBinding>(inflater, R.layout.fragment_home,container, false)
         homeFragmentBinding.lifecycleOwner = this
+        homeFragmentBinding.viewModel = viewModel
         return homeFragmentBinding.root
     }
 
@@ -131,9 +132,9 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         adapter.items = items
         adapter.notifyDataSetChanged()
 
-        refreshLayout.setOnRefreshListener {
-            viewModel.onRefresh()
-        }
+//        refreshLayout.setOnRefreshListener {
+//            viewModel.onRefresh()
+//        }
         refreshLayout.autoRefresh()
     }
 

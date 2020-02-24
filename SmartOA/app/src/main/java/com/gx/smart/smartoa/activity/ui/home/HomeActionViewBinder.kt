@@ -38,7 +38,7 @@ import com.jeremyliao.liveeventbus.LiveEventBus
 /**
  * @author xiaosy
  * @create 2019-11-01
- * @Describe
+ * @Describe 推荐活动
  */
 class HomeActionViewBinder(private val viewModel: HomeViewModel) :
     ItemViewBinder<HomeActionRecommend, HomeActionViewBinder.ViewHolder>() {

@@ -10,3 +10,13 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener
  *@create 2020-02-20
  *@Describe
  **/
+@BindingAdapter("refreshListener")
+fun SmartRefreshLayout.refreshListener(
+    listener: OnRefreshListener?
+) {
+    Logger.e("---> refreshListener ---->$listener")
+    if (listener != null) {
+        this.setOnRefreshListener(listener)
+    }
+
+}
