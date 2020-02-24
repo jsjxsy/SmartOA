@@ -60,7 +60,9 @@ class HomeViewModel : ViewModel() {
         myCompany()
     }
 
-
+    /**
+     * 推荐活动
+     */
     private fun findAllApplyInfos() {
         val query = QueryDto.newBuilder()
             .setPage(0)
@@ -93,6 +95,9 @@ class HomeViewModel : ViewModel() {
     }
 
 
+    /**
+     * 首页消息是否已读未读
+     */
     private fun hasNotReadMessage() {
         UserCenterService.getInstance().hasNotReadMessage(object : CallBack<CommonResponse>() {
             override fun callBack(result: CommonResponse?) {
@@ -105,7 +110,9 @@ class HomeViewModel : ViewModel() {
         })
     }
 
-
+    /**
+     * 获取最新公司信息，为功能权限验证作准备
+     */
     private fun myCompany() {
         AppEmployeeService.getInstance()
             .myCompany(

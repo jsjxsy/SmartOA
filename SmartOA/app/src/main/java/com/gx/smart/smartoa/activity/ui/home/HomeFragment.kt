@@ -73,7 +73,12 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       val homeFragmentBinding =  DataBindingUtil.inflate<FragmentHomeBinding>(inflater, R.layout.fragment_home,container, false)
+        val homeFragmentBinding = DataBindingUtil.inflate<FragmentHomeBinding>(
+            inflater,
+            R.layout.fragment_home,
+            container,
+            false
+        )
         homeFragmentBinding.lifecycleOwner = this
         homeFragmentBinding.viewModel = viewModel
         return homeFragmentBinding.root
@@ -89,9 +94,20 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
     private fun initObserver() {
         viewModel.dataChange.observe(this, Observer {
-            if(it){
+            if (it) {
                 adapter.notifyDataSetChanged()
             }
+        })
+        viewModel.unReadMessage.observe(this, Observer {
+            when {
+                it -> {
+                    redPotView.visibility = View.VISIBLE
+                }
+                else -> {
+                    redPotView.visibility = View.GONE
+                }
+            }
+
         })
 
     }
@@ -131,10 +147,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         items.add(Divider())
         adapter.items = items
         adapter.notifyDataSetChanged()
-
-//        refreshLayout.setOnRefreshListener {
-//            viewModel.onRefresh()
-//        }
         refreshLayout.autoRefresh()
     }
 
