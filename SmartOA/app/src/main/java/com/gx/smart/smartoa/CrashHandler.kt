@@ -19,8 +19,7 @@ import java.util.*
 class CrashHandler private constructor() : Thread.UncaughtExceptionHandler {
     private var mDefaultHandler: Thread.UncaughtExceptionHandler? = null
     //用来存储设备信息和异常信息
-    private val infos: Map<String, String> =
-        HashMap()
+    private val infos: Map<String, String> = HashMap()
     //用于格式化日期,作为日志文件名的一部分
     private val formatter: DateFormat = SimpleDateFormat("yyyy-MM-dd-HH-mm-ss",Locale.CHINA)
     // 程序的Context对象

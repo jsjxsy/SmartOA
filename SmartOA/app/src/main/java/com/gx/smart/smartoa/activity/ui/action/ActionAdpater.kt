@@ -42,26 +42,6 @@ class ActionAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mList!![position]
         holder.itemBinding.data = item
-//        holder.actionTitle.text = item.title
-//        Glide.with(holder.itemView)
-//            .load(item.imageUrl)
-//            .error(R.mipmap.default_image_small)
-//            .placeholder(R.mipmap.default_image_small)
-//            //.transform(CenterCrop(), RoundedCorners(10))
-//            .into(holder.mImage)
-//
-//        holder.redFlag.let {
-//            if (item.hasRead) {
-//                it.visibility = View.GONE
-//            } else {
-//                it.visibility = View.VISIBLE
-//            }
-//        }
-//        val startTime = TimeUtils.millis2String(item.startTime, "yyyy.MM.dd")
-//        val endTime = TimeUtils.millis2String(item.endTime, "yyyy.MM.dd")
-//        holder.actionTime.text = "$startTime - $endTime"
-//        holder.actionNumber.text = "${item.currentNum}人参加"
-
         holder.itemView.setOnClickListener {
             onItemClick?.onItemClick(it, position)
         }
