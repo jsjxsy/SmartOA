@@ -1,6 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
 def config = rootProject.extensions.findByName("ext")
 
@@ -30,9 +28,7 @@ android {
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation config.dependencies['appcomat']
-    implementation config.dependencies['core_ktx']
     testImplementation config.dependencies['junit']
     androidTestImplementation config.dependencies['ext_junit']
     androidTestImplementation config.dependencies['espresso']

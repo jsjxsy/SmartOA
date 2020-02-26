@@ -35,7 +35,8 @@ dependencies {
 
     implementation config.dependencies['appcomat']
     testImplementation config.dependencies['junit']
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation config.dependencies['ext_junit']
+    androidTestImplementation config.dependencies['espresso']
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }

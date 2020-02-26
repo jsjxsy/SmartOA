@@ -32,8 +32,6 @@ import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import kotlinx.android.synthetic.main.fragment_mine_user_info_modify_phone.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
 class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {

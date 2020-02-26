@@ -33,9 +33,11 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.core:core-ktx:1.0.2'
+    //test java
     testImplementation config.dependencies['junit']
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    //test android
+    androidTestImplementation config.dependencies['ext_junit']
+    androidTestImplementation config.dependencies['espresso']
     //api 'org.greenrobot:eventbus:3.1.1'
     api 'com.jeremyliao:live-event-bus-x:1.5.7'
 }
