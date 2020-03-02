@@ -123,7 +123,7 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
                         ToastUtils.showLong("取消报名超时!")
                         return
                     }
-                    if (result?.code == 100) {
+                    if (result.code == 100) {
                         ToastUtils.showLong("取消报名成功")
                         activity?.finish()
                     } else {
@@ -153,7 +153,7 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
                         ToastUtils.showLong("报名超时!")
                         return
                     }
-                    if (result?.code == 100) {
+                    if (result.code == 100) {
                         ToastUtils.showLong("申请报名成功")
                         activity?.finish()
                     } else {
@@ -181,7 +181,7 @@ class MineActionDetailFragment : Fragment(), View.OnClickListener {
                         ToastUtils.showLong("报名超时!")
                         return
                     }
-                    if (result?.code == 100) {
+                    if (result.code == 100) {
                         flag = result.contentOrBuilderList.size > 0
                         submit?.let {
                             if (flag) {
