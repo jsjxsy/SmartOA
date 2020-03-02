@@ -1,3 +1,3 @@
-include ':app', ':lib_webview', ':webview', ':lib_push', ':lib_custom_ldialog', ':lib_ldialog', ':lib_share', ':lib_map', ':lib_eventbus', ':module_repair', ':lib_http'
+include ':app', ':module_repair'
+include ':lib_common',':lib_webview', ':lib_push', ':lib_custom_ldialog', ':lib_ldialog', ':lib_share', ':lib_map', ':lib_eventbus',':lib_http'
 rootProject.name = 'SmartOA'
-include ':lib_common'

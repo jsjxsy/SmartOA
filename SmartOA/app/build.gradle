@@ -215,6 +215,8 @@ dependencies {
     implementation project(path: ':lib_share')
     implementation project(path: ':lib_map')
     implementation project(path: ':lib_eventbus')
+    implementation project(path: ':lib_common')
+    implementation project(path: ':lib_http')
 }
 
 
