@@ -1,13 +1,21 @@
+if (isModule.toBoolean()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+
+def config = rootProject.extensions.findByName("ext")
+
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdkVersion config.android['compileSdkVer']
+    buildToolsVersion config.android['buildToolsVer']
 
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion config.android['minSdkVer']
+        targetSdkVersion config.android['targetSdkVer']
+        versionCode config.versionCode
+        versionName config.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -24,9 +32,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation config.dependencies['core_ktx']
-    implementation config.dependencies['appcomat']
     //test java
     testImplementation config.dependencies['junit']
     //test android

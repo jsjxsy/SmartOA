@@ -41,7 +41,7 @@ dependencies {
     androidTestImplementation config.dependencies['ext_junit']
     androidTestImplementation config.dependencies['espresso']
     implementation 'com.google.android.material:material:1.0.0'
-    api project(path: ':ldialog')
+    api project(path: ':lib_ldialog')
 }
 
 repositories {

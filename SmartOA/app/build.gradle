@@ -208,13 +208,13 @@ dependencies {
     androidTestImplementation config.dependencies['ext_junit']
     androidTestImplementation config.dependencies['espresso']
     //dependence project
-    implementation project(path: ':webview')
-    implementation project(path: ':push')
-    implementation project(path: ':custom_ldialog')
-    implementation project(path: ':ldialog')
-    implementation project(path: ':share')
-    implementation project(path: ':map')
-    implementation project(path: ':eventbus')
+    implementation project(path: ':lib_webview')
+    implementation project(path: ':lib_push')
+    implementation project(path: ':lib_custom_ldialog')
+    implementation project(path: ':lib_ldialog')
+    implementation project(path: ':lib_share')
+    implementation project(path: ':lib_map')
+    implementation project(path: ':lib_eventbus')
 }
 
 
