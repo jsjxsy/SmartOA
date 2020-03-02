@@ -32,6 +32,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation config.dependencies['appcomat']
+    implementation config.dependencies['core_ktx']
     //test java
     testImplementation config.dependencies['junit']
     //test android

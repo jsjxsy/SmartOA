@@ -10,19 +10,14 @@ apply plugin: 'kotlin-kapt'
 
 def config = rootProject.extensions.findByName("ext")
 
-//task printConfigClass{
-//    println("----------->config:"+config +"config.versionCode"+config.versionCode)
-//    println("-->ext: "+rootProject.ext.versionCode)
-//}
 
-
-////如果有用到kapt添加如下配置
-//kapt {
-//    useBuildCache = true
-//    javacOptions {
-//        option("-Xmaxerrs", 500)
-//    }
-//}
+//如果有用到kapt添加如下配置
+kapt {
+    useBuildCache = true
+    javacOptions {
+        option("-Xmaxerrs", 500)
+    }
+}
 
 android {
     compileSdkVersion config.android['compileSdkVer']
@@ -84,9 +79,9 @@ android {
     dataBinding {
         enabled true
     }
-    viewBinding {
-        enabled = true
-    }
+//    viewBinding {
+//        enabled = true
+//    }
     dexOptions {
         preDexLibraries true
         javaMaxHeapSize "3g"
