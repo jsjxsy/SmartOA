@@ -30,13 +30,13 @@
         android:textSize="@dimen/font_size_style_one"
         />
 
-    <com.bigkoo.convenientbanner.ConvenientBanner
+    <com.zhpan.bannerview.BannerViewPager
         android:layout_below="@id/actionHead"
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="144dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/white"
-        app:canLoop="true" />
+        app:bvp_can_loop="true" />
 </RelativeLayout>
 

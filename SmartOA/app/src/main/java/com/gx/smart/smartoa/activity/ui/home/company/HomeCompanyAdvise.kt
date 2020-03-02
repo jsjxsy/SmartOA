@@ -1,4 +1,6 @@
-package com.gx.smart.smartoa.activity.ui.home
+package com.gx.smart.smartoa.activity.ui.home.company
+
+import com.gx.smart.smartoa.activity.ui.home.company.CompanyAdvise
 
 /**
  * @author xiaosy

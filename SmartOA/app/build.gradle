@@ -28,6 +28,15 @@ android {
     compileSdkVersion config.android['compileSdkVer']
     buildToolsVersion config.android['buildToolsVer']
 
+    signingConfigs {
+        release {
+            keyAlias 'smartoa'
+            keyPassword 'smartoa1234'
+            storeFile file('smartoa.pk12')
+            storePassword 'smartoa1234'
+        }
+    }
+
     defaultConfig {
         applicationId "com.gx.smartwork"
         minSdkVersion config.android['minSdkVer']
@@ -47,19 +56,13 @@ android {
                 JPUSH_APPKEY : "2d0fb3b14eea0fcc7f10b6e8", //JPush 上注册的包名对应的 Appkey.
                 JPUSH_CHANNEL: "release", //暂时填写默认值即可.
         ]
+        signingConfig signingConfigs.release
+        multiDexEnabled = true
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    signingConfigs {
-        release {
-            keyAlias 'smartoa'
-            keyPassword 'smartoa1234'
-            storeFile file('smartoa.pk12')
-            storePassword 'smartoa1234'
-        }
     }
 
     buildTypes {
@@ -80,6 +83,9 @@ android {
     }
     dataBinding {
         enabled true
+    }
+    viewBinding {
+        enabled = true
     }
     dexOptions {
         preDexLibraries true
@@ -192,8 +198,10 @@ dependencies {
     implementation 'com.github.arcadefire:nice-spinner:1.4.4'
     //pickerView
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
-    //litepal
+    //litePal
     implementation 'org.litepal.android:kotlin:3.0.0'
+    //Banner
+    implementation 'com.github.zhpanvip:BannerViewPager:2.7.0'
     //test java
     testImplementation config.dependencies['junit']
     //test android

@@ -18,6 +18,9 @@ import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
 import com.gx.smart.smartoa.activity.ui.features.Divider
 import com.gx.smart.smartoa.activity.ui.features.DividerViewBinder
+import com.gx.smart.smartoa.activity.ui.home.company.CompanyAdvise
+import com.gx.smart.smartoa.activity.ui.home.company.HomeCompanyAdvise
+import com.gx.smart.smartoa.activity.ui.home.company.HomeCompanyAdviseViewBinder
 import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
 import com.gx.smart.smartoa.base.BaseFragment
 import com.gx.smart.smartoa.data.network.AppConfig
@@ -139,11 +142,27 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         items.add(Divider())
 
         val advises = arrayListOf(
-            CompanyAdvise(R.mipmap.company_action, "航天广信 | 智慧办公综合服务平台为企业员工创造更大价值！", "2019.10.10"),
-            CompanyAdvise(R.mipmap.company_action, "航天广信 | 智慧办公综合服务平台为企业员工创造更大价值！", "2020.01.12"),
-            CompanyAdvise(R.mipmap.company_action, "航天广信 | 智慧办公综合服务平台为企业员工创造更大价值！", "2020.02.02")
+            CompanyAdvise(
+                R.mipmap.company_action,
+                "航天广信 | 智慧办公综合服务平台为企业员工创造更大价值！",
+                "2019.10.10"
+            ),
+            CompanyAdvise(
+                R.mipmap.company_action,
+                "航天广信 | 智慧办公综合服务平台为企业员工创造更大价值！",
+                "2020.01.12"
+            ),
+            CompanyAdvise(
+                R.mipmap.company_action,
+                "航天广信 | 智慧办公综合服务平台为企业员工创造更大价值！",
+                "2020.02.02"
+            )
         )
-        items.add(HomeCompanyAdvise(advises))
+        items.add(
+            HomeCompanyAdvise(
+                advises
+            )
+        )
         items.add(Divider())
         adapter.items = items
         adapter.notifyDataSetChanged()

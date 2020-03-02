@@ -6,6 +6,7 @@ def config = rootProject.extensions.findByName("ext")
 
 android {
     compileSdkVersion config.android['compileSdkVer']
+    buildToolsVersion config.android['buildToolsVer']
 
     defaultConfig {
         minSdkVersion config.android['minSdkVer']
@@ -17,9 +18,14 @@ android {
 
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
