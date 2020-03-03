@@ -37,17 +37,17 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
         when (checkedId) {
             R.id.id_tab_home ->
                 Navigation.findNavController(
-                    MainActivity@ this,
+                    this,
                     R.id.navHostFragmentEnter
                 ).navigate(R.id.action_global_navigation_home)
             R.id.id_tab_open ->
                 Navigation.findNavController(
-                    MainActivity@ this,
+                    this,
                     R.id.navHostFragmentEnter
                 ).navigate(R.id.action_global_openDoorFragment)
             R.id.id_tab_mine ->
                 Navigation.findNavController(
-                    MainActivity@ this,
+                    this,
                     R.id.navHostFragmentEnter
                 ).navigate(R.id.action_global_mineFragment)
         }
