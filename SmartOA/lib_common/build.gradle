@@ -35,4 +35,7 @@ dependencies {
     //test android
     androidTestImplementation config.dependencies['ext_junit']
     androidTestImplementation config.dependencies['espresso']
+
+    //util
+    api 'com.blankj:utilcodex:1.25.8'
 }

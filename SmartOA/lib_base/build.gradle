@@ -33,20 +33,4 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    //banner
-    api 'com.bigkoo:convenientbanner:2.1.5'
-    //Banner
-    api 'com.github.zhpanvip:BannerViewPager:2.7.0'
-    //recyclerView
-    api 'androidx.recyclerview:recyclerview:1.1.0'
-    //recycleView + refreshLayout
-    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
-    //material
-    api 'com.google.android.material:material:1.0.0'
-    //cropper
-    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
-    //intro
-    implementation 'com.github.AppIntro:AppIntro:5.1.0'
-    //pickerView
-    implementation 'com.contrarywind:Android-PickerView:4.1.9'
 }
