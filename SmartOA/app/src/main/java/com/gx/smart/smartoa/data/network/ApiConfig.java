@@ -20,7 +20,7 @@ public class ApiConfig {
     //upload image
     public static final String UPLOAD_IMAGE_SERVER_URL = "api.huishi.cloud";
     public static final String UPLOAD_IMAGE_SERVER_PORT = "30691";
-    //space
+    //user space
     public static final String USER_SPACE = "b60bcfe2";//用户池
     //web socket
     //WebSocket通知地址

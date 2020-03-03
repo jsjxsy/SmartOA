@@ -46,7 +46,6 @@ class RepairFragment : Fragment(), View.OnClickListener {
         fun newInstance() = RepairFragment()
         const val ARG_TYPE = "type"
         const val REQUEST_TYPE = 200
-        const val REQUEST_UPLOAD_IMAGE_ENABLE = 10
     }
 
     private lateinit var viewModel: RepairViewModel

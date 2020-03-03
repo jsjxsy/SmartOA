@@ -157,8 +157,6 @@ dependencies {
     //adapter
     implementation 'com.drakeet.multitype:multitype:4.0.0'
 
-    //banner
-    //implementation 'com.bigkoo:convenientbanner:2.1.5'
     //gson
     implementation "com.google.code.gson:gson:${config.version['gsonVersion']}"
     //logger

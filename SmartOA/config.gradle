@@ -21,7 +21,7 @@ ext {
     ]
     dependencies = [
             appcomat : 'androidx.appcompat:appcompat:1.1.0',
-            core_ktx : 'androidx.core:core-ktx:1.1.0',
+            core_ktx : 'androidx.core:core-ktx:1.2.0',
             junit    : 'junit:junit:4.12',
             ext_junit: 'androidx.test.ext:junit:1.1.1',
             espresso : 'androidx.test.espresso:espresso-core:3.2.0',
