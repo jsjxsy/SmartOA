@@ -50,7 +50,9 @@ dependencies {
     androidTestImplementation config.dependencies['ext_junit']
     androidTestImplementation config.dependencies['espresso']
 
-
+    //
+    //fastJson
+    implementation('com.alibaba:fastjson:1.2.38')
     //gson
     implementation "com.google.code.gson:gson:${config.version['gsonVersion']}"
     //GRPC
@@ -58,6 +60,13 @@ dependencies {
     implementation "io.grpc:grpc-protobuf-lite:${config.GRPC_VERSION}"
     implementation "io.grpc:grpc-stub:${config.GRPC_VERSION}"
     implementation 'javax.annotation:javax.annotation-api:1.2'
+    //jwt
+    implementation 'com.auth0:java-jwt:3.8.1'
+    //bit bucket
+    implementation 'org.bitbucket.b_c:jose4j:0.6.5'
+    implementation "com.squareup.okhttp3:okhttp:${config.version['okhttpVersion']}"
+    implementation project(path: ':lib_common')
+    implementation project(path: ':lib_log')
 }
 
 

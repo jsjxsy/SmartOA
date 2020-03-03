@@ -2,7 +2,7 @@ package com.gx.smart.smartoa.activity.ui.environmental
 
 import android.os.Bundle
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.base.BaseActivity
+import com.gx.smart.lib.base.BaseActivity
 
 class EnvironmentalActivity : BaseActivity() {
 

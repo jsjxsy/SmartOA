@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.base.BaseFragment
+import com.gx.smart.lib.base.BaseFragment
 import kotlinx.android.synthetic.main.all_fragment.*
 
 class AllFragment : BaseFragment() {

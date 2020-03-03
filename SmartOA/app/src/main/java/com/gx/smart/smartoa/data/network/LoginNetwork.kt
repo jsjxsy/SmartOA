@@ -1,7 +1,7 @@
 package com.gx.smart.smartoa.data.network
 
 import com.gx.smart.smartoa.data.network.api.AuthApiService
-import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.smart.lib.http.base.CallBack
 import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException

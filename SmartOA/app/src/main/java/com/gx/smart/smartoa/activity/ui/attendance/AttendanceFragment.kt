@@ -16,7 +16,7 @@ import com.blankj.utilcode.util.TimeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.AttendanceAppProviderService
-import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.smart.lib.http.base.CallBack
 import com.gx.wisestone.work.grpc.ds.attendanceapp.getEmployeeDayRecordResp
 import kotlinx.android.synthetic.main.attendance_fragment.*
 import kotlinx.android.synthetic.main.layout_common_title.*

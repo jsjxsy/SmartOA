@@ -15,7 +15,7 @@ import com.blankj.utilcode.util.SPUtils
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
-import com.gx.smart.smartoa.data.network.AppConfig
+import com.gx.smart.common.AppConfig
 
 
 /**

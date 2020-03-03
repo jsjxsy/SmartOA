@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.base.BaseFragment
+import com.gx.smart.lib.base.BaseFragment
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDto
 import kotlinx.android.synthetic.main.fragment_fresh_air.*
 

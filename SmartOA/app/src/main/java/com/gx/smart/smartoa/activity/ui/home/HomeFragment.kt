@@ -22,8 +22,8 @@ import com.gx.smart.smartoa.activity.ui.home.company.CompanyAdvise
 import com.gx.smart.smartoa.activity.ui.home.company.HomeCompanyAdvise
 import com.gx.smart.smartoa.activity.ui.home.company.HomeCompanyAdviseViewBinder
 import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
-import com.gx.smart.smartoa.base.BaseFragment
-import com.gx.smart.smartoa.data.network.AppConfig
+import com.gx.smart.lib.base.BaseFragment
+import com.gx.smart.common.AppConfig
 import com.gx.smart.smartoa.databinding.FragmentHomeBinding
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.scwang.smartrefresh.layout.SmartRefreshLayout

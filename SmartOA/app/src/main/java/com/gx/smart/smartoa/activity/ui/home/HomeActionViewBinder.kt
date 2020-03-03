@@ -25,9 +25,9 @@ import com.gx.smart.eventbus.EventBusMessageConstant
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.action.MineActionActivity
 import com.gx.smart.smartoa.activity.ui.action.MineActionDetailFragment
-import com.gx.smart.smartoa.data.network.AppConfig
+import com.gx.smart.common.AppConfig
 import com.gx.smart.smartoa.data.network.api.AppActivityService
-import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.smart.lib.http.base.CallBack
 import com.gx.wisestone.core.grpc.lib.common.QueryDto
 import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
 import com.gx.wisestone.work.app.grpc.activity.ActivityRequest

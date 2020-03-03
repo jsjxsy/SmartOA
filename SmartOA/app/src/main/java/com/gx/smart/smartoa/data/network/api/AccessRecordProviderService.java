@@ -1,9 +1,9 @@
 package com.gx.smart.smartoa.data.network.api;
 
 import com.blankj.utilcode.util.SPUtils;
-import com.gx.smart.smartoa.data.network.AppConfig;
-import com.gx.smart.smartoa.data.network.api.base.CallBack;
-import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
+import com.gx.smart.common.AppConfig;
+import com.gx.smart.lib.http.base.CallBack;
+import com.gx.smart.lib.http.base.GrpcAsyncTask;
 import com.gx.wisestone.work.grpc.ds.accessrecord.AccessRecordProviderGrpc;
 import com.gx.wisestone.work.grpc.ds.accessrecord.AccessRecordReportedDto;
 import com.gx.wisestone.work.grpc.ds.accessrecord.AccessRecordReportedResp;

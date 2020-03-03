@@ -102,7 +102,7 @@
 
     </LinearLayout>
 
-    <com.gx.smart.smartoa.widget.LoadingView
+    <com.gx.smart.lib.widget.LoadingView
         android:id="@+id/loadingView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

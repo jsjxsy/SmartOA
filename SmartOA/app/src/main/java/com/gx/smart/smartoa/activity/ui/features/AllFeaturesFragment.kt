@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.base.BaseFragment
+import com.gx.smart.lib.base.BaseFragment
 import kotlinx.android.synthetic.main.all_features_fragment.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 

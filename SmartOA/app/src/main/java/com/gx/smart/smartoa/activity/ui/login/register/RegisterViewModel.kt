@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModel
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.gx.smart.smartoa.data.network.AppConfig
+import com.gx.smart.common.AppConfig
 import com.gx.smart.smartoa.data.network.api.AuthApiService
 import com.gx.smart.smartoa.data.network.api.UserCenterService
-import com.gx.smart.smartoa.data.network.api.base.CallBack
-import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
+import com.gx.smart.lib.http.base.CallBack
+import com.gx.smart.lib.http.base.GrpcAsyncTask
 import com.gx.smart.smartoa.utils.DataCheckUtil
 import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp
 import com.gx.wisestone.uaa.grpc.lib.auth.RegistResp

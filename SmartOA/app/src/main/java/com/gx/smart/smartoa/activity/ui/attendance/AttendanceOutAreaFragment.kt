@@ -19,7 +19,7 @@ import com.gx.smart.map.MapLocationHelper
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.AccessRecordProviderService
 import com.gx.smart.smartoa.data.network.api.AppAttendanceService
-import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.smart.lib.http.base.CallBack
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import com.gx.wisestone.work.grpc.ds.accessrecord.AccessRecordReportedResp
 import kotlinx.android.synthetic.main.attendance_out_area_fragment.*

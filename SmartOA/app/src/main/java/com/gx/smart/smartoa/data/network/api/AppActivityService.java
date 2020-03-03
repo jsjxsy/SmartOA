@@ -2,8 +2,8 @@ package com.gx.smart.smartoa.data.network.api;
 
 import android.util.Log;
 
-import com.gx.smart.smartoa.data.network.api.base.CallBack;
-import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
+import com.gx.smart.lib.http.base.CallBack;
+import com.gx.smart.lib.http.base.GrpcAsyncTask;
 import com.gx.wisestone.core.grpc.lib.common.QueryDto;
 import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse;
 import com.gx.wisestone.work.app.grpc.activity.ActivityQueryRequest;

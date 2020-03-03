@@ -13,7 +13,7 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.UserCenterService
-import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.smart.lib.http.base.CallBack
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import kotlinx.android.synthetic.main.fragment_mine_user_info_modify_nick_name.*
 import kotlinx.android.synthetic.main.layout_common_title.*

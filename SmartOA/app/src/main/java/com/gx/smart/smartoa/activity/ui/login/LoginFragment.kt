@@ -27,7 +27,7 @@ import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
 import com.gx.smart.smartoa.activity.ui.login.password.ForgetPasswordFragment
-import com.gx.smart.smartoa.data.network.AppConfig
+import com.gx.smart.common.AppConfig
 import com.gx.smart.smartoa.databinding.FragmentLoginBinding
 import com.gx.smart.smartoa.utils.DataCheckUtil
 import com.gx.smart.smartoa.utils.LoginUtil

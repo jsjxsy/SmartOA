@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.base.BaseFragment
+import com.gx.smart.lib.base.BaseFragment
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDto
 import kotlinx.android.synthetic.main.air_conditioner_fragment.*
 

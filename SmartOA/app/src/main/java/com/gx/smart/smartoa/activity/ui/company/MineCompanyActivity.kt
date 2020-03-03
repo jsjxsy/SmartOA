@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.base.BaseActivity
+import com.gx.smart.lib.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_mine_company.*
 
 class MineCompanyActivity : BaseActivity() {

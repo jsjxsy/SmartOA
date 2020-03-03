@@ -28,12 +28,12 @@ import com.bumptech.glide.Glide
 import com.google.protobuf.ByteString
 import com.gx.smart.smartoa.BuildConfig
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.data.network.AppConfig
+import com.gx.smart.common.AppConfig
 import com.gx.smart.smartoa.data.network.api.AdminImageProviderService
 import com.gx.smart.smartoa.data.network.api.AppRepairService
-import com.gx.smart.smartoa.data.network.api.base.CallBack
-import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
-import com.gx.smart.smartoa.data.network.api.lib.model.UploadImage
+import com.gx.smart.lib.http.base.CallBack
+import com.gx.smart.lib.http.base.GrpcAsyncTask
+import com.gx.smart.lib.http.lib.model.UploadImage
 import com.gx.wisestone.upload.grpc.images.AdminImagesResponse
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import kotlinx.android.synthetic.main.layout_common_title.*

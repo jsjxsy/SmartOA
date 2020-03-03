@@ -22,11 +22,11 @@ import com.gx.smart.smartoa.activity.ui.environmental.utils.ZGUtil
 import com.gx.smart.smartoa.activity.ui.environmental.websocket.WebSocketClientService
 import com.gx.smart.smartoa.activity.ui.environmental.websocket.WebSocketNotifyClient
 import com.gx.smart.smartoa.activity.ui.environmental.websocket.WsNotifyBean
-import com.gx.smart.smartoa.data.network.AppConfig
+import com.gx.smart.common.AppConfig
 import com.gx.smart.smartoa.data.network.api.UnisiotApiService
-import com.gx.smart.smartoa.data.network.api.base.CallBack
-import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
-import com.gx.smart.smartoa.widget.LoadingView
+import com.gx.smart.lib.http.base.CallBack
+import com.gx.smart.lib.http.base.GrpcAsyncTask
+import com.gx.smart.lib.widget.LoadingView
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.AreaDeviceListResp
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.AreaSceneListResp
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDto

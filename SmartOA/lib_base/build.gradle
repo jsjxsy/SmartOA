@@ -31,8 +31,10 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation config.dependencies['appcomat']
     implementation config.dependencies['core_ktx']
+    //adapter
+    api 'com.drakeet.multitype:multitype:4.0.0'
     //test java
     testImplementation config.dependencies['junit']
     //test android

@@ -15,9 +15,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.WebViewActivity
-import com.gx.smart.smartoa.data.network.ApiConfig
+import com.gx.smart.common.ApiConfig
 import com.zhpan.bannerview.BannerViewPager
-import com.zhpan.bannerview.adapter.OnPageChangeListenerAdapter
 import com.zhpan.bannerview.constants.IndicatorGravity
 import com.zhpan.indicator.enums.IndicatorSlideMode
 

@@ -12,8 +12,8 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.AppEmployeeService
-import com.gx.smart.smartoa.data.network.api.base.CallBack
-import com.gx.smart.smartoa.widget.LoadingView
+import com.gx.smart.lib.http.base.CallBack
+import com.gx.smart.lib.widget.LoadingView
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
 import com.gx.wisestone.work.app.grpc.employee.EmployeeInfo
 import kotlinx.android.synthetic.main.fragment_mine_company.*

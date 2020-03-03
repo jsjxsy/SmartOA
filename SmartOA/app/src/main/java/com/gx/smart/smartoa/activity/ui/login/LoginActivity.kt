@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.navigation.Navigation
 import android.view.WindowManager
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.base.BaseActivity
+import com.gx.smart.lib.base.BaseActivity
 
 class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

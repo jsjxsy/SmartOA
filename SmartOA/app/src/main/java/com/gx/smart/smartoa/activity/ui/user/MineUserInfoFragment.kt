@@ -33,8 +33,8 @@ import com.google.protobuf.ByteString
 import com.gx.smart.smartoa.BuildConfig
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.data.network.api.UserCenterService
-import com.gx.smart.smartoa.data.network.api.base.CallBack
-import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask
+import com.gx.smart.lib.http.base.CallBack
+import com.gx.smart.lib.http.base.GrpcAsyncTask
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.fragment_mine_user_info.*

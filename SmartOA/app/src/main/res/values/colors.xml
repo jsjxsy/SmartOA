@@ -3,30 +3,4 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-
-    <!--background-->
-    <color name="background_style_one">#f3f3f3</color>
-    <color name="background_style_two">#245BAC</color>
-    <color name="background_style_three">#000012</color>
-    <color name="background_style_four">#f2f2f2</color>
-    <color name="background_style_five">#cccccc</color>
-    <color name="background_style_six">#eeeeee</color>
-    <color name="background_style_seven">#E5E5E5</color>
-    <color name="background_style_eight">#FF3B30</color>
-    <!-- font -->
-    <color name="font_color_style_one">#BCBCBC</color>
-    <color name="font_color_style_two">#245BAC</color>
-    <color name="font_color_style_three">#FFFFFF</color>
-    <color name="font_color_style_four">#555555</color>
-    <color name="font_color_style_five">#777777</color>
-    <color name="font_color_style_six">#333333</color>
-    <color name="font_color_style_seven">#999999</color>
-    <color name="font_color_style_eight">#A8A8A8</color>
-    <color name="font_color_style_night">#008800</color>
-    <color name="font_color_style_ten">#FF3B30</color>
-    <color name="font_color_style_eleven">#FF9800</color>
-    <color name="font_color_style_12">#404040</color>
-
-
-    <color name="transparent_80">#33000000</color>
 </resources>

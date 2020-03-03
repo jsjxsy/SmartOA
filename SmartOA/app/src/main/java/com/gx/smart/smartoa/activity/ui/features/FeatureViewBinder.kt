@@ -22,7 +22,7 @@ import com.gx.smart.smartoa.activity.ui.meetings.MeetingScheduleActivity
 import com.gx.smart.smartoa.activity.ui.repair.RepairActivity
 import com.gx.smart.smartoa.activity.ui.visitor.VisitorActivity
 import com.gx.smart.smartoa.activity.ui.work.SharedWorkActivity
-import com.gx.smart.smartoa.data.network.AppConfig
+import com.gx.smart.common.AppConfig
 import top.limuyang2.customldialog.IOSMsgDialog
 
 

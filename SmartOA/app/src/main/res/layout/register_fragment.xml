@@ -229,7 +229,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/register" />
 
-        <com.gx.smart.smartoa.widget.LoadingView
+        <com.gx.smart.lib.widget.LoadingView
             android:id="@+id/loadingView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

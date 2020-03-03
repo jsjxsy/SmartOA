@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.base.BaseActivity
+import com.gx.smart.lib.base.BaseActivity
 import com.gx.smart.webview.X5WebView
 import kotlinx.android.synthetic.main.activity_webview_layout.*
 import kotlinx.android.synthetic.main.layout_common_title.*

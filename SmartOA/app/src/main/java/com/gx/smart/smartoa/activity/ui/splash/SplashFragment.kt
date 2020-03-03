@@ -19,7 +19,7 @@ import com.bumptech.glide.request.target.Target
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.WebViewActivity
 import com.gx.smart.smartoa.data.network.api.AppFigureService
-import com.gx.smart.smartoa.data.network.api.base.CallBack
+import com.gx.smart.lib.http.base.CallBack
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesResponse
 import kotlinx.android.synthetic.main.splash_fragment.*
 import java.util.*

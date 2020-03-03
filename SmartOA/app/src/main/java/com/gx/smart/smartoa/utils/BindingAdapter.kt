@@ -47,9 +47,9 @@ fun AppCompatImageView.url(url: String?) {
 
 @BindingAdapter("startTime", "endTime")
 fun TextView.time(startTime: Long, endTime: Long) {
-    val startTime = TimeUtils.millis2String(startTime, "yyyy.MM.dd")
-    val endTime = TimeUtils.millis2String(endTime, "yyyy.MM.dd")
-    this.text = "$startTime - $endTime"
+    val start = TimeUtils.millis2String(startTime, "yyyy.MM.dd")
+    val end = TimeUtils.millis2String(endTime, "yyyy.MM.dd")
+    this.text = "$start - $end"
 }
 
 @BindingAdapter("number")

@@ -1,8 +1,8 @@
 package com.gx.smart.smartoa.data.network.api;
 
-import com.gx.smart.smartoa.data.network.ApiConfig;
-import com.gx.smart.smartoa.data.network.api.base.CallBack;
-import com.gx.smart.smartoa.data.network.api.base.GrpcAsyncTask;
+import com.gx.smart.common.ApiConfig;
+import com.gx.smart.lib.http.base.CallBack;
+import com.gx.smart.lib.http.base.GrpcAsyncTask;
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.AirBoxDataGetReq;
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.AirBoxDataGetResp;
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.AreaDeviceListReq;
