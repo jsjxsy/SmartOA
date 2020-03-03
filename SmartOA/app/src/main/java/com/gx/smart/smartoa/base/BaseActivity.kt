@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 /**
  *@author xiaosy
  *@create 2019-10-22
- *@Describe 基础类
+ *@Describe 基础类,主要设置标题
  **/
 open class BaseActivity : AppCompatActivity() {
 

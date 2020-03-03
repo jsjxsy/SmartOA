@@ -127,46 +127,7 @@ class SmartOAApplication : Application() {
         }
     }
 
-//    //自定义接受房屋变化的广播接收器
-//    internal class JGPushReceiver : BroadcastReceiver() {
-//        private var dialog: AlertDialog? = null
-//
-//        override fun onReceive(
-//            context: Context,
-//            intent: Intent
-//        ) {
-//            when (intent.action) {
-//                else -> {
-//                    if (dialog != null && dialog!!.isShowing) {
-//                        dialog?.dismiss()
-//                    }
-//                    dialog =
-//                        AlertDialog.Builder(ActivityUtils.getTopActivity())
-//                            .setTitle(AppConfig.JGPushContent).setMessage(AppConfig.JGPushMsg)
-//                            .setCancelable(false)
-//                            .setPositiveButton(
-//                                "确定"
-//                            ) { dialog, _ ->
-//                                dialog.dismiss()
-//                            }.show()
-//                }
-//            }
-//        }
-//    }
 
-//    private fun registerJGPushBroadcast() {
-//        val intentFilter = IntentFilter()
-//        intentFilter.addAction(ACTION_JGPUSH_SMARTHOME)
-//        intentFilter.addAction(ACTION_JGPUSH_SMARTVISITOR)
-//        intentFilter.addAction(ACTION_JGPUSH_FAMILYCARE)
-//        intentFilter.addAction(ACTION_JGPUSH_ADDFAMILYMEMBERS)
-//        intentFilter.addAction(ACTION_JGPUSH_BINDINGHOUSE)
-//        intentFilter.addAction(ACTION_JGPUSH_CHANGEPHONENUMBER)
-//        intentFilter.addAction(ACTION_JGPUSH_HAWKEYEMONITORING)
-//        intentFilter.addAction(ACTION_JGPUSH_DELETEFAMILYMEMBER)
-//        mJGPushReceiver = JGPushReceiver()
-//        registerReceiver(mJGPushReceiver, intentFilter)
-//    }
 
 
 }
