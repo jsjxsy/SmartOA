@@ -201,6 +201,7 @@ dependencies {
     implementation project(path: ':module_smart_house')
     implementation project(path: ':lib_widget')
     implementation project(path: ':lib_image')
+    implementation project(path: ':lib_base')
 }
 
 
