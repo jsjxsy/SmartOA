@@ -6,9 +6,6 @@ import android.os.Build;
 import com.gx.smart.lib.http.interceptor.WsClientInterceptor;
 import com.gx.smart.lib.http.interceptor.WsProvider;
 import com.gx.smart.common.ApiConfig;
-//import com.gx.smart.common.ApiConfig;
-//import com.gx.smart.smartoa.data.network.api.interceptor.WsClientInterceptor;
-//import com.gx.smart.smartoa.data.network.api.interceptor.WsProvider;
 
 import java.util.concurrent.TimeUnit;
 

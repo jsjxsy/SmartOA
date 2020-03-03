@@ -21,6 +21,20 @@ android {
         consumerProguardFiles 'consumer-rules.pro'
     }
 
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            if (isModule.toBoolean()) {
+                manifest.srcFile 'src/main/module/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                java {
+                    exclude 'debug/**'
+                }
+            }
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled true
