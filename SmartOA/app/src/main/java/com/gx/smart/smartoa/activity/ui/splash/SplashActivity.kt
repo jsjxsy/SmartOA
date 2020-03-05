@@ -140,7 +140,7 @@ class SplashActivity : BaseActivity() {
 
     private fun loginActivity() {
         finish()
-        val intent = Intent(SplashActivity@ this, LoginActivity::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         ActivityUtils.startActivity(intent)
     }

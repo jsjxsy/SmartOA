@@ -111,7 +111,7 @@ class AccountUnregisterFragment : Fragment(), View.OnClickListener {
                     ToastUtils.showLong("注销账号超时!")
                     return
                 }
-                if (result?.code == 100) {
+                if (result.code == 100) {
                     clearCache()
                     val intent = Intent(activity, LoginActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)

@@ -121,7 +121,7 @@ class NewsFragment : Fragment() {
                         ToastUtils.showLong("获取消息超时!")
                         return
                     }
-                    if (result?.code == 100) {
+                    if (result.code == 100) {
                         val appInformationNoticeRecordDtoList =
                             result.appInformationNoticeRecordDtoOrBuilderList.toList()
                         if (appInformationNoticeRecordDtoList.isEmpty() && currentPage == 0) {

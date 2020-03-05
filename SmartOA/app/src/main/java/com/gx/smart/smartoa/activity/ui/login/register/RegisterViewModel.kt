@@ -49,7 +49,7 @@ class RegisterViewModel : ViewModel() {
             return
         }
 
-        if (phone!!.length != 11 || !DataCheckUtil.isMobile(phone)) {
+        if (phone.length != 11 || !DataCheckUtil.isMobile(phone)) {
             ToastUtils.showLong("非法手机号")
             return
         }
