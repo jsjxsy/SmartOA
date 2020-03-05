@@ -49,6 +49,8 @@ dependencies {
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
     //intro
     api 'com.github.AppIntro:AppIntro:5.1.0'
+    //viewPager 2
+    api "androidx.viewpager2:viewpager2:1.0.0"
     //pickerView
     api 'com.contrarywind:Android-PickerView:4.1.9'
     implementation project(path: ':lib_custom_ldialog')
