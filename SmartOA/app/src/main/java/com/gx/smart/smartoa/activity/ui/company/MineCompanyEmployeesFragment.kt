@@ -27,7 +27,7 @@ import com.google.protobuf.ByteString
 import com.gx.smart.smartoa.BuildConfig
 import com.gx.smart.smartoa.R
 import com.gx.smart.common.AppConfig
-import com.gx.smart.smartoa.data.network.api.AppStructureService
+import com.gx.smart.lib.http.api.AppStructureService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.smart.smartoa.utils.DataCheckUtil
 import com.gx.wisestone.work.app.grpc.common.CommonResponse

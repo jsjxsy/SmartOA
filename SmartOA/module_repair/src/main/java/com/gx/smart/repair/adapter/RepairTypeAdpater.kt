@@ -1,10 +1,12 @@
-package com.gx.smart.repair
+package com.gx.smart.repair.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.gx.smart.repair.R
+import com.gx.smart.repair.RepairType
 
 class RepairTypeAdapter :
     RecyclerView.Adapter<RepairTypeAdapter.ViewHolder>() {

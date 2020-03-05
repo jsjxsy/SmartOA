@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.data.network.api;
+package com.gx.smart.lib.http.api;
 
 import com.gx.smart.lib.http.base.CallBack;
 import com.gx.smart.lib.http.base.GrpcAsyncTask;
@@ -53,7 +53,7 @@ public class AppInformationService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, AppInformationResponse> getInformation(QueryDto query, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, AppInformationResponse> getInformation(final QueryDto query, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, AppInformationResponse>(callBack) {
             @Override
             protected AppInformationResponse doRequestData(ManagedChannel channel) {
@@ -79,7 +79,7 @@ public class AppInformationService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, AppAnnouncementResponse> getAnnouncement(long authorCompanyId, QueryDto query, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, AppAnnouncementResponse> getAnnouncement(final long authorCompanyId, final QueryDto query, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, AppAnnouncementResponse>(callBack) {
             @Override
             protected AppAnnouncementResponse doRequestData(ManagedChannel channel) {
@@ -107,7 +107,7 @@ public class AppInformationService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, MessageReadResponse> messageRead(long messageId, int messageType, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, MessageReadResponse> messageRead(final long messageId, final int messageType, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, MessageReadResponse>(callBack) {
             @Override
             protected MessageReadResponse doRequestData(ManagedChannel channel) {

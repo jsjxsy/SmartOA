@@ -1,4 +1,4 @@
-package com.gx.smart.repair
+package com.gx.smart.repair.fragment
 
 import android.app.Activity
 import android.content.Intent
@@ -9,6 +9,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.gx.smart.repair.R
+import com.gx.smart.repair.RepairType
+import com.gx.smart.repair.adapter.RepairTypeAdapter
+import com.gx.smart.repair.viewmodel.RepairTypeViewModel
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.repair_type_fragment.*
 
@@ -56,7 +60,8 @@ class RepairTypeFragment : Fragment(), View.OnClickListener {
 
     private fun initContent() {
         val adapter = RepairTypeAdapter()
-        val onItemClick = object : RepairTypeAdapter.OnItemClickListener {
+        val onItemClick = object :
+            RepairTypeAdapter.OnItemClickListener {
 
             override fun onItemClick(view: View, position: Int) {
                 val item = adapter.mList!![position]
@@ -69,9 +74,9 @@ class RepairTypeFragment : Fragment(), View.OnClickListener {
         }
         adapter.onItemClick = onItemClick
         adapter.mList = arrayListOf(
-            RepairType(1,"设备损坏"),
-            RepairType(2,"办公绿化"),
-            RepairType(3,"公共卫生")
+            RepairType(1, "设备损坏"),
+            RepairType(2, "办公绿化"),
+            RepairType(3, "公共卫生")
         )
 
         recyclerView.adapter = adapter

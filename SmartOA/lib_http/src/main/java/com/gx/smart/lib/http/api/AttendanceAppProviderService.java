@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.data.network.api;
+package com.gx.smart.lib.http.api;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.gx.smart.common.AppConfig;
@@ -80,7 +80,7 @@ public class AttendanceAppProviderService {  //25秒，网络请求超时
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, getEmployeeDayRecordResp> getEmployeeRecordList(long date, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, getEmployeeDayRecordResp> getEmployeeRecordList(final long date, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, getEmployeeDayRecordResp>(callBack) {
             @Override
             protected getEmployeeDayRecordResp doRequestData(ManagedChannel channel) {

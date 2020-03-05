@@ -6,7 +6,7 @@
     app:startDestination="@id/repairFragment">
     <fragment
         android:id="@+id/repairFragment"
-        android:name="com.gx.smart.repair.RepairFragment"
+        android:name="com.gx.smart.repair.fragment.RepairFragment"
         android:label="repair_fragment"
         tools:layout="@layout/repair_fragment" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/repairRecordFragment"
-        android:name="com.gx.smart.repair.RepairRecordFragment"
+        android:name="com.gx.smart.repair.activity.RepairRecordFragment"
         android:label="fragment_repair_record_list"
         tools:layout="@layout/fragment_repair_record_list" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.data.network.api;
+package com.gx.smart.lib.http.api;
 
 import com.gx.smart.lib.http.base.CallBack;
 import com.gx.smart.lib.http.base.GrpcAsyncTask;
@@ -48,8 +48,8 @@ public class AppAttendanceService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, CommonResponse> attendance(String latitude, String longitude,
-                                                                  String address, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, CommonResponse> attendance(final String latitude, final String longitude,
+                                                                  final String address, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
             @Override
             protected CommonResponse doRequestData(ManagedChannel channel) {

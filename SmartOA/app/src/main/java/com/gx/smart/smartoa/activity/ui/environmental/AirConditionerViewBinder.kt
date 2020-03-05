@@ -17,7 +17,7 @@ import com.blankj.utilcode.util.ToastUtils
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
 import com.gx.smart.common.AppConfig
-import com.gx.smart.smartoa.data.network.api.UnisiotApiService
+import com.gx.smart.lib.http.api.UnisiotApiService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.smart.lib.http.base.GrpcAsyncTask
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDto

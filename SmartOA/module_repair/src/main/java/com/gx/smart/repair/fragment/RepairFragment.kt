@@ -1,4 +1,4 @@
-package com.gx.smart.repair
+package com.gx.smart.repair.fragment
 
 import android.app.Activity
 import android.content.ContentResolver
@@ -27,11 +27,15 @@ import com.blankj.utilcode.util.*
 import com.bumptech.glide.Glide
 import com.google.protobuf.ByteString
 import com.gx.smart.common.AppConfig
+import com.gx.smart.lib.http.api.AdminImageProviderService
+import com.gx.smart.lib.http.api.AppRepairService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.smart.lib.http.base.GrpcAsyncTask
 import com.gx.smart.lib.http.lib.model.UploadImage
-import com.gx.smart.repair.network.AdminImageProviderService
-import com.gx.smart.repair.network.AppRepairService
+import com.gx.smart.repair.R
+import com.gx.smart.repair.RepairType
+import com.gx.smart.repair.viewmodel.RepairViewModel
+import com.gx.smart.repair.activity.RepairTypeActivity
 import com.gx.wisestone.upload.grpc.images.AdminImagesResponse
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -47,7 +51,8 @@ class RepairFragment : Fragment(), View.OnClickListener {
     }
 
     private lateinit var viewModel: RepairViewModel
-    private var type: RepairType = RepairType(1, "设备损坏")
+    private var type: RepairType =
+        RepairType(1, "设备损坏")
     private var images: MutableList<String> = arrayListOf()
     private var uploadImageTask: GrpcAsyncTask<String, Void, AdminImagesResponse>? = null
 
@@ -119,10 +124,14 @@ class RepairFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()
-            R.id.right_nav_text_view -> Navigation.findNavController(v).navigate(R.id.action_repairFragment_to_repairRecordFragment)
+            R.id.right_nav_text_view -> Navigation.findNavController(v).navigate(
+                R.id.action_repairFragment_to_repairRecordFragment
+            )
             R.id.repair_type -> {
                 val intent = Intent(activity, RepairTypeActivity::class.java)
-                startActivityForResult(intent, REQUEST_TYPE)
+                startActivityForResult(intent,
+                    REQUEST_TYPE
+                )
             }
             R.id.save -> {
                 val enable = save.getTag(R.id.save) as Boolean

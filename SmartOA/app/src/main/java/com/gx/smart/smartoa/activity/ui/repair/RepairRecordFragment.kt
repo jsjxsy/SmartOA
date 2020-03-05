@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.data.network.api.AppRepairService
+import com.gx.smart.lib.http.api.AppRepairService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.wisestone.core.grpc.lib.common.QueryDto
 import com.gx.wisestone.work.app.grpc.repair.RepairCommonResponse

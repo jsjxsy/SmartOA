@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.data.network.api;
+package com.gx.smart.lib.http.api;
 
 import com.gx.smart.lib.http.base.CallBack;
 import com.gx.smart.lib.http.base.GrpcAsyncTask;
@@ -103,7 +103,7 @@ public class AppEmployeeService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, CommonResponse> cancelCompanyApply(long applyId, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, CommonResponse> cancelCompanyApply(final long applyId, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
             @Override
             protected CommonResponse doRequestData(ManagedChannel channel) {

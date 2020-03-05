@@ -23,7 +23,7 @@ import com.gx.smart.smartoa.activity.ui.environmental.websocket.WebSocketClientS
 import com.gx.smart.smartoa.activity.ui.environmental.websocket.WebSocketNotifyClient
 import com.gx.smart.smartoa.activity.ui.environmental.websocket.WsNotifyBean
 import com.gx.smart.common.AppConfig
-import com.gx.smart.smartoa.data.network.api.UnisiotApiService
+import com.gx.smart.lib.http.api.UnisiotApiService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.smart.lib.http.base.GrpcAsyncTask
 import com.gx.smart.lib.widget.LoadingView

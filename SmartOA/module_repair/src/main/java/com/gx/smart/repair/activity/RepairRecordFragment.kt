@@ -1,4 +1,4 @@
-package com.gx.smart.repair
+package com.gx.smart.repair.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.lib.http.base.CallBack
+import com.gx.smart.repair.R
+import com.gx.smart.repair.adapter.RepairRecordAdapter
 import com.gx.smart.repair.network.AppRepairService
 import com.gx.wisestone.core.grpc.lib.common.QueryDto
 import com.gx.wisestone.work.app.grpc.repair.RepairCommonResponse

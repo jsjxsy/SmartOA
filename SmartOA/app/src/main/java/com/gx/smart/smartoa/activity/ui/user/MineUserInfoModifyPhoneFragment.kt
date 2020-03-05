@@ -18,8 +18,8 @@ import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.login.LoginActivity
 import com.gx.smart.common.AppConfig
-import com.gx.smart.smartoa.data.network.api.AuthApiService
-import com.gx.smart.smartoa.data.network.api.UserCenterService
+import com.gx.smart.lib.http.api.AuthApiService
+import com.gx.smart.lib.http.api.UserCenterService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.smart.lib.http.base.GrpcAsyncTask
 import com.gx.smart.lib.http.lib.model.JwtHolder

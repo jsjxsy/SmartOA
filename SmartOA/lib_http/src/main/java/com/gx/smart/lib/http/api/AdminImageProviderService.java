@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.data.network.api;
+package com.gx.smart.lib.http.api;
 
 import com.google.protobuf.ByteString;
 import com.gx.smart.common.ApiConfig;
@@ -53,8 +53,8 @@ public class AdminImageProviderService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, AdminImagesResponse> uploadByByte(String prefix, String fileName,
-                                                                         ByteString image, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, AdminImagesResponse> uploadByByte(final String prefix, final String fileName,
+                                                                         final ByteString image, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, AdminImagesResponse>(callBack) {
             @Override
             protected AdminImagesResponse doRequestData(ManagedChannel channel) {

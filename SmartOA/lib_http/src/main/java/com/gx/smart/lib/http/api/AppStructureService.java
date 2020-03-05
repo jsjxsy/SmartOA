@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.data.network.api;
+package com.gx.smart.lib.http.api;
 
 
 import com.google.protobuf.ByteString;
@@ -81,7 +81,7 @@ public class AppStructureService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, CommonResponse> getSysTenantList(String name, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, CommonResponse> getSysTenantList(final String name, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
             @Override
             protected CommonResponse doRequestData(ManagedChannel channel) {
@@ -163,7 +163,7 @@ public class AppStructureService {
      * @return callBack返回值
      */
     public GrpcAsyncTask<String, Void, CommonResponse> applyEmployee(
-            String name, String mobile, ByteString image, final long companyId,
+            final String name, final String mobile, final ByteString image, final long companyId,
             CallBack callBack) {
         return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
             @Override
@@ -207,7 +207,7 @@ public class AppStructureService {
      * @return callBack返回值
      */
     public GrpcAsyncTask<String, Void, CommonResponse> appChangeSwitch(String switch_type,
-                                                                       String switch_value,
+                                                                       final String switch_value,
                                                                        final int structure_id, final int owner_id, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, CommonResponse>(callBack) {
             @Override

@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.data.network.api;
+package com.gx.smart.lib.http.api;
 
 import com.gx.smart.common.ApiConfig;
 import com.gx.smart.lib.http.base.CallBack;
@@ -780,7 +780,7 @@ public class UnisiotApiService {
      * @param host_sn 主机SN
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, AreaDeviceListResp> areaDeviceList(String areaId, final String host_sn, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, AreaDeviceListResp> areaDeviceList(final String areaId, final String host_sn, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, AreaDeviceListResp>(callBack) {
             @Override
             protected AreaDeviceListResp doRequestData(ManagedChannel channel) {

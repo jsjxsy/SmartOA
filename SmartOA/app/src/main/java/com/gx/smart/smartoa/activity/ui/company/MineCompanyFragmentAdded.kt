@@ -13,7 +13,7 @@ import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.gx.smart.smartoa.R
 import com.gx.smart.common.AppConfig
-import com.gx.smart.smartoa.data.network.api.AppEmployeeService
+import com.gx.smart.lib.http.api.AppEmployeeService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import com.gx.wisestone.work.app.grpc.employee.EmployeeInfo

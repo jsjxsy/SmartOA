@@ -1,4 +1,4 @@
-package com.gx.smart.repair
+package com.gx.smart.repair.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.TimeUtils
+import com.gx.smart.repair.R
 import com.gx.wisestone.work.app.grpc.repair.RepairInfoOrBuilder
 
 class RepairRecordAdapter :

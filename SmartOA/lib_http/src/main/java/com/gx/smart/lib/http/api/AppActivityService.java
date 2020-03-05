@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.data.network.api;
+package com.gx.smart.lib.http.api;
 
 import android.util.Log;
 
@@ -80,7 +80,7 @@ public class AppActivityService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, ActivityCommonResponse> findAllActivityInfos(ActivityRequest request, QueryDto query, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, ActivityCommonResponse> findAllActivityInfos(final ActivityRequest request, final QueryDto query, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, ActivityCommonResponse>(callBack) {
             @Override
             protected ActivityCommonResponse doRequestData(ManagedChannel channel) {
@@ -108,7 +108,7 @@ public class AppActivityService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, ActivityCommonResponse> findMyApplyInfos(QueryDto query, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, ActivityCommonResponse> findMyApplyInfos(final QueryDto query, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, ActivityCommonResponse>(callBack) {
             @Override
             protected ActivityCommonResponse doRequestData(ManagedChannel channel) {
@@ -133,7 +133,7 @@ public class AppActivityService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, AppActivityApplyResponse> apply(long activityId, String mark, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, AppActivityApplyResponse> apply(final long activityId, final String mark, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, AppActivityApplyResponse>(callBack) {
             @Override
             protected AppActivityApplyResponse doRequestData(ManagedChannel channel) {
@@ -158,7 +158,7 @@ public class AppActivityService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, AppActivityApplyResponse> cancelApply(long activityId, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, AppActivityApplyResponse> cancelApply(final long activityId, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, AppActivityApplyResponse>(callBack) {
             @Override
             protected AppActivityApplyResponse doRequestData(ManagedChannel channel) {
@@ -184,7 +184,7 @@ public class AppActivityService {
      *
      * @return callBack返回值
      */
-    public GrpcAsyncTask<String, Void, AppActivityApplyResponse> findApplyInfo(long activityId, CallBack callBack) {
+    public GrpcAsyncTask<String, Void, AppActivityApplyResponse> findApplyInfo(final long activityId, CallBack callBack) {
         return new GrpcAsyncTask<String, Void, AppActivityApplyResponse>(callBack) {
             @Override
             protected AppActivityApplyResponse doRequestData(ManagedChannel channel) {

@@ -20,7 +20,7 @@ import com.gx.smart.smartoa.activity.ui.company.model.SysTenantList
 import com.gx.smart.smartoa.activity.ui.features.Divider
 import com.gx.smart.smartoa.activity.ui.features.DividerViewBinder
 import com.gx.smart.lib.base.BaseFragment
-import com.gx.smart.smartoa.data.network.api.AppStructureService
+import com.gx.smart.lib.http.api.AppStructureService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import kotlinx.android.synthetic.main.fragment_mine_company_select_area.*

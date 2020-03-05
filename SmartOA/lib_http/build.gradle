@@ -45,4 +45,5 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:${config.version['okhttpVersion']}"
     implementation project(path: ':lib_common')
     implementation project(path: ':lib_log')
+    implementation project(path: ':lib_proto')
 }

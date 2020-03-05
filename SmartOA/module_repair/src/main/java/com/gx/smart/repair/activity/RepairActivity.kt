@@ -1,9 +1,11 @@
-package com.gx.smart.repair
+package com.gx.smart.repair.activity
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import com.gx.smart.lib.base.BaseActivity
+import com.gx.smart.repair.R
+import com.gx.smart.repair.fragment.RepairFragment
 
 class RepairActivity : BaseActivity() {
 

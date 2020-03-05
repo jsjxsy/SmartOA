@@ -29,8 +29,8 @@ import com.google.protobuf.ByteString
 import com.gx.smart.smartoa.BuildConfig
 import com.gx.smart.smartoa.R
 import com.gx.smart.common.AppConfig
-import com.gx.smart.smartoa.data.network.api.AdminImageProviderService
-import com.gx.smart.smartoa.data.network.api.AppRepairService
+import com.gx.smart.lib.http.api.AdminImageProviderService
+import com.gx.smart.lib.http.api.AppRepairService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.smart.lib.http.base.GrpcAsyncTask
 import com.gx.smart.lib.http.lib.model.UploadImage

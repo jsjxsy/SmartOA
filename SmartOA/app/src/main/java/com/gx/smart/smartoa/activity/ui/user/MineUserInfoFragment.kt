@@ -32,7 +32,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.protobuf.ByteString
 import com.gx.smart.smartoa.BuildConfig
 import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.data.network.api.UserCenterService
+import com.gx.smart.lib.http.api.UserCenterService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.smart.lib.http.base.GrpcAsyncTask
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse

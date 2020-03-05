@@ -1,7 +1,8 @@
-package com.gx.smart.repair
+package com.gx.smart.repair.activity
 
 import android.os.Bundle
 import com.gx.smart.lib.base.BaseActivity
+import com.gx.smart.repair.R
 
 class RepairTypeActivity : BaseActivity() {
 

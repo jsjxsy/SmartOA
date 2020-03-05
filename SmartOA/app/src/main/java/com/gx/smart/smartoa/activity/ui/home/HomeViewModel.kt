@@ -7,10 +7,10 @@ import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.eventbus.EventBusMessageConstant
 import com.gx.smart.smartoa.R
 import com.gx.smart.common.AppConfig
-import com.gx.smart.smartoa.data.network.api.AppActivityService
-import com.gx.smart.smartoa.data.network.api.AppEmployeeService
-import com.gx.smart.smartoa.data.network.api.AppFigureService
-import com.gx.smart.smartoa.data.network.api.UserCenterService
+import com.gx.smart.lib.http.api.AppActivityService
+import com.gx.smart.lib.http.api.AppEmployeeService
+import com.gx.smart.lib.http.api.AppFigureService
+import com.gx.smart.lib.http.api.UserCenterService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.wisestone.core.grpc.lib.common.QueryDto
 import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
