@@ -123,7 +123,7 @@ class MineUserInfoModifyNickNameFragment : Fragment(), View.OnClickListener {
                         ToastUtils.showLong("修改姓名成功")
                         activity?.onBackPressed()
                     } else {
-                        ToastUtils.showLong(result?.msg)
+                        ToastUtils.showLong(result.msg)
                     }
                 }
 

@@ -30,7 +30,7 @@ class ReservationAdapter : RecyclerView.Adapter<ReservationAdapter.ViewHolder>()
 
     //返回item个数
     override fun getItemCount(): Int {
-        return mList?.size
+        return mList.size
     }
 
 
@@ -50,7 +50,7 @@ class ReservationAdapter : RecyclerView.Adapter<ReservationAdapter.ViewHolder>()
 
     //填充视图
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = mList!![position]
+        val item = mList[position]
         holder.mContent.text = item.content
         holder.onItemClick = onItemClick
     }

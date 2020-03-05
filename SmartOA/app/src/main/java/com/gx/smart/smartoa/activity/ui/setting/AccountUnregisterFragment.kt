@@ -171,8 +171,8 @@ class AccountUnregisterFragment : Fragment(), View.OnClickListener {
             return
         }
         mTime?.start()
-        val targetType = 1
-        val purpose = 3
+//        val targetType = 1
+//        val purpose = 3
 //        getVerifyCode()
 //        if (GrpcAsyncTask.isFinish(verifyTask)) {
 //            verifyTask = AuthApiService.getInstance()

@@ -40,7 +40,7 @@ class ActionAdapter :
 
     //填充视图
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = mList!![position]
+        val item = mList[position]
         holder.itemBinding.data = item
         holder.itemView.setOnClickListener {
             onItemClick?.onItemClick(it, position)

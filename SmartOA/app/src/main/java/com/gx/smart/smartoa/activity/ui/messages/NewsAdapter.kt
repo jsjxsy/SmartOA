@@ -41,7 +41,7 @@ class NewsAdapter :
                 }
             }
         }
-        val item = mList!![position]
+        val item = mList[position]
         holder.title.text = item.title
         holder.subTitle.text = item.content
         if (item.hasRead) {

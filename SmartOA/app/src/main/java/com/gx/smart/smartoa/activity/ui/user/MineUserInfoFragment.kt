@@ -358,7 +358,7 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                     ToastUtils.showLong("头像上传超时")
                     return
                 }
-                if (result.code === 100) {
+                if (result.code == 100) {
                     if (ActivityUtils.isActivityAlive(activity)) {
                         Glide.with(activity!!).load(cropImagePath)
                             .apply(RequestOptions.bitmapTransform(CircleCrop()))
@@ -419,7 +419,7 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                     ToastUtils.showLong("修改性别超时")
                     return
                 }
-                if (result.code === 100) {
+                if (result.code == 100) {
                     if (result.msg == "成功") {
                         ToastUtils.showLong("保存成功")
                         sex.text =

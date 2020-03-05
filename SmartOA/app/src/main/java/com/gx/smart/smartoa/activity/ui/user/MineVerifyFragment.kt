@@ -142,7 +142,7 @@ class MineVerifyFragment : Fragment(), View.OnClickListener {
                     ToastUtils.showLong("修改身份证号超时")
                     return
                 }
-                if (result.code === 100) {
+                if (result.code == 100) {
                     ToastUtils.showLong("修改身份证号成功")
                     SPUtils.getInstance().put(AppConfig.SH_USER_REAL_NAME, name)
                     activity?.onBackPressed()

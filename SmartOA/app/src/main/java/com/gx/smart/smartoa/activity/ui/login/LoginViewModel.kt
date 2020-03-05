@@ -201,7 +201,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                         myCompany()
                         //用户已经绑定
                     }
-                    result.code === 7003 -> {
+                    result.code == 7003 -> {
                         SPUtils.getInstance().put(AppConfig.USER_ID, result.appUserInfoDto.userId)
                         myCompany()
                     }

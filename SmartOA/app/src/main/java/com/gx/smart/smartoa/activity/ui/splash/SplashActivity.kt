@@ -70,7 +70,7 @@ class SplashActivity : BaseActivity() {
             if (ContextCompat.checkSelfPermission(
                     this,
                     permissions.get(i)
-                ) !== PackageManager.PERMISSION_GRANTED
+                ) != PackageManager.PERMISSION_GRANTED
             ) {
                 mPermissionList.add(permissions.get(i))
             }
@@ -273,7 +273,7 @@ class SplashActivity : BaseActivity() {
                             ToastUtils.showLong("查询我的企业超时!")
                             return
                         }
-                        if (result?.code == 100) {
+                        if (result.code == 100) {
                             val employeeList = result.employeeInfoList
                             if (employeeList.isNotEmpty()) {
                                 val employeeInfo = employeeList[0]

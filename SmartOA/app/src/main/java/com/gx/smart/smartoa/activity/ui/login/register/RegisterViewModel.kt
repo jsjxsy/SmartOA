@@ -183,7 +183,7 @@ class RegisterViewModel : ViewModel() {
                 }
 
                 when {
-                    result.code === 100 -> {
+                    result.code == 100 -> {
                         SPUtils.getInstance().put(AppConfig.USER_ID, result.appUserInfoDto.userId)
 //                        mLoadingView.visibility = View.GONE
 //                        gotoLoginPage()

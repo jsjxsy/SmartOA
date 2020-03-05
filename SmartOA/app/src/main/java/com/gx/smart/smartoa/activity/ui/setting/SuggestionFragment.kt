@@ -96,7 +96,7 @@ class SuggestionFragment : Fragment(), View.OnClickListener {
                             return
                         }
 
-                        if (result?.code == 100) {
+                        if (result.code == 100) {
                             ToastUtils.showLong("提交建议成功")
                             activity?.onBackPressed()
                         } else {

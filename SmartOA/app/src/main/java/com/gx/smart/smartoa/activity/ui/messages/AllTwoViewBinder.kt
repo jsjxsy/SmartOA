@@ -21,7 +21,7 @@ class AllTwoViewBinder : ItemViewBinder<AllTwo, AllTwoViewBinder.ViewHolder>() {
         return ViewHolder(root)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, allTwo: AllTwo) {
+    override fun onBindViewHolder(holder: ViewHolder, item: AllTwo) {
 
     }
 

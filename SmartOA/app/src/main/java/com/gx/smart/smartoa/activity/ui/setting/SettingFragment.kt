@@ -132,7 +132,7 @@ class SettingFragment : Fragment(), View.OnClickListener {
                     ToastUtils.showLong("退出登录失败")
                     return
                 }
-                if (result.code === 100) {
+                if (result.code == 100) {
                     clearCache()
                     //跳转登录界面
                     val intent = Intent(activity, LoginActivity::class.java)

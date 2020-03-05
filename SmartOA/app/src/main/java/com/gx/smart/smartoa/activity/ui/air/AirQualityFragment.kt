@@ -135,8 +135,8 @@ class AirQualityFragment : Fragment(), View.OnClickListener {
                     if (result == null) {
                         return
                     }
-                    if (result.code === 100) {
-                        val data: WeatherResponse = result.data
+                    if (result.code == 100) {
+//                        val data: WeatherResponse = result.data
                         //mTvHumidityAndPm.setText("温度:" + data.getTem().toString() + "℃  天气:" + data.getWeather())
                     }
                 }

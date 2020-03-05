@@ -156,10 +156,10 @@ class NewsFragment : Fragment() {
                         ToastUtils.showLong("查询活动超时!")
                         return
                     }
-                    if (result?.code == 100) {
+                    if (result.code == 100) {
                         //ToastUtils.showLong("成功")
                     } else {
-                        ToastUtils.showLong(result?.msg)
+                        ToastUtils.showLong(result.msg)
                     }
                 }
 

@@ -173,8 +173,8 @@ class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
                     ToastUtils.showLong("修改手机号超时")
                     return
                 }
-                val msg = result.dataMap["errMsg"]
-                if (result?.code == 100) {
+
+                if (result.code == 100) {
                     mTime!!.start()
                     changeUserMobile()
                     if (GrpcAsyncTask.isFinish(updateAppUserMobileTask)) {
@@ -183,6 +183,7 @@ class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
                     }
                 } else {
                     mLoadingView.visibility = View.GONE
+                    val msg = result.dataMap["errMsg"]
                     ToastUtils.showLong(msg)
                 }
             }
@@ -200,7 +201,7 @@ class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
                     ToastUtils.showLong("修改手机号超时")
                     return
                 }
-                if (result?.code === 100) {
+                if (result.code === 100) {
                     ToastUtils.showLong("修改手机号成功")
                     val phone = newPhone.text.toString().trim()
                     SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, phone)
@@ -209,7 +210,7 @@ class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     ActivityUtils.startActivity(intent)
                 } else {
-                    ToastUtils.showLong(result?.msg)
+                    ToastUtils.showLong(result.msg)
                 }
             }
         }
@@ -251,7 +252,7 @@ class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
         }
         if (TextUtils.isEmpty(phoneNumber)) {
             ToastUtils.showLong("手机号不能为空")
-        } else if (phoneNumber!!.length != 11 || !DataCheckUtil.isMobile(phoneNumber)) {
+        } else if (phoneNumber.length != 11 || !DataCheckUtil.isMobile(phoneNumber)) {
             ToastUtils.showLong("非法手机号")
         } else {
             getVerifyCodeCallback()

@@ -58,7 +58,7 @@ class NoticeFragment : Fragment() {
         val onItemClick = object : NoticeAdapter.OnItemClickListener {
             override fun onItemClick(view: View?, position: Int) {
                 val list = adapter.getList()
-                val item = list!![position]
+                val item = list[position]
                 if (!item.hasRead) {
                     messageRead(item.id, 2)
                 }
@@ -163,7 +163,7 @@ class NoticeFragment : Fragment() {
                     if (result.code == 100) {
                         //ToastUtils.showLong("成功")
                     } else {
-                        ToastUtils.showLong(result?.msg)
+                        ToastUtils.showLong(result.msg)
                     }
                 }
 
@@ -178,7 +178,7 @@ class NoticeFragment : Fragment() {
         refreshLayout.autoRefresh()
         readAllFlag = true
         val list = adapter.getList()
-        if (list == null || list.isEmpty()) {
+        if (list.isEmpty()) {
             return
         }
         for (item in list) {

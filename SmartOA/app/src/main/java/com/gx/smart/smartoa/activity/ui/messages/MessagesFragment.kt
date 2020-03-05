@@ -54,7 +54,7 @@ class MessagesFragment : Fragment(), View.OnClickListener {
     private fun initData() {
 
         val titles = resources.getStringArray(R.array.message_items)
-        mPagerAdapter = PageAdapter(childFragmentManager!!)
+        mPagerAdapter = PageAdapter(childFragmentManager)
         for (i in titles.indices) {
             mPagerAdapter.addPage(PageAdapter.PageFragmentContent(titles[i], i + 1))
         }

@@ -22,7 +22,6 @@ class LoginNetwork {
     ) = suspendCoroutine<LoginResp> { continuation ->
         val loginCallBack = object : CallBack<LoginResp?>() {
             override fun callBack(result: LoginResp?) {
-                val result =
                     if (result == null) {
                         continuation.resumeWithException(RuntimeException("网络请求超时"))
                     } else {

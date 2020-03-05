@@ -95,7 +95,7 @@ class RepairRecordFragment : Fragment(), View.OnClickListener {
                             ToastUtils.showLong("查询超时!")
                             return
                         }
-                        if (result?.code == 100) {
+                        if (result.code == 100) {
                             val list = result.repairInfoOrBuilderList.toList()
                             if (list.isEmpty() && currentPage == 0) {
                                 emptyLayout.visibility = View.VISIBLE
