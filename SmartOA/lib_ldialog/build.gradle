@@ -1,35 +1,9 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-
-def config = rootProject.extensions.findByName("ext")
-
+apply from: '../lib.common.gradle'
 android {
-    compileSdkVersion config.android['compileSdkVer']
-    buildToolsVersion config.android['buildToolsVer']
-
     defaultConfig {
-        minSdkVersion config.android['minSdkVer']
-        targetSdkVersion config.android['targetSdkVer']
-        versionCode config.versionCode
-        versionName config.versionName
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        versionCode 1
+        versionName "1.0"
     }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
 }
 
 androidExtensions {
@@ -37,13 +11,5 @@ androidExtensions {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation config.dependencies['appcomat']
-    testImplementation config.dependencies['junit']
-    androidTestImplementation config.dependencies['ext_junit']
-    androidTestImplementation config.dependencies['espresso']
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 

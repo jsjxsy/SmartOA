@@ -1,41 +1,12 @@
-apply plugin: 'com.android.library'
-
-def config = rootProject.extensions.findByName("ext")
-
+apply from: '../lib.common.gradle'
 android {
-    compileSdkVersion config.android['compileSdkVer']
-    buildToolsVersion config.android['buildToolsVer']
-
-
     defaultConfig {
-        minSdkVersion config.android['minSdkVer']
-        targetSdkVersion config.android['targetSdkVer']
         versionCode 1
         versionName "1.0.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles 'consumer-rules.pro'
     }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-
 }
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
-    implementation config.dependencies['appcomat']
-    testImplementation config.dependencies['junit']
-    androidTestImplementation config.dependencies['ext_junit']
-    androidTestImplementation config.dependencies['espresso']
 }
 

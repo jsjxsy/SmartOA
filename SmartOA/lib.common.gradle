@@ -1,8 +1,7 @@
-if (isModule.toBoolean()) {
-    apply plugin: 'com.android.application'
-} else {
-    apply plugin: 'com.android.library'
-}
+apply plugin: 'com.android.library'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 def config = rootProject.extensions.findByName("ext")
 
@@ -14,25 +13,18 @@ android {
     defaultConfig {
         minSdkVersion config.android['minSdkVer']
         targetSdkVersion config.android['targetSdkVer']
-        versionCode config.versionCode
-        versionName config.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
 
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-            if (isModule.toBoolean()) {
-                manifest.srcFile 'src/main/module/AndroidManifest.xml'
-            } else {
-                manifest.srcFile 'src/main/AndroidManifest.xml'
-                java {
-                    exclude 'debug/**'
-                }
-            }
-        }
+    dataBinding {
+        enabled true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     buildTypes {

@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/repairRecordFragment"
-        android:name="com.gx.smart.repair.activity.RepairRecordFragment"
+        android:name="com.gx.smart.repair.fragment.RepairRecordFragment"
         android:label="fragment_repair_record_list"
         tools:layout="@layout/fragment_repair_record_list" />
 </navigation>

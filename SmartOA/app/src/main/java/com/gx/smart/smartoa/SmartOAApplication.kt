@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.text.TextUtils
 import cn.jpush.android.api.JPushInterface
+import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.ProcessUtils
 import com.blankj.utilcode.util.Utils
@@ -61,6 +62,7 @@ class SmartOAApplication : Application() {
             CrashHandler.instance.init(this)
             initEventBus()
             initDataBase()
+            initARouter()
         }
     }
 
@@ -127,7 +129,17 @@ class SmartOAApplication : Application() {
         }
     }
 
-
+    /**
+     * 初始化 ARouter
+     */
+    private fun initARouter() {
+        // These two lines must be written before init, otherwise these configurations will be invalid in the init process
+        if (BuildConfig.DEBUG) {
+            ARouter.openLog()     // Print log
+            ARouter.openDebug()   // Turn on debugging mode (If you are running in InstantRun mode, you must turn on debug mode! Online version needs to be closed, otherwise there is a security risk)
+        }
+        ARouter.init(this)
+    }
 
 
 }

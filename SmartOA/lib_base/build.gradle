@@ -1,43 +1,14 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-
-def config = rootProject.extensions.findByName("ext")
+apply from: '../lib.common.gradle'
 
 android {
-    compileSdkVersion config.android['compileSdkVer']
-    buildToolsVersion config.android['buildToolsVer']
-
-
     defaultConfig {
-        minSdkVersion config.android['minSdkVer']
-        targetSdkVersion config.android['targetSdkVer']
         versionCode 1
         versionName "1.0.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles 'consumer-rules.pro'
     }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation config.dependencies['appcomat']
-    implementation config.dependencies['core_ktx']
     //adapter
     api 'com.drakeet.multitype:multitype:4.0.0'
-    //test java
-    testImplementation config.dependencies['junit']
-    //test android
-    androidTestImplementation config.dependencies['ext_junit']
-    androidTestImplementation config.dependencies['espresso']
 }

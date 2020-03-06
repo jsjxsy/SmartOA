@@ -1,45 +1,13 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-
-def config = rootProject.extensions.findByName("ext")
+apply from: '../lib.common.gradle'
 
 android {
-    compileSdkVersion config.android['compileSdkVer']
-    buildToolsVersion config.android['buildToolsVer']
-
     defaultConfig {
-        minSdkVersion config.android['minSdkVer']
-        targetSdkVersion config.android['targetSdkVer']
-        versionCode config.versionCode
-        versionName config.versionName
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        versionCode 1
+        versionName "1.0.0"
     }
-
-    buildTypes {
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation config.dependencies['appcomat']
-    testImplementation config.dependencies['junit']
-    //test android
-    androidTestImplementation config.dependencies['ext_junit']
-    androidTestImplementation config.dependencies['espresso']
     implementation 'com.google.android.material:material:1.0.0'
     implementation project(path: ':lib_ldialog')
 }
@@ -47,26 +15,3 @@ dependencies {
 repositories {
     mavenCentral()
 }
-
-//// 打包源码jar
-//task sourcesJar(type: Jar) {
-//    from android.sourceSets.main.java.srcDirs
-//    classifier = 'sources'
-//}
-//task javadoc(type: Javadoc) {
-//    failOnError  false
-//    source = android.sourceSets.main.java.sourceFiles
-//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-//    classpath += configurations.compile
-//}
-//
-//// 打包文档jar
-//task javadocJar(type: Jar, dependsOn: javadoc) {
-//    classifier = 'javadoc'
-//    from javadoc.destinationDir
-//}
-//
-//artifacts {
-//    archives sourcesJar
-//    archives javadocJar
-//}

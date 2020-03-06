@@ -1,13 +1,25 @@
 include ':app'
-include ':lib_common',':lib_webview', ':lib_push', ':lib_custom_ldialog', ':lib_ldialog', ':lib_share', ':lib_map', ':lib_eventbus',':lib_http'
-rootProject.name = 'SmartOA'
+//lib
+include ':lib_widget'
+include ':lib_base'
+include ':lib_proto'
+include ':lib_arouter'
+include ':lib_common',
+        ':lib_webview',
+        ':lib_push',
+        ':lib_custom_ldialog',
+        ':lib_ldialog',
+        ':lib_share',
+        ':lib_map',
+        ':lib_eventbus',
+        ':lib_http'
 include ':lib_image'
 include ':lib_log'
 include ':lib_database'
+//module
 include ':module_smart_house'
 include ':module_repair'
 include ':module_mine'
 include ':module_setting'
-include ':lib_widget'
-include ':lib_base'
-include ':lib_proto'
+rootProject.name = 'SmartOA'
+

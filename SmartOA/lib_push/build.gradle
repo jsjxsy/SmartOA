@@ -1,50 +1,13 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-
-def config = rootProject.extensions.findByName("ext")
+apply from: '../lib.common.gradle'
 
 android {
-    compileSdkVersion config.android['compileSdkVer']
-    buildToolsVersion config.android['buildToolsVer']
-
-
     defaultConfig {
-        minSdkVersion config.android['minSdkVer']
-        targetSdkVersion config.android['targetSdkVer']
-        versionCode config.versionCode
-        versionName config.versionName
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles 'consumer-rules.pro'
-
+        versionCode 1
+        versionName "1.0"
     }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     api 'cn.jiguang.sdk:jpush:3.3.9'  // 此处以JPush 3.3.9 版本为例。
     api 'cn.jiguang.sdk:jcore:2.1.6'  // 此处以JCore 2.1.6 版本为例。
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation config.dependencies['appcomat']
-    implementation config.dependencies['core_ktx']
-
-    testImplementation config.dependencies['junit']
-    androidTestImplementation config.dependencies['ext_junit']
-    androidTestImplementation config.dependencies['espresso']
 }
