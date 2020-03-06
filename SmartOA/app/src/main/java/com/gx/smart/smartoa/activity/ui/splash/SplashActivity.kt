@@ -178,7 +178,7 @@ class SplashActivity : BaseActivity() {
             override fun callBack(result: LoginResp?) {
                 if (result == null) {
                     ToastUtils.showLong("登录超时")
-                    LoginActivity()
+                    loginActivity()
                     return
                 }
                 val msg = result.dataMap["errMsg"]
