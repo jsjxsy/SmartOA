@@ -1,4 +1,4 @@
-package com.gx.smart.module.mine
+package com.gx.smart.module.login
 
 import org.junit.Test
 

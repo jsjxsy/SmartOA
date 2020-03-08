@@ -1,4 +1,4 @@
-package com.gx.smart.module.mine
+package com.gx.smart.module.login
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
