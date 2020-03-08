@@ -104,9 +104,9 @@ class SmartOAApplication : Application() {
         val jPushToken = JPushInterface.getRegistrationID(this)
         if (!TextUtils.isEmpty(jPushToken)) {
             AppConfig.JGToken = jPushToken
-            Logger.d("push", "JGToken:$jPushToken")
-        }else{
-            Logger.d("push", "JGToken is empty")
+            Logger.d("push JGToken:" + AppConfig.JGToken)
+        } else {
+            Logger.d("push JGToken is empty")
         }
 
     }
