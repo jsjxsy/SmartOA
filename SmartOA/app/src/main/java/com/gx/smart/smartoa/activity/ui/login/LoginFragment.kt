@@ -12,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -20,16 +19,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.gx.smart.common.AppConfig
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
 import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
 import com.gx.smart.smartoa.activity.ui.login.password.ForgetPasswordFragment
-import com.gx.smart.common.AppConfig
 import com.gx.smart.smartoa.databinding.FragmentLoginBinding
-import com.gx.smart.smartoa.utils.DataCheckUtil
 import com.gx.smart.smartoa.utils.LoginUtil
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -118,7 +115,7 @@ class LoginFragment : Fragment(), OnClickListener {
 
         viewModel.loginFlag.observe(this, Observer {
             id_input_password_edit_text.editableText.clear()
-            when(it){
+            when (it) {
                 LoginViewModel.LoginTypeEnum.PHONE -> {
                     loginType.text = getString(R.string.login_phone_password)
                     id_input_password_edit_text.maxHeight = 12
@@ -158,9 +155,13 @@ class LoginFragment : Fragment(), OnClickListener {
         id_input_password_edit_text.transformationMethod =
             PasswordTransformationMethod.getInstance()
         viewModel.setPhone()
-        id_input_phone_edit_text.setOnFocusChangeListener { _, b -> if(b){id_input_phone_edit_text.setSelection(
-            viewModel.phone.value?.length ?: 0
-        )} }
+        id_input_phone_edit_text.setOnFocusChangeListener { _, b ->
+            if (b) {
+                id_input_phone_edit_text.setSelection(
+                    viewModel.phone.value?.length ?: 0
+                )
+            }
+        }
     }
 
 

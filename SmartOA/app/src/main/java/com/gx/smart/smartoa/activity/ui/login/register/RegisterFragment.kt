@@ -9,24 +9,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.activity.WebViewActivity
-import com.gx.smart.smartoa.activity.ui.login.LoginActivity
-import com.gx.smart.smartoa.activity.ui.splash.SplashActivity.Companion.DELAY_TIME
 import com.gx.smart.common.ApiConfig
 import com.gx.smart.common.AppConfig
 import com.gx.smart.lib.http.api.AuthApiService
 import com.gx.smart.lib.http.api.UserCenterService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.smart.lib.http.base.GrpcAsyncTask
-import com.gx.smart.smartoa.utils.DataCheckUtil
 import com.gx.smart.lib.widget.LoadingView
+import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.WebViewActivity
+import com.gx.smart.smartoa.activity.ui.login.LoginActivity
+import com.gx.smart.smartoa.activity.ui.splash.SplashActivity.Companion.DELAY_TIME
+import com.gx.smart.smartoa.databinding.RegisterFragmentBinding
+import com.gx.smart.smartoa.utils.DataCheckUtil
 import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp
 import com.gx.wisestone.uaa.grpc.lib.auth.RegistResp
 import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp
@@ -41,9 +43,6 @@ class RegisterFragment : Fragment(), View.OnClickListener {
         fun newInstance() =
             RegisterFragment()
     }
-
-
-    private lateinit var viewModel: RegisterViewModel
 
     private var registerBack: CallBack<RegistResp?>? = null
     private var authTask: GrpcAsyncTask<String, Void, RegistResp>? = null
@@ -67,16 +66,25 @@ class RegisterFragment : Fragment(), View.OnClickListener {
         activity?.window?.statusBarColor = Color.WHITE
     }
 
+    private val viewModel by lazy { ViewModelProviders.of(this).get(RegisterViewModel::class.java) }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.register_fragment, container, false)
+        val dataBinding = DataBindingUtil.inflate<RegisterFragmentBinding>(
+            inflater,
+            R.layout.register_fragment,
+            container,
+            false
+        )
+        dataBinding.viewModel = viewModel
+        dataBinding.lifecycleOwner = this
+        return dataBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(RegisterViewModel::class.java)
+
         mLoadingView = loadingView
         initTitle()
         initData()

@@ -162,7 +162,7 @@ dependencies {
     if (!isModule.toBoolean()) {
         implementation project(path: ':module_setting')
         implementation project(path: ':module_smart_house')
-        implementation project(path: ':module_mine')
+        implementation project(path: ':module_login')
         implementation project(path: ':module_repair')
     }
 }

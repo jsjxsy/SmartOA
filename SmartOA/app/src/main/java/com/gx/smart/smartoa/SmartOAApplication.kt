@@ -82,7 +82,7 @@ class SmartOAApplication : Application() {
         val formatStrategy = PrettyFormatStrategy.newBuilder()
             .showThreadInfo(false)      //（可选）是否显示线程信息。 默认值为true
             .methodCount(2)               // （可选）要显示的方法行数。 默认2
-            .methodOffset(7)               // （可选）设置调用堆栈的函数偏移值，0的话则从打印该Log的函数开始输出堆栈信息，默认是0
+            .methodOffset(0)               // （可选）设置调用堆栈的函数偏移值，0的话则从打印该Log的函数开始输出堆栈信息，默认是0
             .tag("SmartOA")                  //（可选）每个日志的全局标记。 默认PRETTY_LOGGER（如上图）
             .build()
         Logger.addLogAdapter(AndroidLogAdapter(formatStrategy))
@@ -104,9 +104,11 @@ class SmartOAApplication : Application() {
         val jPushToken = JPushInterface.getRegistrationID(this)
         if (!TextUtils.isEmpty(jPushToken)) {
             AppConfig.JGToken = jPushToken
+            Logger.d("push", "JGToken:$jPushToken")
+        }else{
+            Logger.d("push", "JGToken is empty")
         }
-        Logger.d("push", "jPushToken:$jPushToken")
-//        registerJGPushBroadcast()
+
     }
 
     /**

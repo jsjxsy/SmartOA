@@ -19,7 +19,7 @@ include ':lib_database'
 //module
 include ':module_smart_house'
 include ':module_repair'
-include ':module_mine'
+include ':module_login'
 include ':module_setting'
 rootProject.name = 'SmartOA'
 
