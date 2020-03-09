@@ -12,34 +12,34 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.common.ApiConfig
 import com.gx.smart.common.AppConfig
+import com.gx.smart.common.DataCheckUtil
 import com.gx.smart.lib.http.api.AuthApiService
 import com.gx.smart.lib.http.api.UserCenterService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.smart.lib.http.base.GrpcAsyncTask
 import com.gx.smart.lib.widget.LoadingView
-import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.activity.WebViewActivity
-import com.gx.smart.smartoa.activity.ui.login.LoginActivity
-import com.gx.smart.smartoa.activity.ui.splash.SplashActivity.Companion.DELAY_TIME
-import com.gx.smart.smartoa.databinding.RegisterFragmentBinding
-import com.gx.smart.smartoa.utils.DataCheckUtil
+import com.gx.smart.module.login.BaseVerifyCodeFragment
+import com.gx.smart.module.login.LoginActivity
+import com.gx.smart.module.login.R
+import com.gx.smart.module.login.databinding.RegisterFragmentBinding
 import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp
 import com.gx.wisestone.uaa.grpc.lib.auth.RegistResp
 import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
-import kotlinx.android.synthetic.main.layout_common_title.*
+//import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.register_fragment.*
 
-class RegisterFragment : Fragment(), View.OnClickListener {
+class RegisterFragment : BaseVerifyCodeFragment(), View.OnClickListener {
 
     companion object {
-
+        const val DELAY_TIME: Long = 1000 * 3
         fun newInstance() =
             RegisterFragment()
     }
@@ -56,7 +56,6 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     private var bindTask: GrpcAsyncTask<String, Void, AppInfoResponse>? = null
     private var bindCallBack: CallBack<AppInfoResponse?>? = null
 
-    private var mTime: TimeCount? = null
     private var mPhone: String? = null
     private var passWord: String? = null
     private lateinit var verifyCodeText: TextView
@@ -94,19 +93,19 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initTitle() {
-        left_nav_image_view.visibility = View.VISIBLE
-        center_title?.let {
-            it.visibility = View.VISIBLE
-            it.text = getString(R.string.register_account)
-        }
-        left_nav_image_view.setOnClickListener(this)
+//        left_nav_image_view.visibility = View.VISIBLE
+//        center_title?.let {
+//            it.visibility = View.VISIBLE
+//            it.text = getString(R.string.register_account)
+//        }
+//        left_nav_image_view.setOnClickListener(this)
     }
 
 
     private fun goWebView(url: String) {
-        val intent = Intent(ActivityUtils.getTopActivity(), WebViewActivity::class.java)
-        intent.putExtra(WebViewActivity.URL, url)
-        ActivityUtils.startActivity(intent)
+        ARouter.getInstance().build("/app/webview")
+            .withString("URL", url)
+            .navigation()
     }
 
     override fun onClick(v: View?) {
@@ -180,33 +179,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
 
     private fun initData() {
         verifyCodeText = getVerifyCodeText
-        mTime = TimeCount(60000, 1000, verifyCodeText)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mTime?.cancel()
-    }
-
-    //获取验证码定时器
-    class TimeCount(
-        millisInFuture: Long,
-        countDownInterval: Long,
-        private val verifyCodeText: TextView
-    ) :
-        CountDownTimer(millisInFuture, countDownInterval) {
-        override fun onFinish() {
-            verifyCodeText.text = "获取验证码"
-            verifyCodeText.isClickable = true
-        }
-
-        override fun onTick(millisUntilFinished: Long) {
-            verifyCodeText.isClickable = false
-            verifyCodeText.text = String.format(
-                "%s",
-                millisUntilFinished.div(1000).toString() + "s"
-            )
-        }
+        initTimer(verifyCodeText)
     }
 
 

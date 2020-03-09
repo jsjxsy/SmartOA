@@ -51,7 +51,7 @@
         android:testOnly="false"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.ui.repair.RepairTypeActivity"
+            android:name="com.gx.smart.repair.activity.RepairTypeActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
@@ -97,7 +97,7 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.ui.repair.RepairActivity"
+            android:name="com.gx.smart.repair.activity.RepairActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

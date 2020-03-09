@@ -14,6 +14,9 @@ kapt {
     javacOptions {
         option("-Xmaxerrs", 500)
     }
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
 }
 
 android {
@@ -165,5 +168,6 @@ dependencies {
         implementation project(path: ':module_login')
         implementation project(path: ':module_repair')
     }
+    kapt 'com.alibaba:arouter-compiler:1.2.2'
 }
 

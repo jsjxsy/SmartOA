@@ -1,9 +1,7 @@
 package com.gx.smart.module.login
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.text.InputType
 import android.text.TextUtils
 import android.text.method.HideReturnsTransformationMethod
@@ -12,28 +10,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import com.blankj.utilcode.util.ActivityUtils
+import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.common.AppConfig
+import com.gx.smart.module.login.databinding.FragmentLoginBinding
 import com.gx.smart.module.login.mvvm.viewmodel.LoginViewModel
-import com.gx.smart.smartoa.R
-import com.gx.smart.smartoa.activity.MainActivity
-import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
-import com.gx.smart.smartoa.activity.ui.login.password.ForgetPasswordFragment
-import com.gx.smart.smartoa.databinding.FragmentLoginBinding
-import com.gx.smart.smartoa.utils.LoginUtil
+import com.gx.smart.module.login.password.ForgetPasswordFragment
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
-class LoginFragment : Fragment(), OnClickListener {
+class LoginFragment : BaseVerifyCodeFragment(), OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.id_forget_password_text_view -> {
@@ -61,9 +53,11 @@ class LoginFragment : Fragment(), OnClickListener {
         fun newInstance() = LoginFragment()
     }
 
-    private val viewModel by lazy { ViewModelProviders.of(this, LoginUtil.getLoginFactory()).get(
-        LoginViewModel::class.java) }
-    private var mTime: TimeCount? = null
+    private val viewModel by lazy {
+        ViewModelProviders.of(this, LoginUtil.getLoginFactory()).get(
+            LoginViewModel::class.java
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,12 +87,13 @@ class LoginFragment : Fragment(), OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initContent()
-        initTimer()
+        initTimer(getVerifyCodeText)
         observer()
 
     }
 
     private fun observer() {
+        //开始倒计时
         viewModel.verifyCodeCallBackSuccess.observe(this, Observer<Boolean> { getVerifyCode ->
             if (getVerifyCode) {
                 mTime?.start()
@@ -109,7 +104,7 @@ class LoginFragment : Fragment(), OnClickListener {
             when (it) {
                 1 -> mainActivity()
                 2 -> mineCompanyActivity()
-                else ->{
+                else -> {
                     Logger.e("jump page argument is exception'")
                 }
             }
@@ -138,7 +133,7 @@ class LoginFragment : Fragment(), OnClickListener {
                     id_input_password_edit_text.transformationMethod =
                         HideReturnsTransformationMethod.getInstance()
                 }
-                else ->{
+                else -> {
                     Logger.e("login type argument is exception'")
                 }
             }
@@ -192,53 +187,16 @@ class LoginFragment : Fragment(), OnClickListener {
 
     }
 
-    private fun initTimer() {
-        mTime = TimeCount(60000, 1000, getVerifyCodeText)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mTime?.cancel()
-    }
-
-    //获取验证码定时器
-    class TimeCount(
-        millisInFuture: Long,
-        countDownInterval: Long,
-        private val verifyCodeText: TextView
-    ) :
-        CountDownTimer(millisInFuture, countDownInterval) {
-        override fun onFinish() {
-            verifyCodeText.text = "获取验证码"
-            verifyCodeText.isClickable = true
-        }
-
-        override fun onTick(millisUntilFinished: Long) {
-            verifyCodeText.isClickable = false
-            verifyCodeText.text = String.format(
-                "%s",
-                millisUntilFinished.div(1000).toString() + "s"
-            )
-        }
-    }
-
 
     private fun mainActivity() {
         activity?.finish()
-        ActivityUtils.startActivity(
-            Intent(activity, MainActivity::class.java)
-        )
+        ARouter.getInstance().build("/app/main").navigation()
     }
 
     private fun mineCompanyActivity() {
-        val intent = Intent(
-            context,
-            MineCompanyActivity::class.java
-        )
-        intent.putExtra(MineCompanyActivity.FROM_LOGIN, MineCompanyActivity.FROM_LOGIN)
-        ActivityUtils.startActivity(
-            intent
-        )
+        ARouter.getInstance().build("/app/mine/company")
+            .withString("fromLogin", "fromLogin")
+            .navigation()
     }
 
 

@@ -10,12 +10,25 @@ import kotlinx.coroutines.withContext
  *@create 2020-01-17
  *@Describe 登陆模块数据仓储（包含：database和sharePreference和network）
  **/
-class LoginRepository private constructor(private val loginDao: LoginDao, private val network: LoginNetwork) {
+class LoginRepository private constructor(
+    private val loginDao: LoginDao,
+    private val network: LoginNetwork
+) {
 
-    suspend fun login(account: String,
-                      password: String,
-                      login_type: Int) = withContext(Dispatchers.IO) {
-        network.requestLogin(account, password,login_type)
+    suspend fun login(
+        account: String,
+        password: String,
+        login_type: Int
+    ) = withContext(Dispatchers.IO) {
+        network.requestLogin(account, password, login_type)
+    }
+
+    suspend fun verify(phone: String, targetType: Int, purpose: Int) = withContext(Dispatchers.IO) {
+        network.requestVerifyCode(phone, targetType, purpose)
+    }
+
+    suspend fun bindAppUser(phone: String) = withContext(Dispatchers.IO) {
+        network.requestBindAppUser(phone)
     }
 
     companion object {

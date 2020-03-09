@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.gx.smart.smartoa.activity.ui.login.register.RegisterViewModel" />
+            type="com.gx.smart.module.login.register.RegisterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

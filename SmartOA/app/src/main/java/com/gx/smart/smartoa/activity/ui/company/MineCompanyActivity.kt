@@ -4,10 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.gx.smart.smartoa.R
 import com.gx.smart.lib.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_mine_company.*
-
+@Route(path = "/app/mine/company")
 class MineCompanyActivity : BaseActivity() {
 
 

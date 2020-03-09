@@ -3,11 +3,8 @@ package com.gx.smart.module.login.mvvm.viewmodel
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SPUtils
@@ -16,20 +13,14 @@ import com.gx.smart.common.AppConfig
 import com.gx.smart.common.DataCheckUtil
 import com.gx.smart.lib.http.api.AppEmployeeService
 import com.gx.smart.lib.http.api.AppMessagePushService
-import com.gx.smart.lib.http.api.AuthApiService
-import com.gx.smart.lib.http.api.UserCenterService
 import com.gx.smart.lib.http.base.CallBack
-import com.gx.smart.lib.http.base.GrpcAsyncTask
 import com.gx.smart.module.login.R
 import com.gx.smart.module.login.mvvm.repository.LoginRepository
-import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp
-import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp
-import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
 import com.gx.wisestone.work.app.grpc.push.UpdateMessagePushResponse
-import kotlinx.coroutines.launch
+import com.orhanobut.logger.Logger
 
-class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
+class LoginViewModel(private val loginRepository: LoginRepository) : BaseViewModel() {
     var phone = MutableLiveData<String>("")
     var password = MutableLiveData<String>("")
     var verifyCodeCallBackSuccess = MutableLiveData<Boolean>(false)
@@ -37,14 +28,6 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     var deleteVisible = MutableLiveData<Boolean>()
     var targetPage = MutableLiveData<Int>()
 
-    private var verifyTask: GrpcAsyncTask<String, Void, VerifyCodeResp>? = null
-    private var verifyCallBack: CallBack<VerifyCodeResp?>? = null
-
-    private var loginTask: GrpcAsyncTask<String, Void, LoginResp>? = null
-    private var loginCallBack: CallBack<LoginResp?>? = null
-
-    private var bindTask: GrpcAsyncTask<String, Void, AppInfoResponse>? = null
-    private var bindCallBack: CallBack<AppInfoResponse?>? = null
 
     enum class LoginTypeEnum {
         PHONE, VERIFY_CODE
@@ -53,6 +36,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     var loginFlag = MutableLiveData<LoginTypeEnum>(
         LoginTypeEnum.PHONE
     )
+
     //获取登录验证码
     private val targetType = 1
     private val purpose = 1
@@ -138,10 +122,10 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     }
 
     /**
-     * 登陆
+     * 登陆 网络请求
      * @param loginType 2:手机号密码登录 3: 手机号验证码登录
      */
-    fun login(loginType: Int) {
+    private fun login(loginType: Int) {
         launch({
             val result = loginRepository.login(phone.value!!, password.value!!, loginType)
             val msg = result.dataMap["errMsg"]
@@ -156,12 +140,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                     SPUtils.getInstance().put(AppConfig.SH_USER_ACCOUNT, phone.value)
                 }
                 updateMessagePush()
-                bindAppCallBack()
-                if (GrpcAsyncTask.isFinish(bindTask)) {
-                    bindTask =
-                        UserCenterService.getInstance()
-                            .bindAppUser(phone.value!!, phone.value!!, bindCallBack)
-                }
+                bindAppUser(phone.value!!)
             } else {
                 isLoading.value = false
                 ToastUtils.showLong(msg)
@@ -171,52 +150,32 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                 ToastUtils.showLong("登录超时")
             })
 
-        if (GrpcAsyncTask.isFinish(loginTask)) {
-            loginTask = AuthApiService.getInstance()
-                .login(phone.value, password.value, loginType, loginCallBack)
-        }
     }
 
 
-    private fun launch(block: suspend () -> Unit, error: suspend (Throwable) -> Unit) =
-        viewModelScope.launch {
-            try {
-                block()
-            } catch (e: Throwable) {
-                error(e)
-            }
-        }
-
-
-    /*******************************************绑定回调 */
-    private fun bindAppCallBack() {
-        bindCallBack = object : CallBack<AppInfoResponse?>() {
-            override fun callBack(result: AppInfoResponse?) {
-                if (result == null) {
-                    ToastUtils.showLong("登录后绑定超时")
+    private fun bindAppUser(phone: String) {
+        launch({
+            val result = loginRepository.bindAppUser(phone)
+            when {
+                result.code === 100 -> {
+                    SPUtils.getInstance().put(AppConfig.USER_ID, result.appUserInfoDto.userId)
+                    myCompany()
+                    //用户已经绑定
+                }
+                result.code == 7003 -> {
+                    SPUtils.getInstance().put(AppConfig.USER_ID, result.appUserInfoDto.userId)
+                    myCompany()
+                }
+                else -> {
+                    ToastUtils.showLong(result.msg)
                     isLoading.value = false
-                    return
-                }
-
-                when {
-                    result.code === 100 -> {
-                        SPUtils.getInstance().put(AppConfig.USER_ID, result.appUserInfoDto.userId)
-                        myCompany()
-                        //用户已经绑定
-                    }
-                    result.code == 7003 -> {
-                        SPUtils.getInstance().put(AppConfig.USER_ID, result.appUserInfoDto.userId)
-                        myCompany()
-                    }
-                    else -> {
-                        ToastUtils.showLong(result.msg)
-                        isLoading.value = false
-                    }
                 }
             }
-        }
+        }, {
+            ToastUtils.showLong("登录后绑定超时")
+            isLoading.value = false
+        })
     }
-
 
     private fun myCompany() {
         AppEmployeeService.getInstance()
@@ -295,7 +254,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                 AppConfig.JGToken,
                 object : CallBack<UpdateMessagePushResponse?>() {
                     override fun callBack(result: UpdateMessagePushResponse?) {
-                        Log.i("jtpush", result.toString())
+                        Logger.d(result)
                     }
                 })
         }
@@ -316,39 +275,26 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
             return
         }
 
-        verifyCodeCallBack()
-        if (GrpcAsyncTask.isFinish(verifyTask)) {
-            verifyTask =
-                AuthApiService.getInstance()
-                    .verifyCode(phone.value, targetType, purpose, verifyCallBack)
-        }
-
+        verifyCode(phone.value!!, targetType, purpose)
 
     }
 
-    override fun toString(): String {
-        return "phone $phone password $password"
-    }
-
-
-    /*******************************************获取验证码回调 */
-    private fun verifyCodeCallBack() {
-        verifyCallBack = object : CallBack<VerifyCodeResp?>() {
-            override fun callBack(result: VerifyCodeResp?) {
-
-                if (result == null) {
-                    ToastUtils.showLong("验证码请求超时")
-                    return
-                }
-                val msg = result.dataMap["errMsg"]
-                if (result.code == 100) {
-                    verifyCodeCallBackSuccess.value = true
-                    ToastUtils.showLong("获取验证码成功")
-                } else {
-                    ToastUtils.showLong(msg)
-                    isLoading.value = false
-                }
+    private fun verifyCode(phone: String, targetType: Int, purpose: Int) {
+        launch({
+            val result = loginRepository.verify(phone, targetType, purpose)
+            val msg = result.dataMap["errMsg"]
+            if (result.code == 100) {
+                verifyCodeCallBackSuccess.value = true
+                ToastUtils.showLong("获取验证码成功")
+            } else {
+                ToastUtils.showLong(msg)
+                isLoading.value = false
             }
-        }
+        }, {
+            ToastUtils.showLong("验证码请求超时")
+        })
+
     }
+
+
 }

@@ -42,4 +42,5 @@ dependencies {
     //test android
     androidTestImplementation config.dependencies['ext_junit']
     androidTestImplementation config.dependencies['espresso']
+
 }

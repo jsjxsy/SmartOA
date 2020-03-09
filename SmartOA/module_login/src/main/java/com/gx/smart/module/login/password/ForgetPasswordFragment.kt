@@ -3,13 +3,11 @@ package com.gx.smart.module.login.password
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
@@ -22,17 +20,18 @@ import com.gx.smart.lib.http.base.CallBack
 import com.gx.smart.lib.http.base.GrpcAsyncTask
 import com.gx.smart.lib.http.lib.utils.AuthUtils
 import com.gx.smart.lib.widget.LoadingView
+import com.gx.smart.module.login.BaseVerifyCodeFragment
 import com.gx.smart.module.login.LoginActivity
 import com.gx.smart.module.login.R
 import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp
 import com.gx.wisestone.uaa.grpc.lib.auth.UserModifyResp
 import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp
 import kotlinx.android.synthetic.main.forget_password_fragment.*
-import kotlinx.android.synthetic.main.layout_common_title.*
 
-class ForgetPasswordFragment : Fragment(), View.OnClickListener {
+//import kotlinx.android.synthetic.main.layout_common_title.*
 
-    private var mTime: TimeCount? = null
+class ForgetPasswordFragment : BaseVerifyCodeFragment(), View.OnClickListener {
+
     private lateinit var verifyCodeText: TextView
     private lateinit var mLoadingView: LoadingView
     private var verifyTask: GrpcAsyncTask<String, Void, VerifyCodeResp>? = null
@@ -65,19 +64,19 @@ class ForgetPasswordFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ForgetPasswordViewModel::class.java)
-        initTitle()
+//        initTitle()
         initContent()
         initTimer()
     }
 
-    private fun initTitle() {
-        left_nav_image_view.visibility = View.VISIBLE
-        center_title?.let {
-            it.visibility = View.VISIBLE
-            it.text = getString(R.string.forget_password)
-        }
-        left_nav_image_view.setOnClickListener(this)
-    }
+//    private fun initTitle() {
+//        left_nav_image_view.visibility = View.VISIBLE
+//        center_title?.let {
+//            it.visibility = View.VISIBLE
+//            it.text = getString(R.string.forget_password)
+//        }
+//        left_nav_image_view.setOnClickListener(this)
+//    }
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -120,8 +119,6 @@ class ForgetPasswordFragment : Fragment(), View.OnClickListener {
             ToastUtils.showLong("验证码不能为空")
         } else if (TextUtils.isEmpty(password)) {
             ToastUtils.showLong("密码不能为空")
-        } else if (doExcute(password) < 2) {
-            ToastUtils.showLong("密码过于简单")
         } else if (password.length < 8) {
             ToastUtils.showLong("密码长度不得小于8位")
         } else if (password.length > 16) {
@@ -146,33 +143,7 @@ class ForgetPasswordFragment : Fragment(), View.OnClickListener {
 
     private fun initTimer() {
         verifyCodeText = getVerifyCodeText
-        mTime = TimeCount(60000, 1000, verifyCodeText)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mTime?.cancel()
-    }
-
-    //获取验证码定时器
-    class TimeCount(
-        millisInFuture: Long,
-        countDownInterval: Long,
-        private val verifyCodeText: TextView
-    ) :
-        CountDownTimer(millisInFuture, countDownInterval) {
-        override fun onFinish() {
-            verifyCodeText.text = "获取验证码"
-            verifyCodeText.isClickable = true
-        }
-
-        override fun onTick(millisUntilFinished: Long) {
-            verifyCodeText.isClickable = false
-            verifyCodeText.text = String.format(
-                "%s",
-                millisUntilFinished.div(1000).toString() + "s"
-            )
-        }
+        initTimer(verifyCodeText)
     }
 
 
@@ -244,7 +215,7 @@ class ForgetPasswordFragment : Fragment(), View.OnClickListener {
 
     private fun modifyPassword() {
         appModifyPassword()
-        val token =  SPUtils.getInstance().getString(AppConfig.LOGIN_TOKEN)
+        val token = SPUtils.getInstance().getString(AppConfig.LOGIN_TOKEN)
         val holder = AuthUtils.parseJwtHolder(token)
         val userId = holder.subject
         if (GrpcAsyncTask.isFinish(userModifyPassWordTask)) {
@@ -257,7 +228,7 @@ class ForgetPasswordFragment : Fragment(), View.OnClickListener {
     private fun appModifyPassword() {
         userModifyPassWordTaskCallBack = object : CallBack<UserModifyResp>() {
             override fun callBack(result: UserModifyResp?) {
-                if(!ActivityUtils.isActivityAlive(activity)) {
+                if (!ActivityUtils.isActivityAlive(activity)) {
                     return
                 }
                 mLoadingView.visibility = View.GONE
@@ -285,40 +256,4 @@ class ForgetPasswordFragment : Fragment(), View.OnClickListener {
     }
 
 
-    /*******************************************密码校验 */
-    private fun doExcute(password: String): Int {
-        var kindOfCharacter = 0
-        val digital = "[0-9]"
-        val capital = "[A-Z]"
-        val lowercase = "[a-z]"
-        val spec = "[-~!@#$%^&*()_+{}|:<>?;',.]"
-        /** 有大写字母或小写字母，即有字母  */
-        for (i in 0 until password.length) {
-            if (password.substring(i, i + 1).matches(capital.toRegex())
-                || password.substring(i, i + 1).matches(lowercase.toRegex())
-            ) {
-                println(password.substring(i, i + 1))
-                kindOfCharacter++
-                break
-            }
-        }
-        /** 有数字  */
-        for (i in 0 until password.length) {
-            if (password.substring(i, i + 1).matches(digital.toRegex())) {
-                kindOfCharacter++
-                break
-            }
-        }
-        /** 有符号  */
-        for (i in 0 until password.length) {
-            if (password.substring(i, i + 1).matches(spec.toRegex())) {
-                kindOfCharacter++
-                break
-            }
-        }
-        if (password.length < 6) {
-            kindOfCharacter = 1
-        }
-        return kindOfCharacter
-    }
 }

@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.NonNull
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.bigkoo.convenientbanner.ConvenientBanner
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator
 import com.bigkoo.convenientbanner.holder.Holder
@@ -16,25 +16,16 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
 import com.bumptech.glide.Glide
 import com.drakeet.multitype.ItemViewBinder
+import com.gx.smart.arouter.ARouterConstants
+import com.gx.smart.common.AppConfig
 import com.gx.smart.eventbus.EventBusMessageConstant
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.WebViewActivity
-import com.gx.smart.smartoa.activity.ui.air.AirQualityActivity
 import com.gx.smart.smartoa.activity.ui.attendance.AttendanceActivity
-import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
 import com.gx.smart.smartoa.activity.ui.environmental.EnvironmentalActivity
 import com.gx.smart.smartoa.activity.ui.features.AllFeatureActivity
-import com.gx.smart.smartoa.activity.ui.meetings.MeetingScheduleActivity
-import com.gx.smart.smartoa.activity.ui.repair.RepairActivity
-import com.gx.smart.smartoa.activity.ui.visitor.VisitorActivity
-import com.gx.smart.smartoa.activity.ui.work.SharedWorkActivity
-import com.gx.smart.common.AppConfig
-import com.gx.smart.lib.http.api.AppFigureService
-import com.gx.smart.lib.http.base.CallBack
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesInfoOrBuilder
-import com.gx.wisestone.work.app.grpc.appfigure.ImagesResponse
 import com.jeremyliao.liveeventbus.LiveEventBus
-import top.limuyang2.customldialog.IOSMsgDialog
 
 
 /**
@@ -42,7 +33,8 @@ import top.limuyang2.customldialog.IOSMsgDialog
  * @create 2019-11-01
  * @Describe banner 广告栏
  */
-class HomeHeadViewBinder(private val viewModel: HomeViewModel) : ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolder>(),
+class HomeHeadViewBinder(private val viewModel: HomeViewModel) :
+    ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolder>(),
     View.OnClickListener {
     private lateinit var convenientBanner: ConvenientBanner<Any>
     override fun onClick(v: View?) {
@@ -96,15 +88,21 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) : ItemViewBinder<
                 SPUtils.getInstance().getInt(AppConfig.COMPANY_SYS_TENANT_NO, 0)
             if (buildingSysTenantNo == companySysTenantNo) {
                 when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0)) {
-                    1 -> LiveEventBus.get(EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY,Int::class.java)
+                    1 -> LiveEventBus.get(
+                            EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY,
+                            Int::class.java
+                        )
                         .post(1)
                     2 -> gotoDetailAction(type)
-                    else -> LiveEventBus.get(EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY,Int::class.java)
+                    else -> LiveEventBus.get(
+                            EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY,
+                            Int::class.java
+                        )
                         .post(3)
                 }
 
             } else {
-                LiveEventBus.get(EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY,Int::class.java)
+                LiveEventBus.get(EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY, Int::class.java)
                     .post(3)
             }
         }
@@ -125,21 +123,18 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) : ItemViewBinder<
                     )
                 )
 
-                3 -> ActivityUtils.startActivity(
-                    Intent(
-                        ActivityUtils.getTopActivity(),
-                        RepairActivity::class.java
-                    )
-                )
-
+                3 -> ARouter.getInstance().build(ARouterConstants.REPAIR_PAGE)
+                    .navigation()
             }
         }
     }
 
 
-
     @NonNull
-    override fun onCreateViewHolder(@NonNull inflater: LayoutInflater, @NonNull parent: ViewGroup): ViewHolder {
+    override fun onCreateViewHolder(
+        @NonNull inflater: LayoutInflater,
+        @NonNull parent: ViewGroup
+    ): ViewHolder {
         val root = inflater.inflate(R.layout.item_home_head_item, parent, false)
         return ViewHolder(root)
     }
@@ -188,14 +183,14 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) : ItemViewBinder<
 
         if (listNetwork.isNotEmpty()) {
             convenientBanner.setPages(object : CBViewHolderCreator {
-                override fun createHolder(itemView: View): NetWorkImageHolderView {
-                    return NetWorkImageHolderView(itemView)
-                }
+                    override fun createHolder(itemView: View): NetWorkImageHolderView {
+                        return NetWorkImageHolderView(itemView)
+                    }
 
-                override fun getLayoutId(): Int {
-                    return R.layout.item_home_head_item_localimage
-                }
-            }, listNetwork)
+                    override fun getLayoutId(): Int {
+                        return R.layout.item_home_head_item_localimage
+                    }
+                }, listNetwork)
                 .setPageIndicator(
                     intArrayOf(
                         R.drawable.shape_page_indicator,
@@ -207,14 +202,14 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) : ItemViewBinder<
                 .startTurning(2000)
         } else {
             convenientBanner.setPages(object : CBViewHolderCreator {
-                override fun createHolder(itemView: View): LocalImageHolderView {
-                    return LocalImageHolderView(itemView)
-                }
+                    override fun createHolder(itemView: View): LocalImageHolderView {
+                        return LocalImageHolderView(itemView)
+                    }
 
-                override fun getLayoutId(): Int {
-                    return R.layout.item_home_head_item_localimage
-                }
-            }, listLocal)
+                    override fun getLayoutId(): Int {
+                        return R.layout.item_home_head_item_localimage
+                    }
+                }, listLocal)
                 .setPageIndicator(
                     intArrayOf(
                         R.drawable.shape_page_indicator,
@@ -269,7 +264,6 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) : ItemViewBinder<
         intent.putExtra(WebViewActivity.URL, url)
         ActivityUtils.startActivity(intent)
     }
-
 
 
 }

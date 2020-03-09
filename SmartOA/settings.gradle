@@ -22,4 +22,4 @@ include ':module_repair'
 include ':module_login'
 include ':module_setting'
 rootProject.name = 'SmartOA'
-
+include ':moudle_meeting'

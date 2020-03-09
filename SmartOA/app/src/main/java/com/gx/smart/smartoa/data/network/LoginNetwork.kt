@@ -3,6 +3,7 @@ package com.gx.smart.smartoa.data.network
 import com.gx.smart.lib.http.api.AuthApiService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp
+import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -22,14 +23,18 @@ class LoginNetwork {
     ) = suspendCoroutine<LoginResp> { continuation ->
         val loginCallBack = object : CallBack<LoginResp?>() {
             override fun callBack(result: LoginResp?) {
-                    if (result == null) {
-                        continuation.resumeWithException(RuntimeException("网络请求超时"))
-                    } else {
-                        continuation.resume(result)
-                    }
+                resultHandle(result, continuation as Continuation<Any>)
             }
         }
         AuthApiService.getInstance().login(account, password, login_type, loginCallBack)
+    }
+
+    private fun resultHandle(result: Any?, continuation: Continuation<Any>) {
+        if (result == null) {
+            continuation.resumeWithException(RuntimeException("网络请求超时"))
+        } else {
+            continuation.resume(result)
+        }
     }
 
     companion object {

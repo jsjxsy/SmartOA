@@ -2,7 +2,6 @@ package com.gx.smart.module.login.register
 
 import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -12,11 +11,13 @@ import com.gx.smart.lib.http.api.AuthApiService
 import com.gx.smart.lib.http.api.UserCenterService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.smart.lib.http.base.GrpcAsyncTask
+import com.gx.smart.module.login.mvvm.repository.LoginRepository
+import com.gx.smart.module.login.mvvm.viewmodel.BaseViewModel
 import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp
 import com.gx.wisestone.uaa.grpc.lib.auth.RegistResp
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 
-class RegisterViewModel : ViewModel() {
+class RegisterViewModel(private val loginRepository: LoginRepository) : BaseViewModel() {
     var phone = MutableLiveData<String>("")
     var password = MutableLiveData<String>("")
     var confirmPassword = MutableLiveData<String>("")
@@ -108,7 +109,6 @@ class RegisterViewModel : ViewModel() {
         }
     }
 
-    // TODO: Implement the ViewModel
     /*******************************************注册回调 */
     private fun appUserRegisterCallBack() {
         registerBack = object : CallBack<RegistResp?>() {

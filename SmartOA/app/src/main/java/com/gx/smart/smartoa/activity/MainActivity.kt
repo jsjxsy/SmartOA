@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ActivityUtils
 import com.gx.smart.eventbus.EventBusMessageConstant
 import com.gx.smart.smartoa.R
@@ -21,6 +22,7 @@ import com.jeremyliao.liveeventbus.LiveEventBus
 import kotlinx.android.synthetic.main.activity_main.*
 import top.limuyang2.customldialog.IOSMsgDialog
 
+@Route(path = "/app/main")
 class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {

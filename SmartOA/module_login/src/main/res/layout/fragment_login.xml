@@ -9,7 +9,7 @@
 
         <variable
             name="userModel"
-            type="com.gx.smart.smartoa.activity.ui.login.LoginViewModel" />
+            type="com.gx.smart.module.login.mvvm.viewmodel.LoginViewModel" />
     </data>
 
     <ScrollView

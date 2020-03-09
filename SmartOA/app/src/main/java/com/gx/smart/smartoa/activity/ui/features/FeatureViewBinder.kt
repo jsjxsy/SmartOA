@@ -14,16 +14,10 @@ import com.blankj.utilcode.util.SPUtils
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.air.AirQualityActivity
-import com.gx.smart.smartoa.activity.ui.attendance.AttendanceActivity
-import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
-import com.gx.smart.smartoa.activity.ui.environmental.EnvironmentalActivity
 import com.gx.smart.smartoa.activity.ui.home.HomeHeadViewBinder
 import com.gx.smart.smartoa.activity.ui.meetings.MeetingScheduleActivity
-import com.gx.smart.smartoa.activity.ui.repair.RepairActivity
 import com.gx.smart.smartoa.activity.ui.visitor.VisitorActivity
 import com.gx.smart.smartoa.activity.ui.work.SharedWorkActivity
-import com.gx.smart.common.AppConfig
-import top.limuyang2.customldialog.IOSMsgDialog
 
 
 /**
