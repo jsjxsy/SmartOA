@@ -1,4 +1,4 @@
-package com.gx.smart.module.login
+package com.gx.smart.module.login.base
 
 import android.os.CountDownTimer
 import android.widget.TextView
@@ -13,7 +13,11 @@ open class BaseVerifyCodeFragment : Fragment() {
     var mTime: TimeCount? = null
 
     fun initTimer(verifyCodeText: TextView) {
-        mTime = TimeCount(60000, 1000, verifyCodeText)
+        mTime = TimeCount(
+            60000,
+            1000,
+            verifyCodeText
+        )
     }
 
     override fun onDestroy() {

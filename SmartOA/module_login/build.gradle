@@ -5,7 +5,7 @@ android {
     defaultConfig {
         //如果是独立模块，则使用当前组件的包名
         if (isModule.toBoolean()) {
-            applicationId "com.gx.smart.mine"
+            applicationId "com.gx.smart.login"
         }
         versionCode 1
         versionName "1.0"

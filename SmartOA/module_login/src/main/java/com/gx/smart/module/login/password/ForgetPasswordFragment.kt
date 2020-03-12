@@ -20,7 +20,7 @@ import com.gx.smart.lib.http.base.CallBack
 import com.gx.smart.lib.http.base.GrpcAsyncTask
 import com.gx.smart.lib.http.lib.utils.AuthUtils
 import com.gx.smart.lib.widget.LoadingView
-import com.gx.smart.module.login.BaseVerifyCodeFragment
+import com.gx.smart.module.login.base.BaseVerifyCodeFragment
 import com.gx.smart.module.login.LoginActivity
 import com.gx.smart.module.login.R
 import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp

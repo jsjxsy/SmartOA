@@ -18,6 +18,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.common.AppConfig
+import com.gx.smart.module.login.base.BaseVerifyCodeFragment
 import com.gx.smart.module.login.databinding.FragmentLoginBinding
 import com.gx.smart.module.login.mvvm.viewmodel.LoginViewModel
 import com.gx.smart.module.login.password.ForgetPasswordFragment

@@ -3,14 +3,12 @@ package com.gx.smart.module.login.register
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.ActivityUtils
@@ -25,7 +23,7 @@ import com.gx.smart.lib.http.api.UserCenterService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.smart.lib.http.base.GrpcAsyncTask
 import com.gx.smart.lib.widget.LoadingView
-import com.gx.smart.module.login.BaseVerifyCodeFragment
+import com.gx.smart.module.login.base.BaseVerifyCodeFragment
 import com.gx.smart.module.login.LoginActivity
 import com.gx.smart.module.login.R
 import com.gx.smart.module.login.databinding.RegisterFragmentBinding
