@@ -1,11 +1,4 @@
 apply from: '../module.common.gradle'
-apply plugin: 'kotlin-kapt'
-
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.getName())
-    }
-}
 
 android {
 
@@ -28,5 +21,4 @@ dependencies {
     implementation project(path: ':lib_base')
     implementation project(path: ':lib_widget')
     implementation project(path: ':lib_image')
-    kapt 'com.alibaba:arouter-compiler:1.2.2'
 }

@@ -6,6 +6,13 @@ if (isModule.toBoolean()) {
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
 
 def config = rootProject.extensions.findByName("ext")
 
@@ -18,12 +25,6 @@ android {
         minSdkVersion config.android['minSdkVer']
         targetSdkVersion config.android['targetSdkVer']
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
-            }
-        }
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
@@ -33,6 +34,7 @@ android {
             jniLibs.srcDirs = ['libs']
             if (isModule.toBoolean()) {
                 manifest.srcFile 'src/main/module/AndroidManifest.xml'
+                java.srcDirs 'src/main/module/java', 'src/main/java'
             } else {
                 manifest.srcFile 'src/main/AndroidManifest.xml'
                 java {
@@ -82,4 +84,5 @@ dependencies {
     androidTestImplementation config.dependencies['espresso']
     //route
     implementation project(path: ':lib_arouter')
+    kapt 'com.alibaba:arouter-compiler:1.2.2'
 }
