@@ -4,6 +4,7 @@ import com.gx.smart.lib.http.api.AuthApiService
 import com.gx.smart.lib.http.api.UserCenterService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp
+import com.gx.wisestone.uaa.grpc.lib.auth.RegistResp
 import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import kotlin.coroutines.Continuation
@@ -54,6 +55,21 @@ class LoginNetwork {
             UserCenterService.getInstance()
                 .bindAppUser(phone, phone, bindCallBack)
         }
+
+    suspend fun regist(
+        account: String,
+        password: String,
+        mobile: String,
+        mobile_verify_code: String
+    ) = suspendCoroutine<RegistResp> { continuation ->
+        val callBack = object : CallBack<RegistResp?>() {
+            override fun callBack(result: RegistResp?) {
+                resultHandle(result, continuation as Continuation<Any>)
+            }
+        }
+        AuthApiService.getInstance()
+            .regist(account, password, mobile, mobile_verify_code, callBack)
+    }
 
     private fun resultHandle(result: Any?, continuation: Continuation<Any>) {
         if (result == null) {

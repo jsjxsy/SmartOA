@@ -6,7 +6,7 @@
     app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.gx.smart.module.login.LoginFragment"
+        android:name="com.gx.smart.module.login.fragment.LoginFragment"
         android:label="LoginFragment">
         <action
             android:id="@+id/action_loginFragment_self"
@@ -20,12 +20,12 @@
     </fragment>
     <fragment
         android:id="@+id/forgetPasswordFragment"
-        android:name="com.gx.smart.module.login.password.ForgetPasswordFragment"
+        android:name="com.gx.smart.module.login.fragment.ForgetPasswordFragment"
         android:label="forget_password_fragment"
         tools:layout="@layout/forget_password_fragment" />
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.gx.smart.module.login.register.RegisterFragment"
+        android:name="com.gx.smart.module.login.fragment.RegisterFragment"
         android:label="register_fragment"
         tools:layout="@layout/register_fragment" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.gx.smart.module.login.password
+package com.gx.smart.module.login.mvvm.viewmodel
 
 import androidx.lifecycle.ViewModel
 

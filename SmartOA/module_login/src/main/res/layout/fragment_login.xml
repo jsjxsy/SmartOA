@@ -50,7 +50,7 @@
                     android:gravity="center_horizontal">
 
                     <EditText
-                        android:id="@+id/id_input_phone_edit_text"
+                        android:id="@+id/phoneEdit"
                         style="@style/editTextStyle"
                         android:layout_width="match_parent"
                         android:digits="@string/phone_input"
@@ -62,7 +62,8 @@
                         android:text="@={userModel.phone}"
                         android:textColor="@color/font_color_style_six"
                         android:textSize="@dimen/font_size_style_one"
-                        app:addTextChangedListener="@{userModel.textWatcher}" />
+                        app:addTextChangedListener="@{userModel.textWatcher}"
+                        app:onFocusChangeListener="@{(v, hasFocus) -> userModel.phoneEditText(v, hasFocus)}" />
 
                     <ImageView
                         android:id="@+id/delete"
@@ -83,7 +84,7 @@
                     android:layout_marginTop="@dimen/margin_style_two">
 
                     <EditText
-                        android:id="@+id/id_input_password_edit_text"
+                        android:id="@+id/passwordEdit"
                         style="@style/editTextStyle"
                         android:layout_width="match_parent"
                         android:digits="@string/password_input"
@@ -103,6 +104,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="32dp"
+                        android:onClick="@{() -> userModel.passwordStateSwitch()}"
                         android:src="@drawable/ic_login_password_state" />
 
                     <TextView
@@ -112,6 +114,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="28dp"
+                        android:onClick="@{() -> userModel.getVerifyCode()}"
                         android:text="@string/get_verify_code"
                         android:textColor="@color/font_color_style_two"
                         android:textSize="@dimen/font_size_style_one"
@@ -120,18 +123,19 @@
                 </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/id_forget_password_text_view"
+                    android:id="@+id/forgetPasswordTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:layout_marginTop="12.5dp"
                     android:layout_marginRight="@dimen/margin_style_two"
+                    android:onClick="@{(v) -> userModel.forgetPassword(v)}"
                     android:text="@string/login_forget_password"
                     android:textColor="@color/font_color_style_two"
                     android:textSize="@dimen/font_size_style_one" />
 
                 <Button
-                    android:id="@+id/id_login_button"
+                    android:id="@+id/loginButton"
                     style="@style/buttonStyle"
                     android:layout_width="match_parent"
                     android:layout_marginLeft="@dimen/margin_style_two"
@@ -142,7 +146,7 @@
                     android:text="@string/login" />
 
                 <TextView
-                    android:id="@+id/id_register_text_view"
+                    android:id="@+id/registerTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -161,7 +165,7 @@
                 android:layout_marginTop="49dp"
                 android:drawableTop="@drawable/ic_login_phone_verify"
                 android:drawablePadding="7.5dp"
-                android:onClick="@{(view) -> userModel.loginType()}"
+                android:onClick="@{() -> userModel.loginType()}"
                 android:text="@string/login_phone_verify"
                 android:textColor="@color/font_color_style_two"
                 android:textSize="@dimen/font_size_style_three"

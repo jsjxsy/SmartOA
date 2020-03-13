@@ -1,4 +1,4 @@
-package com.gx.smart.module.login.register
+package com.gx.smart.module.login.mvvm.viewmodel
 
 import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
@@ -11,13 +11,11 @@ import com.gx.smart.lib.http.api.AuthApiService
 import com.gx.smart.lib.http.api.UserCenterService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.smart.lib.http.base.GrpcAsyncTask
-import com.gx.smart.module.login.mvvm.repository.LoginRepository
-import com.gx.smart.module.login.mvvm.viewmodel.BaseViewModel
 import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp
 import com.gx.wisestone.uaa.grpc.lib.auth.RegistResp
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 
-class RegisterViewModel(private val loginRepository: LoginRepository) : BaseViewModel() {
+class RegisterViewModel : BaseViewModel() {
     var phone = MutableLiveData<String>("")
     var password = MutableLiveData<String>("")
     var confirmPassword = MutableLiveData<String>("")

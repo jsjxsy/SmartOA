@@ -1,9 +1,10 @@
-package com.gx.smart.module.login
+package com.gx.smart.module.login.activity
 
 import android.os.Bundle
 import androidx.navigation.Navigation
 import android.view.WindowManager
 import com.gx.smart.lib.base.BaseActivity
+import com.gx.smart.module.login.R
 
 class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,6 +15,8 @@ class LoginActivity : BaseActivity() {
     }
 
     override fun onSupportNavigateUp() =
-        Navigation.findNavController(this, R.id.loginFragmentEnter).navigateUp()
+        Navigation.findNavController(this,
+            R.id.loginFragmentEnter
+        ).navigateUp()
 
 }

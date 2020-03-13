@@ -1,9 +1,11 @@
 package com.gx.smart.module.login.mvvm.viewmodel
 
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
+import android.widget.EditText
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.NetworkUtils
@@ -15,6 +17,7 @@ import com.gx.smart.lib.http.api.AppEmployeeService
 import com.gx.smart.lib.http.api.AppMessagePushService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.smart.module.login.R
+import com.gx.smart.module.login.fragment.ForgetPasswordFragment
 import com.gx.smart.module.login.mvvm.repository.LoginRepository
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
 import com.gx.wisestone.work.app.grpc.push.UpdateMessagePushResponse
@@ -27,13 +30,16 @@ class LoginViewModel(private val loginRepository: LoginRepository) : BaseViewMod
     var isLoading = MutableLiveData<Boolean>()
     var deleteVisible = MutableLiveData<Boolean>()
     var targetPage = MutableLiveData<Int>()
+    var passwordState = MutableLiveData<Boolean>(false) //true: 密码可见 false:不可见
 
-
+    /**
+     * 手机登陆或者验证码登陆
+     */
     enum class LoginTypeEnum {
         PHONE, VERIFY_CODE
     }
 
-    var loginFlag = MutableLiveData<LoginTypeEnum>(
+    var loginTypeFlag = MutableLiveData(
         LoginTypeEnum.PHONE
     )
 
@@ -69,14 +75,43 @@ class LoginViewModel(private val loginRepository: LoginRepository) : BaseViewMod
         Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment)
     }
 
+    fun passwordStateSwitch() {
+        passwordState.value = !(passwordState.value != null && passwordState.value == true)
+    }
+
+    /**
+     * 手机获取焦点的时候
+     */
+    fun phoneEditText(v: EditText, focus: Boolean) {
+        if (focus) {
+            v.setSelection(
+                phone.value?.length ?: 0
+            )
+        }
+    }
+
+    fun forgetPassword(v: View) {
+        val userName = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")
+        if (TextUtils.isEmpty(userName)) {
+            ToastUtils.showLong("请先注册")
+            Navigation.findNavController(v)
+                .navigate(R.id.action_loginFragment_to_registerFragment)
+        } else {
+            val bundle = Bundle()
+            bundle.putString(ForgetPasswordFragment.ARG_PHONE_NUMBER, userName)
+            Navigation.findNavController(v)
+                .navigate(R.id.action_loginFragment_to_forgetPasswordFragment, bundle)
+        }
+    }
+
     fun loginType() {
-        when (loginFlag.value) {
+        when (loginTypeFlag.value) {
             LoginTypeEnum.PHONE ->
-                loginFlag.value =
+                loginTypeFlag.value =
                     LoginTypeEnum.VERIFY_CODE
 
             LoginTypeEnum.VERIFY_CODE -> {
-                loginFlag.value =
+                loginTypeFlag.value =
                     LoginTypeEnum.PHONE
             }
         }
@@ -99,7 +134,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : BaseViewMod
             return
         }
 
-        when (loginFlag.value) {
+        when (loginTypeFlag.value) {
             LoginTypeEnum.VERIFY_CODE -> {
                 if (TextUtils.isEmpty(password)) {
                     ToastUtils.showLong("验证码不能为空")

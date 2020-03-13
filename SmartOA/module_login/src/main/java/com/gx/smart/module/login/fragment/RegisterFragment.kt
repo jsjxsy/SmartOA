@@ -1,4 +1,4 @@
-package com.gx.smart.module.login.register
+package com.gx.smart.module.login.fragment
 
 import android.content.Intent
 import android.graphics.Color
@@ -24,9 +24,10 @@ import com.gx.smart.lib.http.base.CallBack
 import com.gx.smart.lib.http.base.GrpcAsyncTask
 import com.gx.smart.lib.widget.LoadingView
 import com.gx.smart.module.login.base.BaseVerifyCodeFragment
-import com.gx.smart.module.login.LoginActivity
+import com.gx.smart.module.login.activity.LoginActivity
 import com.gx.smart.module.login.R
 import com.gx.smart.module.login.databinding.RegisterFragmentBinding
+import com.gx.smart.module.login.mvvm.viewmodel.RegisterViewModel
 import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp
 import com.gx.wisestone.uaa.grpc.lib.auth.RegistResp
 import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp

@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.gx.smart.module.login.register.RegisterViewModel" />
+            type="com.gx.smart.module.login.mvvm.viewmodel.RegisterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

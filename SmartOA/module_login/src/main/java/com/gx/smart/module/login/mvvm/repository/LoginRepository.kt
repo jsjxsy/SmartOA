@@ -31,6 +31,16 @@ class LoginRepository private constructor(
         network.requestBindAppUser(phone)
     }
 
+    suspend fun regist(
+        account: String,
+        password: String,
+        mobile: String,
+        mobile_verify_code: String
+    ) = withContext(Dispatchers.IO) {
+        network.regist(account, password, mobile, mobile_verify_code)
+    }
+
+
     companion object {
 
         private lateinit var instance: LoginRepository
