@@ -30,7 +30,7 @@ class LoginFragment : BaseVerifyCodeFragment(), OnClickListener {
     }
 
     private val viewModel by lazy {
-        ViewModelProviders.of(
+        ViewModelProvider(
             this,
             LoginUtil.getLoginFactory()
         ).get(

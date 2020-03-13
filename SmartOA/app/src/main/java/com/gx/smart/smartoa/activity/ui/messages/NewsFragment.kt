@@ -20,7 +20,7 @@ import com.gx.wisestone.work.app.grpc.information.MessageReadResponse
 import kotlinx.android.synthetic.main.news_fragment.*
 
 class NewsFragment : Fragment() {
-    private var mViewModel: NewsViewModel? = null
+    private lateinit var mViewModel: NewsViewModel
     private lateinit var adapter: NewsAdapter
     private var currentPage = 0
     private var readAllFlag: Boolean = false

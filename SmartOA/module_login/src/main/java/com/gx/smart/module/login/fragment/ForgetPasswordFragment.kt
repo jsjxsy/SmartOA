@@ -29,7 +29,7 @@ import com.gx.wisestone.uaa.grpc.lib.auth.UserModifyResp
 import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp
 import kotlinx.android.synthetic.main.forget_password_fragment.*
 
-//import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_common_title.*
 
 class ForgetPasswordFragment : BaseVerifyCodeFragment(), View.OnClickListener {
 
@@ -65,19 +65,19 @@ class ForgetPasswordFragment : BaseVerifyCodeFragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ForgetPasswordViewModel::class.java)
-//        initTitle()
+        initTitle()
         initContent()
         initTimer()
     }
 
-//    private fun initTitle() {
-//        left_nav_image_view.visibility = View.VISIBLE
-//        center_title?.let {
-//            it.visibility = View.VISIBLE
-//            it.text = getString(R.string.forget_password)
-//        }
-//        left_nav_image_view.setOnClickListener(this)
-//    }
+    private fun initTitle() {
+        left_nav_image_view.visibility = View.VISIBLE
+        center_title?.let {
+            it.visibility = View.VISIBLE
+            it.text = getString(R.string.forget_password)
+        }
+        left_nav_image_view.setOnClickListener(this)
+    }
 
     override fun onClick(v: View?) {
         when (v?.id) {

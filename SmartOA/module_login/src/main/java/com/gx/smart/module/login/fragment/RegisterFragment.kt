@@ -32,7 +32,7 @@ import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp
 import com.gx.wisestone.uaa.grpc.lib.auth.RegistResp
 import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
-//import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.register_fragment.*
 
 class RegisterFragment : BaseVerifyCodeFragment(), View.OnClickListener {
@@ -92,12 +92,12 @@ class RegisterFragment : BaseVerifyCodeFragment(), View.OnClickListener {
     }
 
     private fun initTitle() {
-//        left_nav_image_view.visibility = View.VISIBLE
-//        center_title?.let {
-//            it.visibility = View.VISIBLE
-//            it.text = getString(R.string.register_account)
-//        }
-//        left_nav_image_view.setOnClickListener(this)
+        left_nav_image_view.visibility = View.VISIBLE
+        center_title?.let {
+            it.visibility = View.VISIBLE
+            it.text = getString(R.string.register_account)
+        }
+        left_nav_image_view.setOnClickListener(this)
     }
 
 

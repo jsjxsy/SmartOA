@@ -17,7 +17,7 @@ ext {
             gsonVersion       : "2.8.6",
             okhttpVersion     : "4.2.2",
             //glide
-            glideVersion      : "4.10.0",
+            glideVersion      : "4.11.0",
     ]
     dependencies = [
             appcomat : 'androidx.appcompat:appcompat:1.1.0',
