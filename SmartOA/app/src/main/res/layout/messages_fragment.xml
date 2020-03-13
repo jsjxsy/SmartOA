@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/id_message_tab"
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:textAlignment="center"
@@ -31,7 +31,7 @@
         app:tabSelectedTextColor="@color/font_color_style_two"
         app:tabTextColor="@color/font_color_style_six" />
 
-    <androidx.viewpager.widget.ViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -44,7 +44,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
 
     companion object {
         fun newInstance() = MineActionFragment()
-        const val ACTION_TYPE = 2
+        const val ACTION_TYPE = 1
     }
 
     private val viewModel by lazy { ViewModelProviders.of(this).get(ActionViewModel::class.java) }

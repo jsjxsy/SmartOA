@@ -6,7 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.action.MineActionFragment
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -36,7 +37,6 @@ class MessagesFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
-        // TODO: Use the ViewModel
         initTitle()
         initData()
         initContent()
@@ -54,34 +54,24 @@ class MessagesFragment : Fragment(), View.OnClickListener {
     private fun initData() {
 
         val titles = resources.getStringArray(R.array.message_items)
-        mPagerAdapter = PageAdapter(childFragmentManager)
-        for (i in titles.indices) {
-            mPagerAdapter.addPage(PageAdapter.PageFragmentContent(titles[i], i + 1))
-        }
+        mPagerAdapter = PageAdapter(activity!!)
         viewPager.adapter = mPagerAdapter
         viewPager.offscreenPageLimit = 3
+        viewPager.isUserInputEnabled = true
         mPagerAdapter.notifyDataSetChanged()
-        id_message_tab.setupWithViewPager(viewPager)
+        TabLayoutMediator(tabLayout, viewPager,
+            TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+                tab.text = titles[position]
+            }).attach()
     }
 
     private fun initContent() {
-        viewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener{
-            override fun onPageScrollStateChanged(state: Int) {
-
-            }
-
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-
-            }
-
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                var fragment = mPagerAdapter.getItem(position)
+                super.onPageSelected(position)
+                var fragment = mPagerAdapter.fragments[position]
                 right_nav_text_view.setOnClickListener {
-                    when(fragment) {
+                    when (fragment) {
                         is NewsFragment -> {
                             fragment.readAllMessage()
                         }
@@ -93,13 +83,9 @@ class MessagesFragment : Fragment(), View.OnClickListener {
                         }
                     }
                 }
-
             }
-
         })
-
     }
-
 
 
 }

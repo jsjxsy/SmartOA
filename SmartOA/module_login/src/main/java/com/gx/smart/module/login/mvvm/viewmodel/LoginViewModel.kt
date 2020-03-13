@@ -82,9 +82,9 @@ class LoginViewModel(private val loginRepository: LoginRepository) : BaseViewMod
     /**
      * 手机获取焦点的时候
      */
-    fun phoneEditText(v: EditText, focus: Boolean) {
+    fun phoneEditText(v: View, focus: Boolean) {
         if (focus) {
-            v.setSelection(
+            (v as EditText).setSelection(
                 phone.value?.length ?: 0
             )
         }

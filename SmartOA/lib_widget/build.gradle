@@ -19,7 +19,7 @@ dependencies {
     //recycleView + refreshLayout
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
     //material
-    api 'com.google.android.material:material:1.0.0'
+    api 'com.google.android.material:material:1.1.0'
     //cropper
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
     //intro

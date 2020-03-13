@@ -1,8 +1,9 @@
 package com.gx.smart.smartoa.activity.ui.messages
 
+import android.util.SparseArray
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.gx.smart.smartoa.activity.ui.action.MineActionFragment
 
 /**
@@ -10,43 +11,21 @@ import com.gx.smart.smartoa.activity.ui.action.MineActionFragment
  *@create 2019-10-30
  *@Describe
  **/
-class PageAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(
-    fm,
-    BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+class PageAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(
+    fragmentActivity
 ) {
 
-    private val mPageFragment = ArrayList<PageFragmentContent>()
-    private val newsFragment: Fragment = NewsFragment.newInstance()
-    private val mineActionFragment: Fragment = MineActionFragment.newInstance()
-    private val noticeFragment: Fragment = NoticeFragment.newInstance()
-    override fun getItem(position: Int): Fragment {
-        val pageFragmentContent = mPageFragment[position]
+    val fragments: SparseArray<Fragment> = SparseArray()
 
-        when (pageFragmentContent.type) {
-            NewsFragment.NOTICE_NEWS -> {
-                return newsFragment
-            }
-            MineActionFragment.ACTION_TYPE -> {
-                return mineActionFragment
-            }
-            NoticeFragment.NOTICE_TYPE -> {
-                return noticeFragment
-            }
-
-        }
-        return AllFragment.newInstance()
+    init {
+        fragments.put(NewsFragment.NOTICE_NEWS, NewsFragment.newInstance())
+        fragments.put(MineActionFragment.ACTION_TYPE, MineActionFragment.newInstance())
+        fragments.put(NoticeFragment.NOTICE_TYPE, NoticeFragment.newInstance())
     }
 
-    override fun getCount() = mPageFragment.size
+    override fun getItemCount() = fragments.size()
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        return mPageFragment[position].title
+    override fun createFragment(position: Int): Fragment {
+        return fragments[position]
     }
-
-    fun addPage(page: PageFragmentContent) {
-        mPageFragment.add(page)
-    }
-
-
-    class PageFragmentContent(var title: String, var type: Int)
 }
