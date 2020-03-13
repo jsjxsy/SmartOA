@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.gx.smart.smartoa.R
 import com.gx.smart.lib.base.BaseFragment
@@ -28,7 +28,7 @@ class AllFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(AllViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(AllViewModel::class.java)
         // TODO: Use the ViewModel
         val divider = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         val drawable = resources.getDrawable(R.drawable.shape_environmental_control_line, null)

@@ -16,7 +16,7 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
@@ -60,7 +60,7 @@ class LoginFragment : Fragment(), OnClickListener {
         fun newInstance() = LoginFragment()
     }
 
-    private val viewModel by lazy { ViewModelProviders.of(this, LoginUtil.getLoginFactory()).get(LoginViewModel::class.java) }
+    private val viewModel by lazy { ViewModelProvider(this, LoginUtil.getLoginFactory()).get(LoginViewModel::class.java) }
     private var mTime: TimeCount? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,13 +97,13 @@ class LoginFragment : Fragment(), OnClickListener {
     }
 
     private fun observer() {
-        viewModel.verifyCodeCallBackSuccess.observe(this, Observer<Boolean> { getVerifyCode ->
+        viewModel.verifyCodeCallBackSuccess.observe(viewLifecycleOwner, Observer<Boolean> { getVerifyCode ->
             if (getVerifyCode) {
                 mTime?.start()
             }
         })
 
-        viewModel.targetPage.observe(this, Observer {
+        viewModel.targetPage.observe(viewLifecycleOwner, Observer {
             when (it) {
                 1 -> mainActivity()
                 2 -> mineCompanyActivity()
@@ -113,7 +113,7 @@ class LoginFragment : Fragment(), OnClickListener {
             }
         })
 
-        viewModel.loginFlag.observe(this, Observer {
+        viewModel.loginFlag.observe(viewLifecycleOwner, Observer {
             id_input_password_edit_text.editableText.clear()
             when (it) {
                 LoginViewModel.LoginTypeEnum.PHONE -> {

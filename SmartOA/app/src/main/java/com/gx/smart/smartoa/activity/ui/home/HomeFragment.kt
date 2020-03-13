@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
 import com.gx.smart.eventbus.EventBusMessageConstant
@@ -71,7 +71,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     }
 
 
-    private val viewModel by lazy { ViewModelProviders.of(this).get(HomeViewModel::class.java) }
+    private val viewModel by lazy { ViewModelProvider(this).get(HomeViewModel::class.java) }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -96,12 +96,12 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun initObserver() {
-        viewModel.dataChange.observe(this, Observer {
+        viewModel.dataChange.observe(viewLifecycleOwner, Observer {
             if (it) {
                 adapter.notifyDataSetChanged()
             }
         })
-        viewModel.unReadMessage.observe(this, Observer {
+        viewModel.unReadMessage.observe(viewLifecycleOwner, Observer {
             when {
                 it -> {
                     redPotView.visibility = View.VISIBLE

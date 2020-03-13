@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.gx.smart.smartoa.R
 import com.gx.smart.lib.base.BaseFragment
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDto
@@ -27,7 +27,7 @@ class AirConditionerFragment(private val airConditionerList: List<DevDto>) : Bas
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(AirConditionerViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(AirConditionerViewModel::class.java)
         val airConditionerViewBinder = AirConditionerViewBinder()
         airConditionerViewBinder.fragment = fragment
         adapter.register(airConditionerViewBinder)

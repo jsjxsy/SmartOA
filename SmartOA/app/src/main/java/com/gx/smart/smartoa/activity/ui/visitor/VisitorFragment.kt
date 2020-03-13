@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.gx.smart.smartoa.R
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -33,7 +33,7 @@ class VisitorFragment : Fragment(),View.OnClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(VisitorViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(VisitorViewModel::class.java)
         // TODO: Use the ViewModel
         initTitle()
     }

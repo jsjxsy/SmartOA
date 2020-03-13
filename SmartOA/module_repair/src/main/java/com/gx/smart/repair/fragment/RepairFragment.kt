@@ -20,7 +20,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.alibaba.fastjson.JSON
 import com.blankj.utilcode.util.*
@@ -65,7 +65,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(RepairViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(RepairViewModel::class.java)
         initTitle()
         initContent()
     }

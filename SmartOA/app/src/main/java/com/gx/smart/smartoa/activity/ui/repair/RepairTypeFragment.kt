@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.gx.smart.smartoa.R
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -37,7 +37,7 @@ class RepairTypeFragment : Fragment(), View.OnClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(RepairTypeViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(RepairTypeViewModel::class.java)
         initTitle()
         initContent()
     }

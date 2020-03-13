@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.amap.api.location.AMapLocation
 import com.amap.api.maps2d.AMap
 import com.amap.api.maps2d.MapView
@@ -96,7 +96,7 @@ class AttendanceOutAreaFragment : Fragment(), MapLocationHelper.LocationCallBack
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(AttendanceOutAreaViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(AttendanceOutAreaViewModel::class.java)
         // TODO: Use the ViewModel
         mapView = map as MapView
         mapView.onCreate(savedInstanceState) // 此方法必须重写

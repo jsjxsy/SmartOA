@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ActivityUtils
 import com.bumptech.glide.Glide
@@ -53,7 +53,7 @@ class MineFragment : Fragment(), View.OnClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MineViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MineViewModel::class.java)
 
         val mineList = mine_setting_list_view as ListView
         val adapter = MineAdapter(activity as Context)

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.smartoa.R
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDto
@@ -29,7 +29,7 @@ class LightFragment(private val lightList: List<DevDto>) : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(LightViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(LightViewModel::class.java)
         val itemOneViewBinder = LightItemOneViewBinder()
         itemOneViewBinder.fragment = fragment
         adapter.register(itemOneViewBinder)

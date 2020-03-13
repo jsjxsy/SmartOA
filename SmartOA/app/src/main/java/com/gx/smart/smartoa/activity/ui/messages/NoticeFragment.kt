@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
@@ -41,7 +41,7 @@ class NoticeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(NoticeViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(NoticeViewModel::class.java)
         val buildingSysTenantNo =
             SPUtils.getInstance().getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
         val companySysTenantNo =

@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
@@ -64,7 +64,7 @@ class RegisterFragment : BaseVerifyCodeFragment(), View.OnClickListener {
         activity?.window?.statusBarColor = Color.WHITE
     }
 
-    private val viewModel by lazy { ViewModelProviders.of(this).get(RegisterViewModel::class.java) }
+    private val viewModel by lazy { ViewModelProvider(this).get(RegisterViewModel::class.java) }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

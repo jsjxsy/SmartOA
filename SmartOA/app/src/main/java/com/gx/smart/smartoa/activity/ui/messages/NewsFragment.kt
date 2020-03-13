@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
@@ -40,7 +40,7 @@ class NewsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mViewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
+        mViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
         val buildingSysTenantNo =
             SPUtils.getInstance().getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
         val companySysTenantNo =

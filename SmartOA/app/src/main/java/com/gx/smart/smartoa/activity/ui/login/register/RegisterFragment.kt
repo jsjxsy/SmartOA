@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SPUtils
@@ -66,7 +66,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
         activity?.window?.statusBarColor = Color.WHITE
     }
 
-    private val viewModel by lazy { ViewModelProviders.of(this).get(RegisterViewModel::class.java) }
+    private val viewModel by lazy { ViewModelProvider(this).get(RegisterViewModel::class.java) }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

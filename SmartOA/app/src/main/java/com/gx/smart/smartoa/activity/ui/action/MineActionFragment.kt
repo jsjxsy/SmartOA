@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.TimeUtils
@@ -47,7 +47,7 @@ class MineActionFragment : Fragment(), View.OnClickListener {
         const val ACTION_TYPE = 1
     }
 
-    private val viewModel by lazy { ViewModelProviders.of(this).get(ActionViewModel::class.java) }
+    private val viewModel by lazy { ViewModelProvider(this).get(ActionViewModel::class.java) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fromMine = activity?.intent?.hasExtra(MineActionActivity.FROM_MINE) ?: false

@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -67,7 +67,7 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(EnvironmentalControlViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(EnvironmentalControlViewModel::class.java)
         roomId = SPUtils.getInstance().getLong(AppConfig.ROOM_ID, 0L)
         smartSN = SPUtils.getInstance().getString(AppConfig.SMART_HOME_SN, "")
         startWebSocketClient()
