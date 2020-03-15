@@ -5,5 +5,4 @@ package com.gx.smart.smartoa.data.db
  *@create 2020-01-17
  *@Describe
  **/
-class LoginDao {
-}
+class LoginDao

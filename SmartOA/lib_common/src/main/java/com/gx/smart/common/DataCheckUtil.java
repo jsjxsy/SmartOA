@@ -10,8 +10,8 @@ public class DataCheckUtil {
         int dwLength = IdNumber.length();
 //        if (dwLength == 15) return true;
         if (dwLength != 18) return false;
-        int szWeight[] = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1};
-        char szCheck[] = {'1', '0', 'x', '9', '8', '7', '6', '5', '4', '3', '2'};
+        int[] szWeight = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1};
+        char[] szCheck = {'1', '0', 'x', '9', '8', '7', '6', '5', '4', '3', '2'};
 
         int dwSum = 0;
         for (int i = 0; i < 17; ++i) {
@@ -20,8 +20,7 @@ public class DataCheckUtil {
         int nIndex = dwSum % 11;
         char cCheck = szCheck[nIndex];
         if (cCheck == 'x' && IdNumber.charAt(17) == 'X') return true;
-        if (cCheck == IdNumber.charAt(17)) return true;
-        return false;
+        return cCheck == IdNumber.charAt(17);
     }
 
     //手机号验证

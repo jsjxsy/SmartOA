@@ -39,9 +39,9 @@ public class LoadingView extends LinearLayout {
 
     private void init() {
         View view = LayoutInflater.from(context).inflate(R.layout.loading_view, this, true);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        tv = (TextView) findViewById(R.id.tv);
-        iv = (ImageView) findViewById(R.id.iv);
+        progressBar = view.findViewById(R.id.progressBar);
+        tv = findViewById(R.id.tv);
+        iv = findViewById(R.id.iv);
     }
 
     /**

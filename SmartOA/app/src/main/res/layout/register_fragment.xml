@@ -19,7 +19,7 @@
 
         <include
             android:id="@+id/title"
-            layout="@layout/layout_common_title"
+            layout="@layout/layout_common_title_bind"
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_height_style"
             android:layout_marginTop="21dp"

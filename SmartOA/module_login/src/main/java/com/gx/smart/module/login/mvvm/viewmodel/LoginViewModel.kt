@@ -14,16 +14,16 @@ import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.common.AppConfig
 import com.gx.smart.common.DataCheckUtil
 import com.gx.smart.lib.http.api.AppEmployeeService
-import com.gx.smart.lib.http.api.AppMessagePushService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.smart.module.login.R
 import com.gx.smart.module.login.fragment.ForgetPasswordFragment
 import com.gx.smart.module.login.mvvm.repository.LoginRepository
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
-import com.gx.wisestone.work.app.grpc.push.UpdateMessagePushResponse
 import com.orhanobut.logger.Logger
 
-class LoginViewModel(private val loginRepository: LoginRepository) : BaseViewModel() {
+open class LoginViewModel(private val loginRepository: LoginRepository) : BaseViewModel() {
+
+
     var phone = MutableLiveData<String>("")
     var password = MutableLiveData<String>("")
     var verifyCodeCallBackSuccess = MutableLiveData<Boolean>(false)
@@ -31,32 +31,13 @@ class LoginViewModel(private val loginRepository: LoginRepository) : BaseViewMod
     var deleteVisible = MutableLiveData<Boolean>()
     var targetPage = MutableLiveData<Int>()
     var passwordState = MutableLiveData<Boolean>(false) //true: 密码可见 false:不可见
-
-    /**
-     * 手机登陆或者验证码登陆
-     */
-    enum class LoginTypeEnum {
-        PHONE, VERIFY_CODE
-    }
-
     var loginTypeFlag = MutableLiveData(
         LoginTypeEnum.PHONE
     )
 
     //获取登录验证码
-    private val targetType = 1
-    private val purpose = 1
-
-    fun setPhone() {
-        val account = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")
-        phone.value = account
-        deleteVisible.value = account.isNotEmpty()
-    }
-
-    fun clearPhone() {
-        phone.value = ""
-    }
-
+    open var targetType = 1
+    open var purpose = 1
     val textWatcher = object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
             val length = s?.length ?: 0
@@ -69,6 +50,16 @@ class LoginViewModel(private val loginRepository: LoginRepository) : BaseViewMod
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         }
 
+    }
+
+    fun setPhone() {
+        val account = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")
+        phone.value = account
+        deleteVisible.value = account.isNotEmpty()
+    }
+
+    fun clearPhone() {
+        phone.value = ""
     }
 
     fun register(v: View) {
@@ -117,8 +108,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : BaseViewMod
         }
     }
 
-
-    fun login() {
+    open fun login() {
         if (!NetworkUtils.isConnected()) {
             ToastUtils.showLong("网络连接不可用")
             return
@@ -160,7 +150,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : BaseViewMod
      * 登陆 网络请求
      * @param loginType 2:手机号密码登录 3: 手机号验证码登录
      */
-    private fun login(loginType: Int) {
+    open fun login(loginType: Int) {
         launch({
             val result = loginRepository.login(phone.value!!, password.value!!, loginType)
             val msg = result.dataMap["errMsg"]
@@ -187,17 +177,16 @@ class LoginViewModel(private val loginRepository: LoginRepository) : BaseViewMod
 
     }
 
-
     private fun bindAppUser(phone: String) {
         launch({
             val result = loginRepository.bindAppUser(phone)
-            when {
-                result.code === 100 -> {
+            when (result.code) {
+                100 -> {
                     SPUtils.getInstance().put(AppConfig.USER_ID, result.appUserInfoDto.userId)
                     myCompany()
                     //用户已经绑定
                 }
-                result.code == 7003 -> {
+                7003 -> {
                     SPUtils.getInstance().put(AppConfig.USER_ID, result.appUserInfoDto.userId)
                     myCompany()
                 }
@@ -213,88 +202,88 @@ class LoginViewModel(private val loginRepository: LoginRepository) : BaseViewMod
     }
 
     private fun myCompany() {
+        launch({
+            var result = loginRepository.myCompany()
+            isLoading.value = false
+
+            if (result.code == 100) {
+                val employeeList = result.employeeInfoList
+                if (employeeList.isNotEmpty()) {
+                    val employeeInfo = employeeList[0]
+                    SPUtils.getInstance()
+                        .put(AppConfig.EMPLOYEE_ID, employeeInfo.employeeId)
+                    SPUtils.getInstance()
+                        .put(
+                            AppConfig.COMPANY_STRUCTURE_ID,
+                            employeeInfo.companyStructureId
+                        )
+                    SPUtils.getInstance()
+                        .put(AppConfig.COMPANY_SYS_TENANT_NO, employeeInfo.tenantNo)
+                    SPUtils.getInstance()
+                        .put(
+                            AppConfig.SMART_HOME_SN,
+                            employeeInfo.appDepartmentInfo.smartHomeSn
+                        )
+                    SPUtils.getInstance()
+                        .put(
+                            AppConfig.ROOM_ID,
+                            employeeInfo.appDepartmentInfo.smartHomeId
+                        )
+                    SPUtils.getInstance()
+                        .put(AppConfig.COMPANY_PLACE_NAME, employeeInfo.buildingName)
+                    SPUtils.getInstance()
+                        .put(AppConfig.COMPANY_NAME, employeeInfo.companyName)
+                    SPUtils.getInstance()
+                        .put(AppConfig.COMPANY_APPLY_STATUS, employeeInfo.status)
+                    val tenantNo = SPUtils.getInstance()
+                        .getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
+                    if (tenantNo == 0) {
+                        SPUtils.getInstance()
+                            .put(
+                                AppConfig.BUILDING_SYS_TENANT_NO,
+                                employeeInfo.tenantNo
+                            )
+                        SPUtils.getInstance()
+                            .put(AppConfig.PLACE_NAME, employeeInfo.companyName)
+                    }
+                    targetPage.value = 1
+                } else {
+                    val tenantNo = SPUtils.getInstance()
+                        .getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
+                    if (tenantNo == 0) {
+                        targetPage.value = 2
+                    } else {
+                        targetPage.value = 1
+                    }
+                }
+            } else {
+                ToastUtils.showLong(result.msg)
+            }
+        }, {
+            ToastUtils.showLong("查询我的企业超时!")
+        })
         AppEmployeeService.getInstance()
             .myCompany(
                 object : CallBack<AppMyCompanyResponse>() {
                     override fun callBack(result: AppMyCompanyResponse?) {
-                        isLoading.value = false
 
-                        if (result == null) {
-                            ToastUtils.showLong("查询我的企业超时!")
-                            return
-                        }
-                        if (result.code == 100) {
-                            val employeeList = result.employeeInfoList
-                            if (employeeList.isNotEmpty()) {
-                                val employeeInfo = employeeList[0]
-                                SPUtils.getInstance()
-                                    .put(AppConfig.EMPLOYEE_ID, employeeInfo.employeeId)
-                                SPUtils.getInstance()
-                                    .put(
-                                        AppConfig.COMPANY_STRUCTURE_ID,
-                                        employeeInfo.companyStructureId
-                                    )
-                                SPUtils.getInstance()
-                                    .put(AppConfig.COMPANY_SYS_TENANT_NO, employeeInfo.tenantNo)
-                                SPUtils.getInstance()
-                                    .put(
-                                        AppConfig.SMART_HOME_SN,
-                                        employeeInfo.appDepartmentInfo.smartHomeSn
-                                    )
-                                SPUtils.getInstance()
-                                    .put(
-                                        AppConfig.ROOM_ID,
-                                        employeeInfo.appDepartmentInfo.smartHomeId
-                                    )
-                                SPUtils.getInstance()
-                                    .put(AppConfig.COMPANY_PLACE_NAME, employeeInfo.buildingName)
-                                SPUtils.getInstance()
-                                    .put(AppConfig.COMPANY_NAME, employeeInfo.companyName)
-                                SPUtils.getInstance()
-                                    .put(AppConfig.COMPANY_APPLY_STATUS, employeeInfo.status)
-                                val tenantNo = SPUtils.getInstance()
-                                    .getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
-                                if (tenantNo == 0) {
-                                    SPUtils.getInstance()
-                                        .put(
-                                            AppConfig.BUILDING_SYS_TENANT_NO,
-                                            employeeInfo.tenantNo
-                                        )
-                                    SPUtils.getInstance()
-                                        .put(AppConfig.PLACE_NAME, employeeInfo.companyName)
-                                }
-                                targetPage.value = 1
-                            } else {
-                                val tenantNo = SPUtils.getInstance()
-                                    .getInt(AppConfig.BUILDING_SYS_TENANT_NO, 0)
-                                if (tenantNo == 0) {
-                                    targetPage.value = 2
-                                } else {
-                                    targetPage.value = 1
-                                }
-                            }
-                        } else {
-                            ToastUtils.showLong(result.msg)
-                        }
                     }
 
                 })
     }
-
 
     private fun updateMessagePush() {
-        //上传极光ID
-        if (null != AppConfig.JGToken) {
-            AppMessagePushService.getInstance().updateMessagePush(
-                AppConfig.JGToken,
-                object : CallBack<UpdateMessagePushResponse?>() {
-                    override fun callBack(result: UpdateMessagePushResponse?) {
-                        Logger.d(result)
-                    }
-                })
-        }
-    }
+        launch({
+            //上传极光ID
+            if (AppConfig.JGToken.isNotBlank()) {
+                var result = loginRepository.updateMessagePush(AppConfig.JGToken)
+                Logger.d(result)
+            }
+        }, {
+            Logger.d("JGToken is empty")
+        })
 
+    }
 
     fun getVerifyCode() {
         if (!NetworkUtils.isConnected()) {
@@ -329,6 +318,13 @@ class LoginViewModel(private val loginRepository: LoginRepository) : BaseViewMod
             ToastUtils.showLong("验证码请求超时")
         })
 
+    }
+
+    /**
+     * 手机登陆或者验证码登陆
+     */
+    enum class LoginTypeEnum {
+        PHONE, VERIFY_CODE
     }
 
 

@@ -62,7 +62,7 @@ class MeetingScheduleAdapter(private var mList: List<MeetingSchedule>?) :
 
         override fun onClick(v: View?) {
             itemView.setOnClickListener {
-                onItemClick?.onItemClick(it, layoutPosition)
+                onItemClick.onItemClick(it, layoutPosition)
             }
         }
 

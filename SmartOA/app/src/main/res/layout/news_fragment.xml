@@ -37,7 +37,7 @@
 
         <include
             android:id="@+id/emptyLayout"
-            layout="@layout/common_no_data_layout"
+            layout="@layout/common_no_data_layout_bind"
             android:visibility="gone" />
 
     </RelativeLayout>

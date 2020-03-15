@@ -266,7 +266,7 @@ class ForgetPasswordFragment : Fragment(), View.OnClickListener {
                     return
                 }
                 val msg = result.dataMap["errMsg"]
-                if (result?.code == 100) {
+                if (result.code == 100) {
                     ToastUtils.showLong("修改密码成功")
                     activity?.finish()
                     val intent = Intent(activity, LoginActivity::class.java)

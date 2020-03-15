@@ -105,11 +105,11 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                     override fun onClick(view: View, position: Int) {
                         when (position) {
                             0 -> {
-                                changeUserGender("1");
+                                changeUserGender("1")
                                 if (GrpcAsyncTask.isFinish(task)) {
                                     task =
                                         UserCenterService.getInstance()
-                                            .changeUserGender(1, callBack);
+                                            .changeUserGender(1, callBack)
                                 }
                                 dialog.dismiss()
                             }
@@ -119,7 +119,7 @@ class MineUserInfoFragment : Fragment(), View.OnClickListener {
                                 if (GrpcAsyncTask.isFinish(task)) {
                                     task =
                                         UserCenterService.getInstance()
-                                            .changeUserGender(2, callBack);
+                                            .changeUserGender(2, callBack)
                                 }
                                 dialog.dismiss()
                             }

@@ -190,7 +190,7 @@ public class UaaVerification {
     }
 
 
-    public static interface KeyProvider {
+    public interface KeyProvider {
         VerificationKey getKey(String issuer, String keyId) throws Exception;
 
         void clearIssuers();

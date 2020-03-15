@@ -146,7 +146,7 @@ public class X5WebView extends WebView {
         @Override
         public boolean onJsConfirm(com.tencent.smtt.sdk.WebView arg0, String arg1, String arg2,
                                    com.tencent.smtt.export.external.interfaces.JsResult arg3) {
-            return super.onJsConfirm(arg0, arg1, arg2, (com.tencent.smtt.export.external.interfaces.JsResult) arg3);
+            return super.onJsConfirm(arg0, arg1, arg2, arg3);
         }
 
         View myVideoView;

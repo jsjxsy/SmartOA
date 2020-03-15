@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 import com.gx.smart.smartoa.R
-import kotlinx.android.synthetic.main.fragment_mine_visitor.*
+import kotlinx.android.synthetic.main.evnironmental_control_fragment.*
+import kotlinx.android.synthetic.main.fragment_mine_visitor.viewPager
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 /**
@@ -43,28 +45,23 @@ class MineVisitorRecordFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initContent() {
-        viewPager.adapter = object : FragmentPagerAdapter(
-            fragmentManager!!,
-            BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+        viewPager.adapter = object : FragmentStateAdapter(
+            activity!!
         ) {
-            override fun getItem(position: Int): Fragment {
+            override fun getItemCount(): Int = 2
+
+            override fun createFragment(position: Int): Fragment {
                 return arrayListOf(
                     AttendanceVisitorFragment.newInstance(),
                     NotAttendanceFragment.newInstance()
                 )[position]
             }
-
-            override fun getCount(): Int {
-                return 2
-            }
-
-            override fun getPageTitle(position: Int): CharSequence? {
-
-                return arrayListOf("已到访客", "未到访客")[position]
-            }
         }
+        TabLayoutMediator(id_environmental_control_tab, viewPager,
+            TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+                tab.text = arrayListOf("已到访客", "未到访客")[position]
+            }).attach()
 
-        tabLayout.setupWithViewPager(viewPager)
     }
 
     override fun onClick(v: View?) {

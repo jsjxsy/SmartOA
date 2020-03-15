@@ -103,7 +103,7 @@ class MineCompanySelectCompanyFragment : Fragment(), View.OnClickListener {
                             ToastUtils.showLong("添加超时!")
                             return
                         }
-                        if (result?.code == 100) {
+                        if (result.code == 100) {
                             val companyList =
                                 JSON.parseArray(result.jsonstr, Company::class.java).toList()
                             adapter.mList = companyList

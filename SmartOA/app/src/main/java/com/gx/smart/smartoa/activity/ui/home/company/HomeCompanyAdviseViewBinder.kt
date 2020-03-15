@@ -74,7 +74,7 @@ class HomeCompanyAdviseViewBinder :
                 0,
                 0,
                 0,
-                ActivityUtils.getActivityByView(mBannerViewPager).getResources().getDimensionPixelOffset(
+                ActivityUtils.getActivityByView(mBannerViewPager).resources.getDimensionPixelOffset(
                     R.dimen.padding_style_one
                 )
             )
@@ -98,7 +98,7 @@ class HomeCompanyAdviseViewBinder :
 
         override fun onBind(itemView: View?, data: CompanyAdvise?, position: Int, size: Int) {
             imageView = itemView?.findViewById(R.id.id_home_company_advise_image_view)!!
-            title = itemView?.findViewById(R.id.id_home_company_advise_title)
+            title = itemView.findViewById(R.id.id_home_company_advise_title)
             time = itemView.findViewById(R.id.id_home_company_advise_time)
             updateUI(data)
         }

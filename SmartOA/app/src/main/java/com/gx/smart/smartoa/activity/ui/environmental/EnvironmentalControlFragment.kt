@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.drakeet.multitype.MultiTypeAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.environmental.utils.ApiUtils
 import com.gx.smart.smartoa.activity.ui.environmental.utils.ZGManager
@@ -32,6 +33,7 @@ import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.AreaSceneListResp
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDto
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.UnisiotResp
 import kotlinx.android.synthetic.main.evnironmental_control_fragment.*
+import kotlinx.android.synthetic.main.evnironmental_control_fragment.viewPager
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
@@ -99,10 +101,15 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
 
     private fun initContent() {
         getDevList()
-        mPagerAdapter = PageAdapter(childFragmentManager)
+        mPagerAdapter = PageAdapter(activity!!)
         viewPager.adapter = mPagerAdapter
         viewPager.offscreenPageLimit = 3
-        id_environmental_control_tab.setupWithViewPager(viewPager)
+        val titles =
+            resources.getStringArray(R.array.environmental_control_items)
+        TabLayoutMediator(id_environmental_control_tab, viewPager,
+            TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+                tab.text = titles[position]
+            }).attach()
     }
 
 
@@ -207,11 +214,11 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
                                 return
                             }
 
-                            if (result?.code == 100 && result?.result == 0) {
+                            if (result.code == 100 && result.result == 0) {
                                 contentList = result.contentList
                                 updateDev(contentList!!)
                             } else {
-                                ToastUtils.showLong(result?.msg)
+                                ToastUtils.showLong(result.msg)
                                 showLoadingFail()
                             }
                         }
@@ -328,13 +335,10 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
         val lightList: List<DevDto> = ZGUtil.getDevList(
             ZGManager.DEV_TYPE_LIGHT, contentList
         )
-        val titles =
-            resources.getStringArray(R.array.environmental_control_items)
         mPagerAdapter.clearPage()
         if (lightList.isNotEmpty()) {
             mPagerAdapter.addPage(
                 PageAdapter.PageFragmentContent(
-                    titles[0],
                     LightFragment.LIGHT_TYPE,
                     lightList,
                     this@EnvironmentalControlFragment
@@ -348,7 +352,6 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
         if (curtainList.isNotEmpty()) {
             mPagerAdapter.addPage(
                 PageAdapter.PageFragmentContent(
-                    titles[1],
                     CurtainFragment.CURTAIN_TYPE,
                     curtainList,
                     this@EnvironmentalControlFragment
@@ -363,7 +366,6 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
         if (airConditionerList.isNotEmpty()) {
             mPagerAdapter.addPage(
                 PageAdapter.PageFragmentContent(
-                    titles[2],
                     AirConditionerFragment.AIR_CONDITIONER_TYPE,
                     airConditionerList,
                     this@EnvironmentalControlFragment
@@ -378,7 +380,6 @@ class EnvironmentalControlFragment : Fragment(), View.OnClickListener {
         if (freshAirList.isNotEmpty()) {
             mPagerAdapter.addPage(
                 PageAdapter.PageFragmentContent(
-                    titles[3],
                     FreshAirFragment.FRESH_AIR_TYPE,
                     freshAirList,
                     this@EnvironmentalControlFragment

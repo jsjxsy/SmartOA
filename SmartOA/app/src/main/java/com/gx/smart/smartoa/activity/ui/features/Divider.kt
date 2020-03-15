@@ -5,4 +5,4 @@ package com.gx.smart.smartoa.activity.ui.features
  * @create 2019-11-01
  * @Describe
  */
-class Divider()
+class Divider

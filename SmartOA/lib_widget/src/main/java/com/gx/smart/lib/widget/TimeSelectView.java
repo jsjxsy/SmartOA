@@ -346,25 +346,13 @@ public class TimeSelectView extends View implements View.OnTouchListener {
             case MotionEvent.ACTION_DOWN:
                 startX = event.getX();
                 //是否点击在控件上部  区分左右滑动 和点击选中区域
-                if (event.getY() < getPaddingTop() + (mMeasuredHeight - getPaddingTop() - getPaddingBottom()) / 2) {
-                    isScrollArea = true;
-                } else {
-                    isScrollArea = false;
-                }
+                isScrollArea = event.getY() < getPaddingTop() + (mMeasuredHeight - getPaddingTop() - getPaddingBottom()) / 2;
                 //点击位置在画布上的绝对位置
                 float currentPos = Math.abs(mOffset) + event.getX();
                 //点击的位置是否是图片
-                if (currentPos > mRect.right - mBitmap.getWidth() / 2 && currentPos < mRect.right + mBitmap.getWidth() / 2) {
-                    isClickImg = true;
-                } else {
-                    isClickImg = false;
-                }
+                isClickImg = currentPos > mRect.right - mBitmap.getWidth() / 2 && currentPos < mRect.right + mBitmap.getWidth() / 2;
                 //是否点击在选中区域 并且不在图片上
-                if (currentPos > mRect.left && currentPos < mRect.right && mRect.width() == areaWidth) {
-                    isClickContent = true;
-                } else {
-                    isClickContent = false;
-                }
+                isClickContent = currentPos > mRect.left && currentPos < mRect.right && mRect.width() == areaWidth;
                 //临时记录上次选中的起始位置
                 if (mTempStartOffset == 0) {
                     mTempStartOffset = mStartClickOffset;

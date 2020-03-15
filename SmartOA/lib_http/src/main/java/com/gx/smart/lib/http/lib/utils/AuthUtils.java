@@ -76,18 +76,11 @@ public class AuthUtils {
         if (isEmpty(jwtHolder.getKeyType())) {
             return false;
         }
-        if (isEmpty(jwtHolder.getAlgorithm())) {
-            return false;
-        }
-
-        return true;
+        return !isEmpty(jwtHolder.getAlgorithm());
     }
 
     private static boolean isEmpty(String src) {
-        if (null != src && src.length() > 0) {
-            return false;
-        }
-        return true;
+        return null == src || src.length() <= 0;
     }
 
     private static String getString(Object obj) {

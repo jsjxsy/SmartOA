@@ -106,7 +106,7 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
                             ToastUtils.showLong("获取办公地点超时!")
                             return
                         }
-                        if (result?.code == 100) {
+                        if (result.code == 100) {
                             val sysTenantsList =
                                 JSON.parseArray(result.jsonstr, SysTenantList::class.java)
 

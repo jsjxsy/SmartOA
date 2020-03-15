@@ -32,8 +32,8 @@ class X5NetService : IntentService {
         }
     }
 
-    constructor() : super(TAG) {}
-    constructor(name: String) : super(TAG) {}
+    constructor() : super(TAG)
+    constructor(name: String) : super(TAG)
 
     override fun onCreate() {
         super.onCreate()

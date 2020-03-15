@@ -62,7 +62,7 @@ class ReservationDetailAdapter(private var mList: List<ReservationDetail>?) :
 
         override fun onClick(v: View?) {
             itemView.setOnClickListener {
-                onItemClick?.onItemClick(it, layoutPosition)
+                onItemClick.onItemClick(it, layoutPosition)
             }
         }
 

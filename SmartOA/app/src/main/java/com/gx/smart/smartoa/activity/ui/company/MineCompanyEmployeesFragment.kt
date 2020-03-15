@@ -24,7 +24,6 @@ import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.*
 import com.bumptech.glide.Glide
 import com.google.protobuf.ByteString
-import com.gx.smart.smartoa.BuildConfig
 import com.gx.smart.smartoa.R
 import com.gx.smart.common.AppConfig
 import com.gx.smart.lib.http.api.AppStructureService
@@ -134,7 +133,7 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
                             ToastUtils.showLong("申请加入公司超时!")
                             return
                         }
-                        if (result?.code == 100) {
+                        if (result.code == 100) {
                             ToastUtils.showLong("申请成功!")
                             activity?.finish()
                             SPUtils.getInstance().put(AppConfig.PLACE_NAME, placeName)
@@ -204,7 +203,7 @@ class MineCompanyEmployeesFragment : Fragment(), View.OnClickListener {
             intent.flags = Intent.FLAG_GRANT_WRITE_URI_PERMISSION
             val contentUri: Uri = FileProvider.getUriForFile(
                 activity!!,
-                BuildConfig.APPLICATION_ID + ".fileProvider",
+                AppUtils.getAppName() + ".fileProvider",
                 tempFile!!
             )
             intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri)

@@ -93,7 +93,7 @@ class AttendanceRecordFragment : Fragment(), View.OnClickListener {
                         ToastUtils.showLong("外勤打卡超时!")
                         return
                     }
-                    if (result?.code == 100) {
+                    if (result.code == 100) {
                         val contentList = result.contentOrBuilderList
                         if (contentList.isEmpty()) {
                             emptyLayout.visibility = View.VISIBLE

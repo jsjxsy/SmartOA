@@ -23,9 +23,9 @@ public class SharePopWindow extends PopupWindow {
     private void initView(final Activity context, View.OnClickListener itemsOnClick) {
         LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = mInflater.inflate(R.layout.qr_code_share_pop, null);
-        LinearLayout weiXFriend = (LinearLayout) view.findViewById(R.id.ll_wx);
-        LinearLayout QQFriend = (LinearLayout) view.findViewById(R.id.ll_qq);
-        TextView tvCancel = (TextView) view.findViewById(R.id.share_cancel);
+        LinearLayout weiXFriend = view.findViewById(R.id.ll_wx);
+        LinearLayout QQFriend = view.findViewById(R.id.ll_qq);
+        TextView tvCancel = view.findViewById(R.id.share_cancel);
         tvCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

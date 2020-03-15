@@ -25,6 +25,5 @@ class DividerViewBinder : ItemViewBinder<Divider, DividerViewBinder.ViewHolder>(
     override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull category: Divider) {
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-    }
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }

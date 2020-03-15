@@ -1,12 +1,17 @@
 package com.gx.smart.module.login.network
 
+import com.gx.smart.lib.http.api.AppEmployeeService
+import com.gx.smart.lib.http.api.AppMessagePushService
 import com.gx.smart.lib.http.api.AuthApiService
 import com.gx.smart.lib.http.api.UserCenterService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.wisestone.uaa.grpc.lib.auth.LoginResp
 import com.gx.wisestone.uaa.grpc.lib.auth.RegistResp
+import com.gx.wisestone.uaa.grpc.lib.auth.UserModifyResp
 import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
+import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
+import com.gx.wisestone.work.app.grpc.push.UpdateMessagePushResponse
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -69,6 +74,40 @@ class LoginNetwork {
         }
         AuthApiService.getInstance()
             .regist(account, password, mobile, mobile_verify_code, callBack)
+    }
+
+    suspend fun updateMessagePush(JGToken: String) =
+        suspendCoroutine<UpdateMessagePushResponse> { continuation ->
+            val callBack = object : CallBack<UpdateMessagePushResponse?>() {
+                override fun callBack(result: UpdateMessagePushResponse?) {
+                    resultHandle(result, continuation as Continuation<Any>)
+                }
+            }
+
+            AppMessagePushService.getInstance().updateMessagePush(JGToken, callBack);
+        }
+
+    suspend fun myCompany() = suspendCoroutine<AppMyCompanyResponse> { continuation ->
+        val callBack = object : CallBack<AppMyCompanyResponse?>() {
+            override fun callBack(result: AppMyCompanyResponse?) {
+                resultHandle(result, continuation as Continuation<Any>)
+            }
+        }
+        AppEmployeeService.getInstance().myCompany(callBack)
+    }
+
+    suspend fun userModifyPassWord(
+        password: String,
+        userId: String,
+        token: String
+    ) = suspendCoroutine<UserModifyResp> { continuation ->
+        val callBack = object : CallBack<UserModifyResp?>() {
+            override fun callBack(result: UserModifyResp?) {
+                resultHandle(result, continuation as Continuation<Any>)
+            }
+        }
+        AuthApiService.getInstance()
+            .userModifyPassWord(password, userId, token, callBack)
     }
 
     private fun resultHandle(result: Any?, continuation: Continuation<Any>) {

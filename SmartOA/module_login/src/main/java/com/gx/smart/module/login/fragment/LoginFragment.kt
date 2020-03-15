@@ -73,13 +73,13 @@ class LoginFragment : BaseVerifyCodeFragment(), OnClickListener {
 
     private fun observer() {
         //开始倒计时
-        viewModel.verifyCodeCallBackSuccess.observe(this, Observer<Boolean> { getVerifyCode ->
+        viewModel.verifyCodeCallBackSuccess.observe(viewLifecycleOwner, Observer<Boolean> { getVerifyCode ->
             if (getVerifyCode) {
                 mTime?.start()
             }
         })
 
-        viewModel.targetPage.observe(this, Observer {
+        viewModel.targetPage.observe(viewLifecycleOwner, Observer {
             when (it) {
                 1 -> mainActivity()
                 2 -> mineCompanyActivity()
@@ -89,18 +89,18 @@ class LoginFragment : BaseVerifyCodeFragment(), OnClickListener {
             }
         })
 
-        viewModel.loginTypeFlag.observe(this, Observer {
+        viewModel.loginTypeFlag.observe(viewLifecycleOwner, Observer {
             passwordEdit.editableText.clear()
             loginTypeSwitch(it)
         })
 
-        viewModel.passwordState.observe(this, Observer {
+        viewModel.passwordState.observe(viewLifecycleOwner, Observer {
             passwordState()
         })
     }
 
     private fun initContent() {
-        viewModel.passwordState.value = false;
+        viewModel.passwordState.value = false
         viewModel.setPhone()
     }
 

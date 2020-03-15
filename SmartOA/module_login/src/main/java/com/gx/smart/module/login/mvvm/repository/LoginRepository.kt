@@ -41,6 +41,22 @@ class LoginRepository private constructor(
     }
 
 
+    suspend fun updateMessagePush(JGToken: String) = withContext(Dispatchers.IO) {
+        network.updateMessagePush(JGToken)
+    }
+
+    suspend fun myCompany() = withContext(Dispatchers.IO) {
+        network.myCompany()
+    }
+
+    suspend fun userModifyPassWord(
+        password: String,
+        userId: String,
+        token: String
+    ) = withContext(Dispatchers.IO) {
+        network.userModifyPassWord(password, userId, token)
+    }
+
     companion object {
 
         private lateinit var instance: LoginRepository

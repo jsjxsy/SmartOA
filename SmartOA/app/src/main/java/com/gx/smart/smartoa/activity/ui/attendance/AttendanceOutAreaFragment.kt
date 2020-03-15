@@ -163,7 +163,7 @@ class AttendanceOutAreaFragment : Fragment(), MapLocationHelper.LocationCallBack
                         ToastUtils.showLong("外勤打卡超时!")
                         return
                     }
-                    if (result?.code == 100) {
+                    if (result.code == 100) {
                         status.visibility = View.VISIBLE
                         status.text = "成功"
                     } else {
@@ -195,7 +195,7 @@ class AttendanceOutAreaFragment : Fragment(), MapLocationHelper.LocationCallBack
                             ToastUtils.showLong("外勤打卡超时!")
                             return
                         }
-                        if (result?.code == 100) {
+                        if (result.code == 100) {
                             status.visibility = View.VISIBLE
                             status.text = "成功"
                         } else {

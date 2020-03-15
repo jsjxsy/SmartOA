@@ -96,6 +96,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
+                android:onClick="@{() -> viewModel.getVerifyCode()}"
                 android:text="@string/get_verify_code" />
 
             <EditText
@@ -199,6 +200,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:onClick="@{() -> viewModel.register()}"
             android:text="@string/register"
             app:layout_constraintTop_toBottomOf="@id/lineFour" />
 
@@ -220,6 +222,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:onClick="@{() -> viewModel.gotoAgreementPage()}"
             android:text="@string/register_agreement"
             android:textColor="@color/font_color_style_two"
             android:textSize="@dimen/font_size_style_three"
@@ -234,6 +237,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:visibility="gone" />
+            android:visibility="@{viewModel.isLoading() ? View.VISIBLE : View.GONE}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

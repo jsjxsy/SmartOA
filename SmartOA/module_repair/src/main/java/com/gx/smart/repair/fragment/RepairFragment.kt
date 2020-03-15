@@ -205,7 +205,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
                             ToastUtils.showLong("添加超时!")
                             return
                         }
-                        if (result?.code == 100) {
+                        if (result.code == 100) {
                             ToastUtils.showLong("报修成功!")
                             activity?.finish()
                         } else {
@@ -238,7 +238,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
                             //position++
                             return
                         }
-                        if (result?.code == 100) {
+                        if (result.code == 100) {
                             images.clear()
                             val uploadImage =
                                 JSON.parseObject(result.jsonstr, UploadImage::class.java)
@@ -383,7 +383,7 @@ class RepairFragment : Fragment(), View.OnClickListener {
             }
             REQUEST_TYPE -> if (resultCode == Activity.RESULT_OK) {
                 type = data?.getSerializableExtra(ARG_TYPE) as RepairType
-                repair_type.text = type?.content
+                repair_type.text = type.content
             }
         }
     }
@@ -423,20 +423,6 @@ class RepairFragment : Fragment(), View.OnClickListener {
 
     inner class UploadImageAsyncTask<Uri, Progress, Unit> :
         AsyncTask<android.net.Uri, Progress, kotlin.Unit>() {
-        override fun onPreExecute() {
-            super.onPreExecute()
-//            when (position) {
-//                1 -> {
-//                    state1.visibility = View.VISIBLE
-//                }
-//                2 -> {
-//                    state2.visibility = View.VISIBLE
-//                }
-//                3 -> {
-//                    state3.visibility = View.VISIBLE
-//                }
-//            }
-        }
 
         override fun doInBackground(vararg params: android.net.Uri) {
             return uploadImage(params[0])
