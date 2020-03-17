@@ -10,8 +10,6 @@ android {
 dependencies {
     //svg
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
-    //banner
-    api 'com.bigkoo:convenientbanner:2.1.5'
     //Banner
     api 'com.github.zhpanvip:BannerViewPager:2.7.0'
     //recyclerView
