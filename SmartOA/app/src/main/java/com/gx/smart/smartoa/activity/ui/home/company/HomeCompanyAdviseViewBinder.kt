@@ -30,9 +30,6 @@ import com.zhpan.indicator.enums.IndicatorSlideMode
 class HomeCompanyAdviseViewBinder :
     ItemViewBinder<HomeCompanyAdvise, HomeCompanyAdviseViewBinder.ViewHolder>(),
     View.OnClickListener {
-    //
-
-
     override fun onClick(v: View?) {
         when (v?.id) {
 
