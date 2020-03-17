@@ -8,7 +8,7 @@
     android:layout_height="wrap_content"
     tools:context=".activity.ui.home.HomeFragment">
 
-    <com.bigkoo.convenientbanner.ConvenientBanner
+    <com.zhpan.bannerview.BannerViewPager
         android:id="@+id/headBanner"
         android:layout_width="match_parent"
         android:layout_height="179dp"

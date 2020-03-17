@@ -8,7 +8,7 @@ import com.gx.smart.common.DataCheckUtil
 import com.gx.smart.lib.http.lib.utils.AuthUtils
 import com.gx.smart.module.login.mvvm.repository.LoginRepository
 
-class ForgetPasswordViewModel(private val loginRepository: LoginRepository) :
+open class ForgetPasswordViewModel(private val loginRepository: LoginRepository) :
     RegisterViewModel(loginRepository) {
     init {
         var targetType = 1

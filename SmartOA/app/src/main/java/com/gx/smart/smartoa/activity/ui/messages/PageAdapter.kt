@@ -9,7 +9,7 @@ import com.gx.smart.smartoa.activity.ui.action.MineActionFragment
 /**
  *@author xiaosy
  *@create 2019-10-30
- *@Describe
+ *@Describe 消息列表
  **/
 class PageAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(
     fragmentActivity
