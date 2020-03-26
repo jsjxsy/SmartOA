@@ -24,7 +24,7 @@ import kotlin.coroutines.suspendCoroutine
  **/
 class LoginNetwork {
 
-
+    @Suppress("UNCHECKED_CAST")
     suspend fun requestLogin(
         account: String,
         password: String,
@@ -40,6 +40,7 @@ class LoginNetwork {
         }
 
 
+    @Suppress("UNCHECKED_CAST")
     suspend fun requestVerifyCode(phone: String, targetType: Int, purpose: Int) =
         suspendCoroutine<VerifyCodeResp> { continuation ->
             val verifyCallBack = object : CallBack<VerifyCodeResp?>() {
@@ -49,7 +50,7 @@ class LoginNetwork {
             }
             AuthApiService.getInstance().verifyCode(phone, targetType, purpose, verifyCallBack)
         }
-
+    @Suppress("UNCHECKED_CAST")
     suspend fun requestBindAppUser(phone: String) =
         suspendCoroutine<AppInfoResponse> { continuation ->
             val bindCallBack = object : CallBack<VerifyCodeResp?>() {
@@ -60,7 +61,7 @@ class LoginNetwork {
             UserCenterService.getInstance()
                 .bindAppUser(phone, phone, bindCallBack)
         }
-
+    @Suppress("UNCHECKED_CAST")
     suspend fun regist(
         account: String,
         password: String,
@@ -75,7 +76,7 @@ class LoginNetwork {
         AuthApiService.getInstance()
             .regist(account, password, mobile, mobile_verify_code, callBack)
     }
-
+    @Suppress("UNCHECKED_CAST")
     suspend fun updateMessagePush(JGToken: String) =
         suspendCoroutine<UpdateMessagePushResponse> { continuation ->
             val callBack = object : CallBack<UpdateMessagePushResponse?>() {
@@ -86,7 +87,7 @@ class LoginNetwork {
 
             AppMessagePushService.getInstance().updateMessagePush(JGToken, callBack);
         }
-
+    @Suppress("UNCHECKED_CAST")
     suspend fun myCompany() = suspendCoroutine<AppMyCompanyResponse> { continuation ->
         val callBack = object : CallBack<AppMyCompanyResponse?>() {
             override fun callBack(result: AppMyCompanyResponse?) {
@@ -95,7 +96,7 @@ class LoginNetwork {
         }
         AppEmployeeService.getInstance().myCompany(callBack)
     }
-
+    @Suppress("UNCHECKED_CAST")
     suspend fun userModifyPassWord(
         password: String,
         userId: String,

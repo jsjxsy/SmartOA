@@ -2,14 +2,17 @@ package com.gx.smart.module.login.base
 
 import android.os.CountDownTimer
 import android.widget.TextView
-import com.gx.smart.lib.base.BaseFragment
+import androidx.databinding.ViewDataBinding
+import com.gx.smart.lib.base.BaseMVVMFragment
+import com.gx.smart.lib.base.BaseViewModel
 
 /**
  *@author xiaosy
  *@create 2020/3/8
  *@Describe 封装获取验证码方法
  **/
-open class BaseVerifyCodeFragment : BaseFragment() {
+abstract class BaseVerifyCodeFragment<T : ViewDataBinding, VM : BaseViewModel> :
+    BaseMVVMFragment<T, VM>() {
     var mTime: TimeCount? = null
 
     fun initTimer(verifyCodeText: TextView) {
@@ -37,6 +40,7 @@ open class BaseVerifyCodeFragment : BaseFragment() {
             verifyCodeText.text = "获取验证码"
             verifyCodeText.isClickable = true
         }
+
         //时间进行中
         override fun onTick(millisUntilFinished: Long) {
             verifyCodeText.isClickable = false

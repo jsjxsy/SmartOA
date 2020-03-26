@@ -13,7 +13,8 @@ route
 
 todo
 1。统一定义页面路由
-2。公共模块抽离base 和 common
+2。公共模块抽离base ()和 common
+   title 和 content 和 data
 4。navigation 基础类封装
 5。DiffUtil 使用
 6。下拉刷新的封装使用
@@ -30,7 +31,7 @@ todo
 17,进程化 webview 独立进程
 18，换肤
 19，插件化和热更新
-20.
+
 
 
 

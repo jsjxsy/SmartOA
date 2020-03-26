@@ -9,6 +9,10 @@ android {
 }
 
 dependencies {
+    //lifecycle
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation project(path: ':lib_log')
     //adapter
     api 'com.drakeet.multitype:multitype:4.0.0'
 }

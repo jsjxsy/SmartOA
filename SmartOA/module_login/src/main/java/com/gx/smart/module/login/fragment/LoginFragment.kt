@@ -11,7 +11,6 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.launcher.ARouter
 import com.gx.smart.module.login.LoginUtil
 import com.gx.smart.module.login.R
@@ -22,21 +21,14 @@ import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
-class LoginFragment : BaseVerifyCodeFragment(), OnClickListener {
+class LoginFragment : BaseVerifyCodeFragment<FragmentLoginBinding, LoginViewModel>(),
+    OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.passwordState -> passwordState()
         }
     }
 
-    private val viewModel by lazy {
-        ViewModelProvider(
-            this,
-            LoginUtil.getLoginFactory()
-        ).get(
-            LoginViewModel::class.java
-        )
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,19 +40,8 @@ class LoginFragment : BaseVerifyCodeFragment(), OnClickListener {
         activity?.window?.statusBarColor = Color.TRANSPARENT
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val loginFragmentBinding = DataBindingUtil.inflate<FragmentLoginBinding>(
-            inflater,
-            R.layout.fragment_login,
-            container,
-            false
-        )
-        loginFragmentBinding.lifecycleOwner = this
-        loginFragmentBinding.userModel = viewModel
-        return loginFragmentBinding.root
+    override fun onBindViewModelByDataBinding(dataBindingUtil: FragmentLoginBinding) {
+        dataBindingUtil.userModel = viewModel
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -68,16 +49,17 @@ class LoginFragment : BaseVerifyCodeFragment(), OnClickListener {
         initContent()
         initTimer(getVerifyCodeText)
         observer()
-
     }
 
     private fun observer() {
         //开始倒计时
-        viewModel.verifyCodeCallBackSuccess.observe(viewLifecycleOwner, Observer<Boolean> { getVerifyCode ->
-            if (getVerifyCode) {
-                mTime?.start()
-            }
-        })
+        viewModel.verifyCodeCallBackSuccess.observe(
+            viewLifecycleOwner,
+            Observer<Boolean> { getVerifyCode ->
+                if (getVerifyCode) {
+                    mTime?.start()
+                }
+            })
 
         viewModel.targetPage.observe(viewLifecycleOwner, Observer {
             when (it) {
@@ -171,6 +153,12 @@ class LoginFragment : BaseVerifyCodeFragment(), OnClickListener {
             .withString("fromLogin", "fromLogin")
             .navigation()
     }
+
+    override fun onBindViewModel() = LoginViewModel::class.java
+
+    override fun onBindViewModelFactory() = LoginUtil.getLoginFactory()
+
+    override fun onBindLayout() = R.layout.fragment_login
 
 
 }

@@ -13,6 +13,7 @@ import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.common.AppConfig
 import com.gx.smart.common.DataCheckUtil
+import com.gx.smart.lib.base.BaseViewModel
 import com.gx.smart.lib.http.api.AppEmployeeService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.smart.module.login.R

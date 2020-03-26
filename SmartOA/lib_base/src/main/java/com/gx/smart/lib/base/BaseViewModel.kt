@@ -1,4 +1,4 @@
-package com.gx.smart.module.login.mvvm.viewmodel
+package com.gx.smart.lib.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
