@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.smartoa.R
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDto
 import kotlinx.android.synthetic.main.light_fragment.*
 
-class LightFragment(private val lightList: List<DevDto>) : Fragment() {
+class LightFragment(private val lightList: List<DevDto>) : BaseFragment() {
     companion object {
         const val LIGHT_TYPE = 0
     }

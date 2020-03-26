@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import com.gx.smart.smartoa.R
 
 /**
  * A simple [Fragment] subclass.
  */
-class MeetingReservationFragment : Fragment() {
+class MeetingReservationFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

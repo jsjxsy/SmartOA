@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SPUtils
@@ -32,7 +32,7 @@ import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import kotlinx.android.synthetic.main.fragment_mine_user_info_modify_phone.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
-class MineUserInfoModifyPhoneFragment : Fragment(), View.OnClickListener {
+class MineUserInfoModifyPhoneFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()

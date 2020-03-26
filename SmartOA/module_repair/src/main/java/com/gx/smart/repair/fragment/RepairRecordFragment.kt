@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -17,7 +17,7 @@ import com.gx.wisestone.work.app.grpc.repair.RepairCommonResponse
 import kotlinx.android.synthetic.main.fragment_repair_record_list.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
-class RepairRecordFragment : Fragment(), View.OnClickListener {
+class RepairRecordFragment : BaseFragment(), View.OnClickListener {
 
     private var currentPage: Int = 0
     private lateinit var adapter: RepairRecordAdapter

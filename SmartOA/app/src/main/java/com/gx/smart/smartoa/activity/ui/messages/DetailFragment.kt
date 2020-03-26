@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import com.gx.smart.smartoa.R
 import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
-class DetailFragment : Fragment(), View.OnClickListener {
+class DetailFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()

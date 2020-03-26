@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.list_action_layout.recyclerView
 /**
  * A simple [Fragment] subclass.
  */
-class MineActionFragment : Fragment(), View.OnClickListener {
+class MineActionFragment : BaseFragment(), View.OnClickListener {
     private var fromMine: Boolean = false//是否是? "我的活动"
     private var fromMore: Boolean = false //首页活动更多
     private var readAllFlag: Boolean = false// 是否全部已读

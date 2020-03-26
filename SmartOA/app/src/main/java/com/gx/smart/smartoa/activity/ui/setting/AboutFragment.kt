@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.AppUtils
 import com.gx.smart.smartoa.R
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 /**
  * A simple [Fragment] subclass.
  */
-class AboutFragment : Fragment(),View.OnClickListener {
+class AboutFragment : BaseFragment(),View.OnClickListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

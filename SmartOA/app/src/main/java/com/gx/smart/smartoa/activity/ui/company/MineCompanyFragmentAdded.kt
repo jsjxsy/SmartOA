@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -23,7 +23,7 @@ import top.limuyang2.customldialog.IOSMsgDialog
 /**
  * A simple [Fragment] subclass.
  */
-class MineCompanyFragmentAdded : Fragment(), View.OnClickListener {
+class MineCompanyFragmentAdded : BaseFragment(), View.OnClickListener {
     var statue: Int = 0
     lateinit var employeeInfo: EmployeeInfo
     override fun onClick(v: View?) {

@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.ActivityUtils
 import com.bumptech.glide.Glide
@@ -24,7 +24,7 @@ import com.gx.wisestone.work.app.grpc.appfigure.ImagesResponse
 import kotlinx.android.synthetic.main.splash_fragment.*
 import java.util.*
 
-class SplashFragment : Fragment() {
+class SplashFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = SplashFragment()

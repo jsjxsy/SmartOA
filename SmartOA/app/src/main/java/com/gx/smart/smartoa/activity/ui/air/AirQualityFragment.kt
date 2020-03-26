@@ -5,7 +5,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
@@ -21,7 +21,7 @@ import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.AirBoxDataGetResp
 import kotlinx.android.synthetic.main.air_quality_fragment.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
-class AirQualityFragment : Fragment(), View.OnClickListener {
+class AirQualityFragment : BaseFragment(), View.OnClickListener {
 
     companion object {
         fun newInstance() = AirQualityFragment()

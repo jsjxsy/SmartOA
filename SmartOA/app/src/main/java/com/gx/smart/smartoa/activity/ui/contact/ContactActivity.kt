@@ -1,7 +1,7 @@
 package com.gx.smart.smartoa.activity.ui.contact
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import com.gx.smart.lib.base.BaseActivity
 import com.gx.smart.smartoa.R
 
 class ContactActivity : AppCompatActivity() {

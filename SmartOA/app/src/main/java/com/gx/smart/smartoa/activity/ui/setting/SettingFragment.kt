@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ActivityUtils
@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.setting_fragment.*
 import top.limuyang2.customldialog.IOSMsgDialog
 
-class SettingFragment : Fragment(), View.OnClickListener {
+class SettingFragment : BaseFragment(), View.OnClickListener {
 
     companion object {
         fun newInstance() = SettingFragment()

@@ -2,14 +2,14 @@ package com.gx.smart.module.login.base
 
 import android.os.CountDownTimer
 import android.widget.TextView
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 
 /**
  *@author xiaosy
  *@create 2020/3/8
  *@Describe 封装获取验证码方法
  **/
-open class BaseVerifyCodeFragment : Fragment() {
+open class BaseVerifyCodeFragment : BaseFragment() {
     var mTime: TimeCount? = null
 
     fun initTimer(verifyCodeText: TextView) {

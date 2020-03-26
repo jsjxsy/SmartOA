@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import com.amap.api.location.AMapLocation
 import com.amap.api.maps2d.AMap
@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 import java.util.*
 
 
-class AttendanceOutAreaFragment : Fragment(), MapLocationHelper.LocationCallBack {
+class AttendanceOutAreaFragment : BaseFragment(), MapLocationHelper.LocationCallBack {
 
     /**
      * 格式化 个位数格式

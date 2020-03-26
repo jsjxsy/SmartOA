@@ -8,7 +8,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 /**
  * A simple [Fragment] subclass.
  */
-class MineUserInfoModifyNickNameFragment : Fragment(), View.OnClickListener {
+class MineUserInfoModifyNickNameFragment : BaseFragment(), View.OnClickListener {
     private lateinit var nickName: String
     override fun onClick(v: View?) {
         when (v?.id) {

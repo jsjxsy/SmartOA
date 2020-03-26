@@ -3,7 +3,7 @@ package com.gx.smart.smartoa.activity.ui.environmental
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -52,7 +52,7 @@ class PageAdapter(fa: FragmentActivity) : FragmentStateAdapter(
 //                return freshAirFragment
 //            }
 //        }
-//        return Fragment()
+//        return BaseFragment()
 //    }
 
 //    override fun getCount() = mPageFragment.size

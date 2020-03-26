@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -28,7 +28,7 @@ import com.gx.wisestone.uaa.grpc.lib.auth.UserModifyResp
 import kotlinx.android.synthetic.main.fragment_mine_user_info_modify_password.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
-class MineUserInfoModifyPasswordFragment : Fragment(), View.OnClickListener {
+class MineUserInfoModifyPasswordFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()

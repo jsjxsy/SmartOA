@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import com.gx.smart.smartoa.R
 
-class NotAttendanceFragment : Fragment() {
+class NotAttendanceFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = NotAttendanceFragment()

@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
@@ -30,7 +30,7 @@ import com.gx.wisestone.uaa.grpc.lib.auth.VerifyCodeResp
 import kotlinx.android.synthetic.main.forget_password_fragment.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
-class ForgetPasswordFragment : Fragment(), View.OnClickListener {
+class ForgetPasswordFragment : BaseFragment(), View.OnClickListener {
 
     private var mTime: TimeCount? = null
     private lateinit var verifyCodeText: TextView

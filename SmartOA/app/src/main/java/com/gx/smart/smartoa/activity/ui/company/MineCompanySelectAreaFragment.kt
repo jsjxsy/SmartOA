@@ -10,7 +10,7 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView.OnEditorActionListener
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.alibaba.fastjson.JSON
 import com.blankj.utilcode.util.ActivityUtils

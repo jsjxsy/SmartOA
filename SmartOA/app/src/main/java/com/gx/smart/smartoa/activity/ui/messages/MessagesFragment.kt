@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
@@ -13,7 +13,7 @@ import com.gx.smart.smartoa.activity.ui.action.MineActionFragment
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.messages_fragment.*
 
-class MessagesFragment : Fragment(), View.OnClickListener {
+class MessagesFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()

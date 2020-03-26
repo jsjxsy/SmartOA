@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.blankj.utilcode.util.ActivityUtils
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.attendance_fragment.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import java.util.*
 
-class AttendanceFragment : Fragment(), View.OnClickListener {
+class AttendanceFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()

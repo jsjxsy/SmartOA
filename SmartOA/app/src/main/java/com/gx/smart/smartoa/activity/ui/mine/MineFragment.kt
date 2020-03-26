@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ActivityUtils
@@ -23,7 +23,7 @@ import com.gx.smart.lib.http.base.CallBack
 import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import kotlinx.android.synthetic.main.fragment_mine.*
 
-class MineFragment : Fragment(), View.OnClickListener {
+class MineFragment : BaseFragment(), View.OnClickListener {
 
     companion object {
         fun newInstance() = MineFragment()

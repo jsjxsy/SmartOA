@@ -14,7 +14,7 @@ import com.gx.smart.module.login.LoginUtil
 import com.gx.smart.module.login.R
 import com.gx.smart.module.login.activity.LoginActivity
 import com.gx.smart.module.login.base.BaseVerifyCodeFragment
-import com.gx.smart.module.login.databinding.ForgetPasswordFragmentBinding
+import com.gx.smart.module.login.databinding.FragmentForgetPasswordBinding
 import com.gx.smart.module.login.mvvm.viewmodel.ForgetPasswordViewModel
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.fragment_forget_password.*
@@ -37,7 +37,7 @@ class ForgetPasswordFragment : BaseVerifyCodeFragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val dataBindingUtil = DataBindingUtil.inflate<ForgetPasswordFragmentBinding>(
+        val dataBindingUtil = DataBindingUtil.inflate<FragmentForgetPasswordBinding>(
             inflater,
             R.layout.fragment_forget_password,
             container,

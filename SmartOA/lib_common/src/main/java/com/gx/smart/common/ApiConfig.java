@@ -3,7 +3,7 @@ package com.gx.smart.common;
 /**
  * @author xiaosy
  * @create 2019-12-04
- * @Describe
+ * @Describe 网络配置
  **/
 public class ApiConfig {
     //| test.huishi.cloud | 32331/gRPC | 办公APP服务 | svc-ws-work-app-service.ws-work |
@@ -31,4 +31,5 @@ public class ApiConfig {
     public static final String COMPANY_ACTION_URL = "http://work.huishi.cloud/work/htgx.html";
     //天气
     public static String GENERAL_INFO_SERVICE_PORT = "30155";
+
 }

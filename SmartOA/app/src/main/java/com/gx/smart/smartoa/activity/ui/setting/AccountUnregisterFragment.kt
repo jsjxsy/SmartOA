@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SPUtils
@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 import top.limuyang2.customldialog.IOSMsgDialog
 
 
-class AccountUnregisterFragment : Fragment(), View.OnClickListener {
+class AccountUnregisterFragment : BaseFragment(), View.OnClickListener {
 
     private var mTime: TimeCount? = null
     private lateinit var verifyCodeText: TextView

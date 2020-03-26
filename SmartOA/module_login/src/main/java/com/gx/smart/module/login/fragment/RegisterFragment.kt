@@ -16,7 +16,7 @@ import com.gx.smart.module.login.LoginUtil
 import com.gx.smart.module.login.R
 import com.gx.smart.module.login.activity.LoginActivity
 import com.gx.smart.module.login.base.BaseVerifyCodeFragment
-import com.gx.smart.module.login.databinding.RegisterFragmentBinding
+import com.gx.smart.module.login.databinding.FragmentRegisterBinding
 import com.gx.smart.module.login.mvvm.viewmodel.RegisterViewModel
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.fragment_register.*
@@ -29,12 +29,12 @@ class RegisterFragment : BaseVerifyCodeFragment(), View.OnClickListener {
     }
 
     private val viewModel by lazy { ViewModelProvider(this,LoginUtil.getLoginFactory())[RegisterViewModel::class.java] }
-    private lateinit var dataBinding: RegisterFragmentBinding
+    private lateinit var dataBinding: FragmentRegisterBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-         dataBinding = DataBindingUtil.inflate<RegisterFragmentBinding>(
+         dataBinding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_register,
             container,

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.drakeet.multitype.MultiTypeAdapter
@@ -12,7 +12,7 @@ import com.gx.smart.smartoa.R
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDto
 import kotlinx.android.synthetic.main.curtain_fragment.*
 
-class CurtainFragment(private val curtainList: List<DevDto>) : Fragment() {
+class CurtainFragment(private val curtainList: List<DevDto>) : BaseFragment() {
 
     companion object {
         const val CURTAIN_TYPE = 1

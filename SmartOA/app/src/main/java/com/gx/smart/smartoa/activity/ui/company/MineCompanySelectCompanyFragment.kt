@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.navigation.Navigation
 import com.alibaba.fastjson.JSON
 import com.blankj.utilcode.util.ActivityUtils
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 /**
  * A simple [Fragment] subclass.
  */
-class MineCompanySelectCompanyFragment : Fragment(), View.OnClickListener {
+class MineCompanySelectCompanyFragment : BaseFragment(), View.OnClickListener {
     private var placeName:String? = null
     override fun onClick(v: View?) {
         when (v?.id) {

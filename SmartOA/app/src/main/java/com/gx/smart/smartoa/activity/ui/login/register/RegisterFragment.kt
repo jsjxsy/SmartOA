@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
@@ -36,7 +36,7 @@ import com.gx.wisestone.work.app.grpc.appuser.AppInfoResponse
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.register_fragment.*
 
-class RegisterFragment : Fragment(), View.OnClickListener {
+class RegisterFragment : BaseFragment(), View.OnClickListener {
 
     companion object {
 

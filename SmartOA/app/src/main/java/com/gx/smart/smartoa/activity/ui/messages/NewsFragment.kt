@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ActivityUtils
@@ -19,7 +19,7 @@ import com.gx.wisestone.work.app.grpc.information.AppInformationResponse
 import com.gx.wisestone.work.app.grpc.information.MessageReadResponse
 import kotlinx.android.synthetic.main.news_fragment.*
 
-class NewsFragment : Fragment() {
+class NewsFragment : BaseFragment() {
     private lateinit var mViewModel: NewsViewModel
     private lateinit var adapter: NewsAdapter
     private var currentPage = 0

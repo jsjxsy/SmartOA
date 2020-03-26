@@ -19,7 +19,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.alibaba.fastjson.JSON
@@ -40,7 +40,7 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.repair_fragment.*
 import java.io.File
 
-class RepairFragment : Fragment(), View.OnClickListener {
+class RepairFragment : BaseFragment(), View.OnClickListener {
 
     companion object {
         fun newInstance() = RepairFragment()

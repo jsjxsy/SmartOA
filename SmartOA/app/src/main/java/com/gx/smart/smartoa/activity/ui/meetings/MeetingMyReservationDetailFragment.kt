@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.navigation.fragment.findNavController
 import com.gx.smart.smartoa.R
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 /**
  * A simple [Fragment] subclass.
  */
-class MeetingMyReservationDetailFragment : Fragment(),View.OnClickListener {
+class MeetingMyReservationDetailFragment : BaseFragment(),View.OnClickListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

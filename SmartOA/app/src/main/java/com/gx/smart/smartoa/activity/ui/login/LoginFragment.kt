@@ -14,7 +14,7 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -32,7 +32,7 @@ import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
-class LoginFragment : Fragment(), OnClickListener {
+class LoginFragment : BaseFragment(), OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.id_forget_password_text_view -> {

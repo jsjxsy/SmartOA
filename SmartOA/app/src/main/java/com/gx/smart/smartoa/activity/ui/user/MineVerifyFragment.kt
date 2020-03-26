@@ -6,7 +6,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 /**
  * A simple [Fragment] subclass.
  */
-class MineVerifyFragment : Fragment(), View.OnClickListener {
+class MineVerifyFragment : BaseFragment(), View.OnClickListener {
     private var verifiedCallBack: CallBack<CommonResponse>? = null
     private var verifiedTask: GrpcAsyncTask<String, Void, CommonResponse>? = null
     private var verify: Int = 2

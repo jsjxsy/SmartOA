@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.bigkoo.pickerview.builder.TimePickerBuilder
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 import java.util.*
 
 
-class AttendanceRecordFragment : Fragment(), View.OnClickListener {
+class AttendanceRecordFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()

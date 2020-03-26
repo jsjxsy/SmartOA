@@ -19,7 +19,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.navigation.fragment.findNavController
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.FileUtils
@@ -47,7 +47,7 @@ import java.io.File
 /**
  * A simple [Fragment] subclass.
  */
-class MineUserInfoFragment : Fragment(), View.OnClickListener {
+class MineUserInfoFragment : BaseFragment(), View.OnClickListener {
 
     private var nick: String = ""
     private var verify: Int = 2

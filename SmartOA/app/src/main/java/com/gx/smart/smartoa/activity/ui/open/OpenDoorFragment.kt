@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
 import com.gx.smart.smartoa.R
 import kotlinx.android.synthetic.main.layout_common_title.*
 
-class OpenDoorFragment : Fragment(), View.OnClickListener {
+class OpenDoorFragment : BaseFragment(), View.OnClickListener {
 
     companion object {
         fun newInstance() = OpenDoorFragment()

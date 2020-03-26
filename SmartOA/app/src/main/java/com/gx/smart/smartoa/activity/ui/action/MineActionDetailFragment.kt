@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gx.smart.smartoa.R
@@ -19,7 +19,7 @@ import top.limuyang2.customldialog.IOSMsgDialog
 /**
  * A simple [Fragment] subclass.
  */
-class MineActionDetailFragment : Fragment(), View.OnClickListener {
+class MineActionDetailFragment : BaseFragment(), View.OnClickListener {
 
     private var title: String? = null
     private var time: String? = null

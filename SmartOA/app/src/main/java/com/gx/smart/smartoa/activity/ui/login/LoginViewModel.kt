@@ -141,7 +141,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     fun login(loginType: Int) {
         launch({
             val result = loginRepository.login(phone.value!!, password.value!!, loginType)
-            val msg = result.dataMap["errMsg"]
+            val msg = result.msg
             if (result.code == 100) {
                 SPUtils.getInstance().put(AppConfig.LOGIN_TOKEN, result.token)
                 //保存当前用户

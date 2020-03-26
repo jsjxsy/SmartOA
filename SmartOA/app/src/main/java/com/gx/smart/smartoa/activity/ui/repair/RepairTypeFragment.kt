@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.gx.smart.smartoa.R
@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.repair_type_fragment.*
 
 
-class RepairTypeFragment : Fragment(), View.OnClickListener {
+class RepairTypeFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
