@@ -27,4 +27,5 @@ dependencies {
     //pickerView
     api 'com.contrarywind:Android-PickerView:4.1.9'
     implementation project(path: ':lib_custom_ldialog')
+    implementation project(path: ':lib_common')
 }

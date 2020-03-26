@@ -42,7 +42,9 @@
         android:layout_height="160dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/white"
-        app:autoTurningTime="@integer/banner_display_time"
-        app:canLoop="true" />
+        app:bvp_scroll_duration="@integer/banner_display_time"
+        app:bvp_auto_play="true"
+        app:bvp_can_loop="true"
+        />
 </RelativeLayout>
 

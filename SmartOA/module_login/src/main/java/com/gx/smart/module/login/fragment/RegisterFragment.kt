@@ -19,7 +19,7 @@ import com.gx.smart.module.login.base.BaseVerifyCodeFragment
 import com.gx.smart.module.login.databinding.RegisterFragmentBinding
 import com.gx.smart.module.login.mvvm.viewmodel.RegisterViewModel
 import com.orhanobut.logger.Logger
-import kotlinx.android.synthetic.main.register_fragment.*
+import kotlinx.android.synthetic.main.fragment_register.*
 
 class RegisterFragment : BaseVerifyCodeFragment(), View.OnClickListener {
 
@@ -36,7 +36,7 @@ class RegisterFragment : BaseVerifyCodeFragment(), View.OnClickListener {
     ): View? {
          dataBinding = DataBindingUtil.inflate<RegisterFragmentBinding>(
             inflater,
-            R.layout.register_fragment,
+            R.layout.fragment_register,
             container,
             false
         )

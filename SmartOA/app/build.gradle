@@ -53,6 +53,7 @@ android {
         ]
         signingConfig signingConfigs.release
         multiDexEnabled = true
+        //router 配置
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
@@ -77,6 +78,10 @@ android {
             multiDexEnabled = true
         }
         debug {
+            //png 压缩
+            aaptOptions.cruncherEnabled = false
+            splits.abi.enable = false
+            splits.density.enable =false
             minifyEnabled false
             signingConfig signingConfigs.release
         }
@@ -89,7 +94,7 @@ android {
     }
     dexOptions {
         preDexLibraries true
-        javaMaxHeapSize "3g"
+        javaMaxHeapSize "4g"
         //incremental true
         dexInProcess = true
         maxProcessCount 8

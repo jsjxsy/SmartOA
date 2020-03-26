@@ -24,10 +24,9 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.bigkoo.convenientbanner.utils.ScreenUtil;
+import com.blankj.utilcode.util.ConvertUtils;
 
 /**
- *
  * @author xiaosy
  * @create 2019-12-25
  * @Describe 会议预约时间选定控件
@@ -77,11 +76,13 @@ public class TimeSelectView extends View implements View.OnTouchListener {
 
 
     //绘制文字大小
-    private int mTextsize = ScreenUtil.dip2px(getContext(), 10);
+    private int mTextsize = ConvertUtils.dp2px(10);
     //选中绘制区域颜色
-    private @ColorInt int mBgColor = Color.parseColor("#ff8522");
+    private @ColorInt
+    int mBgColor = Color.parseColor("#ff8522");
     //拖拽图片资源
-    private @DrawableRes int mBitmapRes = R.mipmap.ic_night;
+    private @DrawableRes
+    int mBitmapRes = R.mipmap.ic_night;
     private int mScaledTouchSlop;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -110,7 +111,7 @@ public class TimeSelectView extends View implements View.OnTouchListener {
         //线条画笔
         mLinePaint = new Paint();
         mLinePaint.setColor(Color.GRAY);
-        mLinePaint.setTextSize(ScreenUtil.dip2px(getContext(), 1));
+        mLinePaint.setTextSize(ConvertUtils.dp2px(1));
 
         //选中背景画笔
         mBgPaint = new Paint();

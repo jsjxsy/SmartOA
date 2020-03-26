@@ -29,8 +29,6 @@ import org.litepal.LitePal
  */
 class SmartOAApplication : Application() {
 
-//    private lateinit var mJGPushReceiver: JGPushReceiver
-
     init {
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreater { context, layout ->
@@ -59,11 +57,15 @@ class SmartOAApplication : Application() {
             preInitX5Core()
             disableAPIDialog()
             initPush()
-            CrashHandler.instance.init(this)
+            initCrash()
             initEventBus()
             initDataBase()
             initARouter()
         }
+    }
+
+    private fun initCrash() {
+        CrashHandler.instance.init(this)
     }
 
     private fun initDataBase() {
