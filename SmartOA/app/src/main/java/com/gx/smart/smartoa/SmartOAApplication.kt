@@ -7,6 +7,7 @@ import android.text.TextUtils
 import cn.jpush.android.api.JPushInterface
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.CrashUtils
 import com.blankj.utilcode.util.ProcessUtils
 import com.blankj.utilcode.util.Utils
 import com.gx.smart.common.AppConfig
@@ -65,7 +66,7 @@ class SmartOAApplication : Application() {
     }
 
     private fun initCrash() {
-        CrashHandler.instance.init(this)
+        CrashUtils.init()
     }
 
     private fun initDataBase() {
