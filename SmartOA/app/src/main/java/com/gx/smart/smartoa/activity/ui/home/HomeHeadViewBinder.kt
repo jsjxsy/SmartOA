@@ -23,6 +23,7 @@ import com.gx.smart.smartoa.activity.WebViewActivity
 import com.gx.smart.smartoa.activity.ui.attendance.AttendanceActivity
 import com.gx.smart.smartoa.activity.ui.environmental.EnvironmentalActivity
 import com.gx.smart.smartoa.activity.ui.features.AllFeatureActivity
+import com.gx.smart.smartoa.activity.ui.visitor.VisitorActivity
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesInfoOrBuilder
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.zhpan.bannerview.BannerViewPager
@@ -52,13 +53,13 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) :
                 )
             R.id.id_attendance_text_view -> joinCompanyContinue(2)
 
-//            R.id.id_visitor_text_view ->
-//                ActivityUtils.startActivity(
-//                    Intent(
-//                        ActivityUtils.getTopActivity(),
-//                        VisitorActivity::class.java
-//                    )
-//                )
+            R.id.id_visitor_text_view ->
+                ActivityUtils.startActivity(
+                    Intent(
+                        ActivityUtils.getTopActivity(),
+                        VisitorActivity::class.java
+                    )
+                )
             R.id.id_repair_text_view -> joinCompanyContinue(3)
 //            R.id.id_air_quality_text_view -> ActivityUtils.startActivity(
 //                Intent(

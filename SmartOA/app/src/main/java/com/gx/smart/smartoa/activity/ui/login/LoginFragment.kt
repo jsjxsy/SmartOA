@@ -88,6 +88,10 @@ class LoginFragment : BaseFragment(), OnClickListener {
         return loginFragmentBinding.root
     }
 
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initContent()

@@ -36,12 +36,6 @@
             android:drawableTop="@drawable/ic_environmental_control"
             android:text="@string/environmental_control" />
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/id_meeting_schedule_text_view"-->
-        <!--            style="@style/iconStyle"-->
-        <!--            android:drawableTop="@drawable/ic_meeting_schedule"-->
-        <!--            android:text="@string/meeting_schedule" />-->
-
         <TextView
             android:id="@+id/id_attendance_text_view"
             style="@style/iconStyle"
@@ -53,6 +47,12 @@
             style="@style/iconStyle"
             android:drawableTop="@drawable/ic_repair"
             android:text="@string/repair" />
+
+        <TextView
+            android:id="@+id/id_visitor_text_view"
+            style="@style/iconStyle"
+            android:drawableTop="@drawable/ic_visitor"
+            android:text="@string/visitor" />
 
         <TextView
             android:id="@+id/id_more_text_view"

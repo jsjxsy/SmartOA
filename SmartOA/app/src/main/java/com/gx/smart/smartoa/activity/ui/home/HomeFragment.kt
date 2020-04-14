@@ -87,6 +87,10 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         return homeFragmentBinding.root
     }
 
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initTitleView()
