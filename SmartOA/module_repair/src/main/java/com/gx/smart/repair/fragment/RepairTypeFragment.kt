@@ -38,6 +38,10 @@ class RepairTypeFragment : BaseFragment(), View.OnClickListener {
         return inflater.inflate(R.layout.repair_type_fragment, container, false)
     }
 
+    override fun onBindLayout(): Int {
+        return -1
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(RepairTypeViewModel::class.java)

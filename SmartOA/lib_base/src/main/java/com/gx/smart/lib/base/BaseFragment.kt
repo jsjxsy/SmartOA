@@ -13,8 +13,6 @@ import com.drakeet.multitype.MultiTypeAdapter
  *@Describe 基础类
  **/
 abstract class BaseFragment : Fragment() {
-    open val adapter = MultiTypeAdapter()
-    open val items = ArrayList<Any>()
     open lateinit var mRootView: View
     override fun onCreateView(
         inflater: LayoutInflater,

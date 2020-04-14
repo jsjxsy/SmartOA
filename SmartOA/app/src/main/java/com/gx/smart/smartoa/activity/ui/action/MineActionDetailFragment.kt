@@ -34,6 +34,10 @@ class MineActionDetailFragment : BaseFragment(), View.OnClickListener {
         return inflater.inflate(R.layout.fragment_mine_action_detail, container, false)
     }
 
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

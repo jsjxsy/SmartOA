@@ -82,6 +82,10 @@ class RegisterFragment : BaseFragment(), View.OnClickListener {
         return dataBinding.root
     }
 
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 

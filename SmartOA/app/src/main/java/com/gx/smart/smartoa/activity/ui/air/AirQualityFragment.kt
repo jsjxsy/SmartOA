@@ -40,6 +40,10 @@ class AirQualityFragment : BaseFragment(), View.OnClickListener {
         return inflater.inflate(R.layout.air_quality_fragment, container, false)
     }
 
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[AirQualityViewModel::class.java]

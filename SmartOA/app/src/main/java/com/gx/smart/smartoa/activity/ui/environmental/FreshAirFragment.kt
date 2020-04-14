@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.smartoa.R
 import com.gx.smart.lib.base.BaseFragment
 import com.gx.wisestone.service.grpc.lib.smarthome.unisiot.DevDto
 import kotlinx.android.synthetic.main.fragment_fresh_air.*
 
 class FreshAirFragment(private val freshAirList: List<DevDto>) : BaseFragment() {
-
+    private val adapter = MultiTypeAdapter()
+    private val items = ArrayList<Any>()
     companion object {
         const val FRESH_AIR_TYPE = 3
     }
@@ -24,6 +26,10 @@ class FreshAirFragment(private val freshAirList: List<DevDto>) : BaseFragment() 
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_fresh_air, container, false)
+    }
+
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

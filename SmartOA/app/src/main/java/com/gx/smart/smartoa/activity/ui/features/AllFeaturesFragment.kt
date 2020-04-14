@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.smartoa.R
 import com.gx.smart.lib.base.BaseFragment
 import kotlinx.android.synthetic.main.all_features_fragment.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 class AllFeaturesFragment : BaseFragment(), View.OnClickListener {
+    private val adapter = MultiTypeAdapter()
+    private val items = ArrayList<Any>()
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()
@@ -30,6 +33,10 @@ class AllFeaturesFragment : BaseFragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.all_features_fragment, container, false)
+    }
+
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

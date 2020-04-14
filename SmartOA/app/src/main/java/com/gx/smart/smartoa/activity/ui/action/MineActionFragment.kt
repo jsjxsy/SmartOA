@@ -70,6 +70,10 @@ class MineActionFragment : BaseFragment(), View.OnClickListener {
         return dataBindingUtil.root
     }
 
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
+    }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

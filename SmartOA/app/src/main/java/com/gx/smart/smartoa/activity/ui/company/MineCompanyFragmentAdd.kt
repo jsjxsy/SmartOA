@@ -30,6 +30,10 @@ class MineCompanyFragmentAdd : BaseFragment(), View.OnClickListener {
 
     }
 
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         addCompany.setOnClickListener(this)

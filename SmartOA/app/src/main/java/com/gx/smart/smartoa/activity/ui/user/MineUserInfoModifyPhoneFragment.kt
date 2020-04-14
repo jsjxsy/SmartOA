@@ -69,6 +69,10 @@ class MineUserInfoModifyPhoneFragment : BaseFragment(), View.OnClickListener {
         return inflater.inflate(R.layout.fragment_mine_user_info_modify_phone, container, false)
     }
 
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
+    }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

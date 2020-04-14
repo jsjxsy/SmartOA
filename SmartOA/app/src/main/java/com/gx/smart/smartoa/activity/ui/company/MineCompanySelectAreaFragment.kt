@@ -15,11 +15,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.alibaba.fastjson.JSON
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.company.model.SysTenantList
 import com.gx.smart.smartoa.activity.ui.features.Divider
 import com.gx.smart.smartoa.activity.ui.features.DividerViewBinder
-import com.gx.smart.lib.base.BaseFragment
 import com.gx.smart.lib.http.api.AppStructureService
 import com.gx.smart.lib.http.base.CallBack
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
@@ -31,6 +31,9 @@ import kotlinx.android.synthetic.main.layout_common_title.*
  * A simple [Fragment] subclass.
  */
 class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
+    private val adapter = MultiTypeAdapter()
+    private val items = ArrayList<Any>()
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_image_view -> activity?.onBackPressed()
@@ -43,6 +46,10 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_mine_company_select_area, container, false)
+    }
+
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

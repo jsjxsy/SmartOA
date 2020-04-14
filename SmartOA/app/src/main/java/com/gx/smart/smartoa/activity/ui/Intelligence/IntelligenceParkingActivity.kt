@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.gx.smart.lib.base.BaseActivity
 import com.gx.smart.smartoa.R
 
-class IntelligenceParkingActivity : AppCompatActivity() {
+class IntelligenceParkingActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

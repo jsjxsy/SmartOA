@@ -23,6 +23,10 @@ class SharedWorkFragment : BaseFragment(), View.OnClickListener {
         return inflater.inflate(R.layout.shared_work_fragment, container, false)
     }
 
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(SharedWorkViewModel::class.java)

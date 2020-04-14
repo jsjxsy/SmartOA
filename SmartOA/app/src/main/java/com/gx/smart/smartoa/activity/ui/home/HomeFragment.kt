@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
+import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.eventbus.EventBusMessageConstant
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.MainActivity
@@ -32,7 +33,8 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 
 
 class HomeFragment : BaseFragment(), View.OnClickListener {
-
+    private val adapter = MultiTypeAdapter()
+    private val items = ArrayList<Any>()
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.left_nav_text_view -> {

@@ -1,6 +1,7 @@
 package com.gx.smart.smartoa.activity.ui.messages
 
 import android.util.SparseArray
+import androidx.fragment.app.Fragment
 import com.gx.smart.lib.base.BaseFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter

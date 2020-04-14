@@ -17,6 +17,10 @@ class SecondFragment : BaseFragment() {
         return inflater.inflate(R.layout.fragment_second, container, false)
     }
 
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
+    }
+
 
     companion object {
         @JvmStatic

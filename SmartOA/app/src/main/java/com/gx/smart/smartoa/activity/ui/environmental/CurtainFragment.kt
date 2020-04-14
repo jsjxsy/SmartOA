@@ -30,6 +30,10 @@ class CurtainFragment(private val curtainList: List<DevDto>) : BaseFragment() {
         return inflater.inflate(R.layout.curtain_fragment, container, false)
     }
 
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(CurtainViewModel::class.java)

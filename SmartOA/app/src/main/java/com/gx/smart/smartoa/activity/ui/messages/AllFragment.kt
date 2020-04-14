@@ -6,11 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.drakeet.multitype.MultiTypeAdapter
 import com.gx.smart.smartoa.R
 import com.gx.smart.lib.base.BaseFragment
 import kotlinx.android.synthetic.main.all_fragment.*
 
 class AllFragment : BaseFragment() {
+    private val adapter = MultiTypeAdapter()
+    private val items = ArrayList<Any>()
 
     companion object {
         fun newInstance() = AllFragment()
@@ -24,6 +27,10 @@ class AllFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.all_fragment, container, false)
+    }
+
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

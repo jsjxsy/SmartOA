@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.gx.smart.lib.base.BaseActivity
 import com.gx.smart.smartoa.R
 
-class ContactActivity : AppCompatActivity() {
+class ContactActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

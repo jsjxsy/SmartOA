@@ -94,6 +94,10 @@ class AttendanceOutAreaFragment : BaseFragment(), MapLocationHelper.LocationCall
         return inflater.inflate(R.layout.attendance_out_area_fragment, container, false)
     }
 
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(AttendanceOutAreaViewModel::class.java)

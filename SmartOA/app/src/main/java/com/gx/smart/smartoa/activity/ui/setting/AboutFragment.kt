@@ -28,6 +28,10 @@ class AboutFragment : BaseFragment(),View.OnClickListener {
         return inflater.inflate(R.layout.fragment_about, container, false)
     }
 
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initTitle()

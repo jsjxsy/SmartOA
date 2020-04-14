@@ -21,5 +21,9 @@ class MeetingAttendeesFragment : BaseFragment() {
         return inflater.inflate(R.layout.fragment_metting_attendees, container, false)
     }
 
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
+    }
+
 
 }

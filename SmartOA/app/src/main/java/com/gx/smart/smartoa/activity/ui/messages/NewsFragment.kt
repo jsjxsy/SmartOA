@@ -38,6 +38,10 @@ class NewsFragment : BaseFragment() {
         return inflater.inflate(R.layout.news_fragment, container, false)
     }
 
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)

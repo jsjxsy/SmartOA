@@ -40,6 +40,10 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
         return inflater.inflate(R.layout.setting_fragment, container, false)
     }
 
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(SettingViewModel::class.java)

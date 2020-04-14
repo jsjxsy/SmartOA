@@ -44,6 +44,10 @@ class AccountUnregisterFragment : BaseFragment(), View.OnClickListener {
         return inflater.inflate(R.layout.fragment_account_unregister, container, false)
     }
 
+    override fun onBindLayout(): Int {
+        TODO("Not yet implemented")
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initTitle()
