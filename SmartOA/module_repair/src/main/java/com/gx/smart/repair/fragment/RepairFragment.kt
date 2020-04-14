@@ -19,7 +19,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
-import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.alibaba.fastjson.JSON
@@ -27,6 +26,7 @@ import com.blankj.utilcode.util.*
 import com.bumptech.glide.Glide
 import com.google.protobuf.ByteString
 import com.gx.smart.common.AppConfig
+import com.gx.smart.lib.base.BaseFragment
 import com.gx.smart.lib.http.api.AdminImageProviderService
 import com.gx.smart.lib.http.api.AppRepairService
 import com.gx.smart.lib.http.base.CallBack
@@ -34,8 +34,8 @@ import com.gx.smart.lib.http.base.GrpcAsyncTask
 import com.gx.smart.lib.http.lib.model.UploadImage
 import com.gx.smart.repair.R
 import com.gx.smart.repair.RepairType
-import com.gx.smart.repair.viewmodel.RepairViewModel
 import com.gx.smart.repair.activity.RepairTypeActivity
+import com.gx.smart.repair.viewmodel.RepairViewModel
 import com.gx.wisestone.upload.grpc.images.AdminImagesResponse
 import com.gx.wisestone.work.app.grpc.common.CommonResponse
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -70,11 +70,10 @@ class RepairFragment : BaseFragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(RepairViewModel::class.java)
-        initTitle()
         initContent()
     }
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view?.let {
             it.visibility = View.VISIBLE
             it.setOnClickListener(this)
@@ -92,7 +91,7 @@ class RepairFragment : BaseFragment(), View.OnClickListener {
 
     }
 
-    private fun initContent() {
+    override fun initContent() {
         save.setTag(R.id.save, true)
         save.setOnClickListener(this)
         val companyNameStr = SPUtils.getInstance().getString(AppConfig.COMPANY_NAME, "")
@@ -133,7 +132,8 @@ class RepairFragment : BaseFragment(), View.OnClickListener {
             )
             R.id.repair_type -> {
                 val intent = Intent(activity, RepairTypeActivity::class.java)
-                startActivityForResult(intent,
+                startActivityForResult(
+                    intent,
                     REQUEST_TYPE
                 )
             }
@@ -176,7 +176,7 @@ class RepairFragment : BaseFragment(), View.OnClickListener {
     private fun clearImage() {
         save.setTag(R.id.save, true)
         requestUploadImageCount = 0
-        if(!GrpcAsyncTask.isFinish(uploadImageTask)) {
+        if (!GrpcAsyncTask.isFinish(uploadImageTask)) {
             uploadImageTask?.cancelTask(true)
         }
         images.clear()
@@ -192,7 +192,7 @@ class RepairFragment : BaseFragment(), View.OnClickListener {
         images: List<String>
     ) {
         loadingView.visibility = View.VISIBLE
-       AppRepairService.getInstance()
+        AppRepairService.getInstance()
             .addRepair(
                 content,
                 type,
@@ -225,7 +225,7 @@ class RepairFragment : BaseFragment(), View.OnClickListener {
         fileName: String,
         image_bytes: ByteString
     ) {
-         uploadImageTask = AdminImageProviderService.getInstance()
+        uploadImageTask = AdminImageProviderService.getInstance()
             .uploadByByte(
                 AppConfig.REPAIR_PREFIX,
                 fileName,
@@ -313,8 +313,10 @@ class RepairFragment : BaseFragment(), View.OnClickListener {
     }
 
     private var tempFile: File? = null
+
     //请求相机
     private val REQUEST_CAPTURE = 100
+
     //请求相册
     private val REQUEST_PICK = 101
 
@@ -366,6 +368,7 @@ class RepairFragment : BaseFragment(), View.OnClickListener {
     }
 
     var requestUploadImageCount = 0
+
     @Suppress("INACCESSIBLE_TYPE")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

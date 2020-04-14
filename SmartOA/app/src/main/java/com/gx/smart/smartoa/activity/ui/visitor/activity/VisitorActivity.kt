@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.activity.ui.visitor
+package com.gx.smart.smartoa.activity.ui.visitor.activity
 
 import android.os.Bundle
 import androidx.navigation.Navigation

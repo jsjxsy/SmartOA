@@ -83,7 +83,7 @@ class EnvironmentalControlFragment : BaseFragment(), View.OnClickListener {
         mLoadingView = loadingView
     }
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view.visibility = View.VISIBLE
         left_nav_image_view.setOnClickListener(this)
         center_title.visibility = View.VISIBLE
@@ -103,7 +103,7 @@ class EnvironmentalControlFragment : BaseFragment(), View.OnClickListener {
 
     }
 
-    private fun initContent() {
+    override fun initContent() {
         getDevList()
         mPagerAdapter = PageAdapter(activity!!)
         viewPager.adapter = mPagerAdapter

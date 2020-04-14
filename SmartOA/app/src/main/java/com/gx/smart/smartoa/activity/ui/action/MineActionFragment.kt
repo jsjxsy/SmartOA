@@ -91,7 +91,7 @@ class MineActionFragment : BaseFragment(), View.OnClickListener {
         })
     }
 
-    private fun initTitle() {
+    override fun initTitle() {
         when {
             fromMine -> {
                 title.visibility = View.VISIBLE
@@ -122,7 +122,7 @@ class MineActionFragment : BaseFragment(), View.OnClickListener {
 
     }
 
-    private fun initContent() {
+    override fun initContent() {
         adapter = ActionAdapter()
         adapter.onItemClick = onItemClick
         recyclerView.adapter = adapter

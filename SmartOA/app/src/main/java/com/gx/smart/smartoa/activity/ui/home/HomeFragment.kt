@@ -101,7 +101,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         initObserver()
     }
 
-    private fun initObserver() {
+    override fun initObserver() {
         viewModel.dataChange.observe(viewLifecycleOwner, Observer {
             if (it) {
                 adapter.notifyDataSetChanged()

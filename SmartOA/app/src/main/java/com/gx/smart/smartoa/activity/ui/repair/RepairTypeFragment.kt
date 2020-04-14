@@ -46,7 +46,7 @@ class RepairTypeFragment : BaseFragment(), View.OnClickListener {
         initContent()
     }
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view?.let {
             it.visibility = View.VISIBLE
             it.setOnClickListener(this)
@@ -59,7 +59,7 @@ class RepairTypeFragment : BaseFragment(), View.OnClickListener {
     }
 
 
-    private fun initContent() {
+    override fun initContent() {
         val adapter = RepairTypeAdapter()
         val onItemClick = object : RepairTypeAdapter.OnItemClickListener {
 

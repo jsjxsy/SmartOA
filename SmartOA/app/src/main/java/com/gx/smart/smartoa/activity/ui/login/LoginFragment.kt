@@ -147,7 +147,7 @@ class LoginFragment : BaseFragment(), OnClickListener {
         })
     }
 
-    fun initContent() {
+    override fun initContent() {
         id_login_button.setOnClickListener(this)
         id_forget_password_text_view.setOnClickListener(this)
         id_register_text_view.setOnClickListener(this)

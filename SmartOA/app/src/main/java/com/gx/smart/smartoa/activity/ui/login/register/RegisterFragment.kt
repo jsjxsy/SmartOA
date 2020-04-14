@@ -97,7 +97,7 @@ class RegisterFragment : BaseFragment(), View.OnClickListener {
         registerAgreement.setOnClickListener(this)
     }
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view.visibility = View.VISIBLE
         center_title?.let {
             it.visibility = View.VISIBLE
@@ -182,7 +182,7 @@ class RegisterFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-    private fun initData() {
+    override fun initData() {
         verifyCodeText = getVerifyCodeText
         mTime = TimeCount(60000, 1000, verifyCodeText)
     }

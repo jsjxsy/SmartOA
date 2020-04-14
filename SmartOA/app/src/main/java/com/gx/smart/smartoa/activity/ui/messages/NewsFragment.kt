@@ -55,7 +55,7 @@ class NewsFragment : BaseFragment() {
         initContent()
     }
 
-    private fun initContent() {
+    override fun initContent() {
         adapter = NewsAdapter()
         val onItemClick = object : NewsAdapter.OnItemClickListener {
             override fun onItemClick(view: View?, position: Int) {

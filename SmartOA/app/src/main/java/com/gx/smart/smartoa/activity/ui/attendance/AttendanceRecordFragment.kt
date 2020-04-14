@@ -54,7 +54,7 @@ class AttendanceRecordFragment : BaseFragment(), View.OnClickListener {
     }
 
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view?.let {
             it.visibility = View.VISIBLE
             it.setOnClickListener(this)
@@ -66,7 +66,7 @@ class AttendanceRecordFragment : BaseFragment(), View.OnClickListener {
 
     }
 
-    private fun initContent() {
+    override fun initContent() {
         adapter = AttendanceRecordAdapter()
         recyclerView.adapter = adapter
         //添加Android自带的分割线

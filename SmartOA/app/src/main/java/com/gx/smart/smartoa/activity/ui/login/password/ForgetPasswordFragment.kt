@@ -75,7 +75,7 @@ class ForgetPasswordFragment : BaseFragment(), View.OnClickListener {
         initTimer()
     }
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view.visibility = View.VISIBLE
         center_title?.let {
             it.visibility = View.VISIBLE
@@ -91,7 +91,7 @@ class ForgetPasswordFragment : BaseFragment(), View.OnClickListener {
     }
 
 
-    private fun initContent() {
+    override fun initContent() {
         getVerifyCodeText.setOnClickListener {
             getVerifyCode()
         }

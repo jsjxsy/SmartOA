@@ -109,12 +109,9 @@ class AttendanceOutAreaFragment : BaseFragment(), MapLocationHelper.LocationCall
 
         helper = MapLocationHelper(context, this)
         helper.startMapLocation()
-        initTitle()
-        initContent()
-
     }
 
-    private fun initContent() {
+    override fun initContent() {
         val calendar = Calendar.getInstance(TimeZone.getDefault())
         val year = calendar.get(Calendar.YEAR)
         val month = formatInt(calendar.get(Calendar.MONTH) + 1)
@@ -135,7 +132,7 @@ class AttendanceOutAreaFragment : BaseFragment(), MapLocationHelper.LocationCall
         }
     }
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view?.let {
             it.visibility = View.VISIBLE
             it.setOnClickListener {

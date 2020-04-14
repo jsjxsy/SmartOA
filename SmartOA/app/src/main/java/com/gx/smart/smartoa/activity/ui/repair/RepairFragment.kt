@@ -71,7 +71,7 @@ class RepairFragment : BaseFragment(), View.OnClickListener {
         initContent()
     }
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view?.let {
             it.visibility = View.VISIBLE
             it.setOnClickListener(this)
@@ -89,7 +89,7 @@ class RepairFragment : BaseFragment(), View.OnClickListener {
 
     }
 
-    private fun initContent() {
+    override fun initContent() {
         save.setTag(R.id.save, true)
         save.setOnClickListener(this)
         val companyNameStr = SPUtils.getInstance().getString(AppConfig.COMPANY_NAME, "")

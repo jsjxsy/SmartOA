@@ -51,7 +51,7 @@ class AttendanceFragment : BaseFragment(), View.OnClickListener {
         initContent()
     }
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view?.let {
             it.visibility = View.VISIBLE
             it.setOnClickListener(this)
@@ -68,7 +68,7 @@ class AttendanceFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-    private fun initContent() {
+    override fun initContent() {
         attendance_out_area.setOnClickListener(this)
 
         TimeHandler(time).startScheduleUpdate()

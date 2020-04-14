@@ -61,7 +61,7 @@ class MineVerifyFragment : BaseFragment(), View.OnClickListener {
         initContent()
     }
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view?.let {
             it.visibility = View.VISIBLE
             it.setOnClickListener(this)
@@ -72,7 +72,7 @@ class MineVerifyFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-    private fun initContent() {
+    override fun initContent() {
         when (verify) {
             1 -> {
                 realNameEdit.isEnabled = false

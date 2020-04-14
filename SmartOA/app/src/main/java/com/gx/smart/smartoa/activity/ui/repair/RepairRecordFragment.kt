@@ -38,7 +38,7 @@ class RepairRecordFragment : BaseFragment(), View.OnClickListener {
     }
 
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view?.let {
             it.visibility = View.VISIBLE
             it.setOnClickListener(this)
@@ -49,7 +49,7 @@ class RepairRecordFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-    private fun initContent() {
+    override fun initContent() {
         val divider = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         recyclerView.addItemDecoration(divider)
         adapter = RepairRecordAdapter()

@@ -5,11 +5,8 @@ import android.os.Bundle
 import android.text.InputType
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.launcher.ARouter
 import com.gx.smart.module.login.LoginUtil
@@ -81,7 +78,7 @@ class LoginFragment : BaseVerifyCodeFragment<FragmentLoginBinding, LoginViewMode
         })
     }
 
-    private fun initContent() {
+    override fun initContent() {
         viewModel.passwordState.value = false
         viewModel.setPhone()
     }

@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.activity.ui.visitor
+package com.gx.smart.smartoa.activity.ui.visitor.fragment
 
 
 import android.os.Bundle
@@ -10,7 +10,7 @@ import com.gx.smart.lib.base.BaseFragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.gx.smart.smartoa.R
-import kotlinx.android.synthetic.main.evnironmental_control_fragment.*
+import kotlinx.android.synthetic.main.fragment_mine_visitor.*
 import kotlinx.android.synthetic.main.fragment_mine_visitor.viewPager
 import kotlinx.android.synthetic.main.layout_common_title.*
 
@@ -38,7 +38,7 @@ class MineVisitorRecordFragment : BaseFragment(), View.OnClickListener {
     }
 
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view?.let {
             it.visibility = View.VISIBLE
             it.setOnClickListener(this)
@@ -49,7 +49,7 @@ class MineVisitorRecordFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-    private fun initContent() {
+    override fun initContent() {
         viewPager.adapter = object : FragmentStateAdapter(
             activity!!
         ) {
@@ -62,7 +62,7 @@ class MineVisitorRecordFragment : BaseFragment(), View.OnClickListener {
                 )[position]
             }
         }
-        TabLayoutMediator(id_environmental_control_tab, viewPager,
+        TabLayoutMediator(tabLayout, viewPager,
             TabLayoutMediator.TabConfigurationStrategy { tab, position ->
                 tab.text = arrayListOf("已到访客", "未到访客")[position]
             }).attach()

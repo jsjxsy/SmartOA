@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/visitorFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.visitor.VisitorFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.visitor.fragment.VisitorFragment"
         android:label="fragment_visitor"
         tools:layout="@layout/visitor_fragment">
         <action
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/mineVisitorRecordFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.visitor.MineVisitorRecordFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.visitor.fragment.MineVisitorRecordFragment"
         android:label="fragment_mine_visitor"
         tools:layout="@layout/fragment_mine_visitor" />
 </navigation>

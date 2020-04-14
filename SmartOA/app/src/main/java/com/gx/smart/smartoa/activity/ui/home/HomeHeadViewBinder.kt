@@ -23,7 +23,7 @@ import com.gx.smart.smartoa.activity.WebViewActivity
 import com.gx.smart.smartoa.activity.ui.attendance.AttendanceActivity
 import com.gx.smart.smartoa.activity.ui.environmental.EnvironmentalActivity
 import com.gx.smart.smartoa.activity.ui.features.AllFeatureActivity
-import com.gx.smart.smartoa.activity.ui.visitor.VisitorActivity
+import com.gx.smart.smartoa.activity.ui.visitor.activity.VisitorActivity
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesInfoOrBuilder
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.zhpan.bannerview.BannerViewPager
@@ -31,7 +31,6 @@ import com.zhpan.bannerview.constants.IndicatorGravity
 import com.zhpan.bannerview.constants.PageStyle
 import com.zhpan.indicator.base.IIndicator
 import com.zhpan.indicator.enums.IndicatorSlideMode
-import kotlinx.android.synthetic.main.item_environmental_control_air_conditioner.view.*
 
 /**
  * @author xiaosy

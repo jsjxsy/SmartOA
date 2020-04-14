@@ -59,7 +59,7 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
     }
 
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view?.let {
             it.visibility = View.VISIBLE
             it.setOnClickListener(this)
@@ -71,7 +71,7 @@ class MineCompanySelectAreaFragment : BaseFragment(), OnClickListener {
 
     }
 
-    private fun initContent() {
+    override fun initContent() {
         val divider = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         val drawable = resources.getDrawable(R.drawable.shape_company_select_are_list_line, null)
         divider.setDrawable(drawable)

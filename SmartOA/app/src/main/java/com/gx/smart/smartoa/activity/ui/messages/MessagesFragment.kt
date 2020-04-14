@@ -46,7 +46,7 @@ class MessagesFragment : BaseFragment(), View.OnClickListener {
         initContent()
     }
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view.visibility = View.VISIBLE
         left_nav_image_view.setOnClickListener(this)
         right_nav_text_view.visibility = View.VISIBLE
@@ -55,7 +55,7 @@ class MessagesFragment : BaseFragment(), View.OnClickListener {
         center_title.text = getString(R.string.message_notice)
     }
 
-    private fun initData() {
+    override fun initData() {
 
         val titles = resources.getStringArray(R.array.message_items)
         mPagerAdapter = PageAdapter(activity!!)
@@ -69,7 +69,7 @@ class MessagesFragment : BaseFragment(), View.OnClickListener {
             }).attach()
     }
 
-    private fun initContent() {
+    override fun initContent() {
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)

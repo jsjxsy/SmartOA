@@ -58,13 +58,7 @@ class MineActionDetailFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        initTitle()
-        initContent()
-    }
-
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view?.let {
             it.visibility = View.VISIBLE
             it.setOnClickListener(this)
@@ -75,7 +69,7 @@ class MineActionDetailFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-    private fun initContent() {
+    override fun initContent() {
         titleContent.text = title
         timeContent.text = time
         contentContent.text = content

@@ -89,7 +89,7 @@
 
     <activity
         android:id="@+id/visitorActivity"
-        android:name="com.gx.smart.smartoa.activity.ui.visitor.VisitorActivity"
+        android:name="com.gx.smart.smartoa.activity.ui.visitor.activity.VisitorActivity"
         android:label="VisitorActivity"
         tools:layout="@layout/fragment_mine_visitor">
         <argument

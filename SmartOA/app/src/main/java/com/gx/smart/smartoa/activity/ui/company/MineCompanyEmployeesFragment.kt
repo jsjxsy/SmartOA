@@ -94,7 +94,7 @@ class MineCompanyEmployeesFragment : BaseFragment(), View.OnClickListener {
     }
 
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view?.let {
             it.visibility = View.VISIBLE
             it.setOnClickListener(this)
@@ -106,7 +106,7 @@ class MineCompanyEmployeesFragment : BaseFragment(), View.OnClickListener {
 
     }
 
-    private fun initContent() {
+    override fun initContent() {
         companyNameText.text = companyName
         submitApply.setOnClickListener(this)
         val phoneValue = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")

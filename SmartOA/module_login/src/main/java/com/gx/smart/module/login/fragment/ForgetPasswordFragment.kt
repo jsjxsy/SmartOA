@@ -75,7 +75,7 @@ class ForgetPasswordFragment :
     }
 
 
-    private fun initContent() {
+    override fun initContent() {
         viewModel.phone.value = mPhone
         phone.isEnabled = false
     }

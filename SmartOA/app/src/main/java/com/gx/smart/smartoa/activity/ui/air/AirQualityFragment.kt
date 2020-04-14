@@ -51,7 +51,7 @@ class AirQualityFragment : BaseFragment(), View.OnClickListener {
         initContent()
     }
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view?.let {
             it.visibility = View.VISIBLE
             it.setOnClickListener(this)
@@ -62,7 +62,7 @@ class AirQualityFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-    private fun initContent() {
+    override fun initContent() {
         adapter = AirQualityAdapter()
         recyclerView.adapter = adapter
         getAirBoxData()

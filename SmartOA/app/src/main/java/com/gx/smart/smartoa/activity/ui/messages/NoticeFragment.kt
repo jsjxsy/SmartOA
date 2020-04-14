@@ -57,7 +57,7 @@ class NoticeFragment : BaseFragment() {
         initContent()
     }
 
-    private fun initContent() {
+    override fun initContent() {
         adapter = NoticeAdapter()
         val onItemClick = object : NoticeAdapter.OnItemClickListener {
             override fun onItemClick(view: View?, position: Int) {

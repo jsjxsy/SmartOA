@@ -80,7 +80,7 @@ class MineUserInfoModifyPhoneFragment : BaseFragment(), View.OnClickListener {
         initContent()
     }
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view?.let {
             it.visibility = View.VISIBLE
             it.setOnClickListener(this)
@@ -91,7 +91,7 @@ class MineUserInfoModifyPhoneFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-    private fun initContent() {
+    override fun initContent() {
         mLoadingView = loadingView
         phoneNumber.text = phone?.replace("(\\d{3})\\d{4}(\\d{4})".toRegex(), "$1****$2")
         initVerifyCode()

@@ -117,7 +117,7 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.ui.visitor.VisitorActivity"
+            android:name=".activity.ui.visitor.activity.VisitorActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

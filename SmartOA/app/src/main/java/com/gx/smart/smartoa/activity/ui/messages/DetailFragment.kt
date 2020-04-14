@@ -46,7 +46,7 @@ class DetailFragment : BaseFragment(), View.OnClickListener {
         initContent()
     }
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view.let {
             it.visibility = View.VISIBLE
             it.setOnClickListener(this)
@@ -58,7 +58,7 @@ class DetailFragment : BaseFragment(), View.OnClickListener {
 
     }
 
-    private fun initContent() {
+    override fun initContent() {
         titleContent.text = title
         contentContent.text = content
     }

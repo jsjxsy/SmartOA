@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.activity.ui.visitor
+package com.gx.smart.smartoa.activity.ui.visitor.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.ui.visitor.viewmodel.VisitorViewModel
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 class VisitorFragment : BaseFragment(),View.OnClickListener {
@@ -19,7 +20,8 @@ class VisitorFragment : BaseFragment(),View.OnClickListener {
     }
 
     companion object {
-        fun newInstance() = VisitorFragment()
+        fun newInstance() =
+            VisitorFragment()
     }
 
     private lateinit var viewModel: VisitorViewModel
@@ -42,7 +44,7 @@ class VisitorFragment : BaseFragment(),View.OnClickListener {
         initTitle()
     }
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view?.let {
             it.visibility = View.VISIBLE
             it.setOnClickListener(this)

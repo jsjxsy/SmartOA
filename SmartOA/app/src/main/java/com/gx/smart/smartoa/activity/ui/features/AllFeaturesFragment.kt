@@ -48,7 +48,7 @@ class AllFeaturesFragment : BaseFragment(), View.OnClickListener {
     }
 
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view?.let {
             it.visibility = View.VISIBLE
             it.setOnClickListener(this)
@@ -65,7 +65,7 @@ class AllFeaturesFragment : BaseFragment(), View.OnClickListener {
 
     }
 
-    private fun initData() {
+    override fun initData() {
         adapter.register(CategoryViewBinder())
         val featureViewBinder = FeatureViewBinder()
         featureViewBinder.fragmentManager = fragmentManager!!

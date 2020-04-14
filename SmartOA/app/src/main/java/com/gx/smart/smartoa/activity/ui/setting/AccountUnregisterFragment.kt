@@ -54,7 +54,7 @@ class AccountUnregisterFragment : BaseFragment(), View.OnClickListener {
         initContent()
     }
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view?.let {
             it.visibility = View.VISIBLE
             it.setOnClickListener(this)
@@ -65,7 +65,7 @@ class AccountUnregisterFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-    private fun initContent() {
+    override fun initContent() {
         cancel.setOnClickListener(this)
         val phoneNumber = SPUtils.getInstance().getString(AppConfig.SH_USER_ACCOUNT, "")
         phone.setText(phoneNumber)
@@ -184,7 +184,7 @@ class AccountUnregisterFragment : BaseFragment(), View.OnClickListener {
 //        }
     }
 
-    private fun initData() {
+    override fun initData() {
         verifyCodeText = getVerifyCodeText
         mTime = TimeCount(60000, 1000, verifyCodeText)
     }

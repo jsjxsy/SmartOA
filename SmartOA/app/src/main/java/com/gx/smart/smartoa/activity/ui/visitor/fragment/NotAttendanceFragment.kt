@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.activity.ui.visitor
+package com.gx.smart.smartoa.activity.ui.visitor.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.ui.visitor.viewmodel.NotAttendanceViewModel
 
 class NotAttendanceFragment : BaseFragment() {
 
     companion object {
-        fun newInstance() = NotAttendanceFragment()
+        fun newInstance() =
+            NotAttendanceFragment()
     }
 
     private lateinit var viewModel: NotAttendanceViewModel

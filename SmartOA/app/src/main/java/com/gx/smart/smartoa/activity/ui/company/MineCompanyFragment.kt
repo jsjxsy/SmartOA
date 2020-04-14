@@ -54,7 +54,7 @@ class MineCompanyFragment : BaseFragment(), View.OnClickListener {
         myCompany()
     }
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view?.let {
             it.visibility = View.VISIBLE
             it.setOnClickListener(this)

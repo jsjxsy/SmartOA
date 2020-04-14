@@ -77,7 +77,7 @@ class MineCompanyFragmentAdded : BaseFragment(), View.OnClickListener {
     }
 
 
-    private fun initContent() {
+    override fun initContent() {
         if (employeeInfo.imageUrl.isNotBlank()) {
             Glide.with(this).load(employeeInfo.imageUrl).into(logoCompany)
         }

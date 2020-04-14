@@ -43,7 +43,7 @@ class SuggestionFragment : BaseFragment(), View.OnClickListener {
     }
 
 
-    private fun initTitle() {
+    override fun initTitle() {
         left_nav_image_view?.let {
             it.visibility = View.VISIBLE
             it.setOnClickListener(this)
@@ -54,7 +54,7 @@ class SuggestionFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-    private fun initContent() {
+    override fun initContent() {
         submit.setOnClickListener(this)
         suggestionEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {

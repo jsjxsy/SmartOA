@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.drakeet.multitype.MultiTypeAdapter
 
 /**
  *@author xiaosy
@@ -26,7 +25,27 @@ abstract class BaseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initTitle()
+        initContent()
     }
 
     abstract fun onBindLayout(): Int
+
+    open fun initTitle() {
+
+    }
+
+    open fun initContent() {
+
+    }
+
+    open fun initData() {
+
+    }
+
+    open fun initObserver() {
+
+    }
+
+
 }
