@@ -24,8 +24,7 @@
         android:background="@android:color/white"
         android:paddingLeft="@dimen/margin_style_two"
         android:paddingRight="@dimen/margin_style_two"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        android:visibility="gone">
+        app:layout_constraintTop_toBottomOf="@id/title">
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,8 +52,8 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/background_style_six"
-        app:layout_constraintTop_toBottomOf="@id/companyNameLayout"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/companyNameLayout" />
 
     <RelativeLayout
         android:id="@+id/contactLayout"
@@ -63,8 +62,8 @@
         android:background="@android:color/white"
         android:paddingLeft="@dimen/margin_style_two"
         android:paddingRight="@dimen/margin_style_two"
-        app:layout_constraintTop_toBottomOf="@id/line"
-        android:visibility="gone">
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/line">
 
         <TextView
             android:layout_width="wrap_content"
@@ -92,8 +91,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/background_style_six"
-        app:layout_constraintTop_toBottomOf="@id/contactLayout"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@id/contactLayout" />
 
     <RelativeLayout
         android:id="@+id/newPasswordLayout"
@@ -102,8 +100,7 @@
         android:background="@android:color/white"
         android:paddingLeft="@dimen/margin_style_two"
         android:paddingRight="@dimen/margin_style_two"
-        app:layout_constraintTop_toBottomOf="@id/lineTwo"
-        android:visibility="gone">
+        app:layout_constraintTop_toBottomOf="@id/lineTwo">
 
         <TextView
             android:layout_width="wrap_content"
@@ -131,8 +128,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/background_style_six"
-        app:layout_constraintTop_toBottomOf="@id/newPasswordLayout"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@id/newPasswordLayout" />
 
 
     <RelativeLayout
@@ -142,8 +138,7 @@
         android:background="@android:color/white"
         android:paddingLeft="@dimen/margin_style_two"
         android:paddingRight="@dimen/margin_style_two"
-        app:layout_constraintTop_toBottomOf="@id/lineThree"
-        android:visibility="gone">
+        app:layout_constraintTop_toBottomOf="@id/lineThree">
 
         <TextView
             android:layout_width="wrap_content"
@@ -172,8 +167,8 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/background_style_six"
-        app:layout_constraintTop_toBottomOf="@id/confirmPasswordLayout"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/confirmPasswordLayout" />
 
 
     <RelativeLayout
@@ -183,8 +178,7 @@
         android:background="@android:color/white"
         android:paddingLeft="@dimen/margin_style_two"
         android:paddingRight="@dimen/margin_style_two"
-        app:layout_constraintTop_toBottomOf="@id/lineFour"
-        android:visibility="gone">
+        app:layout_constraintTop_toBottomOf="@id/lineFour">
 
         <TextView
             android:layout_width="wrap_content"
@@ -214,8 +208,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/submit_apply"
-        app:layout_constraintTop_toBottomOf="@id/carLayout"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@id/carLayout" />
 
     <com.gx.smart.lib.widget.LoadingView
         android:id="@+id/loadingView"
@@ -224,11 +217,4 @@
         android:gravity="center"
         android:visibility="gone" />
 
-
-    <include android:id="@+id/noService"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        layout="@layout/common_no_pen_service_layout"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        />
 </androidx.constraintlayout.widget.ConstraintLayout>

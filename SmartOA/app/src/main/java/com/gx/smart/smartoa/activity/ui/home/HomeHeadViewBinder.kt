@@ -31,6 +31,7 @@ import com.zhpan.bannerview.constants.IndicatorGravity
 import com.zhpan.bannerview.constants.PageStyle
 import com.zhpan.indicator.base.IIndicator
 import com.zhpan.indicator.enums.IndicatorSlideMode
+import kotlinx.android.synthetic.main.item_environmental_control_air_conditioner.view.*
 
 /**
  * @author xiaosy
@@ -149,7 +150,8 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) :
             holder.idEnvironmentalControlTextView,
             holder.idMoreTextView,
             holder.idAttendanceTextView,
-            holder.idRepairTextView
+            holder.idRepairTextView,
+            holder.idVisitorTextVisitor
         )
         initBanner(viewModel.listNetwork)
     }
@@ -163,7 +165,7 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) :
             itemView.findViewById(R.id.id_more_text_view)
         val idAttendanceTextView: TextView =
             itemView.findViewById(R.id.id_attendance_text_view)
-
+        val idVisitorTextVisitor: TextView = itemView.findViewById(R.id.id_visitor_text_view)
         val idRepairTextView: TextView = itemView.findViewById(R.id.id_repair_text_view)
 
     }
@@ -172,12 +174,14 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) :
         id_environmental_control_text_view: TextView,
         id_more_text_view: TextView,
         id_attendance_text_view: TextView,
-        idRepairTextView: TextView
+        idRepairTextView: TextView,
+        idVisitorTextVisitor:TextView
     ) {
         id_environmental_control_text_view.setOnClickListener(this)
         id_more_text_view.setOnClickListener(this)
         id_attendance_text_view.setOnClickListener(this)
         idRepairTextView.setOnClickListener(this)
+        idVisitorTextVisitor.setOnClickListener(this)
     }
 
     private fun initBanner(
