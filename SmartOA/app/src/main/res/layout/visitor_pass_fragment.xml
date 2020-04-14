@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ui.visitor.fragment.VisitorFragment">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/layout_common_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height_style"
+        android:layout_marginTop="21dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_style_two"
+        android:background="@drawable/shape_list_item_background_color"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title">
+
+        <TextView
+            style="@style/textViewStyle"
+            android:text="访 客 通 行 证"
+            tools:text="访 客 通 行 证" />
+
+        <TextView
+            android:id="@+id/companyName"
+            style="@style/textViewStyle"
+            android:layout_marginTop="@dimen/margin_style_seven"
+            android:textSize="@dimen/font_size_style_two"
+            tools:text="- 航天科工广信智能技术有限公司 -" />
+
+        <ImageView
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:layout_margin="@dimen/margin_style_two"
+            android:scaleType="fitXY"
+            android:src="@mipmap/qr_code2"
+            tools:src="@mipmap/qr_code2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_style_five"
+            android:text="进入大楼后，请将此二维码对准门闸扫码头即可开门"
+            android:textColor="@color/font_color_style_one"
+            android:textSize="@dimen/font_size_style_one" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/shape_environmental_control_line" />
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_style_four"
+            android:layout_marginBottom="@dimen/margin_style_two"
+            android:gravity="center_horizontal">
+
+            <TableRow
+                android:layout_gravity="center"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="访客姓名："
+                    android:textColor="@color/font_color_style_one"
+                    android:textSize="@dimen/font_size_style_one" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="老王"
+                    android:textColor="@color/font_color_style_one"
+                    android:textSize="@dimen/font_size_style_one" />
+            </TableRow>
+
+            <TableRow android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="到访时间:"
+                    android:textColor="@color/font_color_style_one"
+                    android:textSize="@dimen/font_size_style_one" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2018-06-18 08:00 - 09:00"
+                    android:textColor="@color/font_color_style_one"
+                    android:textSize="@dimen/font_size_style_one" />
+            </TableRow>
+
+            <TableRow android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="车牌号码："
+                    android:textColor="@color/font_color_style_one"
+                    android:textSize="@dimen/font_size_style_one" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:textColor="@color/font_color_style_one"
+                    android:textSize="@dimen/font_size_style_one" />
+            </TableRow>
+
+            <TableRow android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="公司地址："
+                    android:textColor="@color/font_color_style_one"
+                    android:textSize="@dimen/font_size_style_one" />
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="杭州市钱江世纪城平澜路518号悦盛国际中心29层"
+                    android:textColor="@color/font_color_style_one"
+                    android:textSize="@dimen/font_size_style_one" />
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/noService"
+        style="@style/buttonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_style_four"
+        android:text="分享二维码"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -81,7 +81,7 @@ android {
             //png 压缩
             aaptOptions.cruncherEnabled = false
             splits.abi.enable = false
-            splits.density.enable =false
+            splits.density.enable = false
             minifyEnabled false
             signingConfig signingConfigs.release
         }
@@ -143,6 +143,7 @@ dependencies {
     //litePal
     implementation 'org.litepal.android:kotlin:3.0.0'
     //test java
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation config.dependencies['junit']
     //test android
     androidTestImplementation config.dependencies['ext_junit']
@@ -172,4 +173,3 @@ dependencies {
     }
     kapt 'com.alibaba:arouter-compiler:1.2.2'
 }
-
