@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_intelligence_parking"
+    app:startDestination="@id/intelligenceParkingFragment">
+
+    <fragment
+        android:id="@+id/intelligenceParkingFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.intelligence.fragment.IntelligenceParkingFragment"
+        android:label="IntelligenceParkingFragment">
+        <action
+            android:id="@+id/action_intelligenceParkingFragment_to_carPaymentRecordFragment"
+            app:destination="@id/carPaymentRecordFragment" />
+        <action
+            android:id="@+id/action_intelligenceParkingFragment_to_carQueryFragment"
+            app:destination="@id/carQueryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/carQueryFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.intelligence.fragment.CarQueryFragment"
+        android:label="car_query_fragment"
+        tools:layout="@layout/car_query_fragment">
+        <action
+            android:id="@+id/action_carQueryFragment_to_carQueryResultFragment"
+            app:destination="@id/carQueryResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/carQueryResultFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.intelligence.fragment.CarQueryResultFragment"
+        android:label="car_query_result_fragment"
+        tools:layout="@layout/car_query_result_fragment" />
+    <fragment
+        android:id="@+id/carPaymentRecordFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.intelligence.fragment.CarPaymentRecordFragment"
+        android:label="car_payment_record_fragment"
+        tools:layout="@layout/car_payment_record_fragment" />
+</navigation>

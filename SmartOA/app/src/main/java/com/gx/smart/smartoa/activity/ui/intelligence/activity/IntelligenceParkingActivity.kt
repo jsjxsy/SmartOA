@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.activity.ui.Intelligence
+package com.gx.smart.smartoa.activity.ui.intelligence.activity
 
 import android.os.Bundle
 import com.gx.smart.lib.base.BaseActivity

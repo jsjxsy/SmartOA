@@ -11,7 +11,7 @@
         layout="@layout/layout_common_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height_style"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="@dimen/title_margin_top_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

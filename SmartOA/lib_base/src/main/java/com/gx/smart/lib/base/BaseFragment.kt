@@ -29,6 +29,12 @@ abstract class BaseFragment : Fragment() {
         initContent()
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initData()
+        initObserver()
+    }
+
     abstract fun onBindLayout(): Int
 
     open fun initTitle() {

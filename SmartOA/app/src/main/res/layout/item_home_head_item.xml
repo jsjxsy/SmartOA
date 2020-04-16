@@ -55,10 +55,10 @@
             android:text="@string/visitor" />
 
         <TextView
-            android:id="@+id/id_more_text_view"
+            android:id="@+id/id_parking_text_view"
             style="@style/iconStyle"
-            android:drawableTop="@drawable/ic_more_ic"
-            android:text="@string/more" />
+            android:drawableTop="@drawable/ic_intelligence_parking"
+            android:text="@string/intelligence_parking" />
     </LinearLayout>
 
     <LinearLayout
@@ -90,10 +90,31 @@
         <!--            android:drawableTop="@drawable/ic_visitor"-->
         <!--            android:text="@string/visitor" />-->
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/id_more_text_view"-->
-        <!--            style="@style/iconStyle"-->
-        <!--            android:drawableTop="@drawable/ic_more_ic"-->
-        <!--            android:text="@string/more" />-->
+        <TextView
+            android:id="@+id/id_more_text_view"
+            style="@style/iconStyle"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_more_ic"
+            android:text="@string/more" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
     </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

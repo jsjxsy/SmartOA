@@ -23,6 +23,7 @@ import com.gx.smart.smartoa.activity.WebViewActivity
 import com.gx.smart.smartoa.activity.ui.attendance.AttendanceActivity
 import com.gx.smart.smartoa.activity.ui.environmental.EnvironmentalActivity
 import com.gx.smart.smartoa.activity.ui.features.AllFeatureActivity
+import com.gx.smart.smartoa.activity.ui.intelligence.activity.IntelligenceParkingActivity
 import com.gx.smart.smartoa.activity.ui.visitor.activity.VisitorActivity
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesInfoOrBuilder
 import com.jeremyliao.liveeventbus.LiveEventBus
@@ -61,6 +62,13 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) :
                     )
                 )
             R.id.id_repair_text_view -> joinCompanyContinue(3)
+            R.id.id_parking_text_view -> ActivityUtils.startActivity(
+                Intent(
+                    ActivityUtils.getTopActivity(),
+                    IntelligenceParkingActivity::class.java
+                )
+            )
+
 //            R.id.id_air_quality_text_view -> ActivityUtils.startActivity(
 //                Intent(
 //                    ActivityUtils.getTopActivity(),
@@ -93,15 +101,15 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) :
             if (buildingSysTenantNo == companySysTenantNo) {
                 when (SPUtils.getInstance().getInt(AppConfig.COMPANY_APPLY_STATUS, 0)) {
                     1 -> LiveEventBus.get(
-                            EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY,
-                            Int::class.java
-                        )
+                        EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY,
+                        Int::class.java
+                    )
                         .post(1)
                     2 -> gotoDetailAction(type)
                     else -> LiveEventBus.get(
-                            EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY,
-                            Int::class.java
-                        )
+                        EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY,
+                        Int::class.java
+                    )
                         .post(3)
                 }
 
@@ -150,7 +158,8 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) :
             holder.idMoreTextView,
             holder.idAttendanceTextView,
             holder.idRepairTextView,
-            holder.idVisitorTextVisitor
+            holder.idVisitorTextVisitor,
+            holder.idParking
         )
         initBanner(viewModel.listNetwork)
     }
@@ -166,6 +175,7 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) :
             itemView.findViewById(R.id.id_attendance_text_view)
         val idVisitorTextVisitor: TextView = itemView.findViewById(R.id.id_visitor_text_view)
         val idRepairTextView: TextView = itemView.findViewById(R.id.id_repair_text_view)
+        val idParking: TextView = itemView.findViewById(R.id.id_parking_text_view)
 
     }
 
@@ -174,13 +184,15 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) :
         id_more_text_view: TextView,
         id_attendance_text_view: TextView,
         idRepairTextView: TextView,
-        idVisitorTextVisitor:TextView
+        idVisitorTextVisitor: TextView,
+        idParking: TextView
     ) {
         id_environmental_control_text_view.setOnClickListener(this)
         id_more_text_view.setOnClickListener(this)
         id_attendance_text_view.setOnClickListener(this)
         idRepairTextView.setOnClickListener(this)
         idVisitorTextVisitor.setOnClickListener(this)
+        idParking.setOnClickListener(this)
     }
 
     private fun initBanner(

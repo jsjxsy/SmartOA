@@ -26,6 +26,10 @@ dependencies {
     api "androidx.viewpager2:viewpager2:1.0.0"
     //pickerView
     api 'com.contrarywind:Android-PickerView:4.1.9'
+    //车辆输入法
+    api "wang.relish.widget:vehicleedittext:1.0.2"
+    //label
+    api 'com.github.donkingliang:LabelsView:1.6.1'
     implementation project(path: ':lib_custom_ldialog')
     implementation project(path: ':lib_common')
 }
