@@ -153,7 +153,7 @@ class LoginFragment : BaseVerifyCodeFragment<FragmentLoginBinding, LoginViewMode
 
     override fun onBindViewModel() = LoginViewModel::class.java
 
-    override fun onBindViewModelFactory() = LoginUtil.getLoginFactory()
+    override fun onBindViewModelFactory() = LoginUtil.getLoginFactory(activity!!.application)
 
     override fun onBindLayout() = R.layout.fragment_login
 

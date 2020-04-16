@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/openDoorFragment"
-        android:name="com.gx.smart.smartoa.activity.ui.open.OpenDoorFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.open.fragment.OpenDoorFragment"
         android:label="open_door_fragment"
         tools:layout="@layout/open_door_fragment" />
 

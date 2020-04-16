@@ -1,5 +1,6 @@
 package com.gx.smart.module.login
 
+import android.app.Application
 import com.gx.smart.module.login.mvvm.factory.LoginModelFactory
 import com.gx.smart.module.login.mvvm.repository.LoginRepository
 import com.gx.smart.module.login.network.LoginNetwork
@@ -14,5 +15,6 @@ object LoginUtil {
     private fun getLoginRepository() =
         LoginRepository.getInstance(LoginDatabase.getLoginDao(), LoginNetwork.getInstance())
 
-    fun getLoginFactory() = LoginModelFactory(getLoginRepository())
+    fun getLoginFactory(application: Application) =
+        LoginModelFactory(application, getLoginRepository())
 }

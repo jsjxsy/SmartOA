@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.activity.ui.open
+package com.gx.smart.smartoa.activity.ui.open.viewmodel
 
 import androidx.lifecycle.ViewModel
 

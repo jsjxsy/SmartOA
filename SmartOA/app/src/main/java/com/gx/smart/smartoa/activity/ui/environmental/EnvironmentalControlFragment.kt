@@ -95,7 +95,7 @@ class EnvironmentalControlFragment : BaseFragment(), View.OnClickListener {
             getZGSceneList()
             getDevList()
         }
-        refreshLayout.isEnableLoadmore = false
+        refreshLayout.setEnableLoadMore(false)
         headItemView = LightHeadItemViewBinder()
         adapter.register(headItemView)
         id_environmental_control_head.adapter = adapter

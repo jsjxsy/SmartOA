@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.activity.ui.open
+package com.gx.smart.smartoa.activity.ui.open.fragment
 
 import android.graphics.Color
 import android.os.Bundle
@@ -9,12 +9,14 @@ import com.gx.smart.lib.base.BaseFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
 import com.gx.smart.smartoa.R
+import com.gx.smart.smartoa.activity.ui.open.viewmodel.OpenDoorViewModel
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 class OpenDoorFragment : BaseFragment(), View.OnClickListener {
 
     companion object {
-        fun newInstance() = OpenDoorFragment()
+        fun newInstance() =
+            OpenDoorFragment()
     }
 
     private lateinit var viewModel: OpenDoorViewModel

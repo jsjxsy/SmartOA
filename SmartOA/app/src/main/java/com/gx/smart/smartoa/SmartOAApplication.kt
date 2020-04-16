@@ -32,7 +32,7 @@ class SmartOAApplication : Application() {
 
     init {
         //设置全局的Header构建器
-        SmartRefreshLayout.setDefaultRefreshHeaderCreater { context, layout ->
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
             layout.setPrimaryColorsId(
                 R.color.background_style_four,
                 R.color.font_color_style_six
@@ -40,7 +40,7 @@ class SmartOAApplication : Application() {
             ClassicsHeader(context).setSpinnerStyle(SpinnerStyle.Translate)//指定为经典Header，默认是 贝塞尔雷达Header
         }
         //设置全局的Footer构建器
-        SmartRefreshLayout.setDefaultRefreshFooterCreater { context, layout ->
+        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
             layout.setPrimaryColorsId(
                 R.color.background_style_four,
                 R.color.font_color_style_six

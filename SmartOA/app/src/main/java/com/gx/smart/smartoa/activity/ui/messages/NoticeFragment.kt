@@ -86,7 +86,7 @@ class NoticeFragment : BaseFragment() {
                 .build()
             getAnnouncement(query)
         }
-        refreshLayout.setOnLoadmoreListener {
+        refreshLayout.setOnLoadMoreListener {
             val query = QueryDto
                 .newBuilder()
                 .setPageSize(10)
@@ -122,7 +122,7 @@ class NoticeFragment : BaseFragment() {
                         }
 
                     } else {
-                        refreshLayout.finishLoadmore()
+                        refreshLayout.finishLoadMore()
                     }
 
                     if (result == null) {
@@ -141,7 +141,7 @@ class NoticeFragment : BaseFragment() {
                                 adapter.addList(appAnnouncementDtoList)
                                 adapter.notifyDataSetChanged()
                             } else {
-                                refreshLayout.isLoadmoreFinished = true
+                                refreshLayout.setEnableLoadMore(true)
                             }
                         }
                     } else {

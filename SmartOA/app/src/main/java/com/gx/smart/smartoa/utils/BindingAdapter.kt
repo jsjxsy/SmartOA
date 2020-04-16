@@ -7,7 +7,7 @@ import com.blankj.utilcode.util.TimeUtils
 import com.bumptech.glide.Glide
 import com.gx.smart.smartoa.R
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 
 /**
@@ -28,10 +28,10 @@ fun SmartRefreshLayout.refreshListener(
 
 @BindingAdapter("loadMoreListener")
 fun SmartRefreshLayout.loadMoreListener(
-    listener: OnLoadmoreListener?
+    listener: OnLoadMoreListener?
 ) {
     if (listener != null) {
-        this.setOnLoadmoreListener(listener)
+        this.setOnLoadMoreListener(listener)
     }
 
 }

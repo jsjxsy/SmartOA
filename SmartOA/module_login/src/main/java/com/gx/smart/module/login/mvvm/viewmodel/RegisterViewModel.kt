@@ -1,5 +1,6 @@
 package com.gx.smart.module.login.mvvm.viewmodel
 
+import android.app.Application
 import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import com.alibaba.android.arouter.launcher.ARouter
@@ -9,15 +10,19 @@ import com.gx.smart.common.ApiConfig
 import com.gx.smart.common.DataCheckUtil
 import com.gx.smart.module.login.mvvm.repository.LoginRepository
 
-open class RegisterViewModel(private val loginRepository: LoginRepository) :
-    LoginViewModel(loginRepository) {
+open class RegisterViewModel(
+    application: Application,
+    private val loginRepository: LoginRepository
+) :
+    LoginViewModel(application, loginRepository) {
     open var confirmPassword = MutableLiveData<String>("")
     open var identityCode = MutableLiveData<String>("")
 
-    init{
+    init {
         targetType = 1
         purpose = 2
     }
+
     fun register() {
         if (!NetworkUtils.isConnected()) {
             ToastUtils.showLong("网络连接不可用")

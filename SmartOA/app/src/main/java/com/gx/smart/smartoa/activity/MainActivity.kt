@@ -16,7 +16,7 @@ import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.company.MineCompanyActivity
 import com.gx.smart.smartoa.activity.ui.home.fragment.HomeFragment
 import com.gx.smart.smartoa.activity.ui.mine.MineFragment
-import com.gx.smart.smartoa.activity.ui.open.OpenDoorFragment
+import com.gx.smart.smartoa.activity.ui.open.fragment.OpenDoorFragment
 import com.gx.smart.lib.base.BaseActivity
 import com.jeremyliao.liveeventbus.LiveEventBus
 import kotlinx.android.synthetic.main.activity_main.*

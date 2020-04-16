@@ -31,5 +31,7 @@ public class ApiConfig {
     public static final String COMPANY_ACTION_URL = "http://work.huishi.cloud/work/htgx.html";
     //天气
     public static String GENERAL_INFO_SERVICE_PORT = "30155";
+    //
+    public static final String SERVER_ERROR_MESSAGE="服务器错误";
 
 }

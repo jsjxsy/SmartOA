@@ -64,7 +64,7 @@ class RepairRecordFragment : BaseFragment(), View.OnClickListener {
                 .build()
             queryMyRepair(query)
         }
-        refreshLayout.setOnLoadmoreListener {
+        refreshLayout.setOnLoadMoreListener {
             val query = QueryDto
                 .newBuilder()
                 .setPageSize(10)
@@ -93,7 +93,7 @@ class RepairRecordFragment : BaseFragment(), View.OnClickListener {
                         if (currentPage == 0) {
                             refreshLayout.finishRefresh()
                         } else {
-                            refreshLayout.finishLoadmore()
+                            refreshLayout.finishLoadMore()
                         }
                         if (result == null) {
                             ToastUtils.showLong("查询超时!")
@@ -110,7 +110,7 @@ class RepairRecordFragment : BaseFragment(), View.OnClickListener {
                                     adapter.addList(list)
                                     adapter.notifyDataSetChanged()
                                 } else {
-                                    refreshLayout.isLoadmoreFinished = true
+                                    refreshLayout.setEnableLoadMore(true)
                                 }
 
                             }

@@ -1,5 +1,6 @@
 package com.gx.smart.module.login.mvvm.viewmodel
 
+import android.app.Application
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -22,7 +23,7 @@ import com.gx.smart.module.login.mvvm.repository.LoginRepository
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
 import com.orhanobut.logger.Logger
 
-open class LoginViewModel(private val loginRepository: LoginRepository) : BaseViewModel() {
+open class LoginViewModel(application: Application, private val loginRepository: LoginRepository) : BaseViewModel(application) {
 
 
     var phone = MutableLiveData<String>("")

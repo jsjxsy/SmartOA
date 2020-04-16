@@ -14,7 +14,7 @@ import com.gx.wisestone.work.app.grpc.activity.ActivityCommonResponse
 import com.gx.wisestone.work.app.grpc.activity.ActivityRequest
 import com.gx.wisestone.work.app.grpc.employee.AppMyCompanyResponse
 import com.gx.wisestone.work.app.grpc.information.MessageReadResponse
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 
 class ActionViewModel : ViewModel() {
@@ -34,7 +34,7 @@ class ActionViewModel : ViewModel() {
         }
     }
 
-    val loadMoreListener = OnLoadmoreListener{
+    val loadMoreListener = OnLoadMoreListener{
         currentPage.value?.plus(1)
         if (fromMine.value!!) {
             findMyApplyInfos()

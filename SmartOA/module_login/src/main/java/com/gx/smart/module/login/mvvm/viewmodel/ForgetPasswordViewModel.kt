@@ -1,5 +1,6 @@
 package com.gx.smart.module.login.mvvm.viewmodel
 
+import android.app.Application
 import android.text.TextUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -8,8 +9,8 @@ import com.gx.smart.common.DataCheckUtil
 import com.gx.smart.lib.http.lib.utils.AuthUtils
 import com.gx.smart.module.login.mvvm.repository.LoginRepository
 
-open class ForgetPasswordViewModel(private val loginRepository: LoginRepository) :
-    RegisterViewModel(loginRepository) {
+open class ForgetPasswordViewModel(application: Application, private val loginRepository: LoginRepository) :
+    RegisterViewModel(application, loginRepository) {
     init {
         var targetType = 1
         var purpose = 1

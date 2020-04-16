@@ -202,7 +202,7 @@ class MineActionFragment : BaseFragment(), View.OnClickListener {
                 refreshLayout.finishRefresh()
             }
         } else {
-            refreshLayout.finishLoadmore()
+            refreshLayout.finishLoadMore()
         }
         if (result == null) {
             ToastUtils.showLong("查询活动超时!")
@@ -226,7 +226,7 @@ class MineActionFragment : BaseFragment(), View.OnClickListener {
                     adapter.notifyDataSetChanged()
                 } else {
                     //已经加载全部数据
-                    refreshLayout.isLoadmoreFinished = true
+                    refreshLayout.setEnableLoadMore(true)
                 }
             }
         } else {

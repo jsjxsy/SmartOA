@@ -4,32 +4,29 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
-import com.bumptech.glide.Glide
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.arouter.ARouterConstants
 import com.gx.smart.common.ApiConfig
 import com.gx.smart.common.AppConfig
 import com.gx.smart.eventbus.EventBusMessageConstant
-import com.gx.smart.lib.widget.DrawableIndicator
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.WebViewActivity
 import com.gx.smart.smartoa.activity.ui.attendance.AttendanceActivity
 import com.gx.smart.smartoa.activity.ui.environmental.EnvironmentalActivity
 import com.gx.smart.smartoa.activity.ui.features.AllFeatureActivity
+import com.gx.smart.smartoa.activity.ui.home.adapter.ImageAdapter
 import com.gx.smart.smartoa.activity.ui.home.viewmodel.HomeViewModel
 import com.gx.smart.smartoa.activity.ui.intelligence.activity.IntelligenceParkingActivity
 import com.gx.smart.smartoa.activity.ui.visitor.activity.VisitorActivity
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesInfoOrBuilder
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.zhpan.bannerview.BannerViewPager
-import com.zhpan.indicator.base.IIndicator
 
 /**
  * @author xiaosy
@@ -39,7 +36,7 @@ import com.zhpan.indicator.base.IIndicator
 class HomeHeadViewBinder(private val viewModel: HomeViewModel) :
     ItemViewBinder<HomeHead, HomeHeadViewBinder.ViewHolder>(),
     View.OnClickListener {
-    private lateinit var convenientBanner: BannerViewPager<ImagesInfoOrBuilder, LocalImageHolderView>
+    private lateinit var convenientBanner: BannerViewPager<ImagesInfoOrBuilder, ImageViewHolder>
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.id_environmental_control_text_view -> joinCompanyContinue(
@@ -173,7 +170,7 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) :
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val item: BannerViewPager<ImagesInfoOrBuilder, LocalImageHolderView> =
+        val item: BannerViewPager<ImagesInfoOrBuilder, ImageViewHolder> =
             itemView.findViewById(R.id.headBanner)
         val idEnvironmentalControlTextView: TextView =
             itemView.findViewById(R.id.id_environmental_control_text_view)
@@ -207,68 +204,14 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) :
         listNetwork: List<ImagesInfoOrBuilder>
     ) {
 
-        convenientBanner.setCanLoop(true)
-            .setHolderCreator { LocalImageHolderView() }
-            .setIndicatorView(getDrawableIndicator())
-            .setIndicatorMargin(
-                0,
-                0,
-                0,
-                ActivityUtils.getActivityByView(convenientBanner).resources.getDimensionPixelOffset(
-                    R.dimen.padding_style_one
-                )
-            )
+        convenientBanner
+            .setAdapter(ImageAdapter())
             .setOnPageClickListener {
                 goWebView(ApiConfig.COMPANY_ACTION_URL)
             }
             .create(listNetwork.toList())
     }
 
-
-    private fun getDrawableIndicator(): IIndicator? {
-        val dp10: Int =
-            ActivityUtils.getActivityByView(convenientBanner).resources.getDimensionPixelOffset(
-                R.dimen.padding_style_one
-            )
-        return DrawableIndicator(convenientBanner.context)
-            .setIndicatorGap(convenientBanner.resources.getDimensionPixelOffset(R.dimen.margin_style_seven))
-            .setIndicatorDrawable(
-                R.drawable.shape_page_indicator,
-                R.drawable.shape_page_indicator_focus
-            )
-            .setIndicatorSize(dp10, dp10, dp10, dp10)
-    }
-
-    inner class LocalImageHolderView : com.zhpan.bannerview.holder.ViewHolder<ImagesInfoOrBuilder> {
-        private lateinit var imageView: ImageView
-        override fun getLayoutId(): Int = R.layout.item_home_head_item_localimage
-
-        override fun onBind(itemView: View?, data: ImagesInfoOrBuilder?, position: Int, size: Int) {
-            imageView = itemView?.findViewById(R.id.imageViewHomeBanner)!!
-            updateUI(data)
-        }
-
-        private fun updateUI(data: ImagesInfoOrBuilder?) {
-
-            if (data == null) {
-                if (ActivityUtils.isActivityAlive(imageView.context)) {
-                    Glide.with(imageView).load(R.mipmap.home_banner_test).into(imageView)
-                }
-                return
-            }
-
-
-            if (ActivityUtils.isActivityAlive(imageView.context)) {
-                val imageUrl = data.imageUrl + "?v=" + data.modifyTime
-                Glide.with(imageView).load(imageUrl).into(imageView)
-                imageView.setOnClickListener {
-                    if (data.forwardUrl.isNotEmpty()) {
-                        goWebView(data.forwardUrl)
-                    }
-                }
-            }
-        }
-    }
 
     private fun goWebView(url: String) {
         val intent = Intent(ActivityUtils.getTopActivity(), WebViewActivity::class.java)

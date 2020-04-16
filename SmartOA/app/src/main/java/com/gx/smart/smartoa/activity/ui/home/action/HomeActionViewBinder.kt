@@ -23,6 +23,7 @@ import com.gx.smart.lib.widget.DrawableIndicator
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.action.MineActionActivity
 import com.gx.smart.smartoa.activity.ui.action.MineActionDetailFragment
+import com.gx.smart.smartoa.activity.ui.home.adapter.ActionRecommendAdapter
 import com.gx.smart.smartoa.activity.ui.home.viewmodel.HomeViewModel
 import com.gx.wisestone.work.app.grpc.activity.AppActivityDto
 import com.jeremyliao.liveeventbus.LiveEventBus
@@ -38,7 +39,7 @@ import com.zhpan.indicator.base.IIndicator
 class HomeActionViewBinder(private val viewModel: HomeViewModel) :
     ItemViewBinder<HomeActionRecommend, HomeActionViewBinder.ViewHolder>() {
 
-    lateinit var actionRecommendBanner: BannerViewPager<AppActivityDto, ActionRecommendHolderView>
+    lateinit var actionRecommendBanner: BannerViewPager<AppActivityDto, ActionRecommendViewHolder>
 
     @NonNull
     override fun onCreateViewHolder(
@@ -62,7 +63,7 @@ class HomeActionViewBinder(private val viewModel: HomeViewModel) :
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val item: BannerViewPager<AppActivityDto, ActionRecommendHolderView> =
+        val item: BannerViewPager<AppActivityDto, ActionRecommendViewHolder> =
             itemView.findViewById(R.id.banner)
         val more: TextView = itemView.findViewById(R.id.id_home_action_recommend_more)
     }
@@ -71,69 +72,12 @@ class HomeActionViewBinder(private val viewModel: HomeViewModel) :
     private fun initActionRecommend(
         items: List<AppActivityDto>
     ) {
-        actionRecommendBanner.setCanLoop(true)
-            .setHolderCreator { ActionRecommendHolderView() }
+        actionRecommendBanner
+            .setAdapter(ActionRecommendAdapter())
             .create(items.toList())
 
     }
 
-    private fun getDrawableIndicator(): IIndicator? {
-        val dp10: Int =
-            ActivityUtils.getActivityByView(actionRecommendBanner).resources.getDimensionPixelOffset(
-                R.dimen.padding_style_one
-            )
-        return DrawableIndicator(actionRecommendBanner.context)
-            .setIndicatorGap(actionRecommendBanner.resources.getDimensionPixelOffset(R.dimen.margin_style_seven))
-            .setIndicatorDrawable(
-                R.drawable.shape_page_indicator,
-                R.drawable.shape_page_indicator_focus
-            )
-            .setIndicatorSize(dp10, dp10, dp10, dp10)
-    }
-
-    inner class ActionRecommendHolderView : com.zhpan.bannerview.holder.ViewHolder<AppActivityDto> {
-        private lateinit var imageView: ImageView
-        private lateinit var title: TextView
-        private lateinit var time: TextView
-        private lateinit var number: TextView
-        private lateinit var itemView: View
-
-        override fun getLayoutId(): Int = R.layout.item_home_action_recommend
-
-        override fun onBind(itemView: View?, data: AppActivityDto?, position: Int, size: Int) {
-            imageView = itemView?.findViewById(R.id.actionImageView)!!
-            title = itemView.findViewById(R.id.actionTitle)
-            time = itemView.findViewById(R.id.actionTime)
-            number = itemView.findViewById(R.id.actionNumber)
-            this.itemView = itemView
-            updateUI(data)
-        }
-
-        private fun updateUI(data: AppActivityDto?) {
-            if (!ActivityUtils.isActivityAlive(itemView.context)) {
-                return
-            }
-            if (data == null) {
-                return
-            }
-            Glide.with(itemView).load(data.imageUrl)
-                .error(R.mipmap.default_image_small)
-                .placeholder(R.mipmap.default_image_small)
-                .transform(CenterCrop(), RoundedCorners(10))
-                .into(imageView)
-
-            title.text = data.title
-            val startTime = TimeUtils.millis2String(data.startTime, "yyyy.MM.dd")
-            val endTime = TimeUtils.millis2String(data.endTime, "yyyy.MM.dd")
-
-            time.text = "$startTime - $endTime"
-            number.text = data.currentNum.toString() + "人参加"
-            itemView.setOnClickListener {
-                joinCompanyContinue(it, data)
-            }
-        }
-
-    }
 
     private fun joinCompanyContinue(
         view: View,

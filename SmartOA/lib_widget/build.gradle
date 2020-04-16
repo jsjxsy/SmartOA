@@ -11,11 +11,11 @@ dependencies {
     //svg
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
     //Banner
-    api 'com.github.zhpanvip:BannerViewPager:2.7.0'
+    api 'com.github.zhpanvip:BannerViewPager:3.0.1'
     //recyclerView
     api 'androidx.recyclerview:recyclerview:1.1.0'
     //recycleView + refreshLayout
-    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
     //material
     api 'com.google.android.material:material:1.1.0'
     //cropper

@@ -85,7 +85,7 @@ class ForgetPasswordFragment :
         const val ARG_PHONE_NUMBER = "phoneNumber"
     }
 
-    override fun onBindViewModelFactory() = LoginUtil.getLoginFactory()
+    override fun onBindViewModelFactory() = LoginUtil.getLoginFactory(activity!!.application)
     override fun onBindLayout() = R.layout.fragment_forget_password
     override fun onBindViewModel(): Class<ForgetPasswordViewModel> = ForgetPasswordViewModel::class.java
 
