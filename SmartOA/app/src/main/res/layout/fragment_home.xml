@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.gx.smart.smartoa.activity.ui.home.HomeViewModel" />
+            type="com.gx.smart.smartoa.activity.ui.home.viewmodel.HomeViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat

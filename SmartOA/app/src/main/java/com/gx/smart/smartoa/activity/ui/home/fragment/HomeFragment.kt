@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.activity.ui.home
+package com.gx.smart.smartoa.activity.ui.home.fragment
 
 import android.app.Activity
 import android.content.Intent
@@ -25,6 +25,11 @@ import com.gx.smart.smartoa.activity.ui.home.company.HomeCompanyAdviseViewBinder
 import com.gx.smart.smartoa.activity.ui.messages.MessageActivity
 import com.gx.smart.lib.base.BaseFragment
 import com.gx.smart.common.AppConfig
+import com.gx.smart.smartoa.activity.ui.home.action.HomeActionRecommend
+import com.gx.smart.smartoa.activity.ui.home.action.HomeActionViewBinder
+import com.gx.smart.smartoa.activity.ui.home.head.HomeHead
+import com.gx.smart.smartoa.activity.ui.home.head.HomeHeadViewBinder
+import com.gx.smart.smartoa.activity.ui.home.viewmodel.HomeViewModel
 import com.gx.smart.smartoa.databinding.FragmentHomeBinding
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -52,7 +57,8 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     }
 
     companion object {
-        fun newInstance() = HomeFragment()
+        fun newInstance() =
+            HomeFragment()
         const val PLACE_REQUEST = 11
     }
 
@@ -132,10 +138,16 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
     private fun initRecyclerView() {
         mRefreshLayout = refreshLayout
-        homeHeadViewBinder = HomeHeadViewBinder(viewModel)
+        homeHeadViewBinder =
+            HomeHeadViewBinder(
+                viewModel
+            )
         adapter.register(homeHeadViewBinder)
 
-        homeActionViewBinder = HomeActionViewBinder(viewModel)
+        homeActionViewBinder =
+            HomeActionViewBinder(
+                viewModel
+            )
         adapter.register(homeActionViewBinder)
 
         adapter.register(DividerViewBinder())
@@ -198,7 +210,9 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             MineCompanyActivity::class.java
         )
         intent.putExtra(MineCompanyActivity.FROM_HOME, MineCompanyActivity.FROM_HOME)
-        ActivityUtils.startActivityForResult(activity!!, intent, PLACE_REQUEST)
+        ActivityUtils.startActivityForResult(activity!!, intent,
+            PLACE_REQUEST
+        )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

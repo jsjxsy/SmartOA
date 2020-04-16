@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,9 +11,9 @@
         android:id="@+id/actionHead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_style_four"
         android:drawableStart="@drawable/shape_home_action_recommend"
         android:drawablePadding="4.5dp"
-        android:layout_marginStart="@dimen/margin_style_four"
         android:text="@string/action_recommend"
         android:textColor="@color/font_color_style_six"
         android:textSize="@dimen/font_size_style_two"
@@ -36,15 +35,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.zhpan.bannerview.BannerViewPager
-        android:layout_below="@id/actionHead"
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="160dp"
+        android:layout_below="@id/actionHead"
         android:layout_marginTop="8dp"
         android:background="@android:color/white"
-        app:bvp_scroll_duration="@integer/banner_display_time"
         app:bvp_auto_play="true"
         app:bvp_can_loop="true"
-        />
+        app:bvp_indicator_radius="@dimen/margin_style_five"
+        app:bvp_interval="@integer/banner_display_time_two"
+        app:bvp_page_style="multi_page"
+        app:bvp_scroll_duration="@integer/banner_display_time" />
 </RelativeLayout>
 

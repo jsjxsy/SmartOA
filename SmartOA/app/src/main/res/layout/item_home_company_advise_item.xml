@@ -37,6 +37,11 @@
         android:layout_height="144dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/white"
-        app:bvp_can_loop="true" />
+        app:bvp_auto_play="true"
+        app:bvp_can_loop="true"
+        app:bvp_indicator_radius="@dimen/margin_style_five"
+        app:bvp_interval="@integer/banner_display_time_two"
+        app:bvp_page_style="multi_page"
+        app:bvp_scroll_duration="@integer/banner_display_time"  />
 </RelativeLayout>
 

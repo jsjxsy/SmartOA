@@ -72,6 +72,7 @@ class CarQueryFragment : BaseFragment(), View.OnClickListener {
             override fun afterTextChanged(s: Editable?) {
                 Logger.d("afterTextChanged start s:$s")
                 if (s.isNullOrBlank()) {
+                    carNo1.text = ""
                     return
                 }
 
@@ -84,7 +85,9 @@ class CarQueryFragment : BaseFragment(), View.OnClickListener {
                         carNo5.text = ""
                         carNo6.text = ""
                         carNo7.text = ""
-                        carNo8.text = ""
+                        if(carNo8.text != "新能源"){
+                            carNo8.text = ""
+                        }
                     }
                     2 -> {
                         carNo1.text = s[0].toString()
@@ -94,7 +97,9 @@ class CarQueryFragment : BaseFragment(), View.OnClickListener {
                         carNo5.text = ""
                         carNo6.text = ""
                         carNo7.text = ""
-                        carNo8.text = ""
+                        if(carNo8.text != "新能源"){
+                            carNo8.text = ""
+                        }
                     }
                     3 -> {
                         carNo1.text = s[0].toString()
@@ -104,7 +109,9 @@ class CarQueryFragment : BaseFragment(), View.OnClickListener {
                         carNo5.text = ""
                         carNo6.text = ""
                         carNo7.text = ""
-                        carNo8.text = ""
+                        if(carNo8.text != "新能源"){
+                            carNo8.text = ""
+                        }
                     }
                     4 -> {
                         carNo1.text = s[0].toString()
@@ -114,7 +121,9 @@ class CarQueryFragment : BaseFragment(), View.OnClickListener {
                         carNo5.text = ""
                         carNo6.text = ""
                         carNo7.text = ""
-                        carNo8.text = ""
+                        if(carNo8.text != "新能源"){
+                            carNo8.text = ""
+                        }
                     }
                     5 -> {
                         carNo1.text = s[0].toString()
@@ -124,7 +133,9 @@ class CarQueryFragment : BaseFragment(), View.OnClickListener {
                         carNo5.text = s[4].toString()
                         carNo6.text = ""
                         carNo7.text = ""
-                        carNo8.text = ""
+                        if(carNo8.text != "新能源"){
+                            carNo8.text = ""
+                        }
                     }
                     6 -> {
                         carNo1.text = s[0].toString()
@@ -134,7 +145,9 @@ class CarQueryFragment : BaseFragment(), View.OnClickListener {
                         carNo5.text = s[4].toString()
                         carNo6.text = s[5].toString()
                         carNo7.text = ""
-                        carNo8.text = ""
+                        if(carNo8.text != "新能源"){
+                            carNo8.text = ""
+                        }
                     }
                     7 -> {
                         carNo1.text = s[0].toString()
@@ -144,7 +157,10 @@ class CarQueryFragment : BaseFragment(), View.OnClickListener {
                         carNo5.text = s[4].toString()
                         carNo6.text = s[5].toString()
                         carNo7.text = s[6].toString()
-                        carNo8.text = ""
+                        if(carNo8.text != "新能源"){
+                            carNo8.text = ""
+                        }
+
                     }
                     8 -> {
                         carNo1.text = s[0].toString()
@@ -157,6 +173,8 @@ class CarQueryFragment : BaseFragment(), View.OnClickListener {
                         if (carNo8.text.isNullOrEmpty()) {
                             carNo8.text = s[7].toString()
                             carNo8.setTextColor(resources.getColor(R.color.font_color_style_six))
+                        } else {
+                            carNoEditText.editableText.delete(6, 7)
                         }
                     }
                 }
@@ -182,6 +200,9 @@ class CarQueryFragment : BaseFragment(), View.OnClickListener {
                 carNo8.setTextColor(resources.getColor(R.color.font_color_style_six))
             } else {
                 carNo8.text = "新能源"
+                if(carNoEditText.editableText.length == 8){
+                    carNoEditText.editableText.delete(6, 7)
+                }
                 carNo8.setTextColor(resources.getColor(R.color.font_color_style_night))
             }
             R.id.left_nav_image_view -> activity?.onBackPressed()

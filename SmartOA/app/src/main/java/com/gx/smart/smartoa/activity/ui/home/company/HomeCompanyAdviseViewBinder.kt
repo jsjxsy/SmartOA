@@ -66,18 +66,7 @@ class HomeCompanyAdviseViewBinder :
         data: List<CompanyAdvise>
     ) {
         mBannerViewPager.setCanLoop(true)
-            .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
-            .setIndicatorMargin(
-                0,
-                0,
-                0,
-                ActivityUtils.getActivityByView(mBannerViewPager).resources.getDimensionPixelOffset(
-                    R.dimen.padding_style_one
-                )
-            )
-            .setIndicatorGravity(IndicatorGravity.CENTER)
             .setHolderCreator { CompanyAdviseHolderView() }
-            .setPageStyle(PageStyle.MULTI_PAGE_SCALE)
             .setOnPageClickListener {
                 goWebView(ApiConfig.COMPANY_ACTION_URL)
             }

@@ -13,7 +13,7 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.air.AirQualityActivity
-import com.gx.smart.smartoa.activity.ui.home.HomeHeadViewBinder
+import com.gx.smart.smartoa.activity.ui.home.head.HomeHeadViewBinder
 import com.gx.smart.smartoa.activity.ui.meetings.MeetingScheduleActivity
 import com.gx.smart.smartoa.activity.ui.visitor.activity.VisitorActivity
 import com.gx.smart.smartoa.activity.ui.work.SharedWorkActivity

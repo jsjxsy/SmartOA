@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.activity.ui.home
+package com.gx.smart.smartoa.activity.ui.home.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

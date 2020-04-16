@@ -5,15 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".activity.ui.home.HomeFragment">
+    tools:context=".activity.ui.home.fragment.HomeFragment">
 
     <com.zhpan.bannerview.BannerViewPager
         android:id="@+id/headBanner"
         android:layout_width="match_parent"
-        android:layout_height="179dp"
+        android:layout_height="180dp"
         app:bvp_auto_play="true"
         app:bvp_can_loop="true"
-        app:bvp_scroll_duration="@integer/banner_display_time"
+        app:bvp_indicator_radius="@dimen/margin_style_five"
+        app:bvp_interval="@integer/banner_display_time"
+        app:bvp_page_style="multi_page"
+        app:bvp_indicator_visibility="visible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

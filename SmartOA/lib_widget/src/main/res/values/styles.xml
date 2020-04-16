@@ -83,4 +83,35 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="textViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_marginTop">@dimen/margin_style_two</item>
+        <item name="android:textColor">@color/font_color_style_six</item>
+        <item name="android:textSize">@dimen/font_size_style_six</item>
+    </style>
+
+    <style name="textViewStyleTwo">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/margin_style_four</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/font_color_style_six</item>
+        <item name="android:textSize">@dimen/font_size_style_two</item>
+    </style>
+
+    <style name="textViewStyleThree">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/font_color_style_six</item>
+        <item name="android:textSize">@dimen/font_size_style_two</item>
+        <item name="android:background">@drawable/shape_text_view_background</item>
+    </style>
 </resources>

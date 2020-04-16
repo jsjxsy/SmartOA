@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.gx.smart.smartoa.activity.ui.home.HomeFragment"
+        android:name="com.gx.smart.smartoa.activity.ui.home.fragment.HomeFragment"
         android:label="@string/main_title_home"
         tools:layout="@layout/fragment_home">
 

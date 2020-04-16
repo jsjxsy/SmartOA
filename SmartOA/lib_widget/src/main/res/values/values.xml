@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="banner_display_time">1500</integer>
+    <integer name="banner_display_time">2000</integer>
+    <integer name="banner_display_time_two">3000</integer>
     <integer name="phone_length">11</integer>
 </resources>

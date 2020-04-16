@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.activity.ui.home
+package com.gx.smart.smartoa.activity.ui.home.action
 
 import android.content.Intent
 import android.os.Bundle
@@ -23,13 +23,11 @@ import com.gx.smart.lib.widget.DrawableIndicator
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.ui.action.MineActionActivity
 import com.gx.smart.smartoa.activity.ui.action.MineActionDetailFragment
+import com.gx.smart.smartoa.activity.ui.home.viewmodel.HomeViewModel
 import com.gx.wisestone.work.app.grpc.activity.AppActivityDto
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.zhpan.bannerview.BannerViewPager
-import com.zhpan.bannerview.constants.IndicatorGravity
-import com.zhpan.bannerview.constants.PageStyle
 import com.zhpan.indicator.base.IIndicator
-import com.zhpan.indicator.enums.IndicatorSlideMode
 
 
 /**
@@ -48,7 +46,9 @@ class HomeActionViewBinder(private val viewModel: HomeViewModel) :
         @NonNull parent: ViewGroup
     ): ViewHolder {
         val root = inflater.inflate(R.layout.item_home_action_recommend_item, parent, false)
-        return ViewHolder(root)
+        return ViewHolder(
+            root
+        )
     }
 
     override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull item: HomeActionRecommend) {
@@ -72,19 +72,7 @@ class HomeActionViewBinder(private val viewModel: HomeViewModel) :
         items: List<AppActivityDto>
     ) {
         actionRecommendBanner.setCanLoop(true)
-            .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
-            .setIndicatorView(getDrawableIndicator())
-            .setIndicatorMargin(
-                0,
-                0,
-                0,
-                ActivityUtils.getActivityByView(actionRecommendBanner).resources.getDimensionPixelOffset(
-                    R.dimen.padding_style_one
-                )
-            )
-            .setIndicatorGravity(IndicatorGravity.CENTER)
             .setHolderCreator { ActionRecommendHolderView() }
-            .setPageStyle(PageStyle.MULTI_PAGE_SCALE)
             .create(items.toList())
 
     }

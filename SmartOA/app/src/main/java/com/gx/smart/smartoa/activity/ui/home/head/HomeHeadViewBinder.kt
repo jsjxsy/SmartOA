@@ -1,4 +1,4 @@
-package com.gx.smart.smartoa.activity.ui.home
+package com.gx.smart.smartoa.activity.ui.home.head
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -23,15 +23,13 @@ import com.gx.smart.smartoa.activity.WebViewActivity
 import com.gx.smart.smartoa.activity.ui.attendance.AttendanceActivity
 import com.gx.smart.smartoa.activity.ui.environmental.EnvironmentalActivity
 import com.gx.smart.smartoa.activity.ui.features.AllFeatureActivity
+import com.gx.smart.smartoa.activity.ui.home.viewmodel.HomeViewModel
 import com.gx.smart.smartoa.activity.ui.intelligence.activity.IntelligenceParkingActivity
 import com.gx.smart.smartoa.activity.ui.visitor.activity.VisitorActivity
 import com.gx.wisestone.work.app.grpc.appfigure.ImagesInfoOrBuilder
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.zhpan.bannerview.BannerViewPager
-import com.zhpan.bannerview.constants.IndicatorGravity
-import com.zhpan.bannerview.constants.PageStyle
 import com.zhpan.indicator.base.IIndicator
-import com.zhpan.indicator.enums.IndicatorSlideMode
 
 /**
  * @author xiaosy
@@ -44,7 +42,9 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) :
     private lateinit var convenientBanner: BannerViewPager<ImagesInfoOrBuilder, LocalImageHolderView>
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.id_environmental_control_text_view -> joinCompanyContinue(1)
+            R.id.id_environmental_control_text_view -> joinCompanyContinue(
+                1
+            )
             R.id.id_more_text_view ->
                 ActivityUtils.startActivity(
                     Intent(
@@ -52,7 +52,9 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) :
                         AllFeatureActivity::class.java
                     )
                 )
-            R.id.id_attendance_text_view -> joinCompanyContinue(2)
+            R.id.id_attendance_text_view -> joinCompanyContinue(
+                2
+            )
 
             R.id.id_visitor_text_view ->
                 ActivityUtils.startActivity(
@@ -61,7 +63,9 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) :
                         VisitorActivity::class.java
                     )
                 )
-            R.id.id_repair_text_view -> joinCompanyContinue(3)
+            R.id.id_repair_text_view -> joinCompanyContinue(
+                3
+            )
             R.id.id_parking_text_view -> ActivityUtils.startActivity(
                 Intent(
                     ActivityUtils.getTopActivity(),
@@ -105,7 +109,9 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) :
                         Int::class.java
                     )
                         .post(1)
-                    2 -> gotoDetailAction(type)
+                    2 -> gotoDetailAction(
+                        type
+                    )
                     else -> LiveEventBus.get(
                         EventBusMessageConstant.COMPANY_APPLY_STATUS_KEY,
                         Int::class.java
@@ -148,7 +154,9 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) :
         @NonNull parent: ViewGroup
     ): ViewHolder {
         val root = inflater.inflate(R.layout.item_home_head_item, parent, false)
-        return ViewHolder(root)
+        return ViewHolder(
+            root
+        )
     }
 
     override fun onBindViewHolder(@NonNull holder: ViewHolder, @NonNull item: HomeHead) {
@@ -200,7 +208,7 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) :
     ) {
 
         convenientBanner.setCanLoop(true)
-            .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
+            .setHolderCreator { LocalImageHolderView() }
             .setIndicatorView(getDrawableIndicator())
             .setIndicatorMargin(
                 0,
@@ -210,9 +218,6 @@ class HomeHeadViewBinder(private val viewModel: HomeViewModel) :
                     R.dimen.padding_style_one
                 )
             )
-            .setIndicatorGravity(IndicatorGravity.CENTER)
-            .setHolderCreator { LocalImageHolderView() }
-            .setPageStyle(PageStyle.MULTI_PAGE_SCALE)
             .setOnPageClickListener {
                 goWebView(ApiConfig.COMPANY_ACTION_URL)
             }
