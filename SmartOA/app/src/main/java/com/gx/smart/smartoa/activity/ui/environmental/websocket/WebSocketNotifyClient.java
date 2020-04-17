@@ -7,7 +7,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
-import com.gx.smart.common.ApiConfig;
+import com.gx.smart.lib.http.ApiConfig;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft;

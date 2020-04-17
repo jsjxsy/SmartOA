@@ -12,7 +12,7 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
 import com.drakeet.multitype.ItemViewBinder
 import com.gx.smart.arouter.ARouterConstants
-import com.gx.smart.common.ApiConfig
+import com.gx.smart.lib.http.ApiConfig
 import com.gx.smart.common.AppConfig
 import com.gx.smart.eventbus.EventBusMessageConstant
 import com.gx.smart.smartoa.R

@@ -8,7 +8,7 @@ import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ActivityUtils
 import com.drakeet.multitype.ItemViewBinder
-import com.gx.smart.common.ApiConfig
+import com.gx.smart.lib.http.ApiConfig
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.WebViewActivity
 import com.gx.smart.smartoa.activity.ui.home.adapter.CompanyAdviseAdapter

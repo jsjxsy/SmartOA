@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.gx.smart.common.ApiConfig
+import com.gx.smart.lib.http.ApiConfig
 import com.gx.smart.common.DataCheckUtil
 import com.gx.smart.module.login.mvvm.repository.LoginRepository
 

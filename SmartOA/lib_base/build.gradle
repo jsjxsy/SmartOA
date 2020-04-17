@@ -14,7 +14,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation project(path: ':lib_log')
     implementation project(path: ':lib_widget')
-    implementation project(path: ':lib_proto')
+    implementation project(path: ':lib_http')
     implementation project(path: ':lib_common')
     //adapter
     api 'com.drakeet.multitype:multitype:4.0.0'

@@ -6,7 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.ToastUtils
-import com.gx.smart.common.ApiConfig
+import com.gx.smart.lib.http.ApiConfig
 import com.orhanobut.logger.Logger
 import kotlinx.coroutines.launch
 

@@ -16,7 +16,7 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.gx.smart.common.ApiConfig
+import com.gx.smart.lib.http.ApiConfig
 import com.gx.smart.common.AppConfig
 import com.gx.smart.lib.http.api.AuthApiService
 import com.gx.smart.lib.http.api.UserCenterService

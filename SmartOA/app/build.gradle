@@ -46,17 +46,28 @@ android {
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
         //极光集成
-        manifestPlaceholders = [
-                JPUSH_PKGNAME: applicationId,
-                JPUSH_APPKEY : "2d0fb3b14eea0fcc7f10b6e8", //JPush 上注册的包名对应的 Appkey.
-                JPUSH_CHANNEL: "release", //暂时填写默认值即可.
-        ]
+        manifestPlaceholders = [JPUSH_APPKEY: "2d0fb3b14eea0fcc7f10b6e8"]//JPush 上注册的包名对应的 Appkey.
         signingConfig signingConfigs.release
         multiDexEnabled = true
         //router 配置
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            def date = new Date().format("yyyyMMdd", TimeZone.getTimeZone("GMT+08"))
+            if (variant.buildType.name == 'debug') {
+                outputFileName = "app_debug_${date}_${variant.productFlavors[0].name}_${versionName}.apk"
+            }
+            if (variant.buildType.name == 'dev') {
+                outputFileName = "app_dev_${date}_${variant.productFlavors[0].name}_${versionName}.apk"
+            }
+            if (variant.buildType.name == 'release') {
+                outputFileName = "app_release_${date}_${variant.productFlavors[0].name}_${versionName}.apk"
             }
         }
     }
@@ -68,6 +79,8 @@ android {
 
     buildTypes {
         release {
+            resValue("string", "app_name", "航天易办公")
+            manifestPlaceholders = [JPUSH_PKGNAME: "com.gx.smartwork"]
             minifyEnabled true //是否混淆
             //是否设置zip对齐优化
             zipAlignEnabled true
@@ -77,7 +90,21 @@ android {
             signingConfig signingConfigs.release
             multiDexEnabled = true
         }
+        dev {
+            applicationIdSuffix ".dev" //影响推送
+            resValue("string", "app_name", "易办公(开发版)")
+            manifestPlaceholders = [JPUSH_PKGNAME: "com.gx.smartwork.dev"]
+            //png 压缩
+            aaptOptions.cruncherEnabled = false
+            splits.abi.enable = false
+            splits.density.enable = false
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
         debug {
+            applicationIdSuffix ".debug" //影响推送
+            resValue("string", "app_name", "易办公(测试版)")
+            manifestPlaceholders = [JPUSH_PKGNAME: "com.gx.smartwork.debug"]
             //png 压缩
             aaptOptions.cruncherEnabled = false
             splits.abi.enable = false
@@ -102,6 +129,27 @@ android {
         checkReleaseBuilds false
         abortOnError false
         //ignoreWarnings true
+    }
+
+    //flavorDimensions('abi', 'version')
+    flavorDimensions('versionCode')
+    productFlavors {
+        XiaoMi {
+            manifestPlaceholders = [JPUSH_CHANNEL: "XiaoMi"]
+            dimension 'versionCode'
+        }
+        HuaWei {
+            manifestPlaceholders = [JPUSH_CHANNEL: "HuaWei"]
+            dimension 'versionCode'
+        }
+        BaiDu {
+            manifestPlaceholders = [JPUSH_CHANNEL: "BaiDu"]
+            dimension 'versionCode'
+        }
+        Tencent {
+            manifestPlaceholders = [JPUSH_CHANNEL: "Tencent"]
+            dimension 'versionCode'
+        }
     }
 
 }

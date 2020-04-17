@@ -7,6 +7,27 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            buildConfigField("boolean", "API_FORMAL", "true") //正式环境
+            buildConfigField("String", "BASE_SERIVER_URL", '""') //线上环境
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        dev {
+            minifyEnabled false
+            buildConfigField("boolean", "API_FORMAL", "false") //测试环境
+            buildConfigField("String", "BASE_SERIVER_URL", '"192.168.139.201"') //开发环境
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            buildConfigField("boolean", "API_FORMAL", "false") //测试环境
+            buildConfigField("String", "BASE_SERIVER_URL", '"test.huishi.cloud"') //测试环境
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
 }
 
 dependencies {

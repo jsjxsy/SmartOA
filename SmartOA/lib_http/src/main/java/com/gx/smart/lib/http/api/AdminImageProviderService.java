@@ -1,7 +1,7 @@
 package com.gx.smart.lib.http.api;
 
 import com.google.protobuf.ByteString;
-import com.gx.smart.common.ApiConfig;
+import com.gx.smart.lib.http.ApiConfig;
 import com.gx.smart.lib.http.base.CallBack;
 import com.gx.smart.lib.http.base.GrpcAsyncTask;
 import com.gx.wisestone.upload.grpc.images.AdminImageProviderGrpc;

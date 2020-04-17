@@ -11,7 +11,7 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.AppUtils
 import com.gx.smart.smartoa.R
 import com.gx.smart.smartoa.activity.WebViewActivity
-import com.gx.smart.common.ApiConfig
+import com.gx.smart.lib.http.ApiConfig
 import kotlinx.android.synthetic.main.fragment_about.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 

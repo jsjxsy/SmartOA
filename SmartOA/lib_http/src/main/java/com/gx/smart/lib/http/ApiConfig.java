@@ -1,4 +1,4 @@
-package com.gx.smart.common;
+package com.gx.smart.lib.http;
 
 /**
  * @author xiaosy
@@ -8,17 +8,18 @@ package com.gx.smart.common;
 public class ApiConfig {
     //| test.huishi.cloud | 32331/gRPC | 办公APP服务 | svc-ws-work-app-service.ws-work |
     //| work.huishi.cloud | 30007/gRPC | 办公数据库服务 | svc-ws-work-datasource.ws-work |
-    public static final String USER_SERVER_URL = "work.huishi.cloud";
+    public static final String USER_SERVER_URL = BuildConfig.API_FORMAL ? "work.huishi.cloud" : BuildConfig.BASE_SERIVER_URL;
     //common
     public static final String USER_SERVER_PORT = "32331";
     //auth
-    public static final String AUTH_API_SERVER_URL = "uaa.huishi.cloud";
+    public static final String AUTH_API_SERVER_URL = BuildConfig.API_FORMAL ? "uaa.huishi.cloud" : BuildConfig.BASE_SERIVER_URL;
+    ;
     public static final String AUTH_API_SERVER_PORT = "31772";
     //紫光
-    public static final String ZG_SERVICE_URL = "api.huishi.cloud";
+    public static final String ZG_SERVICE_URL = BuildConfig.API_FORMAL ? "api.huishi.cloud" : BuildConfig.BASE_SERIVER_URL;
     public static final String ZG_SERVICE_PORT = "30501";
     //upload image
-    public static final String UPLOAD_IMAGE_SERVER_URL = "api.huishi.cloud";
+    public static final String UPLOAD_IMAGE_SERVER_URL = BuildConfig.API_FORMAL ? "api.huishi.cloud" : BuildConfig.BASE_SERIVER_URL;
     public static final String UPLOAD_IMAGE_SERVER_PORT = "30691";
     //user space
     public static final String USER_SPACE = "b60bcfe2";//用户池
@@ -32,6 +33,6 @@ public class ApiConfig {
     //天气
     public static String GENERAL_INFO_SERVICE_PORT = "30155";
     //
-    public static final String SERVER_ERROR_MESSAGE="服务器错误";
+    public static final String SERVER_ERROR_MESSAGE = "服务器错误";
 
 }
